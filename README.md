@@ -1,10 +1,11 @@
-# it
-## A simple Track To make sense
+# it version 1.0
+Work With Laravel 5.4 & above
+# A simple Track To make sense
 # usage & Instllation & documentations
 [https://it.phpanonymous.com/docs](https://it.phpanonymous.com/docs)
 
 # home Page
-[https://phpanonymous.com](https://phpanonymous.com)
+[Home Page](https://it.phpanonymous.com)
 
 # tutorial videos On YouTube
 
@@ -19,4 +20,6 @@
 
 
 
+Your assistant Is Ready (<3)
 
+Copyright Reserved 2018 LTS Script By phpanonymous.com
