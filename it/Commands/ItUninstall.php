@@ -45,7 +45,7 @@ class ItUninstall extends Command {
 		$app = file_get_contents(base_path('config/app.php'));
 
 		$final = str_replace('Barryvdh\Elfinder\ElfinderServiceProvider::class ,', "", $app);
-		Storage::put('config/app.php', $final);
+		Storage::disk('it')->put('config/app.php', $final);
 		$this->info('It'.$this->beer.'  Barryvdh\Elfinder\ElfinderServiceProvider::class , from app.php is removed');
 		Storage::deleteDirectory('public/packages');
 		$this->info('It'.$this->beer.' the public/packages folder is removed');
@@ -97,7 +97,7 @@ class ItUninstall extends Command {
 		$final = str_replace("'Html' => Collective\Html\HtmlFacade::class ,", "", $final);
 		$final = str_replace("'Html'   => Collective\Html\HtmlFacade::class ,", "", $final);
 		$final = str_replace("'Html'         => Collective\Html\HtmlFacade::class ,", "", $final);
-		\Storage::put('config/app.php', $final);
+		\Storage::disk('it')->put('config/app.php', $final);
 		$this->info('It'.$this->beer.' the Alias \'Html\' => Collective\Html\HtmlFacade::class, auto removed from array Aliases');
 		shell_exec('composer dump-autoload');
 	}

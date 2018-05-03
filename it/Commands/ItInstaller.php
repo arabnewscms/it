@@ -50,7 +50,7 @@ class ItInstaller extends Command {
 
 		if (!preg_match("/'Html' => Collective\Html\HtmlFacade::class/i", $final)) {
 			$final = str_replace($this->aliases, $this->aliases."\r\n"."		'Html' => Collective\Html\HtmlFacade::class ,", $final);
-			\Storage::put('config/app.php', $final);
+			\Storage::disk('it')->put('config/app.php', $final);
 			$this->info('It'.$this->beer.' the Alias \'Html\' => Collective\Html\HtmlFacade::class auto Pushed in array Aliases');
 		}
 	}
@@ -95,7 +95,7 @@ class ItInstaller extends Command {
 
 		if (!preg_match('/Barryvdh\Elfinder\ElfinderServiceProvider::class/i', $app)) {
 			$final = str_replace($this->providers, $this->providers."\r\n".'		Barryvdh\Elfinder\ElfinderServiceProvider::class ,', $app);
-			\Storage::put('config/app.php', $final);
+			\Storage::disk('it')->put('config/app.php', $final);
 			$this->info('It'.$this->beer.' the provider Barryvdh\Elfinder\ElfinderServiceProvider::class auto Pushed in providers');
 
 		}
@@ -104,9 +104,9 @@ class ItInstaller extends Command {
 		shell_exec("php artisan vendor:publish --provider='Barryvdh\Elfinder\ElfinderServiceProvider' --tag=views");
 		shell_exec("php artisan elfinder:publish");
 		$this->info('It'.$this->beer.' Elfinder Published Environments');
-		\Storage::put('config/elfinder.php', $elfinder_conf);
+		\Storage::disk('it')->put('config/elfinder.php', $elfinder_conf);
 		$this->info('It'.$this->beer.' Elfinder Config generated to config/elfinder.php');
-		\Storage::put('vendor/barryvdh/laravel-elfinder/src/ElfinderController.php', $elfindercontroller);
+		\Storage::disk('it')->put('vendor/barryvdh/laravel-elfinder/src/ElfinderController.php', $elfindercontroller);
 		$this->info('It'.$this->beer.' Elfinder Auto Configured By (It) - (it merge) Now Is ready to you   '.$this->love);
 
 	}
@@ -117,6 +117,7 @@ class ItInstaller extends Command {
 	 * @return mixed
 	 */
 	public function handle() {
+		\File::copy(__DIR__ .'/../environment/config/filesystems.php', base_path('config/filesystems.php'));
 		\Config::set('filesystems.default', 'it');
 
 		$plugin = $this->argument('plugin');

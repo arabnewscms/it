@@ -214,7 +214,7 @@ class BaboonUpdate extends Controller {
 
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
 				$destroy .= '               it()->delete(${Name}->'.$conv.');'."\n";
-				$destroy .= '               it()->delete($id,\'{Name2}\');'."\n";
+				$destroy .= '               it()->delete(\'{Name2}\',$id);'."\n";
 			}
 			$i++;
 		}
@@ -239,7 +239,7 @@ class BaboonUpdate extends Controller {
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
 				$destroy .= '                    	it()->delete(${Name}->'.$conv.');'."\n";
-				$destroy .= '                    	it()->delete($id,\'{Name2}\');'."\n";
+				$destroy .= '                    	it()->delete(\'{Name2}\',$id);'."\n";
 
 			}
 			$i++;
@@ -255,7 +255,7 @@ class BaboonUpdate extends Controller {
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
 				$destroy .= '                    	it()->delete(${Name}->'.$conv.');'."\n";
-				$destroy .= '                    	it()->delete($data,\'{Name2}\');'."\n";
+				$destroy .= '                    	it()->delete(\'{Name2}\',$data);'."\n";
 
 			}
 			$i++;

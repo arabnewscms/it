@@ -15,6 +15,23 @@ class ItApplication extends ServiceProvider {
 	public function boot() {
 		include (__DIR__ .'/helper/it.php');
 		if (!file_exists(base_path('config').'/itconfiguration.php')) {
+
+			if (check_package("intervention/image") === null) {
+			shell_exec('composer require intervention/image');
+			}
+
+			if (check_package("laravelcollective/html") === null) {
+			shell_exec('php artisan it:install laravelcollective');
+			}
+
+			if (check_package("yajra/laravel-datatables-oracle") === null) {
+			shell_exec('php artisan it:install yajra');
+			}
+
+			if (check_package("langnonymous/lang") === null) {
+			shell_exec('composer require Langnonymous/Lang:dev-master');
+			}
+
 			$this->publishes([__DIR__ .'/environment/config'    => base_path('config')]);
 			$this->publishes([__DIR__ .'/environment/app'       => base_path('app')]);
 			$this->publishes([__DIR__ .'/environment/database'  => base_path('database')]);
