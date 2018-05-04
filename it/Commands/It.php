@@ -199,7 +199,7 @@ class It extends Command {
 
 		echo "\r\n";
 		$this->line("<(Thank You For Choosing (It) - ".$this->love."  A Simple Track To make sense)>");
-		$this->line("<(Copyright reserved @ Mahmoud Ibrahim  Phpanonymous LTS Script - (It) 2018 phpanonymous.com)>");
+		$this->line("<(Copyright reserved @ Mahmoud Ibrahim  Phpanonymous LTS Script - (It) 2018 it.phpanonymous.com)>");
 		echo "\r\n";
 
 	}
