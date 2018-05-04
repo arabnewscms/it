@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Phpanonymous\It\Commands\Generate;
 
-class ItApplicationProvider extends ServiceProvider {
+class ItApplication extends ServiceProvider {
 	/**
 	 * Bootstrap services.
 	 *
