@@ -16,7 +16,7 @@ class ItApplication extends ServiceProvider {
 		include (__DIR__ .'/helper/it.php');
 		if (!file_exists(base_path('config').'/itconfiguration.php')) {
 
-			if (check_package("intervention/image") === null) {
+			/*if (check_package("intervention/image") === null) {
 			shell_exec('composer require intervention/image');
 			}
 
@@ -30,7 +30,7 @@ class ItApplication extends ServiceProvider {
 
 			if (check_package("langnonymous/lang") === null) {
 			shell_exec('composer require Langnonymous/Lang:dev-master');
-			}
+			}*/
 
 			$this->publishes([__DIR__ .'/environment/config'    => base_path('config')]);
 			$this->publishes([__DIR__ .'/environment/app'       => base_path('app')]);
