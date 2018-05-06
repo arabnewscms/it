@@ -140,7 +140,7 @@ if(xhr.responseJSON.errors)
 {
 
 var errors = '<ul>';
-  console.log(xhr.responseJSON);
+  //console.log(xhr.responseJSON);
   $.each(xhr.responseJSON.errors,function(k,v){
   $('.'+k).addClass('has-error');
   errors +='<li>'+v+'</li>';
