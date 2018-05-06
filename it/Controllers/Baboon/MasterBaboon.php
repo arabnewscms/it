@@ -9,7 +9,7 @@ use Phpanonymous\It\Controllers\Baboon\BaboonUpdate;
 class MasterBaboon extends Controller {
 	//
 	static $full_path        = '';
-	public static $copyright = '[It V 1.0 | phpanonymous.com/it]';
+	public static $copyright = '[It V 1.0 | https://it.phpanonymous.com]';
 	public static function makeController($r, $namespace, $model, $classname) {
 		$controller = '<?php
 namespace {Space};

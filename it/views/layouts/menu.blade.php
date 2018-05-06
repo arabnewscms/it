@@ -31,10 +31,10 @@
 						<ul>
 							<li class="dropdown-header">{{it_trans('it.much_more')}}</li>
 							<li>
-								<a href="http://phpanonymous.com/it">{{it_trans('it.home_page')}}</a>
+								<a href="https://it.phpanonymous.com">{{it_trans('it.home_page')}}</a>
 							</li>
 							<li>
-								<a href="http://phpanonymous.com/it/docs" title="{{it_trans('it.document_online')}}">{{it_trans('it.document_online')}}</a>
+								<a href="https://it.phpanonymous.com/docs" title="{{it_trans('it.document_online')}}">{{it_trans('it.document_online')}}</a>
 							</li>
 							<li>
 								<a href="{{url('it/docs')}}" title="{{it_trans('it.document_offline')}}">{{it_trans('it.document_offline')}}</a>
