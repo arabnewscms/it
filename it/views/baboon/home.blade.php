@@ -136,6 +136,9 @@ $('.generate').removeClass('hidden');
 $('.loading_genereate').addClass('hidden');
 },error: function(xhr)
 {
+if(xhr.responseJSON.errors)
+{
+
 var errors = '<ul>';
   console.log(xhr.responseJSON);
   $.each(xhr.responseJSON.errors,function(k,v){
@@ -143,6 +146,9 @@ var errors = '<ul>';
   errors +='<li>'+v+'</li>';
   });
 errors += '</ul>';
+}else{
+var  errors = xhr.responseJSON.message;
+}
 $('.messages_baboon').html(errors);
 $('.messages_baboon').removeClass('hidden');
 $('.generate').removeClass('hidden');
