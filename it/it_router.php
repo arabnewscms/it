@@ -1,9 +1,10 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
 view()->addLocation(__DIR__ .'/views');
 \Illuminate\Support\Facades\View::addNamespace('it', __DIR__ .'/views');
 
-Route::group(['namespace' => 'Phpanonymous\It\Controllers'], function () {
+Route::group(['namespace' => 'Phpanonymous\It\Controllers'],
+function () {
 
 		\Lang::addNamespace('it', __DIR__ .'/lang');
 
