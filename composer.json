@@ -21,7 +21,7 @@
 	},
 	"extra": {
     "branch-alias": {
-            "dev-master": "1.0.02.x-dev"
+            "dev-master": "1.0.03.x-dev"
     },
         "laravel": {
             "providers": [
@@ -32,7 +32,7 @@
             }
         }
   },
-	"version":"1.0.02",
+	"version":"1.0.03",
   "minimum-stability": "dev",
   "prefer-stable": true
 }
