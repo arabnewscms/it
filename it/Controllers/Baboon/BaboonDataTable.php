@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 
 class BaboonDataTable extends Controller {
 	//
-	public static $copyright = '[It V 1.0 | phpanonymous.com/it]';
+	public static $copyright = '[It V 1.0 | https://it.phpanonymous.com]';
 
 	public static function dbclass($r) {
 		$datatable = '<?php

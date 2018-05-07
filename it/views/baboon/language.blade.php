@@ -101,4 +101,54 @@
     <p style="color:#c33"><i class="fa fa-info"></i> - Auto Append Admin Id Column & <br> Auto foregin key with Admins table</p>
   </div>
 </div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <label class="mt-checkbox mt-checkbox-outline">
+    <input type="checkbox" name="make_model" value="yes" checked>
+        Make Model File
+    </label>
+    <p style="color:#c33"><i class="fa fa-info"></i>  can disable making model file if uncheck this checkbox <br> </p>
+  </div>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <label class="mt-checkbox mt-checkbox-outline">
+    <input type="checkbox" name="make_migration" value="yes" checked>
+        Make Migration Schema File
+    </label>
+    <p style="color:#c33"><i class="fa fa-info"></i>  can disable making migration schema file if uncheck this checkbox <br> </p>
+  </div>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <label class="mt-checkbox mt-checkbox-outline">
+    <input type="checkbox" name="make_controller" value="yes" checked>
+        Make Controller File
+    </label>
+    <p style="color:#c33"><i class="fa fa-info"></i>  can disable making controller file if uncheck this checkbox <br> </p>
+  </div>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <label class="mt-checkbox mt-checkbox-outline">
+    <input type="checkbox" name="make_datatable" value="yes" checked>
+        Make Datatable File
+    </label>
+    <p style="color:#c33"><i class="fa fa-info"></i>  can disable making Datatable file if uncheck this checkbox <br> </p>
+  </div>
+</div>
+
+<div class="col-md-5">
+  <div class="form-group">
+    <label class="mt-checkbox mt-checkbox-outline">
+    <input type="checkbox" name="make_views" value="yes" checked>
+        Make View Files
+    </label>
+    <p style="color:#c33"><i class="fa fa-info"></i>  can disable making View files if uncheck this checkbox <br> </p>
+  </div>
+</div>
 <div class="clearfix"></div>

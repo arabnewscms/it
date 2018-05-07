@@ -4,7 +4,7 @@ if ($data['use_collective'] == 'yes') {
 <div class="form-group">
     {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\'),[\'class\'=>\'col-md-3 control-label\']) !!}
     <div class="col-md-9">
-        {!! Form::password(\'{Convention}\',\'\',[\'class\'=>\'form-control\',\'placeholder\'=>trans(\'{lang}.{Convention}\')]) !!}
+        {!! Form::password(\'{Convention}\',[\'class\'=>\'form-control\',\'placeholder\'=>trans(\'{lang}.{Convention}\')]) !!}
     </div>
 </div>
 <br>

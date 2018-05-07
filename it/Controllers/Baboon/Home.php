@@ -75,32 +75,42 @@ class Home extends Controller {
 		Baboon::check_path('resources\\assets');// Make assets folder
 
 		if ($controller_path and $model_path and $database_path) {
-			Baboon::write($controller, $r->input('controller_name'), $r->input('controller_namespace'));
-			Baboon::write($model, $r->input('model_name'), $r->input('model_namespace'));
 
-			$blade_name = str_replace('controller', '', strtolower($r->input('controller_name')));
-			if (!empty($view)) {
-				Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name);
-				Baboon::write($view, 'create.blade', $r->input('admin_folder_path').'\\'.$blade_name);
+			if (request()->has('make_controller')) {
+				Baboon::write($controller, $r->input('controller_name'), $r->input('controller_namespace'));
 			}
 
-			if (!empty($show_page)) {
-				Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name);
-				Baboon::write($show_page, 'show.blade', $r->input('admin_folder_path').'\\'.$blade_name);
+			if (request()->has('make_model')) {
+				Baboon::write($model, $r->input('model_name'), $r->input('model_namespace'));
 			}
 
-			if (!empty($view_update)) {
-				Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name);
-				Baboon::write($view_update, 'edit.blade', $r->input('admin_folder_path').'\\'.$blade_name);
+			if (request()->has('make_views')) {
+				$blade_name = str_replace('controller', '', strtolower($r->input('controller_name')));
+				if (!empty($view)) {
+					Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name);
+					Baboon::write($view, 'create.blade', $r->input('admin_folder_path').'\\'.$blade_name);
+				}
+
+				if (!empty($show_page)) {
+					Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name);
+					Baboon::write($show_page, 'show.blade', $r->input('admin_folder_path').'\\'.$blade_name);
+				}
+
+				if (!empty($view_update)) {
+					Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name);
+					Baboon::write($view_update, 'edit.blade', $r->input('admin_folder_path').'\\'.$blade_name);
+				}
+
+				Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name.'\\buttons');
+				Baboon::write($view_index, 'index.blade', $r->input('admin_folder_path').'\\'.$blade_name);// Make Index Blade File
+
+				Baboon::write($action, 'actions.blade', $r->input('admin_folder_path').'\\'.$blade_name.'\\buttons');// Make action buttons Blade
 			}
-
-			Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name.'\\buttons');
-			Baboon::write($view_index, 'index.blade', $r->input('admin_folder_path').'\\'.$blade_name);// Make Index Blade File
-
-			Baboon::write($action, 'actions.blade', $r->input('admin_folder_path').'\\'.$blade_name.'\\buttons');// Make action buttons Blade
 
 			$folder2 = str_replace('Controller', '', $r->input('controller_name'));
-			Baboon::write(BaboonDataTable::dbclass($r), $folder2.'DataTable', 'app\\DataTables\\');
+			if (request()->has('make_datatable')) {
+				Baboon::write(BaboonDataTable::dbclass($r), $folder2.'DataTable', 'app\\DataTables\\');
+			}
 
 			////////////////// Language Files ///////////////////////////////////////
 			$lang_ar = Baboon::Makelang($r);
@@ -131,7 +141,10 @@ class Home extends Controller {
 				}
 			}
 
-			Baboon::write($migrate, session('migration_file_name'), 'database\\migrations');
+			if (request()->has('make_migration')) {
+				Baboon::write($migrate, session('migration_file_name'), 'database\\migrations');
+			}
+
 			if (request()             ->has('auto_migrate')) {
 				@\DB::table('migrations')->where('migration', session('migration_file_name'))->delete();
 				\Schema::dropIfExists($convname);
