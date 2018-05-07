@@ -11,12 +11,12 @@ class ItInstaller extends Command {
 	 * @var string
 	 */
 	protected $signature = 'it:install {plugin?}';
-	protected $beer      = "\360\237\215\272";
-	protected $ops       = "\xF0\x9F\x98\xB1";
-	protected $like      = "\xF0\x9F\x91\x8D";
-	protected $dislike   = "\xF0\x9F\x91\x8E";
-	protected $love      = "\xF0\x9F\x98\x8D";
-	protected $heart     = "\xE2\x9D\xA4";
+	protected $beer      = "-";//\360\237\215\272
+	protected $ops       = "";//\xF0\x9F\x98\xB1
+	protected $like      = "";//\xF0\x9F\x91\x8D
+	protected $dislike   = "";//\xF0\x9F\x91\x8E
+	protected $love      = "";//\xF0\x9F\x98\x8D
+	protected $heart     = "";//\xE2\x9D\xA4
 	protected $plugins   = ['merge', 'baboon', 'laravelcollective', 'yajra', 'intervention'];//'payment', 'editors',
 	protected $providers = "'providers' => [";
 	protected $aliases   = "'aliases' => [";
@@ -89,15 +89,14 @@ class ItInstaller extends Command {
 	private function merge() {
 
 		shell_exec('composer require barryvdh/laravel-elfinder');
-		$elfinder_conf      = file_get_contents(base_path('app/it/configs/elfinder.php'));
-		$elfindercontroller = file_get_contents(base_path('app/it/configs/elfindercontroller.it'));
+		$elfinder_conf      = file_get_contents(__DIR__ .'/../configs/elfinder.php');
+		$elfindercontroller = file_get_contents(__DIR__ .'/../configs/elfindercontroller.it');
 		$app                = file_get_contents(base_path('config/app.php'));
 
 		if (!preg_match('/Barryvdh\Elfinder\ElfinderServiceProvider::class/i', $app)) {
 			$final = str_replace($this->providers, $this->providers."\r\n".'		Barryvdh\Elfinder\ElfinderServiceProvider::class ,', $app);
 			\Storage::disk('it')->put('config/app.php', $final);
 			$this->info('It'.$this->beer.' the provider Barryvdh\Elfinder\ElfinderServiceProvider::class auto Pushed in providers');
-
 		}
 
 		//shell_exec("php artisan vendor:publish --provider='Barryvdh\Elfinder\ElfinderServiceProvider' --tag=config");

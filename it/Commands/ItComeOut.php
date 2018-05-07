@@ -15,12 +15,12 @@ class ItComeOut extends Command {
 	 * @var string
 	 */
 	protected $signature = 'it:hey {do}';
-	protected $beer      = "\360\237\215\272";
-	protected $ops       = "\xF0\x9F\x98\xB1";
-	protected $like      = "\xF0\x9F\x91\x8D";
-	protected $dislike   = "\xF0\x9F\x91\x8E";
-	protected $love      = "\xF0\x9F\x98\x8D";
-	protected $heart     = "\xE2\x9D\xA4";
+	protected $beer      = "";
+	protected $ops       = "";
+	protected $like      = "";
+	protected $dislike   = "";
+	protected $love      = "";
+	protected $heart     = "";
 
 	/**
 	 * The console command description.

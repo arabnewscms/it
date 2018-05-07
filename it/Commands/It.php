@@ -35,12 +35,20 @@ class It extends Command {
 	 * @var string
 	 */
 	protected $description = 'Restart && Clear Cach && Rebuild File  System';
-	protected $beer        = "\360\237\215\272";
-	protected $ops         = "\xF0\x9F\x98\xB1";
-	protected $like        = "\xF0\x9F\x91\x8D";
-	protected $dislike     = "\xF0\x9F\x91\x8E";
-	protected $love        = "\xF0\x9F\x98\x8D";
-	protected $heart       = "\xE2\x9D\xA4";
+	protected $beer        = "";
+	protected $ops         = "";
+	protected $like        = "";
+	protected $dislike     = "";
+	protected $love        = "";
+	protected $heart       = "";
+	/*
+	\360\237\215\272
+	\xF0\x9F\x98\xB1
+	\xF0\x9F\x91\x8D
+	\xF0\x9F\x91\x8E
+	\xF0\x9F\x98\x8D
+	\xE2\x9D\xA4
+	 */
 	/**
 	 * Create a new command instance.
 	 *
