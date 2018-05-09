@@ -143,22 +143,22 @@ class Home extends Controller {
 
 			if (request()->has('make_migration')) {
 				Baboon::write($migrate, session('migration_file_name'), 'database\\migrations');
-			}
 
-			if (request()             ->has('auto_migrate')) {
-				@\DB::table('migrations')->where('migration', session('migration_file_name'))->delete();
-				\Schema::dropIfExists($convname);
+				if (request()             ->has('auto_migrate')) {
+					@\DB::table('migrations')->where('migration', session('migration_file_name'))->delete();
+					\Schema::dropIfExists($convname);
 
-				\Artisan::call('migrate', []);
+					\Artisan::call('migrate', []);
 
-				if (\DB::table('migrations')->where('migration', session('migration_file_name'))->count() == 0) {
-					@\DB::table('migrations')::create([
-							'migration' => session('migration_file_name'),
-							'batch'     => @\DB::table('migrations')::orderBy('id', 'desc')->first()+1
-						]);
+					if (\DB::table('migrations')->where('migration', session('migration_file_name'))->count() == 0) {
+						@\DB::table('migrations')::create([
+								'migration' => session('migration_file_name'),
+								'batch'     => @\DB::table('migrations')::orderBy('id', 'desc')->first()+1
+							]);
+					}
 				}
-			}
 
+			}
 		}
 
 		//	session()->flash('success', trans('admin.files_created'));
