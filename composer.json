@@ -12,7 +12,7 @@
 	}
 	],
 	"require":{
-		"php": ">= 7.0"
+		"php": ">= 7.1"
 	},
 	"autoload":{
 		"psr-4":{
@@ -21,7 +21,7 @@
 	},
 	"extra": {
     "branch-alias": {
-            "dev-master": "1.0.04.x-dev"
+            "dev-master": "1.0.05.x-dev"
     },
         "laravel": {
             "providers": [
@@ -32,7 +32,7 @@
             }
         }
   },
-	"version":"1.0.04",
+	"version":"1.0.05",
   "minimum-stability": "dev",
   "prefer-stable": true
 }
