@@ -1,5 +1,5 @@
 # it version 1.0
-Work With Laravel 5.4 & above
+Work With Laravel 5.6 & above
 # A simple Track To make sense
 # usage & Instllation & documentations
 [https://it.phpanonymous.com/docs](https://it.phpanonymous.com/docs)
