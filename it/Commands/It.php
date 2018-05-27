@@ -107,9 +107,9 @@ class It extends Command {
 			}
 		}
 
-		$this->progress(100);
-		Artisan::call('config:clear', []);
-		$this->info("It".$this->beer."' .::. Remove the configuration cache file");
+		//$this->progress(100);
+		///	Artisan::call('config:clear', []);
+		//$this->info("It".$this->beer."' .::. Remove the configuration cache file");
 
 		$this->progress(100);
 		Artisan::call('package:discover', []);
@@ -119,9 +119,9 @@ class It extends Command {
 		Artisan::call('cache:clear', []);
 		$this->info("It".$this->beer."' .::. Flush the application cache");
 
-		$this->progress(100);
-		Artisan::call('config:cache', []);
-		$this->line("It".$this->beer."' .::. Create a cache file for faster configuration loading");
+		//$this->progress(100);
+		//Artisan::call('config:cache', []);
+		//$this->line("It".$this->beer."' .::. Create a cache file for faster configuration loading");
 
 		//$this->progress(100);
 		//Artisan::call('cache:forget', []);
