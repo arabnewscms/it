@@ -96,29 +96,26 @@ class FileUploader extends Controller {
 			if (!empty($delete)) {
 				foreach (self::sizes() as $key => $val) {
 					if (Storage::disk(env('FILESYSTEM_DRIVER', 'public'))->has($path)) {
-						Storage::disk(env('FILESYSTEM_DRIVER', 'public'))   ->delete($delete->path.$key.'_'.$delete->file);
-						Storage::disk(env('FILESYSTEM_DRIVER', 'public'))->deleteDirectory($delete->path);
+						Storage::delete($delete->path.$key.'_'.$delete->file);
+						Storage::deleteDirectory($delete->path);
 					}
 				}
 				Storage::delete($delete->full_path);
-				Storage::disk(env('FILESYSTEM_DRIVER', 'public'))->deleteDirectory($delete->path);
-				$delete->delete();
+				Storage::deleteDirectory($delete->path);
+				$delete->forceDelete();
 			}
-		} else {
-
-			$delete_all = Files::where('type_id', $id)->where('type_file', $type)->get();
+		} elseif (!empty($type) and !empty($id) && empty($specific)) {
+			$delete_all = Files::where('type_file', $type)->where('type_id', $id)->get();
 			foreach ($delete_all as $delete) {
-				if (!empty($delete)) {
-					foreach (self::sizes() as $key => $val) {
-						if (Storage::disk(env('FILESYSTEM_DRIVER', 'public'))->has($path)) {
-							Storage::disk(env('FILESYSTEM_DRIVER', 'public'))   ->delete($delete->path.$key.'_'.$delete->file);
-							Storage::disk(env('FILESYSTEM_DRIVER', 'public'))->deleteDirectory($delete->path);
-						}
+				foreach (self::sizes() as $key => $val) {
+					if (Storage::has($delete->path.'/'.$val.'_'.$delete->file)) {
+						Storage::delete($delete->path.'/'.$val.'_'.$delete->file);
 					}
-					Storage::delete($delete->full_path);
-					Storage::disk(env('FILESYSTEM_DRIVER', 'public'))->deleteDirectory($delete->path);
-					$delete->delete();
 				}
+				Storage::delete($delete->full_path);
+				Storage::deleteDirectory($delete->path);
+				Storage::deleteDirectory($type.'/'.$id);
+				$delete->forceDelete();
 			}
 		}
 	}
