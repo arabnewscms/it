@@ -82,11 +82,17 @@
                     Laravel <br>
                     @if(function_exists('it_des'))
                     <b><a href="http://phpanonymous.com/it"><img src="{{it_des('it/img/it100-100.png')}}" /></a></b>
+
                     @endif
 
                 </div>
                     @if(function_exists('it_des'))
-                 <small style="color:#c33">A simple track to make sense</small>
+                 <small style="color:#c33">A simple track to make sense</small> <br>
+                  <a href="{{ url('admin') }}">Go To Admin Panel</a>
+
+                  <p>run command : php artisan db:seed</p>
+                    <p>email: test@test.com</p>
+                    <p>password: 123456</p>
                     @endif
                 <div class="links">
                     <br>
