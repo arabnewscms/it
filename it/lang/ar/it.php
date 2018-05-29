@@ -17,7 +17,7 @@ return [
 	'merge'            => 'It Merge',
 
 	'baboon-sd'            => 'بابون CSD',
-	'generate_crud'        => 'إنشاء CRUD',
+	'generate_crud'        => 'بناء CRUD',
 	'baboon'               => 'بابون',
 	'text'                 => 'Text',
 	'email'                => 'email',

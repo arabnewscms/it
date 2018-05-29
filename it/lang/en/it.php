@@ -17,7 +17,7 @@ return [
 	'merge'            => 'It Merge',
 
 	'baboon-sd'            => 'Baboon Schema DB CRUD',
-	'generate_crud'        => 'Build CRUD',
+	'generate_crud'        => 'Re / Build CRUD',
 	'baboon'               => 'Baboon',
 	'text'                 => 'Text',
 	'email'                => 'email',

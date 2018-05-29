@@ -7,7 +7,7 @@
   </div>
 </div>
 <div class="clearfix"></div>
-<div class="col-md-5">
+<div class="col-md-4">
   <div class="form-group">
 
     @if(check_package("laravelcollective/html") === null)
@@ -62,7 +62,7 @@
 
   </div>
 </div>
-<div class="col-md-5">
+<div class="col-md-4">
   <div class="form-group">
     <label class="mt-checkbox mt-checkbox-outline">
       <input type="checkbox" value="yes" name="use_collective" />
@@ -74,7 +74,7 @@
 </div>
 
 
-<div class="col-md-5">
+<div class="col-md-4">
   <div class="form-group">
     <label class="mt-checkbox mt-checkbox-outline">
       <input type="checkbox" value="1" name="enable_soft_delete" />
@@ -83,7 +83,7 @@
     <p style="color:#c33"><i class="fa fa-info"></i> - Enable SoftDeletes In This Model & <br>Auto Enable Soft delete in model </p>
   </div>
 </div>
-<div class="col-md-5">
+<div class="col-md-4">
   <div class="form-group">
     <label class="mt-checkbox mt-checkbox-outline">
       <input type="checkbox" value="1" name="auto_migrate" />
@@ -92,7 +92,7 @@
     <p style="color:#c33"><i class="fa fa-info"></i> - Auto Migrate This CRUD </p>
   </div>
 </div>
-<div class="col-md-5">
+<div class="col-md-4">
   <div class="form-group">
     <label class="mt-checkbox mt-checkbox-outline">
       <input type="checkbox" value="1" name="has_user_id" />
@@ -102,7 +102,7 @@
   </div>
 </div>
 
-<div class="col-md-5">
+<div class="col-md-4">
   <div class="form-group">
     <label class="mt-checkbox mt-checkbox-outline">
     <input type="checkbox" name="make_model" value="yes" checked>
@@ -112,7 +112,7 @@
   </div>
 </div>
 
-<div class="col-md-5">
+<div class="col-md-4">
   <div class="form-group">
     <label class="mt-checkbox mt-checkbox-outline">
     <input type="checkbox" name="make_migration" value="yes" checked>
@@ -122,7 +122,7 @@
   </div>
 </div>
 
-<div class="col-md-5">
+<div class="col-md-4">
   <div class="form-group">
     <label class="mt-checkbox mt-checkbox-outline">
     <input type="checkbox" name="make_controller" value="yes" checked>
@@ -132,7 +132,7 @@
   </div>
 </div>
 
-<div class="col-md-5">
+<div class="col-md-4">
   <div class="form-group">
     <label class="mt-checkbox mt-checkbox-outline">
     <input type="checkbox" name="make_datatable" value="yes" checked>
@@ -142,7 +142,7 @@
   </div>
 </div>
 
-<div class="col-md-5">
+<div class="col-md-4">
   <div class="form-group">
     <label class="mt-checkbox mt-checkbox-outline">
     <input type="checkbox" name="make_views" value="yes" checked>

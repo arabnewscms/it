@@ -88,55 +88,88 @@ $('.controller_namespace_list').html('');
 @endif
 <div class="alert alert-danger messages_baboon hidden"></div>
 <div class="alert alert-success success_message hidden"></div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 baboon-tab-container">
   <form method="post" id="baboon">
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 baboon-tab-menu">
-      <div class="list-group">
-        <center>
-        <h1>
-        <b>
-        <span style="color:#b49150">{{it_trans('it.baboon')}} 🙈</span>
-        </b>
-        </h1>
-        </center>
-        <a href="#" class="list-group-item active text-left">
-          <h4 class="fa fa-info fa-2x"></h4> Initialize CRUD
-        </a>
-        <a href="#" class="list-group-item text-left">
-          <h4 class="fa fa-language fa-2x"></h4> Language & Other
-        </a>
-        <a href="#" class="list-group-item text-left">
-          <h4 class="fa fa-columns fa-2x"></h4> columns & Inputs
-        </a>
-        <a href="#" class="list-group-item text-left">
-          <h4 class="fa fa-database fa-2x"></h4>  Relations Models
-        </a>
-        <hr />
-        <center>
-        <input type="button"  class="btn btn-primary btn-lg generate" value="{{it_trans('it.generate_crud')}} 🙈" />
-        <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
-        <br>
-        <br>
-        </center>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 baboon-tab-container">
+
+
+    <div class="tabbable" id="tabs-114052">
+        <ul class="nav nav-tabs">
+          <li class="nav-item active">
+            <a class="nav-link" href="#panel-info" aria-expanded="true" data-toggle="tab">
+            <h4 class="fa fa-info fa-2x"></h4>
+            Initialize CRUD</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#panel-language" data-toggle="tab">
+            <h4 class="fa fa-language fa-2x"></h4>
+            Language & Other</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="#panel-columns" data-toggle="tab">
+            <h4 class="fa fa-columns fa-2x"></h4>
+            columns & Inputs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#panel-relations" data-toggle="tab">
+              <h4 class="fa fa-database fa-2x"></h4>
+            Relations Models</a>
+          </li>
+          <li class="nav-item"><br>
+
+             <button type="button" class="btn btn-primary  generate">
+               {{it_trans('it.generate_crud')}}
+               <i class="fa fa-plus"></i>
+             </button>
+             <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="panel-info">
+            {!! it_views('baboon.Initialize') !!}
+             <div class="clearfix"></div>
+              <button type="button" class="btn btn-primary  generate">
+               {{it_trans('it.generate_crud')}}
+               <i class="fa fa-plus"></i>
+             </button>
+             <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
+          </div>
+          <div class="tab-pane" id="panel-language">
+            {!! it_views('baboon.language') !!}
+             <div class="clearfix"></div>
+              <button type="button" class="btn btn-primary  generate">
+               {{it_trans('it.generate_crud')}}
+               <i class="fa fa-plus"></i>
+             </button>
+             <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
+          </div>
+          <div class="tab-pane" id="panel-columns">
+            {!! it_views('baboon.columns_input') !!}
+             <div class="clearfix"></div>
+             <br>
+             <button type="button" class="btn btn-primary  generate">
+               {{it_trans('it.generate_crud')}}
+               <i class="fa fa-plus"></i>
+             </button>
+             <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
+          </div>
+          <div class="tab-pane" id="panel-relations">
+             {!! it_views('baboon.relations') !!}
+             <div class="clearfix"></div>
+              <button type="button" class="btn btn-primary  generate">
+               {{it_trans('it.generate_crud')}}
+               <i class="fa fa-plus"></i>
+             </button>
+             <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
+          </div>
+             <div class="clearfix"></div>
+        </div>
       </div>
-    </div>
-    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 baboon-tab">
-      <div class="baboon-tab-content active">
-        {!! it_views('baboon.Initialize') !!}
-      </div>
-      <div class="baboon-tab-content">
-        {!! it_views('baboon.language') !!}
-      </div>
-      <div class="baboon-tab-content">
-        {!! it_views('baboon.columns_input') !!}
-      </div>
-      <div class="baboon-tab-content">
-        {!! it_views('baboon.relations') !!}
-      </div>
-    </div>
-    <input type="hidden" name="_token" value="{{csrf_token()}}" />
-  </form>
+
+
 </div>
+    <input type="hidden" name="_token" value="{{csrf_token()}}" />
+
+  </form>
 <script type="text/javascript">
 $(document).ready(function(){
 $(document).on('click','.generate',function(){

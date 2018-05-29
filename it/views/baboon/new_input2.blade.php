@@ -4,9 +4,9 @@
 			'<label for="schema_name">{{it_trans('it.schema_name')}}</label>'+
 			'<div>'+
 
-				'<input type="text" name="schema_name[]" value="{{old('schema_name')}}" class="form-control schema_name" number="'+x+'"  placeholder="{{it_trans('it.schema_name')}}" ><!--label> Null: <input type="checkbox" name="schema_null[]" value="1"></label-->'+
+				'<input type="text" name="schema_name[]" value="{{old('schema_name')}}" class="form-control schema_name" number="'+x2+'"  placeholder="{{it_trans('it.schema_name')}}" ><!--label> Null: <input type="checkbox" name="schema_null[]" value="1"></label-->'+
 
-				'<br><b>output relation like <br> <code>public function  <span class="funcname'+x+'"></span>(){<br>return $this-><span class="typedata_relation'+x+'">hasOne</span>(<span class="classSpace'+x+'"></span>,"id","<span class="forginkey'+x+'"></span>"); <br>}</code> </b>'+
+				'<br><b>output relation like <br> <code>public function  <span class="funcname'+x2+'"></span>(){<br>return $this-><span class="typedata_relation'+x2+'">hasOne</span>(<span class="classSpace'+x2+'"></span>,"id","<span class="forginkey'+x2+'"></span>"); <br>}</code> </b>'+
 
 
 			'</div>'+
@@ -16,7 +16,7 @@
 		'<div class="form-group">'+
 			'<label for="linkatmodel">{{it_trans('it.linkatmodel')}}</label>'+
 			'<div>'+
-				'<select name="linkatmodel[]" class="form-control linkatmodel" linkmod="'+x+'">'+
+				'<select name="linkatmodel[]" class="form-control linkatmodel" linkmod="'+x2+'">'+
 					'<option disabled selected>Select Model</option>'+
 					'<optgroup label="App">'+
 						@foreach(array_filter(glob(app_path().'/*'), 'is_file') as $app_model_file)
@@ -56,7 +56,7 @@ $app_model_file = str_replace('/', '\\\\', $app_model_file);
 		'<div class="form-group">'+
 			'<label for="relation_type" >{{it_trans('it.relation_type')}}</label>'+
 			'<div>'+
-				'<select name="relation_type[]" class="form-control relation_type" linkmods="'+x+'">'+
+				'<select name="relation_type[]" class="form-control relation_type" linkmods="'+x2+'">'+
 					'<option value="hasOne">{{it_trans('it.hasone')}}</option>'+
 					'<option value="hasMany">{{it_trans('it.hasmany')}}</option>'+
 					'<option value="belongsToMany">{{it_trans('it.belongstomany')}}</option>'+
