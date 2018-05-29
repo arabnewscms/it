@@ -13,6 +13,37 @@ $('.list_validation'+list).addClass('hidden');
 }
 });
 $(document).ready(function() {
+
+/*
+classSpace
+        funcname
+        forginkey
+
+        schema_name
+*/
+
+$(document).on('change','.relation_type',function(){
+ var val = $("option:selected", this).val();
+ var linkmods = $(this).attr('linkmods');
+ $('.typedata_relation'+linkmods).text(val);
+
+});
+
+$(document).on('change','.linkatmodel',function(){
+ var val = $("option:selected", this).val();
+ var linkmod = $(this).attr('linkmod');
+ $('.classSpace'+linkmod).text(val);
+
+});
+
+$(document).on('keyup','.schema_name',function(){
+ var schema_name = $(this).val();
+ var number = $(this).attr('number');
+ $('.funcname'+number).text(schema_name);
+ $('.forginkey'+number).text(schema_name);
+});
+
+
 var i      = 999; //maximum input boxes allowed
 var wrapper         = $(".input_fields_wrap"); //Fields wrapper
 var add_button      = $(".add_field_button"); //Add button ID
@@ -140,7 +171,6 @@ if(xhr.responseJSON.errors)
 {
 
 var errors = '<ul>';
-  //console.log(xhr.responseJSON);
   $.each(xhr.responseJSON.errors,function(k,v){
   $('.'+k).addClass('has-error');
   errors +='<li>'+v+'</li>';

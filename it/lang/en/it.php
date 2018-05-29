@@ -52,7 +52,7 @@ return [
 	'lang_file'            => 'lang file name',
 	'project_title'        => 'CRUD Title (Project Name)',
 	'admin_folder_path'    => 'admin blade path',
-	'schema_name'          => 'Schema Column by => English Char',
+	'schema_name'          => 'forgin_key like (user_id)',
 	'linkatmodel'          => 'relationed To Model',
 	'relation_type'        => 'relation Type',
 	'hasone'               => 'HasOne',

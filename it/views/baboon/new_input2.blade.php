@@ -3,7 +3,12 @@
 		'<div class="form-group">'+
 			'<label for="schema_name">{{it_trans('it.schema_name')}}</label>'+
 			'<div>'+
-				'<input type="text" name="schema_name[]" value="{{old('schema_name')}}" class="form-control" placeholder="{{it_trans('it.schema_name')}}" ><!--label> Null: <input type="checkbox" name="schema_null[]" value="1"></label-->'+
+
+				'<input type="text" name="schema_name[]" value="{{old('schema_name')}}" class="form-control schema_name" number="'+x+'"  placeholder="{{it_trans('it.schema_name')}}" ><!--label> Null: <input type="checkbox" name="schema_null[]" value="1"></label-->'+
+
+				'<br><b>output relation like <br> <code>public function  <span class="funcname'+x+'"></span>(){<br>return $this-><span class="typedata_relation'+x+'">hasOne</span>(<span class="classSpace'+x+'"></span>,"id","<span class="forginkey'+x+'"></span>"); <br>}</code> </b>'+
+
+
 			'</div>'+
 		'</div>'+
 	'</div>'+
@@ -11,12 +16,11 @@
 		'<div class="form-group">'+
 			'<label for="linkatmodel">{{it_trans('it.linkatmodel')}}</label>'+
 			'<div>'+
-				'<select name="linkatmodel[]" class="form-control">'+
+				'<select name="linkatmodel[]" class="form-control linkatmodel" linkmod="'+x+'">'+
 					'<option disabled selected>Select Model</option>'+
-					'+<optgroup label="App">'+
-@foreach(array_filter(glob(app_path().'/*'), 'is_file') as $app_model_file)
+					'<optgroup label="App">'+
+						@foreach(array_filter(glob(app_path().'/*'), 'is_file') as $app_model_file)
 <?php
-
 $app_model_file = explode('app', $app_model_file);
 $app_model_file = str_replace('.php', '::class', $app_model_file[1]);
 $app_model_file = str_replace('/', '\\\\', $app_model_file);
@@ -24,31 +28,27 @@ $app_model_file = str_replace('/', '\\\\', $app_model_file);
 '<option value="App\{{ $app_model_file }}">App\{{ $app_model_file }}</option>'+
 						@endforeach
 					'</optgroup>'+
-
-
 					@foreach(array_filter(glob(app_path().'/*'), 'is_dir') as $model_list)
 <?php
-$model_name = str_replace('/', '\\', 'App\\'.explode('app', $model_list)[1]);
+$data_        = explode('/', $model_list);
+$explode_last = $data_[count($data_)-1];
 ?>
-@if(!empty($model_name) && in_array($model_name,disable_folder_list()))
-					'+<optgroup label="{{$model_name}}">'+
+@if(!in_array($explode_last,['Console','Http','DataTables','Exceptions','Mail','Providers']))
+					'<optgroup label="{{ $explode_last }}">'+
+						@foreach(array_filter(glob($model_list.'/*'), 'is_file') as $app_model_file)
 <?php
-$model_name = str_replace('App\\', '', $model_name);
+$app_model_file = explode('app', $app_model_file);
+$app_model_file = str_replace('.php', '::class', $app_model_file[1]);
+$app_model_file = str_replace('/', '\\\\', $app_model_file);
 ?>
-@foreach(array_filter(glob(app_path($model_name).'/*'), 'is_file') as $model_file)
-<?php
-$model_file_Ex = explode('app', $model_file);
-$model_file    = str_replace('.php', '::class', $model_file_Ex[1]);
-$model_file    = str_replace('/', '\\\\', $model_file);
-?>
-						'<option value="App\{{ $model_file }}">App\{{ $model_file }}</option>'+
+						'<option value="App\{{ $app_model_file }}">App\{{ $app_model_file }}</option>'+
 						@endforeach
 					'</optgroup>'+
-					'{!! get_model_baboon($model_name) !!}'+
 					@endif
 					@endforeach
 				'</select>'+
 				'<br><small>Example: Namespace/ExtraPath/ModelName</small>'+
+
 			'</div>'+
 		'</div>'+
 	'</div>'+
@@ -56,7 +56,7 @@ $model_file    = str_replace('/', '\\\\', $model_file);
 		'<div class="form-group">'+
 			'<label for="relation_type" >{{it_trans('it.relation_type')}}</label>'+
 			'<div>'+
-				'<select name="relation_type[]" class="form-control">'+
+				'<select name="relation_type[]" class="form-control relation_type" linkmods="'+x+'">'+
 					'<option value="hasOne">{{it_trans('it.hasone')}}</option>'+
 					'<option value="hasMany">{{it_trans('it.hasmany')}}</option>'+
 					'<option value="belongsToMany">{{it_trans('it.belongstomany')}}</option>'+
