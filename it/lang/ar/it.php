@@ -72,4 +72,6 @@ return [
 	'forgin_table_name'    => 'Table Name',
 	'onDelete'             => 'Cascade On Delete',
 	'auto_migrate'         => 'Migrate This',
+	'date_time'            => 'DateTime',
+	'timestamp'            => 'Timestamp',
 ];

@@ -21,9 +21,11 @@
 					'<option value="password">{{it_trans('it.password')}}</option>'+
 					'<option value="checkbox">{{it_trans('it.checkbox')}}</option>'+
 					'<option value="radio">{{it_trans('it.radio')}}</option>'+
-					'<option value="time">{{it_trans('it.time')}}</option>'+
 					'<option value="color">{{it_trans('it.color')}}</option>'+
 					'<option value="date">{{it_trans('it.date')}}</option>'+
+					'<option value="date_time">{{it_trans('it.date_time')}}</option>'+
+					'<option value="time">{{it_trans('it.time')}}</option>'+
+					'<option value="timestamp">{{it_trans('it.timestamp')}}</option>'+
 					'<option value="number">{{it_trans('it.number')}}</option>'+
 				'</select>'+
 			'</div>'+
@@ -94,6 +96,95 @@
 					'<input type="checkbox" value="1" name="confirmed'+x+'" />'+
 				'</label>'+
 			'</div>'+
+			'<div class="col-md-3">'+
+				'<label class="mt-checkbox" dir="rtl"> {{it_trans('it.string')}}'+
+					'<input type="checkbox" value="1" name="string'+x+'" />'+
+				'</label>'+
+			'</div>'+
+			'<div class="col-md-3">'+
+				'<label class="mt-checkbox" dir="rtl"> {{it_trans('it.alpha-dash')}}'+
+					'<input type="checkbox" value="1" name="alpha-dash'+x+'" />'+
+				'</label>'+
+			'</div>'+
+			'<div class="clearfix"></div>'+
+			'<br>'+
+			'<div class="col-md-12">'+
+				'<label class="mt-checkbox" dir="rtl"> {{it_trans('it.date')}}'+
+					'<input type="checkbox" value="1" class="date_data" to="'+x+'" name="date'+x+'" />'+
+				'</label>'+
+				'<div class="date_list'+x+' hidden">'+
+					' <div class="col-md-3">'+
+						'  <label class="" dir="rtl"> {{it_trans('it.date_format')}}</label>'+
+						' <select name="date_format'+x+'" class="form-control">'+
+							'    <option  selected>NULL</option>'+
+							'  <optgroup label="Date">'+
+								'<option value="date_format:Y-m-d">date_format:Y-m-d</option>'+
+								'<option value="date_format:Y-M-D">date_format:Y-M-D</option>'+
+								'<option value="date_format:y-M-D">date_format:y-M-D</option>'+
+								'<option value="date_format:y-m-D">date_format:y-m-D</option>'+
+								'<option value="date_format:y-m-d">date_format:y-m-d</option>'+
+								'<option value="date_format:d-m-Y">date_format:d-m-Y</option>'+
+								'<option value="date_format:d-M-Y">date_format:d-M-Y</option>'+
+								'<option value="date_format:D-M-Y">date_format:D-M-Y</option>'+
+							'</optgroup>'+
+							'<optgroup label="Date & Time">'+
+								'<option value="date_format:Y-m-d h:i:s">date_format:Y-m-d h:i:s</option>'+
+								'<option value="date_format:Y-M-D h:i:s">date_format:Y-M-D h:i:s</option>'+
+								'<option value="date_format:y-M-D h:i:s">date_format:y-M-D h:i:s</option>'+
+								'<option value="date_format:y-m-D h:i:s">date_format:y-m-D h:i:s</option>'+
+								'<option value="date_format:y-m-d h:i:s">date_format:y-m-d h:i:s</option>'+
+								'<option value="date_format:d-m-Y h:i:s">date_format:d-m-Y h:i:s</option>'+
+								'<option value="date_format:d-M-Y h:i:s">date_format:d-M-Y h:i:s</option>'+
+								'<option value="date_format:D-M-Y h:i:s">date_format:D-M-Y h:i:s</option>'+
+							'</optgroup>'+
+						'</select>'+
+					'</div>'+
+					'<div class="col-md-3">'+
+						'<label class="mt-checkbox" dir="rtl"> {{it_trans('it.after')}}'+
+							'<input type="radio" value="after" class="after_before" to="'+x+'" name="after_before'+x+'" />'+
+						'</label>'+
+						'-'+
+						'<label class="mt-checkbox" dir="rtl"> {{it_trans('it.before')}}'+
+							'<input type="radio" value="before" class="after_before" to="'+x+'" name="after_before'+x+'" />'+
+						'</label>'+
+						'<div class="after_before_list'+x+' hidden">'+
+							'<ol>'+
+								'<li>'+
+									'<label class="mt-radio" dir="rtl"> {{it_trans('it.today')}}'+
+										'<input type="radio" value="today" class="before_after_tomorrow" to="'+x+'" name="before_after_tomorrow'+x+'" />'+
+									'</label>'+
+								'</li>'+
+								'<li>'+
+									'<label class="mt-radio" dir="rtl"> {{it_trans('it.tomorrow')}}'+
+										'<input type="radio" value="tomorrow"  class="before_after_tomorrow" to="'+x+'" name="before_after_tomorrow'+x+'" />'+
+									'</label>'+
+								'</li>'+
+								'<li>'+
+									'<label class="mt-radio" dir="rtl"> {{it_trans('it.other_col')}}'+
+										'<input type="radio" value="other_col"  class="before_after_tomorrow" to="'+x+'" name="before_after_tomorrow'+x+'" />'+
+									'</label>'+
+								'</li>'+
+								'<li>'+
+									'<label class="mt-radio" dir="rtl"> {{it_trans('it.other_carbon')}}'+
+										'<input type="radio" value="other_carbon" class="before_after_tomorrow" to="'+x+'" name="before_after_tomorrow'+x+'" />'+
+									'</label>'+
+								'</li>'+
+							'</ol>'+
+						'</div>'+
+					'</div>'+
+					'<div class="col-md-3 each_other_col'+x+' hidden">'+
+						'Select The Column'+
+						'<span class="each_col_name_other_col'+x+'"></span>'+
+					'</div>'+
+					'<div class="col-md-3 each_other_carbon'+x+' hidden">'+
+						'Write Carbon Days'+
+						'<label>'+
+							'Days <input type="text" name="other_carbon'+x+'" placeholder="Days" class="form-control" >'+
+						'</label>'+
+					'</div>'+
+				' </div>'+
+			'</div>'+
+			'<div class="clearfix"></div>'+
 		'</div>'+
 		'<div class="col-md-12 well">'+
 			'<h4>Schema Relation</h4>'+
