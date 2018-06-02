@@ -163,6 +163,22 @@ class BaboonUpdate extends Controller {
 				$r->has('sometimes'.$i)?$valrule .= 'sometimes|':'';
 				$r->has('confirmed'.$i)?$valrule .= 'confirmed|':'';
 
+				$r->has('string'.$i)?$valrule .= 'string|':'';
+				$r->has('alpha-dash'.$i)?$valrule .= 'alpha-dash|':'';
+				////////// Date Validation Laravel ///////////////////////////////////////////////
+				$r->has('date'.$i)?$valrule .= 'date|':'';
+				$r->has('date_format'.$i)?$valrule .= $r->input('date_format'.$i) != 'NULL'?$r->input('date_format'.$i).'|':'':'';
+
+				if ($r->input('before_after_tomorrow'.$i) == 'today' || $r->input('before_after_tomorrow'.$i) == 'tomorrow') {
+					$radio_after_before = $r->input('before_after_tomorrow'.$i);
+				} elseif ($r->input('before_after_tomorrow'.$i) == 'other_col') {
+					$radio_after_before = $r->input('other_cal_before_after'.$i);
+				} elseif ($r->input('before_after_tomorrow'.$i) == 'other_carbon') {
+					$radio_after_before = "'.Carbon::now()->addDays(".$r->input('other_carbon'.$i).")->toDateString().'";
+				}
+				$r->has('after_before'.$i)?$valrule .= $r->input('after_before'.$i).':'.$radio_after_before.'|':'';
+				////////// Date Validation Laravel ///////////////////////////////////////////////
+
 			} else {
 				if ($r->has('col_type')[$i] == 'email') {
 					$valrule .= 'email|';

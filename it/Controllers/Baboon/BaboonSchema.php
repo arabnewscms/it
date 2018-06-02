@@ -101,6 +101,7 @@ class Create{ClassName}Table extends Migration
 			}
 		}
 		$i2 = 0;
+
 		foreach ($r->input('col_name_convention') as $conv) {
 			if ($r->has('forginkeyto'.$i2)) {
 				$cols .= self::forgin_key($conv, $i2, $r);
@@ -180,6 +181,16 @@ class Create{ClassName}Table extends Migration
 			} elseif (!$r->has('numeric'.$i)) {
 				if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'textarea') {
 					$col .= '            $table->longtext(\''.$name.'\'';
+				} elseif ($r->input('col_type')[$i] == 'date_time') {
+					$col .= '            $table->dateTime(\''.$name.'\'';
+				} elseif ($r->input('col_type')[$i] == 'date') {
+					$col .= '            $table->date(\''.$name.'\'';
+				} elseif ($r->input('col_type')[$i] == 'time') {
+					$col .= '            $table->time(\''.$name.'\'';
+				} elseif ($r->input('col_type')[$i] == 'timestamp') {
+					$col .= '            $table->timestamp(\''.$name.'\'';
+				} elseif ($r->has('date'.$i)) {
+					$col .= '            $table->date(\''.$name.'\'';
 				} else {
 					$col .= '            $table->string(\''.$name.'\'';
 				}
@@ -192,8 +203,18 @@ class Create{ClassName}Table extends Migration
 			}
 		} else {
 
-			if (@$r->input('col_type')[$i] == 'textarea') {
+			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'textarea') {
 				$col .= '            $table->longtext(\''.$name.'\'';
+			} elseif ($r->input('col_type')[$i] == 'date_time') {
+				$col .= '            $table->dateTime(\''.$name.'\'';
+			} elseif ($r->input('col_type')[$i] == 'date') {
+				$col .= '            $table->date(\''.$name.'\'';
+			} elseif ($r->input('col_type')[$i] == 'time') {
+				$col .= '            $table->time(\''.$name.'\'';
+			} elseif ($r->input('col_type')[$i] == 'timestamp') {
+				$col .= '            $table->timestamp(\''.$name.'\'';
+			} elseif ($r->has('date'.$i)) {
+				$col .= '            $table->date(\''.$name.'\'';
 			} else {
 				$col .= '            $table->string(\''.$name.'\'';
 			}
