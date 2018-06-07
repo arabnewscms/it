@@ -134,10 +134,11 @@ protected $fillable = ['."\n";
 		if (request()->has('linkatmodel')) {
 			$i = 0;
 			foreach (request()->input('linkatmodel') as $linkat) {
-				$linkat_final = !preg_match('/::class/i', $linkat)?'\''.$linkat.'\'':$linkat;
+				$linkat_final = !preg_match('/::class/i', $linkat)?'\'\\'.$linkat.'\'':$linkat;
 				$model .= '
 public function '.self::convention(request()->input('schema_name')[$i]).'(){
-return $this->'.request()                   ->input('relation_type')[$i].'('.$linkat_final.',\'id\',\''.request()->input('schema_name')[$i].'\');
+return $this->'.request()
+				->input('relation_type')[$i].'('.$linkat_final.',\'id\',\''.request()->input('schema_name')[$i].'\');
 }
 ';
 				$i++;
