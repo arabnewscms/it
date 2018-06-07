@@ -87,19 +87,19 @@ class Create{ClassName}Table extends Migration
 		 */
 		}
 
-		if ($r->has('schema_name')) {
-			$i           = 0;
-			$schema_null = $r->input('schema_null');
-			foreach ($r->input('schema_name') as $schema_name) {
-				if (!empty($schema_null[$i])) {
-					$cols .= '            $table->integer(\''.$schema_name.'\')->nullabel();'."\n";
+		/*if ($r->has('schema_name')) {
+		$i           = 0;
+		$schema_null = $r->input('schema_null');
+		foreach ($r->input('schema_name') as $schema_name) {
+		if (!empty($schema_null[$i])) {
+		$cols .= '            $table->integer(\''.$schema_name.'\')->nullabel();'."\n";
 
-				} else {
-					$cols .= '            $table->integer(\''.$schema_name.'\');'."\n";
-				}
-				$i++;
-			}
+		} else {
+		$cols .= '            $table->integer(\''.$schema_name.'\');'."\n";
 		}
+		$i++;
+		}
+		}*/
 		$i2 = 0;
 
 		foreach ($r->input('col_name_convention') as $conv) {
