@@ -11,11 +11,17 @@
 				<ul class="dropdown-menu mega-dropdown-menu">
 					<li class="col-sm-3">
 						<ul>
+
+
 							<li class="dropdown-header">{{it_trans('it.feat_tools')}}</li>
+							<li>
+								<a href="{{url('it/routelist')}}"><i class="fa fa-road"></i> {{it_trans('it.routelist')}} </a>
+							</li>
 							<li><a href="{{url('it/workflow')}}"><i class="fa fa-cog fa-2x"></i> {{it_trans('it.workflow')}}</a></li>
 							@if(class_exists('Barryvdh\Elfinder\ElfinderController'))
 							<li><a href="{{url('it/merge')}}"><i class="fa fa-cloud fa-2x"></i> {{it_trans('it.merge')}}</a></li>
 							@endif
+
 						</ul>
 					</li>
 					<li class="col-sm-3">

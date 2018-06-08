@@ -83,4 +83,5 @@ return [
 	'other_carbon'         => 'Carbon Day',
 	'date_time'            => 'DateTime',
 	'timestamp'            => 'Timestamp',
+	'routelist'            => 'Route List',
 ];
