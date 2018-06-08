@@ -55,8 +55,8 @@ if (!function_exists('it_int')) {
 }
 
 if (!function_exists('it_views')) {
-	function it_views($view) {
-		return view('it::'.$view);
+	function it_views($view, $data = []) {
+		return view('it::'.$view, $data);
 	}
 }
 
