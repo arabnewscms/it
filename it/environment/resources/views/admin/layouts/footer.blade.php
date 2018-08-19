@@ -616,7 +616,7 @@
                         <script src="{{url("design/admin_panel/assets/global/plugins/datatables/js/buttons.server-side.js")}}"></script>
                         <script src="{{url("design/admin_panel/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js")}}"></script>
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-                        <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
+                        <script src="https://cdn.ckeditor.com/4.10.0/full/ckeditor.js"></script>
                         <script>
                         CKEDITOR.replaceClass = 'ckeditor';
                         </script>
@@ -664,12 +664,9 @@
                         $('.date-picker').datepicker();
                         });
                         </script>
-                        <script src="https://cdn.ckeditor.com/ckeditor5/10.0.0/classic/ckeditor.js"></script>
 
                         @stack('js')
-                        <script>
-                            CKEDITOR.replaceClass = 'ckeditor';
-                        </script>
+
                         <!-- END THEME LAYOUT SCRIPTS -->
                     </body>
                 </html>
