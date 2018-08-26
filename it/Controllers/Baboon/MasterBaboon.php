@@ -7,13 +7,11 @@ use Phpanonymous\It\Controllers\Baboon\BaboonCreate;
 use Phpanonymous\It\Controllers\Baboon\BaboonSchema;
 use Phpanonymous\It\Controllers\Baboon\BaboonUpdate;
 
-class MasterBaboon extends Controller
-{
+class MasterBaboon extends Controller {
     //
-    static $full_path = '';
+    static $full_path        = '';
     public static $copyright = '[It V 1.0 | https://it.phpanonymous.com]';
-    public static function makeController($r, $namespace, $model, $classname)
-    {
+    public static function makeController($r, $namespace, $model, $classname) {
         $controller = '<?php
 namespace {Space};
 use App\Http\Controllers\Controller;
@@ -41,13 +39,12 @@ class {ClassName} extends Controller
         $controller = str_replace('{Space}', $namespace, $controller);
         $controller = str_replace('{Model}', $model, $controller);
         $controller = str_replace('{ClassName}', $classname, $controller);
-        $classname = str_replace('Controller', '', $classname);
-        $classname = str_replace('controller', '', $classname);
+        $classname  = str_replace('Controller', '', $classname);
+        $classname  = str_replace('controller', '', $classname);
         $controller = str_replace('{ClassName2}', $classname, $controller);
         return $controller;
     }
-    public static function convention($string)
-    {
+    public static function convention($string) {
         $newstring = explode('_', $string);
         if (count($newstring) > 0) {
             $word = '';
@@ -59,12 +56,11 @@ class {ClassName} extends Controller
             return ucfirst($string);
         }
     }
-    public static function get_cols($r)
-    {
+    public static function get_cols($r) {
         $cols = '';
-        $i = 0;
+        $i    = 0;
         if ($r->has('schema_name')) {
-            $i = 0;
+            $i           = 0;
             $schema_null = $r->input('schema_null');
             foreach ($r->input('schema_name') as $schema_name) {
                 if (!empty($schema_null[$i])) {
@@ -91,24 +87,20 @@ class {ClassName} extends Controller
         }
         return $cols;
     }
-    public static function check_radio($name, $i, $r)
-    {
+    public static function check_radio($name, $i, $r) {
         $name = explode('#', $name);
         return "'" . $name[0] . "',";
     }
-    public static function str_num($name, $i, $r)
-    {
+    public static function str_num($name, $i, $r) {
         return "'" . $name . "',";
     }
-    public static function enum($name, $i, $r)
-    {
-        $pre_name = explode('|', $name);
+    public static function enum($name, $i, $r) {
+        $pre_name  = explode('|', $name);
         $pre_name2 = explode('/', $pre_name[1]);
-        $cols = "'" . $pre_name[0] . "'," . "\n";
+        $cols      = "'" . $pre_name[0] . "'," . "\n";
         return $cols;
     }
-    public static function makeModel($namespace, $classname)
-    {
+    public static function makeModel($namespace, $classname) {
         $model = '<?php
 namespace {Space};
 use Illuminate\Database\Eloquent\Model;
@@ -158,19 +150,16 @@ return $this->' . request()
 ';
         return $model;
     }
-    public static function migrate($r)
-    {
+    public static function migrate($r) {
         return BaboonSchema::migrate($r);
     }
-    public static function write($data, $filename, $namespace)
-    {
+    public static function write($data, $filename, $namespace) {
         $file = fopen(base_path(static::$full_path . '/' . str_replace('\\', '/', $namespace)) . '/' . $filename . '.php', "w");
         fwrite($file, $data);
         fclose($file);
     }
-    public static function check_path($path)
-    {
-        $path = explode('\\', $path);
+    public static function check_path($path) {
+        $path      = explode('\\', $path);
         $full_path = '';
         //'baboon/'.request('project_title');
         $checkpath = '';
@@ -194,8 +183,7 @@ return $this->' . request()
     /*public static function convention_name($string) {
     return strtolower(ltrim(preg_replace('/(?<!\ )[A-Z]/', '_$0', $string), '_'));
     }*/
-    public static function convention_name($string)
-    {
+    public static function convention_name($string) {
         $conv = strtolower(ltrim(preg_replace('/(?<!\ )[A-Z]/', '_$0', $string), '_'));
         if (!in_array(substr($conv, -1), ['s'])) {
             if (substr($conv, -1) == 'y') {
@@ -206,12 +194,11 @@ return $this->' . request()
         }
         return $conv;
     }
-    public static function inputsCreate($r)
-    {
+    public static function inputsCreate($r) {
         $blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
-        $route = strtolower($r->input('controller_name'));
-        $route = str_replace('controller', '', $route);
-        $input = '@extends(\'' . $blade_path . '.index\')
+        $route      = strtolower($r->input('controller_name'));
+        $route      = str_replace('controller', '', $route);
+        $input      = '@extends(\'' . $blade_path . '.index\')
 @section(\'content\')
 <div class="row">
 	<div class="col-md-12">
@@ -255,12 +242,12 @@ return $this->' . request()
             $i = 0;
             foreach ($r->input('col_name') as $col_name) {
                 $data = [
-                    'use_collective' => $r->input('use_collective'),
-                    'lang_file' => $r->input('lang_file'),
+                    'use_collective'      => $r->input('use_collective'),
+                    'lang_file'           => $r->input('lang_file'),
                     'col_name_convention' => $r->input('col_name_convention')[$i],
-                    'name' => $col_name,
-                    'forginkeyto' => $r->input('forginkeyto' . $i) ? 'yes' : 'no',
-                    'i' => $i,
+                    'name'                => $col_name,
+                    'forginkeyto'         => $r->input('forginkeyto' . $i) ? 'yes' : 'no',
+                    'i'                   => $i,
                 ];
                 if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'text') {
                     $input .= BaboonCreate::text($data);
@@ -303,12 +290,11 @@ return $this->' . request()
             return $input;
         }
     }
-    public static function inputsUpdate($r)
-    {
+    public static function inputsUpdate($r) {
         $blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
-        $route = strtolower($r->input('controller_name'));
-        $route = str_replace('controller', '', $route);
-        $input = '@extends(\'' . $blade_path . '.index\')
+        $route      = strtolower($r->input('controller_name'));
+        $route      = str_replace('controller', '', $route);
+        $input      = '@extends(\'' . $blade_path . '.index\')
 	@section(\'content\')
 	<div class="row">
 		<div class="col-md-12">
@@ -374,22 +360,22 @@ return $this->' . request()
             $input .= "\n";
             $input .= '<input type="hidden" name="_method" value="put">';
             $varname = '$' . $route . '->id';
-            $input = str_replace('{route}', '{{aurl(\'/' . $route . '/\'.' . $varname . ')}}', $input);
-            $input = str_replace('{lang}', $r->input('lang_file'), $input);
+            $input   = str_replace('{route}', '{{aurl(\'/' . $route . '/\'.' . $varname . ')}}', $input);
+            $input   = str_replace('{lang}', $r->input('lang_file'), $input);
         }
         $input .= "\n";
         if ($r->has('col_type') and $r->has('col_name')) {
             $i = 0;
             foreach ($r->input('col_name') as $col_name) {
                 $data = [
-                    'use_collective' => $r->input('use_collective'),
-                    'lang_file' => $r->input('lang_file'),
-                    'col_name_convention' => $r->input('col_name_convention')[$i],
+                    'use_collective'       => $r->input('use_collective'),
+                    'lang_file'            => $r->input('lang_file'),
+                    'col_name_convention'  => $r->input('col_name_convention')[$i],
                     'col_name_convention2' => '$' . $route . '->' . @explode('#', $r->input('col_name_convention')[$i])[0],
-                    'selectvar' => '$' . $route . '->',
-                    'name' => $col_name,
-                    'forginkeyto' => $r->input('forginkeyto' . $i) ? 'yes' : 'no',
-                    'i' => $i,
+                    'selectvar'            => '$' . $route . '->',
+                    'name'                 => $col_name,
+                    'forginkeyto'          => $r->input('forginkeyto' . $i) ? 'yes' : 'no',
+                    'i'                    => $i,
                 ];
                 if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'text') {
                     $input .= BaboonUpdate::text($data);
@@ -434,14 +420,13 @@ return $this->' . request()
             return $input;
         }
     }
-    public static function Makelang($r, $folder = 'ar')
-    {
+    public static function Makelang($r, $folder = 'ar') {
         $checklang = base_path('resources/lang/' . $folder . '/' . $r->input('lang_file') . '.php');
         if (file_exists($checklang)) {
             $baboonLang = include $checklang;
         }
         $the_master_lang = [];
-        $lang = '<?php
+        $lang            = '<?php
 		return [' . "\n";
         if (!empty($baboonLang)) {
             foreach ($baboonLang as $k => $v) {
@@ -489,8 +474,7 @@ return $this->' . request()
         $lang .= "\n" . '];';
         return $lang;
     }
-    public static function actions($r)
-    {
+    public static function actions($r) {
         $route = strtolower($r->input('controller_name'));
         $route = str_replace('controller', '', $route);
 
@@ -545,12 +529,11 @@ return $this->' . request()
         return $edit;
     }
 
-    public static function IndexBlade($r)
-    {
+    public static function IndexBlade($r) {
         $blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
-        $route = strtolower($r->input('controller_name'));
-        $route = str_replace('controller', '', $route);
-        $index = '@extends(\'' . $blade_path . '.index\')';
+        $route      = strtolower($r->input('controller_name'));
+        $route      = str_replace('controller', '', $route);
+        $index      = '@extends(\'' . $blade_path . '.index\')';
         $index .= '
 		@section(\'content\')';
         $index .= '
@@ -563,12 +546,14 @@ return $this->' . request()
 										</div>
 								</div>
 								<div class="portlet-body">
+                                    <div class="table-responsive">
 										{!! Form::open([
 										"method" => "post",
 										"url" => [aurl(\'/{route}/multi_delete\')]
 										]) !!}
 										{!! $dataTable->table(["class"=> "table table-striped table-bordered table-hover table-checkable dataTable no-footer"],true) !!}
 										<div class="clearfix"></div>
+                                    </div>
 								</div>
 						</div>
 				</div>
