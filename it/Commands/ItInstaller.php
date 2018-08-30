@@ -63,6 +63,10 @@ class ItInstaller extends Command {
     }
     private function yajra() {
         shell_exec('composer require yajra/laravel-datatables-oracle');
+        shell_exec('composer require yajra/laravel-datatables-buttons');
+        shell_exec('composer require yajra/laravel-datatables-html');
+        shell_exec('composer require yajra/laravel-datatables-fractal');
+        shell_exec('composer require yajra/laravel-datatables-editor');
 
         /*$app = file_get_contents(base_path('config/app.php'));
         if (!preg_match('/Yajra/i', $app)) {
@@ -77,11 +81,12 @@ class ItInstaller extends Command {
 
         }*/
 
-        shell_exec('composer require yajra/laravel-datatables');
+        // shell_exec('composer require yajra/laravel-datatables');
 
-        shell_exec('php artisan vendor:publish --tag=datatables');
+        /*  shell_exec('php artisan vendor:publish --tag=datatables');
         shell_exec('php artisan vendor:publish --tag=datatables-buttons');
         shell_exec('php artisan vendor:publish --tag=datatables-html');
+         */
 
         $this->info('It' . $this->beer . ' Yajra Package Is Ready Now');
     }
