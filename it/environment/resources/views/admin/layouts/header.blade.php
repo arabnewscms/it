@@ -73,8 +73,13 @@
         @if(app("l") != 'ar')
         <link href="{{ url("design/admin_panel/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css") }}" rel="stylesheet" type="text/css" />
         @endif
-
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+        <style type="text/css">
+            .table-responsive{
+                padding-top:70px;
+            }
+        </style>
     </head>
     <!-- END HEAD -->
     <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
