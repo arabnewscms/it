@@ -471,7 +471,7 @@ protected $fillable = ['."\n";
 					$pre_name2 = explode('/', $pre_name[1]);
 					foreach ($pre_name2 as $kk => $vall) {
 						$k = explode(',', $vall);
-						$the_master_lang += [$k[1]=> $k[1]];
+						$the_master_lang += [$k[0]=> $k[1]];
 					}
 				}
 			} elseif (preg_match('/#/', $name)) {
