@@ -308,6 +308,10 @@ class BaboonUpdate extends Controller {
 		return view('baboon.elements.update.textarea', ['data' => $data]);
 	}
 
+	public static function textarea_ckeditor($data) {
+		return view('baboon.elements.update.textarea_ckeditor', ['data' => $data]);
+	}
+
 	public static function radio($data) {
 		return view('baboon.elements.update.radio', ['data' => $data]);
 	}

@@ -221,6 +221,10 @@ class BaboonCreate extends Controller {
 		return view('baboon.elements.create.textarea', ['data' => $data]);
 	}
 
+	public static function textarea_ckeditor($data) {
+		return view('baboon.elements.create.textarea_ckeditor', ['data' => $data]);
+	}
+
 	public static function radio($data) {
 		return view('baboon.elements.create.radio', ['data' => $data]);
 	}

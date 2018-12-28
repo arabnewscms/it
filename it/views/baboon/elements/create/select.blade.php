@@ -13,7 +13,7 @@ if ($data['use_collective'] == 'yes') {
 			$options = explode('/', $ex[1]);
 			foreach ($options as $op) {
 				$kv = explode(',', $op);
-				$text .= "'".$kv[0]."'=>trans('{lang}.".$kv[1]."'),";
+				$text .= "'".$kv[0]."'=>trans('{lang}.".$kv[0]."'),";
 			}
 		}
 		$text .= ']';

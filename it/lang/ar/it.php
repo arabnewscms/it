@@ -23,6 +23,7 @@ return [
 	'email'                => 'email',
 	'url'                  => 'url',
 	'textarea'             => 'textarea',
+	'textarea_ckeditor'    => 'textarea مع المحرر ckeditor',
 	'select'               => 'select',
 	'checkbox'             => 'Checkbox',
 	'password'             => 'Password',

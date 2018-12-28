@@ -120,6 +120,7 @@ each_col_name_other_col
           <option value="email">{{it_trans('it.email')}}</option>
           <option value="url">{{it_trans('it.url')}}</option>
           <option value="textarea">{{it_trans('it.textarea')}}</option>
+          <option value="textarea_ckeditor">{{it_trans('it.textarea_ckeditor')}}</option>
           <option value="select">{{it_trans('it.select')}}</option>
           <option value="file">{{it_trans('it.file')}}</option>
           <option value="password">{{it_trans('it.password')}}</option>
