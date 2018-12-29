@@ -368,33 +368,20 @@
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <span class="username username-hide-on-mobile"> {{ admin()->user()->name }} </span>
                                     <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                    <img alt="" class="img-circle" src="{{url('design/admin_panel')}}/assets/layouts/layout4/img/avatar9.jpg" /> </a>
+
+                                     @if(!empty(admin()->user()->photo_profile))
+                            <img src="{{ it()->url(admin()->user()->photo_profile) }}" style="width:25px;height:25px;" class="img-circle" />
+                            @else
+                             <i class="fa fa-user"></i>
+                            @endif
+
+                                     </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
                                     <li>
-                                        <a href="page_user_profile_1.html">
-                                            <i class="fa fa-user"></i> My Profile </a>
+                                        <a href="{{aurl('account')}}">
+                                            <i class="fa fa-user"></i> {{trans('admin.account')}} </a>
                                     </li>
-                                    <li>
-                                        <a href="app_calendar.html">
-                                            <i class="fa fa-calendar"></i> My Calendar </a>
-                                    </li>
-                                    <li>
-                                        <a href="app_inbox.html">
-                                            <i class="fa fa-envelope"></i> My Inbox
-                                            <span class="badge badge-danger"> 3 </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="app_todo_2.html">
-                                            <i class="fa fa-rocket"></i> My Tasks
-                                            <span class="badge badge-success"> 7 </span>
-                                        </a>
-                                    </li>
-                                    <li class="divider"> </li>
-                                    <li>
-                                        <a href="page_user_lock_1.html">
-                                            <i class="fa fa-lock"></i> Lock Screen </a>
-                                    </li>
+
                                     <li>
                                         <a href="{{ aurl('logout') }}">
                                             <i class="fa fa-key"></i> {{ trans('admin.logout') }} </a>

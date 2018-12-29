@@ -46,6 +46,10 @@ Route::group(['prefix' => app('admin'), 'middleware' => 'Lang'], function () {
 				Route::get('/', 'Admin\Dashboard@home');
 				Route::any('logout', 'Admin\AdminAuthenticated@logout');
 
+				Route::get('account', 'Admin\AdminAuthenticated@account');
+				Route::post('account', 'Admin\AdminAuthenticated@account_post');
+				Route::resource('settings', 'Admin\Settings');
+
 				//////// Admin Routes /* End */ //////////////
 			});
 

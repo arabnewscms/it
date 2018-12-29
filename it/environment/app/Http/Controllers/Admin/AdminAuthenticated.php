@@ -34,7 +34,7 @@ class AdminAuthenticated extends Controller {
 			[
 				'password'              => 'required|min:6|confirmed',
 				'password_confirmation' => 'required',
-				'email'                 => 'required|email'
+				'email'                 => 'required|email',
 			], [], [
 				'password'              => trans('admin.password'),
 				'password_confirmation' => trans('admin.password_confirmation'),
@@ -85,4 +85,45 @@ class AdminAuthenticated extends Controller {
 			return redirect(aurl('login'));
 		}
 	}
+
+	public function account() {
+		return view('admin.account', ['title' => trans('admin.account')]);
+	}
+
+	public function account_post() {
+
+		$rules = [
+			'name'                  => 'required',
+			'email'                 => 'required|email|unique:admins,email,'.admin()->user()->id,
+			'password'              => 'sometimes|nullable|confirmed',
+			'password_confirmation' => '',
+			'photo_profile'         => 'sometimes|nullable|'.it()->image(),
+		];
+		$data = $this->validate(request(), $rules, [], [
+				'name'                  => trans('admin.name'),
+				'email'                 => trans('admin.email'),
+				'password'              => trans('admin.password'),
+				'password_confirmation' => '',
+			]);
+		///// Check the Already Password ///////
+		if (!empty(request('password')) && \Hash::check(request('password'), admin()->user()->password)) {
+			session()->flash('error', trans('admin.the_password_is_old'));
+			return back();
+		}
+		///// Check the Already Password ///////
+		unset($data['password_confirmation']);
+		if (!empty(request('password'))) {
+			$data['password'] = bcrypt(request('password'));
+		} else {
+			unset($data['password']);
+		}
+		if (request()->hasFile('photo_profile')) {
+			it()        ->delete(admin()->user()->photo_profile);
+			$data['photo_profile'] = it()->upload('photo_profile', 'admin/'.admin()->user()->id);
+		}
+		admin()->user()->update($data);
+		session()->flash('success', !empty(request('password'))?trans('admin.updated_account_and_password'):trans('admin.updated'));
+		return back();
+	}
+
 }

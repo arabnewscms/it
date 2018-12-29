@@ -15,6 +15,7 @@ class CreateAdminsTable extends Migration {
 				$table->increments('id');
 				$table->string('name');
 				$table->string('email')->unique();
+				$table->string('photo_profile')->nullable();
 				$table->string('password');
 				$table->integer('group_id')->unsigned()->nullable();
 				$table->foreign('group_id')->references('id')->on('admin_groups');

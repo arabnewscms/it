@@ -28,6 +28,18 @@ if (!function_exists('aurl')) {
 	}
 }
 ////// Admin Url Function /////////////////////
+////// Get Settings Function /////////////////////
+if (!function_exists('setting')) {
+	function setting() {
+		$setting = \App\Model\Setting::orderBy('id', 'desc')->first();
+		if (empty($setting)) {
+			return \App\Model\Setting::create(['sitename_ar' => '', 'sitename_en' => '', 'sitename_fr' => '']);
+		} else {
+			return $setting;
+		}
+	}
+}
+////// Get Settings Function /////////////////////
 
 ////// Admin Url Function /////////////////////
 if (!function_exists('admin')) {
