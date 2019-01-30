@@ -161,7 +161,13 @@ protected $fillable = ['."\n";
 	}
 
 	public static function write($data, $filename, $namespace) {
-		$file = fopen(base_path(static ::$full_path.'/'.str_replace('\\', '/', str_replace('App','app',$namespace)).'/'.$filename.'.php', "w");
+		$file =
+		fopen(base_path(
+
+				static ::$full_path.'/'.str_replace('\\', '/', strtolower($namespace)))
+
+			.'/'.$filename.'.php', "w"
+		);
 		fwrite($file, $data);
 		fclose($file);
 	}
