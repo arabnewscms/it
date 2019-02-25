@@ -164,7 +164,7 @@ protected $fillable = ['."\n";
 		$file =
 		fopen(base_path(
 
-				static ::$full_path.'/'.str_replace('\\', '/', $namespace))
+				static ::$full_path.'/'.str_replace('\\', '/', str_replace('App','app',$namespace))
 
 			.'/'.$filename.'.php', "w"
 		);
