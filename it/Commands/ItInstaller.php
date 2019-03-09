@@ -37,7 +37,7 @@ class ItInstaller extends Command {
     }
 
     private function laravelcollective() {
-        shell_exec('composer require laravelcollective/html');
+        shell_exec('composer require "laravelcollective/html":"^5.6.10"');
         $app = file_get_contents(base_path('config/app.php'));
         if (!preg_match('/HtmlServiceProvider::class/i', $app)) {
             $final = str_replace($this->providers, $this->providers . "\r\n" . '		Collective\Html\HtmlServiceProvider::class ,', $app);
