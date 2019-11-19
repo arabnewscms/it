@@ -1,9 +1,9 @@
 {
 	"name":"phpanonymous/it",
-	"description": "A Simple Track to make sense ",
+	"description": "A Simple Track to make sense with TagatSoft  ",
 	"type":"package",
 	"license": "MIT",
-	"keywords":["laravel","It application","php"],
+	"keywords":["laravel","It application With It-Super","php"],
 	"authors":[
 	{
 		"name":"Mahmoud Ibrahim",
@@ -12,8 +12,8 @@
 	}
 	],
 	"require":{
-		"php": ">= 7.1",
-		"laravel/framework": "5.7.*"
+		"php": ">= 7.2",
+		"laravel/framework": "^6.*",
 	},
 	"autoload":{
 		"psr-4":{
@@ -22,7 +22,7 @@
 	},
 	"extra": {
     "branch-alias": {
-            "dev-master": "1.0.29.x-dev"
+            "dev-master": "1.2.0.x-dev"
     },
         "laravel": {
             "providers": [
@@ -33,7 +33,7 @@
             }
         }
   },
-	"version":"1.0.29",
+	"version":"1.2.0",
   "minimum-stability": "dev",
   "prefer-stable": true
 }
