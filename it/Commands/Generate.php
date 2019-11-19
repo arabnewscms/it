@@ -74,6 +74,8 @@ class Generate extends Command
                 if ($this->confirm("you want auto insert this path (/Applications/MAMP/tmp/mysql/mysql.sock) in DB_SOCKET in .Env file ")) {
                     self::changeEnv('DB_SOCKET', '/Applications/MAMP/tmp/mysql/mysql.sock');
 
+                    \Config::set('database.connections.mysql.unix_socket', '/Applications/MAMP/tmp/mysql/mysql.sock');
+
                 }
             }
         }
