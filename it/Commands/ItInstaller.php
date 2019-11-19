@@ -4,7 +4,8 @@ namespace Phpanonymous\It\Commands;
 
 use Illuminate\Console\Command;
 
-class ItInstaller extends Command {
+class ItInstaller extends Command
+{
     /**
      * The name and signature of the console command.
      *
@@ -32,12 +33,14 @@ class ItInstaller extends Command {
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    private function laravelcollective() {
-        shell_exec('composer require "laravelcollective/html":"^5.6.10"');
+    private function laravelcollective()
+    {
+        shell_exec('composer require "laravelcollective/html":"^6.0"');
         $app = file_get_contents(base_path('config/app.php'));
         if (!preg_match('/HtmlServiceProvider::class/i', $app)) {
             $final = str_replace($this->providers, $this->providers . "\r\n" . '		Collective\Html\HtmlServiceProvider::class ,', $app);
@@ -55,13 +58,15 @@ class ItInstaller extends Command {
         }
     }
 
-    private function intervention() {
+    private function intervention()
+    {
 
         shell_exec('composer require intervention/image');
         $this->info('It' . $this->beer . ' intervention image Package Is Ready Now');
 
     }
-    private function yajra() {
+    private function yajra()
+    {
         shell_exec('composer require yajra/laravel-datatables-oracle');
         shell_exec('composer require yajra/laravel-datatables-buttons');
         shell_exec('composer require yajra/laravel-datatables-html');
@@ -91,7 +96,8 @@ class ItInstaller extends Command {
         $this->info('It' . $this->beer . ' Yajra Package Is Ready Now');
     }
 
-    private function merge() {
+    private function merge()
+    {
 
         shell_exec('composer require barryvdh/laravel-elfinder');
         $elfinder_conf      = file_get_contents(__DIR__ . '/../configs/elfinder.php');
@@ -120,7 +126,8 @@ class ItInstaller extends Command {
      *
      * @return mixed
      */
-    public function handle() {
+    public function handle()
+    {
         \File::copy(__DIR__ . '/../environment/config/filesystems.php', base_path('config/filesystems.php'));
         \Config::set('filesystems.default', 'it');
 

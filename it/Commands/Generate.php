@@ -67,7 +67,7 @@ class Generate extends Command
             $this->error("you should be enable the ZipArchive extension On Your Apache To continue ");
             return '';
         }
-        $this->line("Welcome to (it) package \r\n Please Answer this questions to auto create your database !!");
+        $this->line("Hello Developer thank you for choosing Our Package  \r\n & Welcome to (IT) Super package \r\n Please Answer this questions to auto create your database !!");
         if (PHP_OS == 'Darwin') {
             $mamp_pro = $this->confirm("you are using mamp pro ?");
             if ($mamp_pro) {
@@ -137,6 +137,7 @@ class Generate extends Command
             $zip->extractTo(base_path('public'));
             $zip->close();
         }
+
         $this->line("All File Extracted And Published");
         $this->info("Link Storage Automatically....");
         shell_exec('php artisan storage:link');
@@ -145,7 +146,10 @@ class Generate extends Command
 
         $this->info("please run this command php artisan vendor:publish --force and select 0 value to publish all config files");
 
+        $this->info("please run this command composer dump-autoload to refresh seeder path");
+
         $this->info("please run this command php artisan migrate also");
+        $this->info("please run this command php artisan db:seed to fetch admin data (email: test@test.com) - (password: 123456) also");
 
         $this->info("Enjoy <3");
     }
