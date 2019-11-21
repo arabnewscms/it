@@ -215,24 +215,26 @@ class Generate extends Command
         shell_exec('composer dump-autoload');
         shell_exec('php artisan config:clear');
 
-        config('database.connections.mysql.database', $DB_DATABASE);
-        config('database.connections.mysql.username', $DB_USERNAME);
-        config('database.connections.mysql.password', $DB_PASSWORD);
+        // config('database.connections.mysql.database', $DB_DATABASE);
+        // config('database.connections.mysql.username', $DB_USERNAME);
+        // config('database.connections.mysql.password', $DB_PASSWORD);
 
-        if (\Artisan::call('migrate') == 0) {
-            $this->info("Auto Migrate Tables....");
-            $this->info("Migrate Tables Done");
-            \Artisan::call('db:seed');
-            $this->info("Auto Seed And Inject The Admin Login Data....");
-            $this->info("Seed is Done");
-            $this->info("your admin panel now is ready ");
-        } else {
-            // $this->info("please run this command php artisan vendor:publish --force and select 0 value to publish all config files");
+        //if (\Artisan::call('migrate') == 0) {
+        // $this->info("Auto Migrate Tables....");
+        // $this->info("Migrate Tables Done");
+        // \Artisan::call('db:seed');
+        // $this->info("Auto Seed And Inject The Admin Login Data....");
+        // $this->info("Seed is Done");
+        // $this->info("your admin panel now is ready ");
+        //} else {
+        // $this->info("please run this command php artisan vendor:publish --force and select 0 value to publish all config files");
 
-            // $this->info("please run this command composer dump-autoload to refresh seeder path");
-            $this->info("please run this command php artisan migrate also");
-            $this->info("please run this command php artisan db:seed to fetch admin data (email: test@test.com) - (password: 123456) also");
-        }
+        // $this->info("please run this command composer dump-autoload to refresh seeder path");
+
+        //}
+        $this->info("your admin panel now is ready ");
+        $this->info("please run this command php artisan migrate also");
+        $this->info("please run this command php artisan db:seed to fetch admin data (email: test@test.com) - (password: 123456) also");
 
         $this->info("Login your Admin Panel with (email: test@test.com) - (password: 123456)");
 
