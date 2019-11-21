@@ -13,7 +13,7 @@ class ItApplication extends ServiceProvider {
 	 */
 
 	public function boot() {
-		include __DIR__ .'/helper/it.php';
+		
 		if (!file_exists(base_path('config').'/itconfiguration.php')) {
 
 			$this->publishes([__DIR__ .'/environment/config'    => base_path('config')]);
@@ -26,8 +26,7 @@ class ItApplication extends ServiceProvider {
 		Route::middleware('web')
 			->prefix('it')
 			->group(__DIR__ .'/it_router.php');
-		require_once __DIR__ .'/helper/it.php';
-		require_once __DIR__ .'/helper/fontawesome.php';
+	
 	}
 	/**
 	 * Register services.
