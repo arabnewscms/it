@@ -176,12 +176,13 @@ class Home extends Controller
 
         //    session()->flash('success', trans('admin.files_created'));
         \Config::set('filesystems.default', 'it');
-        //********* Preparing Route ***********/
+
+        //********* Preparing Route Admin ***********/
         $link             = strtolower(preg_replace('/Controller|controller/i', '', $r->input('controller_name')));
         $end_route        = '//////// Admin Routes /* End */ //////////////';
         $namespace_single = explode('App\Http\Controllers\\', $r->input('controller_namespace'))[1];
         $route1           = 'Route::resource(\'' . $link . '\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '\'); ' . "\r\n";
-        $route2           = '				Route::post(\'' . $link . '/multi_delete\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '@multi_delete\'); ' . "\r\n";
+        $route2           = 'Route::post(\'' . $link . '/multi_delete\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '@multi_delete\'); ' . "\r\n";
 
         $admin_routes = file_get_contents(base_path('routes/admin.php'));
         if (!preg_match("/" . $link . "/i", $admin_routes)) {
@@ -192,6 +193,20 @@ class Home extends Controller
         //    $data_code    = view('baboon.code', compact('r'))->render();
 
         //********* Preparing Route ***********/
+
+        //********* Preparing Route Api ***********/
+        $linkapi             = strtolower(preg_replace('/Controller|controller/i', '', $r->input('controller_name'))) . 'Api';
+        $end_routeapi        = '//////// Api Routes /* End */ //////////////';
+        $namespace_singleapi = 'Api';
+        $route1              = 'Route::resource(\'' . $linkapi . '\',\'' . $namespace_singleapi . '\\' . $r->input('controller_name') . '\'); ' . "\r\n";
+        $routeapi            = 'Route::post(\'' . $linkapi . '/multi_delete\',\'' . $namespace_singleapi . '\\' . $r->input('controller_name') . '@multi_delete\'); ' . "\r\n";
+
+        $api_routes = file_get_contents(base_path('routes/api.php'));
+        if (!preg_match("/" . $link . "/i", $api_routes)) {
+            $api_routes = str_replace($end_routeapi, $route1 . $routeapi . "               " . $end_routeapi, $api_routes);
+            \Storage::put('routes/api.php', $api_routes);
+        }
+        //********* Preparing Route End Api ***********/
 
         //********* Preparing Menu List ***********/
         $admin_menu = file_get_contents(base_path('resources/views/admin/layouts/menu.blade.php'));
