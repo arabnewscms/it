@@ -213,8 +213,11 @@ class Generate extends Command
 
         $this->info("Auto Dump And Compile autoload....");
         shell_exec('composer dump-autoload');
-
         shell_exec('php artisan config:clear');
+
+        config('database.connections.mysql.database', $DB_DATABASE);
+        config('database.connections.mysql.username', $DB_USERNAME);
+        config('database.connections.mysql.password', $DB_PASSWORD);
 
         if (\Artisan::call('migrate') == 0) {
             $this->info("Auto Migrate Tables....");
