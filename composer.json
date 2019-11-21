@@ -18,7 +18,11 @@
 	"autoload":{
 		"psr-4":{
 			"Phpanonymous\\It\\":"it/"
-		}
+		},
+		"files": [
+			"helper/it.php",
+			"fontawesome.php"
+		]
 	},
 	"extra": {
     "branch-alias": {
