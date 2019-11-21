@@ -94,24 +94,26 @@ class Generate extends Command
         }
 
         $DB_DATABASE = $this->ask('What is your DATABASE Name ?');
+        $DB_USERNAME = $this->ask('What is your DATABASE Username ?');
+        $DB_PASSWORD = $this->ask('What is your DATABASE Password ?');
 
         if (!empty($DB_DATABASE)) {
             self::changeEnv('DB_DATABASE', $DB_DATABASE);
-        }
 
-        $DB_USERNAME = $this->ask('What is your DATABASE Username ?');
+        }
 
         if (!empty($DB_USERNAME)) {
             self::changeEnv('DB_USERNAME', $DB_USERNAME);
         }
 
-        $DB_PASSWORD = $this->ask('What is your DATABASE Password ?');
         if (!empty($DB_PASSWORD)) {
             self::changeEnv('DB_PASSWORD', $DB_PASSWORD);
         }
 
+        \Artisan::call('config:clear');
         if (!empty($DB_DATABASE)) {
             $auto_create_DB = $this->confirm("you want me a create database in your engine or you are already created database with name " . $DB_DATABASE . "? ");
+            //sleep(5);
             if ($auto_create_DB) {
                 $pdo = $this->getPDOConnection(env('DB_HOST'), env('DB_PORT'), $DB_USERNAME, $DB_PASSWORD);
 
