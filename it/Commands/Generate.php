@@ -110,7 +110,6 @@ class Generate extends Command
             self::changeEnv('DB_PASSWORD', $DB_PASSWORD);
         }
 
-        \Artisan::call('config:clear');
         if (!empty($DB_DATABASE)) {
             $auto_create_DB = $this->confirm("you want me a create database in your engine or you are already created database with name " . $DB_DATABASE . "? ");
             //sleep(5);
@@ -215,24 +214,23 @@ class Generate extends Command
         $this->info("Auto Dump And Compile autoload....");
         shell_exec('composer dump-autoload');
 
-        $this->info("Auto Migrate Tables....");
-        //shell_exec('php artisan migrate');
-        \Artisan::call('migrate');
-        $this->info("Migrate Tables Done");
+        shell_exec('php artisan config:clear');
 
-        $this->info("Auto Seed And Inject The Admin Login Data....");
-        //shell_exec('php artisan db:seed');
-        \Artisan::call('db:seed');
-        $this->info("Seed is Done");
+        if (\Artisan::call('migrate') == 0) {
+            $this->info("Auto Migrate Tables....");
+            $this->info("Migrate Tables Done");
+            \Artisan::call('db:seed');
+            $this->info("Auto Seed And Inject The Admin Login Data....");
+            $this->info("Seed is Done");
+            $this->info("your admin panel now is ready ");
+        } else {
+            // $this->info("please run this command php artisan vendor:publish --force and select 0 value to publish all config files");
 
-        $this->info("your admin panel now is ready ");
+            // $this->info("please run this command composer dump-autoload to refresh seeder path");
+            $this->info("please run this command php artisan migrate also");
+            $this->info("please run this command php artisan db:seed to fetch admin data (email: test@test.com) - (password: 123456) also");
+        }
 
-        //$this->info("please run this command php artisan vendor:publish --force and select 0 value to publish all config files");
-
-        //  $this->info("please run this command composer dump-autoload to refresh seeder path");
-
-        //  $this->info("please run this command php artisan migrate also");
-        // $this->info("please run this command php artisan db:seed to fetch admin data (email: test@test.com) - (password: 123456) also");
         $this->info("Login your Admin Panel with (email: test@test.com) - (password: 123456)");
 
         $this->info("Enjoy <3");
@@ -244,6 +242,7 @@ class Generate extends Command
 
     private function getPDOConnection($host, $port, $username, $password)
     {
+
         return new \PDO(sprintf('mysql:host=%s;port=%d;', $host, $port), $username, $password);
     }
 
