@@ -31,6 +31,16 @@ class Generate extends Command
         parent::__construct();
     }
 
+    public static function fakeValEnv($key, $value)
+    {
+        $path = base_path('.env');
+        if (file_exists($path)) {
+            $current = file_get_contents($path);
+            $current = str_replace($key . '=', $key . '=' . $value, $current);
+            file_put_contents($path, $current);
+        }
+    }
+
     public static function changeEnv($key, $value)
     {
         $path = base_path('.env');
@@ -61,6 +71,9 @@ class Generate extends Command
     public function handle()
     {
 
+        self::fakeValEnv('DB_DATABASE', 'fake');
+        self::fakeValEnv('DB_USERNAME', 'fake');
+        self::fakeValEnv('DB_PASSWORD', 'fake');
         \Config::set('filesystems.default', 'it');
 
         if (!class_exists('ZipArchive')) {
@@ -79,15 +92,20 @@ class Generate extends Command
                 }
             }
         }
+
         $DB_DATABASE = $this->ask('What is your DATABASE Name ?');
-        $DB_USERNAME = $this->ask('What is your DATABASE Username ?');
-        $DB_PASSWORD = $this->ask('What is your DATABASE Password ?');
+
         if (!empty($DB_DATABASE)) {
             self::changeEnv('DB_DATABASE', $DB_DATABASE);
         }
+
+        $DB_USERNAME = $this->ask('What is your DATABASE Username ?');
+
         if (!empty($DB_USERNAME)) {
             self::changeEnv('DB_USERNAME', $DB_USERNAME);
         }
+
+        $DB_PASSWORD = $this->ask('What is your DATABASE Password ?');
         if (!empty($DB_PASSWORD)) {
             self::changeEnv('DB_PASSWORD', $DB_PASSWORD);
         }
