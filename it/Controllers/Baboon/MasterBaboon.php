@@ -3,6 +3,8 @@ namespace Phpanonymous\It\Controllers\Baboon;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Phpanonymous\It\Controllers\Baboon\Api\BaboonCreateApi;
+use Phpanonymous\It\Controllers\Baboon\Api\BaboonUpdateApi;
 use Phpanonymous\It\Controllers\Baboon\BaboonCreate;
 use Phpanonymous\It\Controllers\Baboon\BaboonSchema;
 use Phpanonymous\It\Controllers\Baboon\BaboonUpdate;
@@ -11,7 +13,7 @@ class MasterBaboon extends Controller
 {
     //
     static $full_path        = '';
-    public static $copyright = '[It V 1.0 | https://it.phpanonymous.com]';
+    public static $copyright = '[It V 1.2 | https://it.phpanonymous.com]';
     public static function makeController($r, $namespace, $model, $classname)
     {
         $controller = '<?php
@@ -39,6 +41,40 @@ class {ClassName} extends Controller
         $controller .= BaboonUpdate::destroyMethod($r) . "\n";
         $controller .= '}';
         $controller = str_replace('{Space}', $namespace, $controller);
+        $controller = str_replace('{Model}', $model, $controller);
+        $controller = str_replace('{ClassName}', $classname, $controller);
+        $classname  = str_replace('Controller', '', $classname);
+        $classname  = str_replace('controller', '', $classname);
+        $controller = str_replace('{ClassName2}', $classname, $controller);
+        return $controller;
+    }
+
+    public static function makeControllerApi($r, $namespace, $model, $classname)
+    {
+        $controller = '<?php
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+use {Model};
+use Validator;
+use Set;
+use Up;
+use Form;
+// Auto Controller Maker By Baboon Script
+// Baboon Maker has been Created And Developed By  ' . self::$copyright . '
+// Copyright Reserved  ' . self::$copyright . '
+class {ClassName}Api extends Controller
+{' . "\n";
+        $controller .= BaboonCreateApi::indexMethod($r) . "\n";
+        $controller .= BaboonCreateApi::storeMethod($r) . "\n";
+        $controller .= BaboonUpdateApi::showMethod($r) . "\n";
+        $controller .= BaboonUpdateApi::updateMethod($r) . "\n";
+        $controller .= BaboonUpdateApi::destroyMethod($r) . "\n";
+
+        $controller .= '}';
+        //$controller = str_replace('{Space}', $namespace, $controller);
         $controller = str_replace('{Model}', $model, $controller);
         $controller = str_replace('{ClassName}', $classname, $controller);
         $classname  = str_replace('Controller', '', $classname);

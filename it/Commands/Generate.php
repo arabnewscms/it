@@ -126,6 +126,50 @@ class Generate extends Command
             shell_exec('php artisan it:install laravelcollective');
         }
 
+        if (check_package("zendframework/zend-paginator") === null) {
+            $this->info("Downloading zend-paginator ....");
+            shell_exec('composer require zendframework/zend-paginator');
+        }
+
+        if (check_package("pagerfanta/pagerfanta") === null) {
+            $this->info("Downloading pagerfanta ....");
+            shell_exec('composer require pagerfanta/pagerfanta');
+        }
+        // if (check_package("calcinai/php-imagick") === null) {
+        //     $this->info("Downloading php-imagick ....");
+        //     shell_exec('composer require calcinai/php-imagick');
+        // }
+
+        if (check_package("barryvdh/laravel-snappy") === null) {
+            $this->info("Downloading barryvdh/laravel-snappy ....");
+            shell_exec('composer require barryvdh/laravel-snappy');
+        }
+
+        if (check_package("jpgraph/jpgraph") === null) {
+            $this->info("Downloading jpgraph....");
+            shell_exec('composer require jpgraph/jpgraph');
+        }
+
+        if (check_package("tecnickcom/tcpdf") === null) {
+            $this->info("Downloading tcpdf....");
+            shell_exec('composer require tecnickcom/tcpdf');
+        }
+
+        if (check_package("mpdf/mpdf") === null) {
+            $this->info("Downloading mpdf....");
+            shell_exec('composer require mpdf/mpdf');
+        }
+
+        if (check_package("dompdf/dompdf") === null) {
+            $this->info("Downloading dompdf....");
+            shell_exec('composer require dompdf/dompdf');
+        }
+
+        if (check_package("phpoffice/phpspreadsheet") === null) {
+            $this->info("Downloading Datatable Yajra Package....");
+            shell_exec('composer require phpoffice/phpspreadsheet');
+        }
+
         if (check_package("yajra/laravel-datatables-oracle") === null) {
             $this->info("Downloading Datatable Yajra Package....");
             shell_exec('php artisan it:install yajra');
@@ -139,19 +183,43 @@ class Generate extends Command
         }
 
         $this->line("All File Extracted And Published");
+
         $this->info("Link Storage Automatically....");
         shell_exec('php artisan storage:link');
 
+        $this->info("Auto Publishable Files And Folders....");
+        //shell_exec('php artisan vendor:publish --tag=0 --force');
+        \Artisan::call('vendor:publish --tag=0 --force');
+        $this->info("Publish Files And Folders is Done");
+
+        $this->info("Auto Dump And Compile autoload....");
+        shell_exec('composer dump-autoload');
+
+        $this->info("Auto Migrate Tables....");
+        //shell_exec('php artisan migrate');
+        \Artisan::call('migrate');
+        $this->info("Migrate Tables Done");
+
+        $this->info("Auto Seed And Inject The Admin Login Data....");
+        //shell_exec('php artisan db:seed');
+        \Artisan::call('db:seed');
+        $this->info("Seed is Done");
+
         $this->info("your admin panel now is ready ");
 
-        $this->info("please run this command php artisan vendor:publish --force and select 0 value to publish all config files");
+        //$this->info("please run this command php artisan vendor:publish --force and select 0 value to publish all config files");
 
-        $this->info("please run this command composer dump-autoload to refresh seeder path");
+        //  $this->info("please run this command composer dump-autoload to refresh seeder path");
 
-        $this->info("please run this command php artisan migrate also");
-        $this->info("please run this command php artisan db:seed to fetch admin data (email: test@test.com) - (password: 123456) also");
+        //  $this->info("please run this command php artisan migrate also");
+        // $this->info("please run this command php artisan db:seed to fetch admin data (email: test@test.com) - (password: 123456) also");
+        $this->info("Login your Admin Panel with (email: test@test.com) - (password: 123456)");
 
         $this->info("Enjoy <3");
+        $this->info("regards and i can assist you now");
+        if (date('m') == 1) {
+            $this->info("Happy New Year " . date('2020'));
+        }
     }
 
     private function getPDOConnection($host, $port, $username, $password)

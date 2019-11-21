@@ -1,23 +1,27 @@
 <?php
 namespace Phpanonymous\It\Controllers\Baboon;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Phpanonymous\It\Controllers\Baboon\BaboonDataTable;
 use Phpanonymous\It\Controllers\Baboon\BaboonShowPage;
 use Phpanonymous\It\Controllers\Baboon\MasterBaboon as Baboon;
 
-class Home extends Controller {
+class Home extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
 
-    public function index() {
+    public function index()
+    {
         return view('baboon.home', ['title' => it_trans('it.baboon-sd')]);
     }
 
-    public static function autoconvSchemaTableName($conv) {
+    public static function autoconvSchemaTableName($conv)
+    {
         if (!in_array(substr($conv, -1), ['s'])) {
             if (substr($conv, -1) == 'y') {
                 $conv = substr($conv, 0, -1) . 'ies';
@@ -28,7 +32,8 @@ class Home extends Controller {
         return $conv;
     }
 
-    public function index_post(Request $r) {
+    public function index_post(Request $r)
+    {
 
         $this->validate(request(), [
             'model_name'          => 'required',
@@ -52,6 +57,10 @@ class Home extends Controller {
             $r->input('model_namespace') . '\\' . $r->input('model_name'),
             $r->input('controller_name'));
 
+        $controllerApi = Baboon::makeControllerApi($r, $r->input('controller_namespace'),
+            $r->input('model_namespace') . '\\' . $r->input('model_name'),
+            $r->input('controller_name'));
+
         $model   = Baboon::makeModel($r->input('model_namespace'), $r->input('model_name'));
         $migrate = Baboon::migrate($r);
 
@@ -72,12 +81,17 @@ class Home extends Controller {
         //Baboon::check_path('resources\\views');// Make views folder
         Baboon::check_path($r->input('admin_folder_path')); // Make views folder
         Baboon::check_path('resources\\assets'); // Make assets folder
+        Baboon::check_path('app\\Http\\Controllers\\Api'); // Make assets folder
 
         if ($controller_path and $model_path and $database_path) {
 
             if (request()->has('make_controller')) {
                 Baboon::write($controller, $r->input('controller_name'), $r->input('controller_namespace'));
             }
+
+            // if (request()->has('make_controller_api')) {
+            Baboon::write($controllerApi, $r->input('controller_name') . 'Api', 'App\Http\Controllers/Api');
+            // }
 
             if (request()->has('make_model')) {
                 Baboon::write($model, $r->input('model_name'), $r->input('model_namespace'));
@@ -224,7 +238,8 @@ class Home extends Controller {
         return response(['status' => true, 'message' => 'CRUD Created Successfully']);
     }
 
-    public function makeNamespace($type) {
+    public function makeNamespace($type)
+    {
         if (request()->has('namespace')) {
             if ($type == 'controller') {
                 \Storage::disk('it')
