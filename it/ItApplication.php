@@ -1,6 +1,10 @@
 <?php
 namespace Phpanonymous\It;
+/*
+$model_prefix = str_replace('/', '\\', 'App\\' . explode('Http', $namespaces)[1]);
 
+$model_prefix = str_replace('\\\\', '\\', $model_prefix);
+*/
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Phpanonymous\It\Commands\Generate;
