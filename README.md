@@ -1,5 +1,5 @@
-# it version 1.3
-Work With Laravel 6.0 & above
+# it version 1.4
+Work With Laravel 7.0 & above
 # A simple Track To make sense
 # usage & Instllation & documentations
 [https://it.phpanonymous.com/docs](https://it.phpanonymous.com/docs)
@@ -22,4 +22,4 @@ Work With Laravel 6.0 & above
 
 Your assistant Is Ready (<3)
 
-Copyright Reserved 2019 LTS Script By phpanonymous.com
+Copyright Reserved 2020 LTS Script By phpanonymous.com
