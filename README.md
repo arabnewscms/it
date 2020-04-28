@@ -1,4 +1,4 @@
-# it version 1.4
+# it version 1.4.1
 Work With Laravel 7.0 & above
 # A simple Track To make sense
 # usage & Instllation & documentations
