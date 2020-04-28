@@ -311,7 +311,23 @@ class {ClassName}DataTable extends DataTable
 			if ($r->has('image'.$x)) {
 				$images_html .= "'".$conv."',";
 				$blade_name = str_replace('controller', '', strtolower(request('controller_name')));
-				$img        = '<img src="{{ it()->url($'.$conv.') }}" style="width:25px;height:25px" />';
+				$img        = '@if(!empty($'.$conv.'))
+                <a href="#" data-toggle="modal" data-target="#img{{ $id }}"><img src="{{ it()->url($'.$conv.') }}" style="width:32px;height:32px" /></a>';
+				$img .= '
+<div id="img{{ $id }}" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img src="{{ it()->url($'.$conv.') }}" style="width:100%;height:500px" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans("admin.close") }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+                ';
 				if (!empty($img)) {
 					Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name);
 					Baboon::write($img, $conv.'.blade', $r->input('admin_folder_path').'\\'.$blade_name.'\\buttons');
