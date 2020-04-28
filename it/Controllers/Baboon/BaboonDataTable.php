@@ -91,10 +91,12 @@ class {ClassName}DataTable extends DataTable
 
 				$pre_conv = explode('|', $conv);
 				if (request()->has('forginkeyto'.$i2)) {
-					$pluck_name = explode('pluck(', $pre_conv[1]);
-					$pluck_name = !empty($pluck_name) && count($pluck_name) > 0?explode(',', $pluck_name[1]):[];
+					$pluck_name      = explode('pluck(', $pre_conv[1]);
+					$pluck_name      = !empty($pluck_name) && count($pluck_name) > 0?explode(',', $pluck_name[1]):[];
+					$final_pluckName = str_replace("'", "", $pluck_name[0]);
+				} else {
+					$final_pluckName = '';
 				}
-				$final_pluckName = str_replace("'", "", $pluck_name[0]);
 				//return dd(str_replace("'", "", $pluck_name[0]));
 				if (!empty($final_pluckName) && request()->has('forginkeyto'.$i2)) {
 
