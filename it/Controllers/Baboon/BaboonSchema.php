@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 
 class BaboonSchema extends Controller {
 	//
-	public static $copyright = '[It V 1.0 | https://it.phpanonymous.com]';
+	public static $copyright = '[It V 1.4 | https://it.phpanonymous.com]';
 
 	public static function convention_name($string) {
 		$conv = strtolower(ltrim(preg_replace('/(?<!\ )[A-Z]/', '_$0', $string), '_'));
@@ -155,6 +155,8 @@ class Create{ClassName}Table extends Migration
 			} elseif (!$r->has('numeric'.$i)) {
 				if ($r->input('col_type')[$i] == 'textarea') {
 					$col .= '            $table->longtext(\''.$name[0].'\'';
+				} elseif ($r->input('col_type')[$i] == 'textarea_ckeditor') {
+					$col .= '            $table->longtext(\''.$name[0].'\'';
 				} else {
 					$col .= '            $table->string(\''.$name[0].'\'';
 				}
@@ -181,6 +183,8 @@ class Create{ClassName}Table extends Migration
 				$col .= '            $table->bigInteger(\''.$name.'\'';
 			} elseif (!$r->has('numeric'.$i)) {
 				if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'textarea') {
+					$col .= '            $table->longtext(\''.$name.'\'';
+				} elseif (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'textarea_ckeditor') {
 					$col .= '            $table->longtext(\''.$name.'\'';
 				} elseif ($r->input('col_type')[$i] == 'date_time') {
 					$col .= '            $table->dateTime(\''.$name.'\'';
