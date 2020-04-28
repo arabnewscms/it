@@ -662,6 +662,7 @@
                         @endif
                         $(document).ready(function(){
                         $('.date-picker').datepicker();
+                        $.fn.dataTable.ext.errMode = 'none';
                         });
                         </script>
 
