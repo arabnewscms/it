@@ -88,16 +88,26 @@ class {ClassName}DataTable extends DataTable
 		foreach ($r->input('col_name_convention') as $conv) {
 			$cols .= '				['."\n";
 			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
-				$pre_conv        = explode('|', $conv);
-				$pluck_name      = explode('pluck(', $pre_conv[1]);
-				$pluck_name      = explode(',', $pluck_name[1]);
-				$final_pluckName = str_replace("'", "", $pluck_name[0]);
 
+				$pre_conv = explode('|', $conv);
+				if (request()->has('forginkeyto'.$i2)) {
+					$pluck_name = explode('pluck(', $pre_conv[1]);
+					$pluck_name = !empty($pluck_name) && count($pluck_name) > 0?explode(',', $pluck_name[1]):[];
+				}
+				$final_pluckName = str_replace("'", "", $pluck_name[0]);
 				//return dd(str_replace("'", "", $pluck_name[0]));
-				if (!empty($final_pluckName)) {
+				if (!empty($final_pluckName) && request()->has('forginkeyto'.$i2)) {
 
 					$cols .= '                 \'name\'=>\''.$pre_conv[0].'.'.$final_pluckName.''.'\','."\n";
 					$cols .= '                 \'data\'=>\''.$pre_conv[0].'.'.$final_pluckName.'\','."\n";
+				} elseif (!request()->has('forginkeyto'.$i2)) {
+					$cols .= '                 \'name\'=>\''.$pre_conv[0].'\','."\n";
+					$cols .= '                 \'data\'=>\''.$pre_conv[0].'\','."\n";
+					$cols .= '                 \'exportable\' => false,'."\n";
+					$cols .= '                 \'printable\'  => false,'."\n";
+					$cols .= '                 \'searchable\' => false,'."\n";
+					$cols .= '                 \'orderable\'  => false,'."\n";
+
 				} else {
 					$cols .= '                 \'name\'=>\''.$pre_conv[0].'\','."\n";
 					$cols .= '                 \'data\'=>\''.$pre_conv[0].'\','."\n";
@@ -291,9 +301,21 @@ class {ClassName}DataTable extends DataTable
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 
+			// Here Add New Column Image To View Image with Modal Start//
 			if ($r->has('image'.$i)) {
 				$ajax .= '            ->addColumn(\''.$conv.'\', \'{path}.{name}.buttons.'.$conv.'\')'."\n\r";
 			}
+			// Here Add New Column Image To View Image with Modal End//
+
+			// Here Add Column To Enum Values Start //
+			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
+				$pre_conv = explode('|', $conv);
+				if (!request()->has('forginkeyto'.$i)) {
+					$ajax .= '            ->addColumn(\''.$pre_conv[0].'\', \'{{ trans("admin.".$'.$pre_conv[0].') }}\')'."\n\r";
+				}
+			}
+			// Here Add Column To Enum Values Start //
+
 			$i++;
 		}
 
