@@ -1,6 +1,6 @@
 {
 	"name":"phpanonymous/it",
-	"description": "A Simple Track to make sense by TagatSoft  ",
+	"description": "A Simple Track to make sense by TagatSoft",
 	"type":"package",
 	"license": "MIT",
 	"keywords":["laravel","It application With It-platinum","php"],
@@ -22,7 +22,7 @@
 	},
 	"extra": {
     "branch-alias": {
-            "dev-master": "1.4.0.x-dev"
+            "dev-master": "1.4.1.x-dev"
     },
         "laravel": {
             "providers": [
@@ -33,7 +33,7 @@
             }
         }
   },
-	"version":"1.4.0",
+	"version":"1.4.1",
   "minimum-stability": "dev",
   "prefer-stable": true
 }
