@@ -2,47 +2,45 @@
 namespace Phpanonymous\It\Controllers\Baboon;
 
 use App\Http\Controllers\Controller;
+use Phpanonymous\It\Controllers\Baboon\MasterBaboon as Baboon;
 
-class BaboonDataTable extends Controller
-{
-    //
-    public static $copyright = '[It V 1.0 | https://it.phpanonymous.com]';
+class BaboonDataTable extends Controller {
+	//
+	public static $copyright = '[It V 1.0 | https://it.phpanonymous.com]';
 
-    public static function dbclass($r)
-    {
-        $datatable = '<?php
+	public static function dbclass($r) {
+		$datatable = '<?php
 namespace App\DataTables;
 use {Model};
 //use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Services\DataTable;
 // Auto DataTable By Baboon Script
-// Baboon Maker has been Created And Developed By ' . self::$copyright . '
-// Copyright Reserved ' . self::$copyright . '
+// Baboon Maker has been Created And Developed By '.self::$copyright.'
+// Copyright Reserved '.self::$copyright.'
 class {ClassName}DataTable extends DataTable
 {
-    	' . "\n";
-        $datatable .= self::ajaxMethod($r) . "\n";
-        $datatable .= self::queryMethod($r) . "\n";
-        $datatable .= self::htmlMethod($r) . "\n";
-        $datatable .= self::getcolsMethod($r) . "\n";
-        $datatable .= self::filenameMethod($r) . "\n";
+    	'."\n";
+		$datatable .= self::ajaxMethod($r)."\n";
+		$datatable .= self::queryMethod($r)."\n";
+		$datatable .= self::htmlMethod($r)."\n";
+		$datatable .= self::getcolsMethod($r)."\n";
+		$datatable .= self::filenameMethod($r)."\n";
 
-        $datatable .= '}';
+		$datatable .= '}';
 
-        $nameclass = str_replace('Controller', '', $r->input('controller_name'));
-        $datatable = str_replace('{ClassName}', $nameclass, $datatable);
-        $datatable = str_replace('{lang}', $r->input('lang_file'), $datatable);
+		$nameclass = str_replace('Controller', '', $r->input('controller_name'));
+		$datatable = str_replace('{ClassName}', $nameclass, $datatable);
+		$datatable = str_replace('{lang}', $r->input('lang_file'), $datatable);
 
-        $datatable = str_replace('{Model}',
-            $r->input('model_namespace') . '\\' . $r->input('model_name'), $datatable);
+		$datatable = str_replace('{Model}',
+			$r->input('model_namespace').'\\'.$r->input('model_name'), $datatable);
 
-        return $datatable;
-    }
+		return $datatable;
+	}
 
-    public static function filenameMethod($r)
-    {
-        $filename = '
+	public static function filenameMethod($r) {
+		$filename = '
 	    /**
 	     * Get filename for export.
 	     * Auto filename Method By Baboon Script
@@ -53,17 +51,16 @@ class {ClassName}DataTable extends DataTable
 	        return \'{name}_\' . time();
 	    }
     	';
-        $name     = str_replace('Controller', '', $r->input('controller_name'));
-        $filename = str_replace('{name}', strtolower($name), $filename);
-        return $filename;
-    }
+		$name     = str_replace('Controller', '', $r->input('controller_name'));
+		$filename = str_replace('{name}', strtolower($name), $filename);
+		return $filename;
+	}
 
-    public static function getcolsMethod($r)
-    {
-        $cols = '
+	public static function getcolsMethod($r) {
+		$cols = '
     	/**
 	     * Get columns.
-	     * Auto getColumns Method By Baboon Script ' . self::$copyright . '
+	     * Auto getColumns Method By Baboon Script '.self::$copyright.'
 	     * @return array
 	     */
 
@@ -85,31 +82,47 @@ class {ClassName}DataTable extends DataTable
             ],
 
 
-	        ' . "\n";
-        foreach ($r->input('col_name_convention') as $conv) {
-            $cols .= '				[' . "\n";
-            if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
-                $pre_conv = explode('|', $conv);
+	        '."\n";
+		$i2 = 0;
 
-                $cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
-                $cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
-                $cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
-            } elseif (preg_match('/#/i', $conv)) {
-                $pre_conv = explode('#', $conv);
-                if (!preg_match('/' . $pre_conv[0] . '/', $cols)) {
-                    $cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
-                    $cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
-                    $cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
-                }
-            } else {
-                $cols .= '                 \'name\'=>\'' . $conv . '\',' . "\n";
-                $cols .= '                 \'data\'=>\'' . $conv . '\',' . "\n";
-                $cols .= '                 \'title\'=>trans(\'{lang}.' . $conv . '\'),' . "\n";
-            }
-            $cols .= '		    ],' . "\n";
-        }
+		foreach ($r->input('col_name_convention') as $conv) {
+			$cols .= '				['."\n";
+			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
+				$pre_conv        = explode('|', $conv);
+				$pluck_name      = explode('pluck(', $pre_conv[1]);
+				$pluck_name      = explode(',', $pluck_name[1]);
+				$final_pluckName = str_replace("'", "", $pluck_name[0]);
 
-        $cols .= ' [
+				//return dd(str_replace("'", "", $pluck_name[0]));
+				if (!empty($final_pluckName)) {
+
+					$cols .= '                 \'name\'=>\''.$pre_conv[0].'.'.$final_pluckName.''.'\','."\n";
+					$cols .= '                 \'data\'=>\''.$pre_conv[0].'.'.$final_pluckName.'\','."\n";
+				} else {
+					$cols .= '                 \'name\'=>\''.$pre_conv[0].'\','."\n";
+					$cols .= '                 \'data\'=>\''.$pre_conv[0].'\','."\n";
+				}
+
+				$cols .= '                 \'title\'=>trans(\'{lang}.'.$pre_conv[0].'\'),'."\n";
+			} elseif (preg_match('/#/i', $conv)) {
+				$pre_conv = explode('#', $conv);
+				if (!preg_match('/'.$pre_conv[0].'/', $cols)) {
+					$cols .= '                 \'name\'=>\''.$pre_conv[0].'\','."\n";
+					$cols .= '                 \'data\'=>\''.$pre_conv[0].'\','."\n";
+					$cols .= '                 \'title\'=>trans(\'{lang}.'.$pre_conv[0].'\'),'."\n";
+				}
+			} else {
+
+				$cols .= '                 \'name\'=>\''.$conv.'\','."\n";
+				$cols .= '                 \'data\'=>\''.$conv.'\','."\n";
+				$cols .= '                 \'title\'=>trans(\'{lang}.'.$conv.'\'),'."\n";
+			}
+			$cols .= '		    ],'."\n";
+
+			$i2++;
+		}
+
+		$cols .= '            [
 	                \'name\' => \'actions\',
 	                \'data\' => \'actions\',
 	                \'title\' => trans(\'admin.actions\'),
@@ -121,20 +134,19 @@ class {ClassName}DataTable extends DataTable
 	        ];
 	    }
     	';
-        $cols = str_replace('{lang}', $r->input('lang_file'), $cols);
-        return $cols;
-    }
+		$cols = str_replace('{lang}', $r->input('lang_file'), $cols);
+		return $cols;
+	}
 
-    public static function htmlMethod($r)
-    {
-        $stud = '';
-        for ($i = 0; $i < count(request('col_name')); $i++) {
-            $stud .= ($i + 1) . ',';
-        }
-        $html = '
+	public static function htmlMethod($r) {
+		$stud = '';
+		for ($i = 0; $i < count(request('col_name')); $i++) {
+			$stud .= ($i+1).',';
+		}
+		$html = '
     	 /**
 	     * Optional method if you want to use html builder.
-	     *' . self::$copyright . '
+	     *'.self::$copyright.'
 	     * @return \Yajra\Datatables\Html\Builder
 	     */
     	public function html()
@@ -164,7 +176,7 @@ class {ClassName}DataTable extends DataTable
                     ],
                 ],
                 \'initComplete\' => "function () {
-                this.api().columns([' . substr($stud, 0, -1) . ']).every(function () {
+                this.api().columns(['.substr($stud, 0, -1).']).every(function () {
                 var column = this;
                 var input = document.createElement(\"input\");
                 $(input).attr( \'style\', \'width: 100%\');
@@ -208,56 +220,114 @@ class {ClassName}DataTable extends DataTable
 	    }
 
     	';
-        return $html;
-    }
+		return $html;
+	}
 
-    public static function queryMethod($r)
-    {
-        $query = '
+	public static function convention_name($string) {
+		$conv = strtolower(ltrim(preg_replace('/(?<!\ )[A-Z]/', '_$0', $string), '_'));
+		if (!in_array(substr($conv, -1), ['s'])) {
+			if (substr($conv, -1) == 'y') {
+				$conv = substr($conv, 0, -1).'ies';
+			} else {
+				$conv = $conv.'s';
+			}
+		}
+		return $conv;
+	}
+
+	public static function queryMethod($r) {
+		$query = '
      /**
      * Get the query object to be processed by dataTables.
-     * Auto Ajax Method By Baboon Script ' . self::$copyright . '
+     * Auto Ajax Method By Baboon Script '.self::$copyright.'
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection
      */
 	public function query()
     {
-        return {Model}::query();
+        return {Model}::query(){WithRelation}->select("'.self::convention_name(request('model_name')).'.*");
 
     }
     	';
 
-        $query = str_replace('{Model}', $r->input('model_name'), $query);
-        return $query;
-    }
+		$WithRelation = '';
+		$i2           = 0;
+		foreach ($r->input('col_name_convention') as $conv) {
+			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
+				$pre_conv = explode('|', $conv);
+				if ($r->has('forginkeyto'.$i2)) {
+					$WithRelation .= "'$pre_conv[0]',";
+				}
+			}
+			$i2++;
+		}
 
-    public static function ajaxMethod($r)
-    {
-        $ajax = '
+		if (!empty($WithRelation)) {
+			$query = str_replace('{WithRelation}', '->with(['.$WithRelation.'])', $query);
+		} else {
+			$query = str_replace('{WithRelation}', '', $query);
+		}
+
+		$query = str_replace('{Model}', $r->input('model_name'), $query);
+		return $query;
+	}
+
+	public static function ajaxMethod($r) {
+		$ajax = '
      /**
      * Display a listing of the resource.
-     * Auto Ajax Method By Baboon Script ' . self::$copyright . '
+     * Auto Ajax Method By Baboon Script '.self::$copyright.'
      * @return \Illuminate\Http\Response
      */
 
      /**
      * Display ajax response.
-     * Auto Ajax Method By Baboon Script ' . self::$copyright . '
+     * Auto Ajax Method By Baboon Script '.self::$copyright.'
      * @return \Illuminate\Http\JsonResponse
      */
     public function dataTable(DataTables $dataTables, $query)
     {
         return datatables($query)
-            ->addColumn(\'actions\', \'{path}.{name}.buttons.actions\')
-			->addColumn(\'checkbox\', \'<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+            ->addColumn(\'actions\', \'{path}.{name}.buttons.actions\')'."\n\r";
+		$i = 0;
+		foreach ($r->input('col_name_convention') as $conv) {
+
+			if ($r->has('image'.$i)) {
+				$ajax .= '            ->addColumn(\''.$conv.'\', \'{path}.{name}.buttons.'.$conv.'\')'."\n\r";
+			}
+			$i++;
+		}
+
+		$ajax .= '            ->addColumn(\'checkbox\', \'<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
 			<input type="checkbox" class="selected_data" name="selected_data[]" value="{{ $id }}"> <span></span></label>\')
-            ->rawColumns([\'checkbox\',\'actions\']);
+            ->rawColumns([\'checkbox\',\'actions\',{images_html}]);
     }
   ';
 
-        $nameclass  = str_replace('controller', '', strtolower($r->input('controller_name')));
-        $ajax       = str_replace('{name}', $nameclass, $ajax);
-        $blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
-        $ajax       = str_replace('{path}', $blade_path, $ajax);
-        return $ajax;
-    }
+		// Create Image Start //
+		$x           = 0;
+		$images_html = '';
+		foreach ($r->input('col_name_convention') as $conv) {
+
+			if ($r->has('image'.$x)) {
+				$images_html .= "'".$conv."',";
+				$blade_name = str_replace('controller', '', strtolower(request('controller_name')));
+				$img        = '<img src="{{ it()->url($'.$conv.') }}" style="width:25px;height:25px" />';
+				if (!empty($img)) {
+					Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name);
+					Baboon::write($img, $conv.'.blade', $r->input('admin_folder_path').'\\'.$blade_name.'\\buttons');
+				}
+
+			}
+			$x++;
+		}
+		// Create Image End //
+
+		$nameclass  = str_replace('controller', '', strtolower($r->input('controller_name')));
+		$ajax       = str_replace('{images_html}', $images_html, $ajax);
+		$ajax       = str_replace('{name}', $nameclass, $ajax);
+		$blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
+		$ajax       = str_replace('{path}', $blade_path, $ajax);
+
+		return $ajax;
+	}
 }
