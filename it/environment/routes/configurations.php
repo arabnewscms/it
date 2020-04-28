@@ -70,3 +70,13 @@ if (!function_exists('active_link')) {
 	}
 }
 ////// Admin Url Function /////////////////////
+
+if (!function_exists('l')) {
+	function l($obj) {
+		if (app('l') == 'ar') {
+			return $obj.'_ar';
+		} elseif (app('l') == 'en') {
+			return $obj.'_en';
+		}
+	}
+}

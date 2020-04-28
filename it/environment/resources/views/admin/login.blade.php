@@ -28,14 +28,21 @@
         <!-- END PAGE LEVEL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <!-- END THEME LAYOUT STYLES -->
-        <link rel="shortcut icon" href="favicon.ico" />
+        @if(!empty(setting()->icon))
+        <link rel="shortcut icon" href="{{ it()->url(setting()->icon) }}" />
+        @endif
     </head>
     <!-- END HEAD -->
     <body class=" login">
         <!-- BEGIN LOGO -->
         <div class="logo">
             <a href="{{ aurl('login') }}">
-            <img src="{{url('design/admin_panel')}}/assets/pages/img/logo-big.png" alt="" /> </a>
+            @if(!empty(setting()->logo))
+            <img src="{{it()->url(setting()->logo)}}" alt="{{ setting()->{l('sitename')} }}" style="width:48px;height: 48px" />
+            @else
+            {{ setting()->{l('sitename')} }}
+            @endif
+        </a>
         </div>
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->

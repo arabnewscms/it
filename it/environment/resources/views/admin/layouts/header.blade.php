@@ -61,7 +61,9 @@
 
         <script src="{{url('design/admin_panel')}}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT STYLES -->
-        <link rel="shortcut icon" href="favicon.ico" />
+        @if(!empty(setting()->icon))
+        <link rel="shortcut icon" href="{{ it()->url(setting()->icon) }}" />
+        @endif
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <!-- END CORE PLUGINS -->
@@ -73,7 +75,7 @@
         @if(app("l") != 'ar')
         <link href="{{ url("design/admin_panel/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css") }}" rel="stylesheet" type="text/css" />
         @endif
-        
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
         <style type="text/css">
             .table-responsive{

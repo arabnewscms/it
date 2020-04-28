@@ -5,7 +5,13 @@
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
                     <a href="{{ aurl('') }}">
-                        <img src="{{url('design/admin_panel')}}/assets/layouts/layout4/img/logo-light.png" alt="logo" class="logo-default" /> </a>
+
+            @if(!empty(setting()->logo))
+                <img src="{{it()->url(setting()->logo)}}" alt="{{ setting()->{l('sitename')} }}" style="width:50px;height: 25px"  class="logo-default" />
+            @else
+            {{ setting()->{l('sitename')} }}
+            @endif
+                    </a>
                     <div class="menu-toggler sidebar-toggler">
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                     </div>
