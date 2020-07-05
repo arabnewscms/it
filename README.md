@@ -9,7 +9,7 @@ Work With Laravel 7.0 & above
 
 # tutorial videos On YouTube
 
-[https://www.youtube.com/playlist?list=PLcfD.....](https://www.youtube.com/playlist?list=PLcfD4HARQRF-zd0Kue0q8OTpS7f7j0J5B)
+[see this course on youtube ](https://www.youtube.com/playlist?list=PLcfD4HARQRF_Jo2gdldaiUbh29EzaMqlt&fbclid=IwAR1Iej_mJ1fwGPN3MqgXiv4-vu1rad5fRLomWjXaD3u8APMRRsT9k9q7he8)
 
 # join Us Our Group On Facebook
 [https://www.facebook.com/groups/anonymouses.developers](https://www.facebook.com/groups/anonymouses.developers)
