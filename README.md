@@ -1,5 +1,5 @@
-# it version 1.4.1
-Work With Laravel 7.0 & above
+# it version 1.4.2
+Work With Laravel 7.0 & above make sure to use php version 7.2 at least 
 # A simple Track To make sense
 # usage & Instllation & documentations
 [https://it.phpanonymous.com/docs](https://it.phpanonymous.com/docs)
