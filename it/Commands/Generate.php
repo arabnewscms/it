@@ -3,7 +3,6 @@
 namespace Phpanonymous\It\Commands;
 use Config;
 use Illuminate\Console\Command;
-use PDO;
 use Phpanonymous\It\Commands\DotenvEditor;
 
 class Generate extends Command {
@@ -68,6 +67,8 @@ class Generate extends Command {
 			$this->error("you should be enable the ZipArchive extension On Your Apache To continue ");
 			return '';
 		}
+		$this->warn("attention please: If an event with you (No such file or directory) OR (Connection refused) You should make sure that you have network access validity to ip 127.0.0.1 and default port and access to your mysql check your Apache if you are use MAMP or Xampp Or Wamp Or Lamp ");
+
 		$this->line("Hello Developer thank you for choosing Our Package  \r\n & Welcome to (IT) Super package \r\n Please Answer this questions to auto create your database !!");
 		if (PHP_OS == 'Darwin') {
 			$mamp_pro = $this->confirm("you are using mamp pro ?");
@@ -76,7 +77,6 @@ class Generate extends Command {
 					self::changeEnv('DB_SOCKET', '/Applications/MAMP/tmp/mysql/mysql.sock');
 
 					\Config::set('database.connections.mysql.unix_socket', '/Applications/MAMP/tmp/mysql/mysql.sock');
-
 				}
 			}
 		}
@@ -100,11 +100,10 @@ class Generate extends Command {
 
 		if (!empty($DB_DATABASE)) {
 			$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name ".$DB_DATABASE."? ");
-			//sleep(5);
 			if ($auto_create_DB) {
-				$pdo = $this->getPDOConnection(env('DB_HOST'), env('DB_PORT'), $DB_USERNAME, $DB_PASSWORD);
-
-				//return $DB_USERNAME.' = '.$DB_PASSWORD;
+				$pdo = $this->getPDOConnection('', env('DB_PORT'), $DB_USERNAME, $DB_PASSWORD);
+				shell_exec('php artisan config:clear');
+				shell_exec('php artisan cache:clear');
 				$pdo->exec(sprintf(
 						'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
 						$DB_DATABASE,
@@ -117,15 +116,39 @@ class Generate extends Command {
 			}
 
 		}
+
 		self::changeEnv('DB_HOST', '127.0.0.1');
 
-		$this->line("prepare all files and packages please wait...");
+		$this->line("we are build your admin panel and downloading default packages this new version is super fast please wait ...");
+		$phpversion = explode('.', phpversion())[1];
+
+		if ($phpversion == '2' && check_package("mockery/mockery") === null) {
+			$this->info("Downloading Langnonymous Package....");
+			shell_exec('composer require mockery/mockery "1.3.2"');
+		}
 
 		if (check_package("langnonymous/lang") === null) {
 			$this->info("Downloading Langnonymous Package....");
 			shell_exec('composer require Langnonymous/Lang:dev-master');
 		}
 
+		if (check_package("spatie/laravel-honeypot") === null) {
+			$this->info("Downloading Langnonymous Package....");
+			if ($phpversion == '2') {
+				shell_exec('composer require spatie/laravel-honeypot "^2.2"');
+			} else {
+				shell_exec('composer require spatie/laravel-honeypot');
+			}
+		}
+
+		if (check_package("laravel/ui") === null) {
+			$this->info("Downloading intervention Image Package....");
+			if ($phpversion == '2') {
+				shell_exec('composer require laravel/ui "^2.0"');
+			} else {
+				shell_exec('composer require laravel/ui');
+			}
+		}
 		if (check_package("intervention/image") === null) {
 			$this->info("Downloading intervention Image Package....");
 			shell_exec('composer require intervention/image');
@@ -136,29 +159,10 @@ class Generate extends Command {
 			shell_exec('php artisan it:install laravelcollective');
 		}
 
-		// if (check_package("zendframework/zend-paginator") === null) {
-		// 	$this->info("Downloading zend-paginator ....");
-		// 	shell_exec('composer require zendframework/zend-paginator');
-		// }
-
-		// if (check_package("pagerfanta/pagerfanta") === null) {
-		// 	$this->info("Downloading pagerfanta ....");
-		// 	shell_exec('composer require pagerfanta/pagerfanta');
-		// }
-		// if (check_package("calcinai/php-imagick") === null) {
-		//     $this->info("Downloading php-imagick ....");
-		//     shell_exec('composer require calcinai/php-imagick');
-		// }
-
-		// if (check_package("barryvdh/laravel-snappy") === null) {
-		// 	$this->info("Downloading barryvdh/laravel-snappy ....");
-		// 	shell_exec('composer require barryvdh/laravel-snappy');
-		// }
-
-		// if (check_package("jpgraph/jpgraph") === null) {
-		// 	$this->info("Downloading jpgraph....");
-		// 	shell_exec('composer require jpgraph/jpgraph');
-		// }
+		if (check_package("maatwebsite/excel") === null) {
+			$this->info("Downloading tcpdf....");
+			shell_exec('composer require maatwebsite/excel');
+		}
 
 		if (check_package("tecnickcom/tcpdf") === null) {
 			$this->info("Downloading tcpdf....");
@@ -173,6 +177,11 @@ class Generate extends Command {
 		if (check_package("dompdf/dompdf") === null) {
 			$this->info("Downloading dompdf....");
 			shell_exec('composer require dompdf/dompdf');
+		}
+
+		if (check_package("unisharp/laravel-filemanager") === null) {
+			$this->info("Downloading dompdf....");
+			shell_exec('composer require unisharp/laravel-filemanager');
 		}
 
 		if (check_package("phpoffice/phpspreadsheet") === null) {
@@ -224,6 +233,12 @@ class Generate extends Command {
 
 		//}
 		$this->info("your admin panel now is ready ");
+		$this->info("don't forget to rate us on github visit link: https://github.com/arabnewscms/it ");
+		$this->info("auth types \r\n1 - php artisan ui:auth --views");
+		$this->info("2 - php artisan ui:auth");
+		$this->info("3 - php artisan ui bootstrap --auth");
+		$this->info("4 - php artisan ui vue --auth");
+		$this->info("5 - php artisan ui react --auth");
 		$this->info("please run this command php artisan migrate also");
 		$this->info("please run this command php artisan db:seed to fetch admin data (email: test@test.com) - (password: 123456) also");
 
@@ -232,15 +247,14 @@ class Generate extends Command {
 		$this->info("Enjoy <3");
 		$this->info("regards and i can assist you now");
 		if (date('m') == 1) {
-			$this->info("Happy New Year ".date('2020'));
+			$this->info("Happy New Year ".date('Y'));
 		}
 	}
 
 	private function getPDOConnection($host, $port, $username, $password) {
-		//echo sprintf('mysql:host=%s;port=%d;', $host, $port);
-		//return 'Done Info';
-		return new PDO('mysql:port='.$port.';host='.$host, $username, $password);
-		//return new PDO(sprintf('mysql:host=%s;port=%d;', $host, $port), $username, $password);
+		$host = empty($host)?'127.0.0.1':$host;
+		$port = empty($port)?'3306':$port;
+		return new \PDO('mysql:port='.$port.';host='.$host, $username, $password);
 	}
 
 }
