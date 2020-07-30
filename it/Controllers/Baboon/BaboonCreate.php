@@ -1,6 +1,7 @@
 <?php
 namespace Phpanonymous\It\Controllers\Baboon;
 use App\Http\Controllers\Controller;
+use Phpanonymous\It\Controllers\Baboon\BaboonSchema;
 
 class BaboonCreate extends Controller {
 	public static $copyright = '[It V 1.0 | https://it.phpanonymous.com]';
@@ -160,6 +161,15 @@ class BaboonCreate extends Controller {
 
 				$r->has('string'.$i)?$valrule .= 'string|':'';
 				$r->has('alpha-dash'.$i)?$valrule .= 'alpha-dash|':'';
+
+				if ($r->has('exists_table'.$i) && !empty($r->input('exists_table'.$i))) {
+					if ($r->input('exists_table'.$i) != 'without check Exist') {
+						$modelname = explode('\\', $r->input('exists_table'.$i));
+						$tableName = $modelname[count($modelname)-1];
+						$convname  = BaboonSchema::convention_name($tableName);
+						$valrule .= 'exists:'.$convname.'|';
+					}
+				}
 				////////// Date Validation Laravel ///////////////////////////////////////////////
 				$r->has('date'.$i)?$valrule .= 'date|':'';
 				$r->has('date_format'.$i)?$valrule .= $r->input('date_format'.$i) != 'NULL'?$r->input('date_format'.$i).'|':'':'';
