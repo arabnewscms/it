@@ -4,7 +4,7 @@ namespace Phpanonymous\It;
 $model_prefix = str_replace('/', '\\', 'App\\' . explode('Http', $namespaces)[1]);
 
 $model_prefix = str_replace('\\\\', '\\', $model_prefix);
-*/
+ */
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Phpanonymous\It\Commands\Generate;
@@ -25,6 +25,7 @@ class ItApplication extends ServiceProvider {
 			$this->publishes([__DIR__ .'/environment/database'  => base_path('database')]);
 			$this->publishes([__DIR__ .'/environment/resources' => base_path('resources')]);
 			$this->publishes([__DIR__ .'/environment/routes'    => base_path('routes')]);
+			$this->publishes([__DIR__ .'/environment/public'    => public_path()]);
 		}
 
 		Route::middleware('web')
