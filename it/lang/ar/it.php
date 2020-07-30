@@ -79,6 +79,7 @@ return [
 	'today'                => 'today',
 	'string'               => 'string',
 	'alpha-dash'           => 'alpha-dash',
+	'exists_table'         => 'exists:{table},{id}',
 	'date_format'          => 'date_format',
 	'other_col'            => 'Other Column',
 	'other_carbon'         => 'Carbon Day',

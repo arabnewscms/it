@@ -212,8 +212,14 @@ each_col_name_other_col
         </label>
       </div>
       <div class="clearfix"></div>
-      <br>
-      <div class="col-md-12">
+      <hr />
+        <div class="col-md-4">
+        <label class="mt-checkbox" dir="rtl"> {{it_trans('it.exists_table')}}
+          @include('baboon.exists_table_model')
+        </label>
+      </div>
+
+      <div class="col-md-8">
         <label class="mt-checkbox" dir="rtl"> {{it_trans('it.date')}}
           <input type="checkbox" value="1" class="date_data" to="0" name="date0" />
         </label>
@@ -293,6 +299,7 @@ each_col_name_other_col
 
         </div>
       </div>
+
       <div class="clearfix"></div>
     </div>
     <div class="col-md-12 well">

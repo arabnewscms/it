@@ -33,7 +33,7 @@ $app_model_file = str_replace('/', '\\\\', $app_model_file);
 $data_        = explode('/', $model_list);
 $explode_last = $data_[count($data_)-1];
 ?>
-@if(!in_array($explode_last,['Console','Http','DataTables','Exceptions','Mail','Providers']))
+@if(!in_array($explode_last,['Console','Http','Handlers','DataTables','Exceptions','Mail','Providers']))
 					'<optgroup label="{{ $explode_last }}">'+
 						@foreach(array_filter(glob($model_list.'/*'), 'is_file') as $app_model_file)
 <?php

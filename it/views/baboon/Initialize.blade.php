@@ -33,12 +33,12 @@ $admin_path = 'resources'.explode('resources', $admin_pathes)[1];
   <select name="model_namespace" size="5" class="form-control model_namespace">
     <option value="App" selected>App</option>
     @foreach( array_filter(glob(app_path().'/*'), 'is_dir') as $namespaces)
-    }
+
 <?php
 $model_prefix = str_replace('/', '\\', 'App\\'.explode('app', $namespaces)[1]);
 $model_prefix = str_replace('\\\\', '\\', $model_prefix);
 ?>
-@if(!preg_match('/Exceptions|Console|it|ItHelpers|Mail|Http|Providers/i',$model_prefix))
+@if(!preg_match('/Exceptions|Console|it|ItHelpers|Mail|Http|Handlers|Providers/i',$model_prefix))
     <option value="{{$model_prefix}}">{{$model_prefix}}</option>
     @endif
     @endforeach
