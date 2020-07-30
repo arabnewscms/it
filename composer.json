@@ -1,6 +1,6 @@
 {
 	"name":"phpanonymous/it",
-	"description": "A Simple Track to make sense by TagatSoft",
+	"description": "A Simple Track to make sense by Mahmoud Ibrahim",
 	"type":"package",
 	"license": "MIT",
 	"keywords":["laravel","It application With It-platinum","php"],
@@ -12,7 +12,7 @@
 	}
 	],
 	"require":{
-		"php": ">= 7.2",
+		"php": ">= 7.2.5",
 		"laravel/framework": "^7.0"
 	},
 	"autoload":{
@@ -22,7 +22,7 @@
 	},
 	"extra": {
     "branch-alias": {
-            "dev-master": "1.4.1.x-dev"
+            "dev-master": "1.4.2.x-dev"
     },
         "laravel": {
             "providers": [
@@ -33,7 +33,7 @@
             }
         }
   },
-	"version":"1.4.1",
+	"version":"1.4.2",
   "minimum-stability": "dev",
   "prefer-stable": true
 }
