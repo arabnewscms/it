@@ -123,7 +123,7 @@ class Generate extends Command {
 		$phpversion = explode('.', phpversion())[1];
 
 		if ($phpversion == '2' && check_package("mockery/mockery") === null) {
-			$this->info("Downloading Langnonymous Package....");
+			$this->info("Downloading mockery Package....");
 			shell_exec('composer require mockery/mockery "1.3.2"');
 		}
 
@@ -133,7 +133,7 @@ class Generate extends Command {
 		}
 
 		if (check_package("spatie/laravel-honeypot") === null) {
-			$this->info("Downloading Langnonymous Package....");
+			$this->info("Downloading spatie/laravel-honeypot Package....");
 			if ($phpversion == '2') {
 				shell_exec('composer require spatie/laravel-honeypot "^2.2"');
 			} else {
@@ -142,7 +142,7 @@ class Generate extends Command {
 		}
 
 		if (check_package("laravel/ui") === null) {
-			$this->info("Downloading intervention Image Package....");
+			$this->info("Downloading laravel/ui Package....");
 			if ($phpversion == '2') {
 				shell_exec('composer require laravel/ui "^2.0"');
 			} else {
