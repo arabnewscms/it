@@ -54,7 +54,7 @@ if (!function_exists('active_link')) {
 	function active_link($segment, $class = null) {
 		if ($segment == null and request()->segment(2) == null) {
 			return $class;
-		} elseif (preg_match('/'.$segment.'/i', request()->segment(2))) {
+		} elseif (in_array(request()->segment(2), explode('|', $segment))) {
 			if ($class != null || $class != 'block') {
 				if ($segment != null) {
 					return $class;
@@ -73,10 +73,23 @@ if (!function_exists('active_link')) {
 
 if (!function_exists('l')) {
 	function l($obj) {
-		if (app('l') == 'ar') {
-			return $obj.'_ar';
-		} elseif (app('l') == 'en') {
-			return $obj.'_en';
+		return $obj.'_'.app('l');
+	}
+}
+
+if (!function_exists('mK')) {
+	function mK($num) {
+		if ($num > 1000) {
+			$x               = round($num);
+			$x_number_format = number_format($x);
+			$x_array         = explode(',', $x_number_format);
+			$x_parts         = array('k', 'm', 'b', 't');
+			$x_count_parts   = count($x_array)-1;
+			$x_display       = $x;
+			$x_display       = $x_array[0].((int) $x_array[1][0] !== 0?'.'.$x_array[1][0]:'');
+			$x_display .= $x_parts[$x_count_parts-1];
+			return $x_display;
 		}
+		return $num;
 	}
 }

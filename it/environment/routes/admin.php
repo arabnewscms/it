@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +42,11 @@ Route::group(['prefix' => app('admin'), 'middleware' => 'Lang'], function () {
 		 */
 
 		Route::group(['middleware' => 'admin:admin'], function () {
+
+				Route::group(['prefix' => 'filemanager'], function () {
+						\UniSharp\LaravelFilemanager\Lfm::routes();
+					});
+
 				//////// Admin Routes /* Start */ //////////////
 				Route::get('/', 'Admin\Dashboard@home');
 				Route::any('logout', 'Admin\AdminAuthenticated@logout');

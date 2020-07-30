@@ -40,6 +40,7 @@
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
             <form class="login-forms"  method="post">
+            @honeypot
                 {!! csrf_field() !!}
                 <h3 class="form-title font-green">{{ trans('admin.reset_password') }}</h3>
                 <div class="alert alert-danger

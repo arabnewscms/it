@@ -617,8 +617,19 @@
                         <script src="{{url("design/admin_panel/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js")}}"></script>
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
                         <script src="https://cdn.ckeditor.com/4.10.0/full/ckeditor.js"></script>
+
+<script>
+  var options = {
+    filebrowserImageBrowseUrl: '{{ aurl('filemanager?type=Images') }}',
+    filebrowserImageUploadUrl: '{{ aurl('filemanager/upload?type=Images&_token=') }}',
+    filebrowserBrowseUrl: '{{ aurl('filemanager?type=Files') }}',
+    filebrowserUploadUrl: '{{ aurl('/filemanager/upload?type=Files&_token=') }}'
+  };
+</script>
+<script src="{{ url('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') }}"></script>
+
                         <script>
-                        CKEDITOR.replaceClass = 'ckeditor';
+                        $('textarea.ckeditor').ckeditor(options);
                         </script>
                         <script type="text/javascript">
                         function change_theme_func(theme)

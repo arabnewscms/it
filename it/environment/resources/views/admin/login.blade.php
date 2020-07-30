@@ -49,6 +49,7 @@
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form"  method="post">
+            @honeypot
                 {!! csrf_field() !!}
                 <h3 class="form-title font-green">{{ trans('admin.login_page') }}</h3>
                 <div class="alert alert-danger {{ session()->has('error')?'':'display-hide' }} ">
@@ -84,6 +85,7 @@
                     <!-- END LOGIN FORM -->
                     <!-- BEGIN FORGOT PASSWORD FORM -->
                     <form class="forget-form" action="{{ aurl('reset/password') }}" method="post">
+                    @honeypot
                         {!! csrf_field() !!}
                         <h3 class="font-green">{{ trans('admin.forgot_password') }}</h3>
                         <p> {{ trans('admin.forgot_password_msg') }}  </p>
