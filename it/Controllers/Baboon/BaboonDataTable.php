@@ -6,7 +6,7 @@ use Phpanonymous\It\Controllers\Baboon\MasterBaboon as Baboon;
 
 class BaboonDataTable extends Controller {
 	//
-	public static $copyright = '[It V 1.0 | https://it.phpanonymous.com]';
+	public static $copyright = '[It V 1.5.0 | https://it.phpanonymous.com]';
 
 	public static function dbclass($r) {
 		$datatable = '<?php
@@ -16,16 +16,16 @@ use {Model};
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Services\DataTable;
 // Auto DataTable By Baboon Script
-// Baboon Maker has been Created And Developed By '.self::$copyright.'
-// Copyright Reserved '.self::$copyright.'
+// Baboon Maker has been Created And Developed By ' . self::$copyright . '
+// Copyright Reserved ' . self::$copyright . '
 class {ClassName}DataTable extends DataTable
 {
-    	'."\n";
-		$datatable .= self::ajaxMethod($r)."\n";
-		$datatable .= self::queryMethod($r)."\n";
-		$datatable .= self::htmlMethod($r)."\n";
-		$datatable .= self::getcolsMethod($r)."\n";
-		$datatable .= self::filenameMethod($r)."\n";
+    	' . "\n";
+		$datatable .= self::ajaxMethod($r) . "\n";
+		$datatable .= self::queryMethod($r) . "\n";
+		$datatable .= self::htmlMethod($r) . "\n";
+		$datatable .= self::getcolsMethod($r) . "\n";
+		$datatable .= self::filenameMethod($r) . "\n";
 
 		$datatable .= '}';
 
@@ -34,7 +34,7 @@ class {ClassName}DataTable extends DataTable
 		$datatable = str_replace('{lang}', $r->input('lang_file'), $datatable);
 
 		$datatable = str_replace('{Model}',
-			$r->input('model_namespace').'\\'.$r->input('model_name'), $datatable);
+			$r->input('model_namespace') . '\\' . $r->input('model_name'), $datatable);
 
 		return $datatable;
 	}
@@ -51,7 +51,7 @@ class {ClassName}DataTable extends DataTable
 	        return \'{name}_\' . time();
 	    }
     	';
-		$name     = str_replace('Controller', '', $r->input('controller_name'));
+		$name = str_replace('Controller', '', $r->input('controller_name'));
 		$filename = str_replace('{name}', strtolower($name), $filename);
 		return $filename;
 	}
@@ -60,7 +60,7 @@ class {ClassName}DataTable extends DataTable
 		$cols = '
     	/**
 	     * Get columns.
-	     * Auto getColumns Method By Baboon Script '.self::$copyright.'
+	     * Auto getColumns Method By Baboon Script ' . self::$copyright . '
 	     * @return array
 	     */
 
@@ -82,54 +82,54 @@ class {ClassName}DataTable extends DataTable
             ],
 
 
-	        '."\n";
+	        ' . "\n";
 		$i2 = 0;
 
 		foreach ($r->input('col_name_convention') as $conv) {
-			$cols .= '				['."\n";
+			$cols .= '				[' . "\n";
 			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
 
 				$pre_conv = explode('|', $conv);
-				if (request()->has('forginkeyto'.$i2)) {
-					$pluck_name      = explode('pluck(', $pre_conv[1]);
-					$pluck_name      = !empty($pluck_name) && count($pluck_name) > 0?explode(',', $pluck_name[1]):[];
+				if (request()->has('forginkeyto' . $i2)) {
+					$pluck_name = explode('pluck(', $pre_conv[1]);
+					$pluck_name = !empty($pluck_name) && count($pluck_name) > 0 ? explode(',', $pluck_name[1]) : [];
 					$final_pluckName = str_replace("'", "", $pluck_name[0]);
 				} else {
 					$final_pluckName = '';
 				}
 				//return dd(str_replace("'", "", $pluck_name[0]));
-				if (!empty($final_pluckName) && request()->has('forginkeyto'.$i2)) {
+				if (!empty($final_pluckName) && request()->has('forginkeyto' . $i2)) {
 
-					$cols .= '                 \'name\'=>\''.$pre_conv[0].'.'.$final_pluckName.''.'\','."\n";
-					$cols .= '                 \'data\'=>\''.$pre_conv[0].'.'.$final_pluckName.'\','."\n";
-				} elseif (!request()->has('forginkeyto'.$i2)) {
-					$cols .= '                 \'name\'=>\''.$pre_conv[0].'\','."\n";
-					$cols .= '                 \'data\'=>\''.$pre_conv[0].'\','."\n";
-					$cols .= '                 \'exportable\' => false,'."\n";
-					$cols .= '                 \'printable\'  => false,'."\n";
-					$cols .= '                 \'searchable\' => false,'."\n";
-					$cols .= '                 \'orderable\'  => false,'."\n";
+					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '.' . $final_pluckName . '' . '\',' . "\n";
+					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '.' . $final_pluckName . '\',' . "\n";
+				} elseif (!request()->has('forginkeyto' . $i2)) {
+					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
+					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
+					$cols .= '                 \'exportable\' => false,' . "\n";
+					$cols .= '                 \'printable\'  => false,' . "\n";
+					$cols .= '                 \'searchable\' => false,' . "\n";
+					$cols .= '                 \'orderable\'  => false,' . "\n";
 
 				} else {
-					$cols .= '                 \'name\'=>\''.$pre_conv[0].'\','."\n";
-					$cols .= '                 \'data\'=>\''.$pre_conv[0].'\','."\n";
+					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
+					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
 				}
 
-				$cols .= '                 \'title\'=>trans(\'{lang}.'.$pre_conv[0].'\'),'."\n";
+				$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
 			} elseif (preg_match('/#/i', $conv)) {
 				$pre_conv = explode('#', $conv);
-				if (!preg_match('/'.$pre_conv[0].'/', $cols)) {
-					$cols .= '                 \'name\'=>\''.$pre_conv[0].'\','."\n";
-					$cols .= '                 \'data\'=>\''.$pre_conv[0].'\','."\n";
-					$cols .= '                 \'title\'=>trans(\'{lang}.'.$pre_conv[0].'\'),'."\n";
+				if (!preg_match('/' . $pre_conv[0] . '/', $cols)) {
+					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
+					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
+					$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
 				}
 			} else {
 
-				$cols .= '                 \'name\'=>\''.$conv.'\','."\n";
-				$cols .= '                 \'data\'=>\''.$conv.'\','."\n";
-				$cols .= '                 \'title\'=>trans(\'{lang}.'.$conv.'\'),'."\n";
+				$cols .= '                 \'name\'=>\'' . $conv . '\',' . "\n";
+				$cols .= '                 \'data\'=>\'' . $conv . '\',' . "\n";
+				$cols .= '                 \'title\'=>trans(\'{lang}.' . $conv . '\'),' . "\n";
 			}
-			$cols .= '		    ],'."\n";
+			$cols .= '		    ],' . "\n";
 
 			$i2++;
 		}
@@ -153,12 +153,12 @@ class {ClassName}DataTable extends DataTable
 	public static function htmlMethod($r) {
 		$stud = '';
 		for ($i = 0; $i < count(request('col_name')); $i++) {
-			$stud .= ($i+1).',';
+			$stud .= ($i + 1) . ',';
 		}
 		$html = '
     	 /**
 	     * Optional method if you want to use html builder.
-	     *'.self::$copyright.'
+	     *' . self::$copyright . '
 	     * @return \Yajra\Datatables\Html\Builder
 	     */
     	public function html()
@@ -188,7 +188,7 @@ class {ClassName}DataTable extends DataTable
                     ],
                 ],
                 \'initComplete\' => "function () {
-                this.api().columns(['.substr($stud, 0, -1).']).every(function () {
+                this.api().columns([' . substr($stud, 0, -1) . ']).every(function () {
                 var column = this;
                 var input = document.createElement(\"input\");
                 $(input).attr( \'style\', \'width: 100%\');
@@ -239,9 +239,9 @@ class {ClassName}DataTable extends DataTable
 		$conv = strtolower(ltrim(preg_replace('/(?<!\ )[A-Z]/', '_$0', $string), '_'));
 		if (!in_array(substr($conv, -1), ['s'])) {
 			if (substr($conv, -1) == 'y') {
-				$conv = substr($conv, 0, -1).'ies';
+				$conv = substr($conv, 0, -1) . 'ies';
 			} else {
-				$conv = $conv.'s';
+				$conv = $conv . 's';
 			}
 		}
 		return $conv;
@@ -251,22 +251,22 @@ class {ClassName}DataTable extends DataTable
 		$query = '
      /**
      * Get the query object to be processed by dataTables.
-     * Auto Ajax Method By Baboon Script '.self::$copyright.'
+     * Auto Ajax Method By Baboon Script ' . self::$copyright . '
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection
      */
 	public function query()
     {
-        return {Model}::query(){WithRelation}->select("'.self::convention_name(request('model_name')).'.*");
+        return {Model}::query(){WithRelation}->select("' . self::convention_name(request('model_name')) . '.*");
 
     }
     	';
 
 		$WithRelation = '';
-		$i2           = 0;
+		$i2 = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
 				$pre_conv = explode('|', $conv);
-				if ($r->has('forginkeyto'.$i2)) {
+				if ($r->has('forginkeyto' . $i2)) {
 					$WithRelation .= "'$pre_conv[0]',";
 				}
 			}
@@ -274,7 +274,7 @@ class {ClassName}DataTable extends DataTable
 		}
 
 		if (!empty($WithRelation)) {
-			$query = str_replace('{WithRelation}', '->with(['.$WithRelation.'])', $query);
+			$query = str_replace('{WithRelation}', '->with([' . $WithRelation . '])', $query);
 		} else {
 			$query = str_replace('{WithRelation}', '', $query);
 		}
@@ -287,33 +287,33 @@ class {ClassName}DataTable extends DataTable
 		$ajax = '
      /**
      * Display a listing of the resource.
-     * Auto Ajax Method By Baboon Script '.self::$copyright.'
+     * Auto Ajax Method By Baboon Script ' . self::$copyright . '
      * @return \Illuminate\Http\Response
      */
 
      /**
      * Display ajax response.
-     * Auto Ajax Method By Baboon Script '.self::$copyright.'
+     * Auto Ajax Method By Baboon Script ' . self::$copyright . '
      * @return \Illuminate\Http\JsonResponse
      */
     public function dataTable(DataTables $dataTables, $query)
     {
         return datatables($query)
-            ->addColumn(\'actions\', \'{path}.{name}.buttons.actions\')'."\n\r";
+            ->addColumn(\'actions\', \'{path}.{name}.buttons.actions\')' . "\n\r";
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 
 			// Here Add New Column Image To View Image with Modal Start//
-			if ($r->has('image'.$i)) {
-				$ajax .= '            ->addColumn(\''.$conv.'\', \'{path}.{name}.buttons.'.$conv.'\')'."\n\r";
+			if ($r->has('image' . $i)) {
+				$ajax .= '            ->addColumn(\'' . $conv . '\', \'{path}.{name}.buttons.' . $conv . '\')' . "\n\r";
 			}
 			// Here Add New Column Image To View Image with Modal End//
 
 			// Here Add Column To Enum Values Start //
 			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
 				$pre_conv = explode('|', $conv);
-				if (!request()->has('forginkeyto'.$i)) {
-					$ajax .= '            ->addColumn(\''.$pre_conv[0].'\', \'{{ trans("admin.".$'.$pre_conv[0].') }}\')'."\n\r";
+				if (!request()->has('forginkeyto' . $i)) {
+					$ajax .= '            ->addColumn(\'' . $pre_conv[0] . '\', \'{{ trans("admin.".$' . $pre_conv[0] . ') }}\')' . "\n\r";
 				}
 			}
 			// Here Add Column To Enum Values Start //
@@ -328,21 +328,21 @@ class {ClassName}DataTable extends DataTable
   ';
 
 		// Create Image Start //
-		$x           = 0;
+		$x = 0;
 		$images_html = '';
 		foreach ($r->input('col_name_convention') as $conv) {
 
-			if ($r->has('image'.$x)) {
-				$images_html .= "'".$conv."',";
+			if ($r->has('image' . $x)) {
+				$images_html .= "'" . $conv . "',";
 				$blade_name = str_replace('controller', '', strtolower(request('controller_name')));
-				$img        = '@if(!empty($'.$conv.'))
-                <a href="#" data-toggle="modal" data-target="#img{{ $id }}"><img src="{{ it()->url($'.$conv.') }}" style="width:32px;height:32px" /></a>';
+				$img = '@if(!empty($' . $conv . '))
+                <a href="#" data-toggle="modal" data-target="#img{{ $id }}"><img src="{{ it()->url($' . $conv . ') }}" style="width:32px;height:32px" /></a>';
 				$img .= '
 <div id="img{{ $id }}" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <img src="{{ it()->url($'.$conv.') }}" style="width:100%;height:500px" />
+        <img src="{{ it()->url($' . $conv . ') }}" style="width:100%;height:500px" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans("admin.close") }}</button>
@@ -353,8 +353,8 @@ class {ClassName}DataTable extends DataTable
 @endif
                 ';
 				if (!empty($img)) {
-					Baboon::check_path($r->input('admin_folder_path').'\\'.$blade_name);
-					Baboon::write($img, $conv.'.blade', $r->input('admin_folder_path').'\\'.$blade_name.'\\buttons');
+					Baboon::check_path($r->input('admin_folder_path') . '\\' . $blade_name);
+					Baboon::write($img, $conv . '.blade', $r->input('admin_folder_path') . '\\' . $blade_name . '\\buttons');
 				}
 
 			}
@@ -362,11 +362,11 @@ class {ClassName}DataTable extends DataTable
 		}
 		// Create Image End //
 
-		$nameclass  = str_replace('controller', '', strtolower($r->input('controller_name')));
-		$ajax       = str_replace('{images_html}', $images_html, $ajax);
-		$ajax       = str_replace('{name}', $nameclass, $ajax);
+		$nameclass = str_replace('controller', '', strtolower($r->input('controller_name')));
+		$ajax = str_replace('{images_html}', $images_html, $ajax);
+		$ajax = str_replace('{name}', $nameclass, $ajax);
 		$blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
-		$ajax       = str_replace('{path}', $blade_path, $ajax);
+		$ajax = str_replace('{path}', $blade_path, $ajax);
 
 		return $ajax;
 	}
