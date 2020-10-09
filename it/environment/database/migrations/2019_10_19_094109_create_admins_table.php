@@ -12,16 +12,16 @@ class CreateAdminsTable extends Migration {
 	 */
 	public function up() {
 		Schema::create('admins', function (Blueprint $table) {
-				$table->bigIncrements('id');
-				$table->string('name');
-				$table->string('email')->unique();
-				$table->string('photo_profile')->nullable();
-				$table->string('password');
-				//$table->bigInteger('group_id')->unsigned()->nullable();
-				//$table->foreign('group_id')->references('id')->on('admin_groups');
-				$table->rememberToken();
-				$table->timestamps();
-			});
+			$table->bigIncrements('id');
+			$table->string('name');
+			$table->string('email')->unique();
+			$table->string('photo_profile')->nullable();
+			$table->string('password');
+			$table->bigInteger('group_id')->unsigned()->nullable();
+			$table->foreign('group_id')->references('id')->on('admin_groups');
+			$table->rememberToken();
+			$table->timestamps();
+		});
 	}
 
 	/**
