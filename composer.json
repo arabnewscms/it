@@ -12,8 +12,8 @@
 	}
 	],
 	"require":{
-		"php": ">= 7.2.5",
-		"laravel/framework": "^7.0"
+		"php": ">= 7.3.0",
+		"laravel/framework": "^8.0"
 	},
 	"autoload":{
 		"psr-4":{
@@ -22,7 +22,7 @@
 	},
 	"extra": {
     "branch-alias": {
-            "dev-master": "1.4.2.x-dev"
+            "dev-master": "1.5.0.x-dev"
     },
         "laravel": {
             "providers": [
@@ -33,7 +33,7 @@
             }
         }
   },
-	"version":"1.4.2",
+	"version":"1.5.0",
   "minimum-stability": "dev",
   "prefer-stable": true
 }
