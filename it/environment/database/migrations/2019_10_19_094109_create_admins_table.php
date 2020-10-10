@@ -17,8 +17,8 @@ class CreateAdminsTable extends Migration {
 			$table->string('email')->unique();
 			$table->string('photo_profile')->nullable();
 			$table->string('password');
-			$table->bigInteger('group_id')->unsigned()->nullable();
-			$table->foreign('group_id')->references('id')->on('admin_groups');
+			// $table->bigInteger('group_id')->unsigned()->nullable();
+			// $table->foreign('group_id')->references('id')->on('admin_groups');
 			$table->rememberToken();
 			$table->timestamps();
 		});
