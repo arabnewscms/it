@@ -119,7 +119,7 @@ class BaboonUpdate extends Controller {
 				$update .= '              it()->delete(${Name}->' . $conv . ');' . "\n";
 				$update .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
 				$update .= '               }else{' . "\n";
-				$update .= '              $data[\'' . $conv . '\'] = ""' . "\n";
+				$update .= '              $data[\'' . $conv . '\'] = "";' . "\n";
 				$update .= '               }' . "\n";
 			}
 			$i++;
