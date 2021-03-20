@@ -57,9 +57,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use {Model};
 use Validator;
-use Set;
-use Up;
-use Form;
+use App\Http\Controllers\Validations\{ClassName}Request;
 // Auto Controller Maker By Baboon Script
 // Baboon Maker has been Created And Developed By  ' . self::$copyright . '
 // Copyright Reserved  ' . self::$copyright . '
