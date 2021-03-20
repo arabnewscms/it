@@ -115,7 +115,7 @@ if (!function_exists('filterElement')) {
 			$select = "
 			this.api().columns([" . $key . "]).every(function () {
 				var column = this;
-                var select = '<select style=\"width:100%;\" class=\"form-control\"><option selected value=\"\">..............</option>";
+                var select = '<select style=\"width:100%;\" class=\"form-control\"><option selected value=\"\">" . trans('admin.choose') . "</option>";
 			foreach ($data as $key => $val) {
 				$select .= '<option value=\"' . $key . '\">' . $val . '</option>';
 			}
@@ -140,6 +140,7 @@ if (!function_exists('redirectWithSuccess')) {
 		return redirect($url);
 	}
 }
+
 if (!function_exists('redirectWithError')) {
 	function redirectWithError($url, $msg = null) {
 		!empty($msg) && !is_null($msg) ? session()->flash('error', $msg) : '';
@@ -148,15 +149,27 @@ if (!function_exists('redirectWithError')) {
 }
 
 if (!function_exists('backWithSuccess')) {
-	function backWithSuccess($url, $msg = null) {
+	function backWithSuccess($msg = null) {
 		!empty($msg) && !is_null($msg) ? session()->flash('success', $msg) : '';
 		return back();
 	}
 }
 
 if (!function_exists('backWithError')) {
-	function backWithError($url, $msg = null) {
+	function backWithError($msg = null) {
 		!empty($msg) && !is_null($msg) ? session()->flash('error', $msg) : '';
 		return back();
+	}
+}
+
+if (!function_exists('errorResponse')) {
+	function errorResponseJson(array $data) {
+		$data['status'] = false;
+		$data['StatusCode'] = 422;
+		$data['StatusType'] = 'Unprocessable Entity';
+		$data['explainError'] = 'The request was well-formed but was unable to be followed due to semantic errors.';
+		$data['message'] = trans("admin.undefinedRecord");
+		return response($data, 422);
+
 	}
 }
