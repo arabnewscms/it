@@ -84,7 +84,6 @@ class FileUploader extends Controller {
 
 	/* Delete One File Where type and id */
 	public static function delete($id = null, $type = null, $specific = null) {
-
 		$path = preg_match('/public/i', $id) ? explode('public/', $id)[1] : $id;
 		if ($type === null && $id !== null and !is_numeric($id)) {
 			if (Storage::disk(env('FILESYSTEM_DRIVER', 'public'))->has($path)) {
@@ -141,7 +140,7 @@ class FileUploader extends Controller {
 		if (!empty($ext)) {
 			return 'image|mimes:' . $ext;
 		} else {
-			return 'image|mimes:jpeg,jpg,png,bmp,gif,psd,pdf';
+			return 'image|mimes:jpeg,jpg,png,bmp,gif';
 		}
 	}
 

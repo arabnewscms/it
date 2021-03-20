@@ -9,10 +9,10 @@ class Admin extends Seeder {
 	 * @return void
 	 */
 	public function run() {
-		\App\Admin::create([
-				'name'     => 'admin',
-				'email'    => 'test@test.com',
-				'password' => bcrypt(123456),
-			]);
+		\App\Models\Admin::create([
+			'name' => 'admin',
+			'email' => 'test@test.com',
+			'password' => bcrypt(123456),
+		]);
 	}
 }

@@ -9,7 +9,7 @@ if ($data['use_collective'] == 'yes') {
                 {!! Form::file(\'{Convention}\',[\'class\'=>\'form-control\',\'placeholder\'=>trans(\'{lang}.{Convention}\')]) !!}
             </div>
             <div class="col-md-3">
-                @include("admin.show_image",["image"=>{Convention2}])
+                <a href="{{ it()->url({Convention2}) }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@ if ($data['use_collective'] == 'yes') {
                 <input type="file" id="{Convention}" name="{Convention}" class="form-control" placeholder="{{trans(\'{lang}.{Convention}\')}}" />
             </div>
             <div class="col-md-3">
-                @include("admin.show_image",["image"=>{Convention2}])
+                <a href="{{ it()->url({Convention2}) }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>
             </div>
         </div>
     </div>

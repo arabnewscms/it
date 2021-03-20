@@ -1,24 +1,26 @@
 <?php
 if ($data['use_collective'] == 'yes') {
 	$text = '
-<div class="form-group">
-    {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\'),[\'class\'=>\'col-md-3 control-label\']) !!}
-    <div class="col-md-9">
-        {!! Form::textarea(\'{Convention}\', {Convention2} ,[\'class\'=>\'form-control\',\'placeholder\'=>trans(\'{lang}.{Convention}\')]) !!}
+<div class="col-md-12">
+    <div class="form-group">
+        {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\'),[\'class\'=>\'control-label\']) !!}
+        <div class="col-md-12">
+            {!! Form::textarea(\'{Convention}\', {Convention2} ,[\'class\'=>\'form-control\',\'placeholder\'=>trans(\'{lang}.{Convention}\')]) !!}
+        </div>
     </div>
 </div>
-<br>
 ';
 } else {
 	$text = '
-<div class="form-group">
-    <label for="{Convention}" class="col-md-3 control-label">{{trans(\'{lang}.{Convention}\')}}</label>
-    <div class="col-md-9">
-        <textarea id="{Convention}" class="form-control" placeholder="{{trans(\'{lang}.{Convention}\')}}"
-        name="{Convention}" >{{ {Convention2} }}</textarea>
+<div class="col-md-12">
+    <div class="form-group">
+        <label for="{Convention}" class="control-label">{{trans(\'{lang}.{Convention}\')}}</label>
+        <div class="col-md-12">
+            <textarea id="{Convention}" class="form-control" placeholder="{{trans(\'{lang}.{Convention}\')}}"
+            name="{Convention}" >{{ {Convention2} }}</textarea>
+        </div>
     </div>
 </div>
-<br>
 ';
 }
 $text = str_replace('{Convention}', $data['col_name_convention'], $text);

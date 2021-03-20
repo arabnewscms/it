@@ -93,3 +93,70 @@ if (!function_exists('mK')) {
 		return $num;
 	}
 }
+
+if (!function_exists('filterElement')) {
+	function filterElement($key, $type = 'input', $data = []) {
+		if ($type == 'input') {
+			$input = "
+			this.api().columns([" . $key . "]).every(function () {
+
+				var column = this;
+                var input = document.createElement(\"input\");
+                $(input).attr( 'style', 'width: 100%');
+                $(input).attr( 'class', 'form-control');
+                $(input).appendTo($(column.footer()).empty())
+                .on('keyup', function () {
+                    column.search($(this).val()).draw();
+                });
+			});
+		";
+			return $input;
+		} elseif ($type == 'select') {
+			$select = "
+			this.api().columns([" . $key . "]).every(function () {
+				var column = this;
+                var select = '<select style=\"width:100%;\" class=\"form-control\"><option selected value=\"\">..............</option>";
+			foreach ($data as $key => $val) {
+				$select .= '<option value=\"' . $key . '\">' . $val . '</option>';
+			}
+			$select .= "</select>';
+                $(select).appendTo($(column.footer()).empty())
+                .on('change', function () {
+                	var selectedVal = $('option:selected', this).val();
+                	//console.log(selectedVal);
+                    column.search(selectedVal).draw();
+                });
+            });
+
+		";
+			return $select;
+		}
+	}
+}
+
+if (!function_exists('redirectWithSuccess')) {
+	function redirectWithSuccess($url, $msg = null) {
+		!empty($msg) && !is_null($msg) ? session()->flash('success', $msg) : '';
+		return redirect($url);
+	}
+}
+if (!function_exists('redirectWithError')) {
+	function redirectWithError($url, $msg = null) {
+		!empty($msg) && !is_null($msg) ? session()->flash('error', $msg) : '';
+		return redirect($url);
+	}
+}
+
+if (!function_exists('backWithSuccess')) {
+	function backWithSuccess($url, $msg = null) {
+		!empty($msg) && !is_null($msg) ? session()->flash('success', $msg) : '';
+		return back();
+	}
+}
+
+if (!function_exists('backWithError')) {
+	function backWithError($url, $msg = null) {
+		!empty($msg) && !is_null($msg) ? session()->flash('error', $msg) : '';
+		return back();
+	}
+}

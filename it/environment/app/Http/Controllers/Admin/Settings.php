@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\Model\Setting;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class Settings extends Controller {
@@ -32,25 +32,25 @@ class Settings extends Controller {
 	 */
 	public function store(Request $request) {
 		$rules = [
-			'sitename_ar'    => 'required',
-			'sitename_en'    => 'required',
-			'sitename_fr'    => 'required',
-			'email'          => 'required',
-			'logo'           => 'sometimes|nullable|'.it()->image(),
-			'icon'           => 'sometimes|nullable|'.it()->image(),
-			'system_status'  => 'required',
+			'sitename_ar' => 'required',
+			'sitename_en' => 'required',
+			'sitename_fr' => 'required',
+			'email' => 'required',
+			'logo' => 'sometimes|nullable|' . it()->image(),
+			'icon' => 'sometimes|nullable|' . it()->image(),
+			'system_status' => 'required',
 			'system_message' => '',
 		];
 		$data = $this->validate(request(), $rules, [], [
-				'sitename_ar'    => trans('admin.sitename_ar'),
-				'sitename_en'    => trans('admin.sitename_en'),
-				'sitename_fr'    => trans('admin.sitename_fr'),
-				'email'          => trans('admin.email'),
-				'logo'           => trans('admin.logo'),
-				'icon'           => trans('admin.icon'),
-				'system_status'  => trans('admin.system_status'),
-				'system_message' => trans('admin.system_message'),
-			]);
+			'sitename_ar' => trans('admin.sitename_ar'),
+			'sitename_en' => trans('admin.sitename_en'),
+			'sitename_fr' => trans('admin.sitename_fr'),
+			'email' => trans('admin.email'),
+			'logo' => trans('admin.logo'),
+			'icon' => trans('admin.icon'),
+			'system_status' => trans('admin.system_status'),
+			'system_message' => trans('admin.system_message'),
+		]);
 		if (request()->hasFile('logo')) {
 			$data['logo'] = it()->upload('logo', 'setting');
 		}

@@ -1,4 +1,4 @@
-# it version 1.5.0 demo & unstable version
+# it version 1.5.0 demo & stable version
 Work With Laravel 8.0 & above make sure to use php version 7.3 at least 
 # A simple Track To make sense
 # usage & Instllation & documentations

@@ -14,15 +14,15 @@ use Illuminate\Support\Facades\Route;
  */
 Route::group(['middleware' => 'auth'],
 
-function () {
+	function () {
 		Route::any('logout', 'Auth\LoginController@logout')->name('logout');
 	});
 
 Route::get('/', function () {
-		return view('welcome');
-	});
+	return view('welcome');
+});
 
-Route::middleware(ProtectAgainstSpam::class )->group(function () {
-		Auth::routes(['verify' => true]);
+Route::middleware(ProtectAgainstSpam::class)->group(function () {
+	Auth::routes(['verify' => true]);
 
-	});
+});

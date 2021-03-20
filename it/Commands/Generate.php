@@ -1,9 +1,7 @@
 <?php
-
 namespace Phpanonymous\It\Commands;
 use Config;
 use Illuminate\Console\Command;
-use Phpanonymous\It\Commands\DotenvEditor;
 
 class Generate extends Command {
 	/**
@@ -27,27 +25,14 @@ class Generate extends Command {
 	 */
 
 	public static function changeEnv($key, $value) {
-		$env = new DotenvEditor();
-		if (!$env->keyExists($key)) {
-
-			$env->addData([
-					$key => $value,
-				]);
-		} else {
-
-			$env->changeEnv([
-					$key => $value,
-					//'DB_USERNAME'   => 'diaafares',
-				]);
+		$value = preg_replace('/\s+/', '', $value);
+		$key = strtoupper($key);
+		$env = file_get_contents(base_path('.env'));
+		$env = str_replace("$key=" . env($key), "$key=" . $value, $env, $counter);
+		if ($counter < 1) {
+			$env .= "\n\r\n\r{$key}={$value}\n\r";
 		}
-
-		// $path = base_path('.env');
-		// if (file_exists($path)) {
-		// 	$current = file_get_contents($path);
-		// 	$current = str_replace($key.'=', $key.'=', $current);
-		// 	$current = str_replace($key.'=', $key.'='.$value, $current);
-		// 	file_put_contents($path, $current);
-		// }
+		$env = file_put_contents(base_path('.env'), $env);
 	}
 
 	/**
@@ -56,11 +41,10 @@ class Generate extends Command {
 	 * @return mixed
 	 */
 	public function handle() {
-
 		self::changeEnv('DB_DATABASE', 'fake');
 		self::changeEnv('DB_USERNAME', 'fake');
 		self::changeEnv('DB_PASSWORD', 'fake');
-		self::changeEnv('DB_HOST', 'localhost');
+
 		\Config::set('filesystems.default', 'it');
 
 		if (!class_exists('ZipArchive')) {
@@ -81,44 +65,79 @@ class Generate extends Command {
 			}
 		}
 
-		$DB_DATABASE = $this->ask('What is your DATABASE Name ?');
-		$DB_USERNAME = $this->ask('What is your DATABASE Username ?');
-		$DB_PASSWORD = $this->ask('What is your DATABASE Password ?');
+		// App Name Question
+		$APP_NAME = $this->ask('What is Your APP NAME ?');
+		self::changeEnv('APP_NAME', $APP_NAME);
 
-		if (!empty($DB_DATABASE)) {
-			self::changeEnv('DB_DATABASE', $DB_DATABASE);
-
+		// Set CUSTOM PORT //
+		$NEED_PORT = $this->confirm('You Want Add A Custom Port To Your localhost ?');
+		if ($NEED_PORT) {
+			$HAVE_PORT = $this->ask('What is Your Custom Domain Port (Default Port is 80) ?');
+			if (!empty($HAVE_PORT)) {
+				self::changeEnv('DB_HOST', 'localhost:' . $HAVE_PORT);
+			} else {
+				self::changeEnv('DB_HOST', 'localhost');
+			}
 		}
+		// Set  CUSTOM PORT //
 
-		if (!empty($DB_USERNAME)) {
-			self::changeEnv('DB_USERNAME', $DB_USERNAME);
+		// Set DB CUSTOM PORT //
+		$NEED_PORT_DB_PORT = $this->confirm('You Want Add A Custom Port To Your Database ?');
+		if ($NEED_PORT_DB_PORT) {
+			$HAVE_DB_PORT = $this->ask('What is Your Custom Database Port (Default Port is 3306) ?');
+			if (!empty($HAVE_DB_PORT)) {
+				self::changeEnv('DB_PORT', $HAVE_DB_PORT);
+			} else {
+				self::changeEnv('DB_PORT', '3306');
+			}
 		}
+		// Set DB CUSTOM PORT //
 
-		if (!empty($DB_PASSWORD)) {
-			self::changeEnv('DB_PASSWORD', $DB_PASSWORD);
-		}
+		$CREATE_DATABASE = $this->confirm('You Want create A new Database ?');
 
-		if (!empty($DB_DATABASE)) {
-			$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name ".$DB_DATABASE."? ");
-			if ($auto_create_DB) {
-				$pdo = $this->getPDOConnection('', env('DB_PORT'), $DB_USERNAME, $DB_PASSWORD);
-				shell_exec('php artisan config:clear');
-				shell_exec('php artisan cache:clear');
-				$pdo->exec(sprintf(
+		if ($CREATE_DATABASE == 'yes') {
+			$DB_DATABASE = $this->ask('What is your DATABASE Name ?');
+			if (!empty($DB_DATABASE)) {
+				self::changeEnv('DB_DATABASE', $DB_DATABASE);
+			}
+
+			$DB_USERNAME = $this->ask('What is your DATABASE Username ?');
+			if (!empty($DB_USERNAME)) {
+				self::changeEnv('DB_USERNAME', $DB_USERNAME);
+			}
+
+			$DB_PASSWORD = $this->ask('What is your DATABASE Password ?');
+			if (!empty($DB_PASSWORD)) {
+				self::changeEnv('DB_PASSWORD', $DB_PASSWORD);
+			}
+
+			if (!empty($DB_DATABASE)) {
+				$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name " . $DB_DATABASE . "? ");
+				if ($auto_create_DB) {
+					$pdo = $this->getPDOConnection('', env('DB_PORT'), $DB_USERNAME, $DB_PASSWORD);
+					shell_exec('php artisan config:clear');
+					shell_exec('php artisan cache:clear');
+					$pdo->exec(sprintf(
 						'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
 						$DB_DATABASE,
 						config('database.connections.mysql.charset'),
 						config('database.connections.mysql.collation')
 					));
 
-				$this->info("DATABAES ".$DB_DATABASE." Created and is ready ");
+					$this->info("DATABAES " . $DB_DATABASE . " Created and is ready ");
+
+				}
 
 			}
 
+			if (!empty($HAVE_PORT)) {
+				self::changeEnv('DB_HOST', '127.0.0.1:' . $HAVE_PORT);
+				self::changeEnv('APP_URL', 'http://localhost:' . $HAVE_PORT);
+			} else {
+				self::changeEnv('DB_HOST', '127.0.0.1');
+				self::changeEnv('APP_URL', 'http://localhost');
+			}
 		}
-
-		self::changeEnv('DB_HOST', '127.0.0.1');
-
 		$this->line("we are build your admin panel and downloading default packages this new version is super fast please wait ...");
 		$phpversion = explode('.', phpversion())[1];
 
@@ -174,13 +193,18 @@ class Generate extends Command {
 			shell_exec('composer require mpdf/mpdf');
 		}
 
+		if (check_package("barryvdh/laravel-snappy") === null) {
+			$this->info("Downloading laravel-snappy....");
+			shell_exec('composer require barryvdh/laravel-snappy');
+		}
+
 		if (check_package("dompdf/dompdf") === null) {
 			$this->info("Downloading dompdf....");
 			shell_exec('composer require dompdf/dompdf');
 		}
 
 		if (check_package("unisharp/laravel-filemanager") === null) {
-			$this->info("Downloading dompdf....");
+			$this->info("Downloading filemanager....");
 			shell_exec('composer require unisharp/laravel-filemanager');
 		}
 
@@ -195,7 +219,7 @@ class Generate extends Command {
 		}
 
 		$zip = new \ZipArchive;
-		$res = $zip->open(__DIR__ .'/../environment/public.zip');
+		$res = $zip->open(__DIR__ . '/../environment/public.zip');
 		if ($res === true) {
 			$zip->extractTo(base_path('public'));
 			$zip->close();
@@ -214,6 +238,12 @@ class Generate extends Command {
 		$this->info("Auto Dump And Compile autoload....");
 		shell_exec('composer dump-autoload');
 		shell_exec('php artisan config:clear');
+
+		$this->info("to Install (wkhtmltopdf) please visit this link urgently (https://github.com/barryvdh/laravel-snappy) to explort PDF Files with YajraDatatable");
+
+		$this->info("To Install (wkhtmltopdf) with brew on macosx brew install wkhtmltopdf");
+
+		$this->info("thank you for using my package (Mahmoud Ibrahim) if you want ask me something text me   php.anonymous@gmail.com");
 
 		// config('database.connections.mysql.database', $DB_DATABASE);
 		// config('database.connections.mysql.username', $DB_USERNAME);
@@ -247,14 +277,14 @@ class Generate extends Command {
 		$this->info("Enjoy <3");
 		$this->info("regards and i can assist you now");
 		if (date('m') == 1) {
-			$this->info("Happy New Year ".date('Y'));
+			$this->info("Happy New Year " . date('Y'));
 		}
 	}
 
 	private function getPDOConnection($host, $port, $username, $password) {
-		$host = empty($host)?'127.0.0.1':$host;
-		$port = empty($port)?'3306':$port;
-		return new \PDO('mysql:port='.$port.';host='.$host, $username, $password);
+		$host = empty($host) ? '127.0.0.1' : $host;
+		$port = empty($port) ? '3306' : $port;
+		return new \PDO('mysql:port=' . $port . ';host=' . $host, $username, $password);
 	}
 
 }

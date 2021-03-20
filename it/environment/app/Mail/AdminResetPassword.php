@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -27,7 +25,7 @@ class AdminResetPassword extends Mailable {
 	 */
 	public function build() {
 		return $this->markdown('admin.emails.reset_password')
-		            ->subject(trans('admin.reset_password'))
-		            ->with('data', $this->data);
+			->subject(trans('admin.reset_password'))
+			->with('data', $this->data);
 	}
 }

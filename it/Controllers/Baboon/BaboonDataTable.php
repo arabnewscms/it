@@ -5,9 +5,7 @@ use App\Http\Controllers\Controller;
 use Phpanonymous\It\Controllers\Baboon\MasterBaboon as Baboon;
 
 class BaboonDataTable extends Controller {
-	//
 	public static $copyright = '[It V 1.5.0 | https://it.phpanonymous.com]';
-
 	public static function dbclass($r) {
 		$datatable = '<?php
 namespace App\DataTables;
@@ -79,12 +77,14 @@ class {ClassName}DataTable extends DataTable
                 \'printable\'      => false,
                 \'width\'          => \'10px\',
                 \'aaSorting\'      => \'none\'
-            ],
-
-
-	        ' . "\n";
+            ],[
+                \'name\' => \'id\',
+                \'data\' => \'id\',
+                \'title\' => trans(\'{lang}.record_id\'),
+                \'width\'          => \'10px\',
+                \'aaSorting\'      => \'none\'
+            ],' . "\n";
 		$i2 = 0;
-
 		foreach ($r->input('col_name_convention') as $conv) {
 			$cols .= '				[' . "\n";
 			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
@@ -103,12 +103,12 @@ class {ClassName}DataTable extends DataTable
 					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '.' . $final_pluckName . '' . '\',' . "\n";
 					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '.' . $final_pluckName . '\',' . "\n";
 				} elseif (!request()->has('forginkeyto' . $i2)) {
-					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
+					$cols .= '                 \'name\'=>\'' . self::convention_name(request('model_name')) . '.' . $pre_conv[0] . '\',' . "\n";
 					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
-					$cols .= '                 \'exportable\' => false,' . "\n";
-					$cols .= '                 \'printable\'  => false,' . "\n";
-					$cols .= '                 \'searchable\' => false,' . "\n";
-					$cols .= '                 \'orderable\'  => false,' . "\n";
+					// $cols .= '                 \'exportable\' => false,' . "\n";
+					// $cols .= '                 \'printable\'  => false,' . "\n";
+					// $cols .= '                 \'searchable\' => false,' . "\n";
+					// $cols .= '                 \'orderable\'  => false,' . "\n";
 
 				} else {
 					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
@@ -152,9 +152,46 @@ class {ClassName}DataTable extends DataTable
 
 	public static function htmlMethod($r) {
 		$stud = '';
-		for ($i = 0; $i < count(request('col_name')); $i++) {
-			$stud .= ($i + 1) . ',';
+		// for ($i = 0; $i < count(request('col_name')); $i++) {
+		// 	$stud .= ($i + 1) . ',';
+		// }
+
+		$x = 0;
+		$finaldropdown = '';
+		$finalinputs = '';
+		$finalInputsCount = '';
+		foreach ($r->input('col_name_convention') as $conv) {
+			// select or dropdown static (enum) In Rules Start
+			if ($r->input('col_type')[$x] == 'select') {
+				$dropdown = '';
+				$ex_select = explode('|', $conv);
+				if (!preg_match('/App/i', $ex_select[1])) {
+					if (!empty($ex_select[1])) {
+						$lang = $r->input('lang_file');
+						$options = explode('/', $ex_select[1]);
+						foreach ($options as $op) {
+							$kv = explode(',', $op);
+							$dropdown .= "'" . $kv[0] . "'=>trans('" . $lang . "." . $kv[0] . "')," . "\n";
+						}
+					}
+				}
+
+				$finaldropdown .= '
+				". filterElement(\'' . ($x + 2) . '\', \'select\', [
+				' . $dropdown . ']) . "' . "\n";
+
+			} elseif ($r->input('col_type')[$x] != 'file') {
+
+				$finalInputsCount .= "1," . ($x + 2) . ",";
+
+			}
+			// select or dropdown static (enum) In Rules End
+			$x++;
 		}
+		if (!empty($finalInputsCount)) {
+			$finalinputs .= ' ". filterElement(\'' . rtrim($finalInputsCount, ",") . '\', \'input\') . "' . "\n";
+		}
+
 		$html = '
     	 /**
 	     * Optional method if you want to use html builder.
@@ -173,7 +210,7 @@ class {ClassName}DataTable extends DataTable
                 \'buttons\' => [
                     [\'extend\' => \'print\', \'className\' => \'btn dark btn-outline\', \'text\' => \'<i class="fa fa-print"></i> \'.trans(\'admin.print\')],
                     [\'extend\' => \'excel\', \'className\' => \'btn green btn-outline\', \'text\' => \'<i class="fa fa-file-excel-o"> </i> \'.trans(\'admin.export_excel\')],
-                    /*[\'extend\' => \'pdf\', \'className\' => \'btn red btn-outline\', \'text\' => \'<i class="fa fa-file-pdf-o"> </i> \'.trans(\'admin.export_pdf\')],*/
+                    [\'extend\' => \'pdf\', \'className\' => \'btn red btn-outline\', \'text\' => \'<i class="fa fa-file-pdf-o"> </i> \'.trans(\'admin.export_pdf\')],
                     [\'extend\' => \'csv\', \'className\' => \'btn purple btn-outline\', \'text\' => \'<i class="fa fa-file-excel-o"> </i> \'.trans(\'admin.export_csv\')],
                     [\'extend\' => \'reload\', \'className\' => \'btn blue btn-outline\', \'text\' => \'<i class="fa fa fa-refresh"></i> \'.trans(\'admin.reload\')],
                     [
@@ -188,16 +225,10 @@ class {ClassName}DataTable extends DataTable
                     ],
                 ],
                 \'initComplete\' => "function () {
-                this.api().columns([' . substr($stud, 0, -1) . ']).every(function () {
-                var column = this;
-                var input = document.createElement(\"input\");
-                $(input).attr( \'style\', \'width: 100%\');
-                $(input).attr( \'class\', \'form-control\');
-                $(input).appendTo($(column.footer()).empty())
-                .on(\'keyup\', function () {
-                    column.search($(this).val()).draw();
-                });
-            });
+
+
+            ' . $finalinputs . '
+            ' . $finaldropdown . '
             }",
                 \'order\' => [[1, \'desc\']],
 
@@ -301,11 +332,15 @@ class {ClassName}DataTable extends DataTable
         return datatables($query)
             ->addColumn(\'actions\', \'{path}.{name}.buttons.actions\')' . "\n\r";
 		$i = 0;
+		$rowColumnsHtml = '';
 		foreach ($r->input('col_name_convention') as $conv) {
 
 			// Here Add New Column Image To View Image with Modal Start//
 			if ($r->has('image' . $i)) {
 				$ajax .= '            ->addColumn(\'' . $conv . '\', \'{path}.{name}.buttons.' . $conv . '\')' . "\n\r";
+			} elseif ($r->input('col_type')[$i] == 'file' && !$r->has('image' . $i)) {
+				$ajax .= '            ->addColumn(\'' . $conv . '\', \'<a href="{{ it()->url($' . $conv . ') }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>\')' . "\n\r";
+				$rowColumnsHtml .= '"' . $conv . '"' . ',';
 			}
 			// Here Add New Column Image To View Image with Modal End//
 
@@ -323,7 +358,7 @@ class {ClassName}DataTable extends DataTable
 
 		$ajax .= '            ->addColumn(\'checkbox\', \'<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
 			<input type="checkbox" class="selected_data" name="selected_data[]" value="{{ $id }}"> <span></span></label>\')
-            ->rawColumns([\'checkbox\',\'actions\',{images_html}]);
+            ->rawColumns([\'checkbox\',\'actions\',{images_html}' . $rowColumnsHtml . ']);
     }
   ';
 

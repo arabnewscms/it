@@ -25,6 +25,7 @@ use Validator;
 use Set;
 use Up;
 use Form;
+use App\Http\Controllers\Validations\{ClassName}Request;
 // Auto Controller Maker By Baboon Script
 // Baboon Maker has been Created And Developed By  ' . self::$copyright . '
 // Copyright Reserved  ' . self::$copyright . '
@@ -337,7 +338,7 @@ protected $fillable = [' . "\n";
 				</div>
 		</div>
 	</div>
-	@stop
+	@endsection
 	' . "\n";
 			return $input;
 		}
@@ -348,58 +349,58 @@ protected $fillable = [' . "\n";
 		$route = strtolower($r->input('controller_name'));
 		$route = str_replace('controller', '', $route);
 		$input = '@extends(\'' . $blade_path . '.index\')
-	@section(\'content\')
-	<div class="row">
-		<div class="col-md-12">
-				<div class="widget-extra body-req portlet light bordered">
-						<div class="portlet-title">
-								<div class="caption">
-										<span class="caption-subject bold uppercase font-dark">{{$title}}</span>
-								</div>
-								<div class="actions">
-										<a class="btn btn-circle btn-icon-only btn-default" href="{{aurl(\'{route2}/create\')}}"
-												data-toggle="tooltip" title="{{trans(\'{lang}.add\')}}  {{trans(\'{lang}.{route2}\')}}">
-												<i class="fa fa-plus"></i>
-										</a>
-										<span data-toggle="tooltip" title="{{trans(\'{lang}.delete\')}}  {{trans(\'{lang}.{route2}\')}}">
-												<a data-toggle="modal" data-target="#myModal{{${route2}->id}}" class="btn btn-circle btn-icon-only btn-default" href="">
-														<i class="fa fa-trash"></i>
-												</a>
-										</span>
-										<div class="modal fade" id="myModal{{${route2}->id}}">
-												<div class="modal-dialog">
-														<div class="modal-content">
-																<div class="modal-header">
-																		<button class="close" data-dismiss="modal">x</button>
-																		<h4 class="modal-title">{{trans(\'{lang}.delete\')}}؟</h4>
-																</div>
-																<div class="modal-body">
-																		<i class="fa fa-exclamation-triangle"></i>   {{trans(\'{lang}.ask_del\')}} {{trans(\'{lang}.id\')}} ({{${route2}->id}}) ؟
-																</div>
-																<div class="modal-footer">
-																		{!! Form::open([
-																		\'method\' => \'DELETE\',
-																		\'route\' => [\'{route2}.destroy\', ${route2}->id]
-																		]) !!}
-																		{!! Form::submit(trans(\'{lang}.approval\'), [\'class\' => \'btn btn-danger\']) !!}
-																		<a class="btn btn-default" data-dismiss="modal">{{trans(\'{lang}.cancel\')}}</a>
-																		{!! Form::close() !!}
-																</div>
-														</div>
-												</div>
-										</div>
-										<a class="btn btn-circle btn-icon-only btn-default" href="{{aurl(\'{route2}\')}}"
-												data-toggle="tooltip" title="{{trans(\'{lang}.show_all\')}}   {{trans(\'{lang}.{route2}\')}}">
-												<i class="fa fa-list"></i>
-										</a>
-										<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#"
-												data-original-title="{{trans(\'{lang}.fullscreen\')}}"
-												title="{{trans(\'{lang}.fullscreen\')}}">
-										</a>
-								</div>
+@section(\'content\')
+<div class="row">
+<div class="col-md-12">
+<div class="widget-extra body-req portlet light bordered">
+<div class="portlet-title">
+<div class="caption">
+		<span class="caption-subject bold uppercase font-dark">{{$title}}</span>
+</div>
+<div class="actions">
+		<a class="btn btn-circle btn-icon-only btn-default" href="{{aurl(\'{route2}/create\')}}"
+				data-toggle="tooltip" title="{{trans(\'{lang}.add\')}}  {{trans(\'{lang}.{route2}\')}}">
+				<i class="fa fa-plus"></i>
+		</a>
+		<span data-toggle="tooltip" title="{{trans(\'{lang}.delete\')}}  {{trans(\'{lang}.{route2}\')}}">
+				<a data-toggle="modal" data-target="#myModal{{${route2}->id}}" class="btn btn-circle btn-icon-only btn-default" href="">
+						<i class="fa fa-trash"></i>
+				</a>
+		</span>
+		<div class="modal fade" id="myModal{{${route2}->id}}">
+				<div class="modal-dialog">
+				<div class="modal-content">
+						<div class="modal-header">
+								<button class="close" data-dismiss="modal">x</button>
+								<h4 class="modal-title">{{trans(\'{lang}.delete\')}}؟</h4>
 						</div>
-						<div class="portlet-body form">
-								<div class="col-md-12">
+						<div class="modal-body">
+								<i class="fa fa-exclamation-triangle"></i>   {{trans(\'{lang}.ask_del\')}} {{trans(\'{lang}.id\')}} ({{${route2}->id}}) ؟
+						</div>
+						<div class="modal-footer">
+								{!! Form::open([
+								\'method\' => \'DELETE\',
+								\'route\' => [\'{route2}.destroy\', ${route2}->id]
+								]) !!}
+								{!! Form::submit(trans(\'{lang}.approval\'), [\'class\' => \'btn btn-danger\']) !!}
+								<a class="btn btn-default" data-dismiss="modal">{{trans(\'{lang}.cancel\')}}</a>
+								{!! Form::close() !!}
+						</div>
+				</div>
+				</div>
+		</div>
+		<a class="btn btn-circle btn-icon-only btn-default" href="{{aurl(\'{route2}\')}}"
+				data-toggle="tooltip" title="{{trans(\'{lang}.show_all\')}}   {{trans(\'{lang}.{route2}\')}}">
+				<i class="fa fa-list"></i>
+		</a>
+		<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#"
+				data-original-title="{{trans(\'{lang}.fullscreen\')}}"
+				title="{{trans(\'{lang}.fullscreen\')}}">
+		</a>
+</div>
+</div>
+<div class="portlet-body form">
+<div class="col-md-12">
 										' . "\n";
 		$input = str_replace('{route2}', $route, $input);
 		if ($r->input('use_collective') == 'yes') {
@@ -450,8 +451,10 @@ protected $fillable = [' . "\n";
 					$input .= BaboonUpdate::checkbox($data);
 				} elseif (!empty($r->input('col_type')[$i]) and 'radio' == $r->input('col_type')[$i]) {
 					$input .= BaboonUpdate::radio($data);
-				} elseif (!empty($r->input('col_type')[$i]) and 'file' == $r->input('col_type')[$i]) {
+				} elseif (!empty($r->input('col_type')[$i]) and 'file' == $r->input('col_type')[$i] && $r->has('image' . $i)) {
 					$input .= BaboonUpdate::file($data);
+				} elseif (!empty($r->input('col_type')[$i]) and 'file' == $r->input('col_type')[$i] && !$r->has('image' . $i)) {
+					$input .= BaboonUpdate::fileDownload($data);
 				} elseif (!empty($r->input('col_type')[$i]) and 'color' == $r->input('col_type')[$i]) {
 					$input .= BaboonUpdate::color($data);
 				} elseif (!empty($r->input('col_type')[$i]) and 'time' == $r->input('col_type')[$i]) {
@@ -468,7 +471,7 @@ protected $fillable = [' . "\n";
 						</div>
 				</div>
 		</div>
-		@stop
+		@endsection
 		' . "\n";
 			$input = str_replace('{lang}', $r->input('lang_file'), $input);
 
@@ -536,50 +539,50 @@ protected $fillable = [' . "\n";
 		$route = str_replace('controller', '', $route);
 
 		$edit = '
-		<div class="actions">
-				<div class="btn-group">
-						<a class="btn btn-default btn-outlines btn-circle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
-								<i class="fa fa-wrench"></i>
-						{{ trans(\'{file_lang}.actions\') }}
-								<i class="fa fa-angle-down"></i>
-						</a>
-						<ul class="dropdown-menu pull-right">
-								<li>
-										<a href="{{ aurl(\'/{route}/\'.$id.\'/edit\')}}"><i class="fa fa-pencil-square-o"></i> {{trans(\'{file_lang}.edit\')}}</a>
-								</li>
-								<li class="divider"> </li>
-								<li>
-										<a href="{{ aurl(\'/{route}/\'.$id)}}"><i class="fa fa-eye"></i> {{trans(\'{file_lang}.show\')}}</a>
-								</li>
-								<li>
-										<a data-toggle="modal" data-target="#delete_record{{$id}}" href="#">
-						<i class="fa fa-trash"></i> {{trans(\'{file_lang}.delete\')}}</a>
-								</li>
-						</ul>
-				</div>
-		</div>
-		<div class="modal fade" id="delete_record{{$id}}">
-				<div class="modal-dialog">
-						<div class="modal-content">
-								<div class="modal-header">
-										<button class="close" data-dismiss="modal">x</button>
-										<h4 class="modal-title">{{trans(\'{file_lang}.delete\')}}؟</h4>
-								</div>
-								<div class="modal-body">
-										<i class="fa fa-exclamation-triangle"></i> {{trans(\'{file_lang}.ask_del\')}} {{trans(\'{file_lang}.id\')}} ({{$id}}) ؟
-								</div>
-								<div class="modal-footer">
-										{!! Form::open([
-										\'method\' => \'DELETE\',
-										\'route\' => [\'{route}.destroy\', $id]
-										]) !!}
-										{!! Form::submit(trans(\'{file_lang}.approval\'), [\'class\' => \'btn btn-danger\']) !!}
-										<a class="btn btn-default" data-dismiss="modal">{{trans(\'{file_lang}.cancel\')}}</a>
-										{!! Form::close() !!}
-								</div>
-						</div>
-				</div>
-		</div>
+<div class="actions">
+<div class="btn-group">
+	<a class="btn btn-default btn-outlines btn-circle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+			<i class="fa fa-wrench"></i>
+	{{ trans(\'{file_lang}.actions\') }}
+			<i class="fa fa-angle-down"></i>
+	</a>
+	<ul class="dropdown-menu pull-right">
+			<li>
+					<a href="{{ aurl(\'/{route}/\'.$id.\'/edit\')}}"><i class="fa fa-pencil-square-o"></i> {{trans(\'{file_lang}.edit\')}}</a>
+			</li>
+			<li class="divider"> </li>
+			<li>
+					<a href="{{ aurl(\'/{route}/\'.$id)}}"><i class="fa fa-eye"></i> {{trans(\'{file_lang}.show\')}}</a>
+			</li>
+			<li>
+					<a data-toggle="modal" data-target="#delete_record{{$id}}" href="#">
+	<i class="fa fa-trash"></i> {{trans(\'{file_lang}.delete\')}}</a>
+			</li>
+	</ul>
+</div>
+</div>
+<div class="modal fade" id="delete_record{{$id}}">
+<div class="modal-dialog">
+	<div class="modal-content">
+			<div class="modal-header">
+					<button class="close" data-dismiss="modal">x</button>
+					<h4 class="modal-title">{{trans(\'{file_lang}.delete\')}}؟</h4>
+			</div>
+			<div class="modal-body">
+					<i class="fa fa-exclamation-triangle"></i> {{trans(\'{file_lang}.ask_del\')}} {{trans(\'{file_lang}.id\')}} ({{$id}}) ؟
+			</div>
+			<div class="modal-footer">
+					{!! Form::open([
+					\'method\' => \'DELETE\',
+					\'route\' => [\'{route}.destroy\', $id]
+					]) !!}
+					{!! Form::submit(trans(\'{file_lang}.approval\'), [\'class\' => \'btn btn-danger\']) !!}
+					<a class="btn btn-default" data-dismiss="modal">{{trans(\'{file_lang}.cancel\')}}</a>
+					{!! Form::close() !!}
+			</div>
+	</div>
+</div>
+</div>
 		';
 		$edit = str_replace('{route}', $route, $edit);
 		$edit = str_replace('{file_lang}', $r->input('lang_file'), $edit);
@@ -594,51 +597,51 @@ protected $fillable = [' . "\n";
 		$index .= '
 		@section(\'content\')';
 		$index .= '
-		<div class="row">
-				<div class="col-md-12">
-						<div class="portlet light bordered">
-								<div class="portlet-title">
-										<div class="caption">
-												<span class="caption-subject bold uppercase font-dark">{{$title}}</span>
-										</div>
-								</div>
-								<div class="portlet-body">
-                                    <div class="table-responsive">
-										{!! Form::open([
-										"method" => "post",
-										"url" => [aurl(\'/{route}/multi_delete\')]
-										]) !!}
-										{!! $dataTable->table(["class"=> "table table-striped table-bordered table-hover table-checkable dataTable no-footer"],true) !!}
-										<div class="clearfix"></div>
-                                    </div>
-								</div>
+<div class="row">
+<div class="col-md-12">
+		<div class="portlet light bordered">
+				<div class="portlet-title">
+						<div class="caption">
+								<span class="caption-subject bold uppercase font-dark">{{$title}}</span>
 						</div>
 				</div>
-				<div class="modal fade" id="multi_delete">
-						<div class="modal-dialog">
-								<div class="modal-content">
-										<div class="modal-header">
-												<button class="close" data-dismiss="modal">x</button>
-												<h4 class="modal-title">{{trans("{lang}.delete")}} </h4>
-										</div>
-										<div class="modal-body">
-												<div class="delete_done"><i class="fa fa-exclamation-triangle"></i> {{trans("{lang}.ask-delete")}} <span id="count"></span> {{trans("{lang}.record")}} ! </div>
-												<div class="check_delete">{{trans("{lang}.check-delete")}}</div>
-										</div>
-										<div class="modal-footer">
-												{!! Form::submit(trans("{lang}.approval"), ["class" => "btn btn-danger delete_done"]) !!}
-												<a class="btn btn-default" data-dismiss="modal">{{trans("{lang}.cancel")}}</a>
-										</div>
-								</div>
-						</div>
+				<div class="portlet-body">
+                    <div class="table-responsive">
+						{!! Form::open([
+						"method" => "post",
+						"url" => [aurl(\'/{route}/multi_delete\')]
+						]) !!}
+						{!! $dataTable->table(["class"=> "table table-striped table-bordered table-hover table-checkable dataTable no-footer"],true) !!}
+						<div class="clearfix"></div>
+                    </div>
 				</div>
 		</div>
-		@push(\'js\')
-		{!! $dataTable->scripts() !!}
-		@endpush
-		{!! Form::close() !!}
+</div>
+<div class="modal fade" id="multi_delete">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+					<button class="close" data-dismiss="modal">x</button>
+					<h4 class="modal-title">{{trans("{lang}.delete")}} </h4>
+			</div>
+			<div class="modal-body">
+					<div class="delete_done"><i class="fa fa-exclamation-triangle"></i> {{trans("{lang}.ask-delete")}} <span id="count"></span> {{trans("{lang}.record")}} ! </div>
+					<div class="check_delete">{{trans("{lang}.check-delete")}}</div>
+			</div>
+			<div class="modal-footer">
+					{!! Form::submit(trans("{lang}.approval"), ["class" => "btn btn-danger delete_done"]) !!}
+					<a class="btn btn-default" data-dismiss="modal">{{trans("{lang}.cancel")}}</a>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+@push(\'js\')
+{!! $dataTable->scripts() !!}
+@endpush
+{!! Form::close() !!}
 		';
-		$index .= '@stop
+		$index .= '@endsection
 		';
 		$index = str_replace('{route}', $route, $index);
 		$index = str_replace('{lang}', $r->input('lang_file'), $index);
