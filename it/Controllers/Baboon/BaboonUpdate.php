@@ -118,6 +118,8 @@ class BaboonUpdate extends Controller {
 				$folder = str_replace('controller', '', strtolower($r->input('controller_name')));
 				$update .= '              it()->delete(${Name}->' . $conv . ');' . "\n";
 				$update .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
+				$update .= '               }else{' . "\n";
+				$update .= '              $data[\'' . $conv . '\'] = ""' . "\n";
 				$update .= '               }' . "\n";
 			}
 			$i++;
@@ -145,23 +147,27 @@ class BaboonUpdate extends Controller {
              */
             public function destroy($id)
             {
-               ${Name} = {ModelName}::find($id);';
+               ${Name} = {ModelName}::find($id);
+               if(is_null(${Name}) || empty(${Name})){
+                return backWithError(trans(\'{lang}.undefinedRecord\'));
+               }
+               ';
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
+				$destroy .= '               if(!empty(${Name}->' . $conv . ')){' . "\n";
 				$destroy .= '               it()->delete(${Name}->' . $conv . ');' . "\n";
-				$destroy .= '               it()->delete(\'{Name2}\',$id);' . "\n";
+				$destroy .= '               }' . "\n";
 			}
 			$i++;
 		}
+		$destroy .= '               it()->delete(\'{Name2}\',$id);' . "\n";
 		$destroy .= '
-			   if(!is_null(${Name}) && !empty(${Name})){
+
                 ${Name}->delete();
                 return backWithSuccess(trans(\'{lang}.deleted\'));
-               }else{
-                return backWithError(trans(\'{lang}.undefinedRecord\'));
-               }
+
             }
 
 
@@ -171,39 +177,47 @@ class BaboonUpdate extends Controller {
                 if(is_array($data)){
                     foreach($data as $id)
                     {
-                    	${Name} = {ModelName}::find($id);';
+                    	${Name} = {ModelName}::find($id);
+                    	if(is_null(${Name}) || empty(${Name})){
+		                 return backWithError(trans(\'{lang}.undefinedRecord\'));
+		                }
+                    	';
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
+				$destroy .= '                    	if(!empty(${Name}->' . $conv . ')){' . "\n";
 				$destroy .= '                    	it()->delete(${Name}->' . $conv . ');' . "\n";
-				$destroy .= '                    	it()->delete(\'{Name2}\',$id);' . "\n";
+				$destroy .= '                    	}' . "\n";
 			}
 			$i++;
 		}
+		$destroy .= '                    	it()->delete(\'{Name2}\',$id);' . "\n";
 		$destroy .= '
-					  if(!is_null(${Name}) && !empty(${Name})){
+
 		                ${Name}->delete();
-		               }
+
                     }
                     return backWithSuccess(trans(\'{lang}.deleted\'));
                 }else {
-                    ${Name} = {ModelName}::find($data);' . "\n";
+                    ${Name} = {ModelName}::find($data);
+                    if(is_null(${Name}) || empty(${Name})){
+	                 return backWithError(trans(\'{lang}.undefinedRecord\'));
+	                }
+                    ' . "\n";
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
+				$destroy .= '                    	if(!empty(${Name}->' . $conv . ')){' . "\n";
 				$destroy .= '                    	it()->delete(${Name}->' . $conv . ');' . "\n";
-				$destroy .= '                    	it()->delete(\'{Name2}\',$data);' . "\n";
+				$destroy .= '                    	}' . "\n";
 
 			}
 			$i++;
 		}
+		$destroy .= '                    	it()->delete(\'{Name2}\',$data);' . "\n";
 		$destroy .= '
-                   if(!is_null(${Name}) && !empty(${Name})){
 	                ${Name}->delete();
 	                return backWithSuccess(trans(\'{lang}.deleted\'));
-	               }else{
-	                return backWithError(trans(\'{lang}.undefinedRecord\'));
-	               }
                 }
             }
             ';

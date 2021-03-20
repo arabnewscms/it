@@ -92,6 +92,8 @@ class BaboonCreate extends Controller {
 				$folder = str_replace('controller', '', strtolower($r->input('controller_name')));
 
 				$store .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
+				$store .= '              }else{' . "\n";
+				$store .= '              $data[\'' . $conv . '\'] = ""' . "\n";
 				$store .= '              }' . "\n";
 			}
 			$i++;

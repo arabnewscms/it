@@ -18,6 +18,7 @@ class BaboonCreateApi extends Controller {
             	${ModelName} = {ModelName}::orderBy(\'id\',\'desc\')->paginate(15);
                return response([
                "status"=>true,
+               "statusCode"=>200,
                "data"=>${ModelName}
                ],200);
             }' . "\n";
@@ -51,6 +52,8 @@ class BaboonCreateApi extends Controller {
 				$folder = str_replace('controller', '', strtolower($r->input('controller_name')));
 
 				$store .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
+				$store .= '              }else{' . "\n";
+				$store .= '                $data[\'' . $conv . '\'] = "";' . "\n";
 				$store .= '              }' . "\n";
 			}
 			$i++;
@@ -60,6 +63,7 @@ class BaboonCreateApi extends Controller {
 		$store .= '
         return response([
             "status"=>true,
+            "statusCode"=>200,
             "message"=>trans(\'{lang}.added\'),
             "data"=>${ModelName}
         ],200);

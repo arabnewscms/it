@@ -19,12 +19,13 @@ class BaboonUpdateApi extends Controller {
             {
                 ${ModelName} = {ModelName}::find($id);
             	if(is_null(${ModelName}) || empty(${ModelName})){
-            	 return errorResponseJson();
+            	 return errorResponseJson([]);
             	}
 
 ';
 		$show .= '                 return response([
               "status"=>true,
+              "statusCode"=>200,
               "data"=> ${ModelName}
               ],200);  ;
             }' . "\n";
@@ -48,7 +49,7 @@ class BaboonUpdateApi extends Controller {
             {
             	${ModelName} = {ModelName}::find($id);
             	if(is_null(${ModelName}) || empty(${ModelName})){
-            	 return errorResponseJson();
+            	 return errorResponseJson([]);
             	}
                  ' . "\n";
 
@@ -63,6 +64,8 @@ class BaboonUpdateApi extends Controller {
 				$folder = str_replace('controller', '', strtolower($r->input('controller_name')));
 				$update .= '              it()->delete(${ModelName}->' . $conv . ');' . "\n";
 				$update .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
+				$update .= '               }else{' . "\n";
+				$update .= '                $data[\'' . $conv . '\'] = "";' . "\n";
 				$update .= '               }' . "\n";
 			}
 			$i++;
@@ -74,6 +77,7 @@ class BaboonUpdateApi extends Controller {
 
               return response([
                "status"=>true,
+               "statusCode"=>200,
                "message"=>trans(\'{lang}.updated\'),
                "data"=> ${ModelName}
                ],200);
@@ -98,7 +102,7 @@ class BaboonUpdateApi extends Controller {
             {
                ${Name} = {ModelName}::find($id);
             	if(is_null(${Name}) || empty(${Name})){
-            	 return errorResponseJson();
+            	 return errorResponseJson([]);
             	}
 
 ' . "\n";
@@ -106,14 +110,16 @@ class BaboonUpdateApi extends Controller {
 		foreach ($r->input('col_name_convention') as $conv) {
 
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
+				$destroy .= '              if(!empty(${Name}->' . $conv . ')){' . "\n";
 				$destroy .= '               it()->delete(${Name}->' . $conv . ');' . "\n";
-				$destroy .= '               it()->delete(\'{Name2}\',$id);' . "\n";
+				$destroy .= '              }' . "\n";
 			}
 			$i++;
 		}
+		$destroy .= '               it()->delete(\'{Name2}\',$id);' . "\n";
 		$destroy .= '
                ${Name}->delete();
-               return response(["status"=>true,"message"=>trans(\'{lang}.deleted\')],200);
+               return response(["status"=>true,"statusCode"=>200,"message"=>trans(\'{lang}.deleted\')],200);
             }
 
 
@@ -126,40 +132,44 @@ class BaboonUpdateApi extends Controller {
                     {
                     ${Name} = {ModelName}::find($id);
 	            	if(is_null(${Name}) || empty(${Name})){
-	            	 return errorResponseJson();
+	            	 return errorResponseJson([]);
 	            	}
 ' . "\n";
 
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
+				$destroy .= '                    	if(!empty(${Name}->' . $conv . ')){' . "\n";
 				$destroy .= '                    	it()->delete(${Name}->' . $conv . ');' . "\n";
-				$destroy .= '                    	it()->delete(\'{Name2}\',$id);' . "\n";
+				$destroy .= '                    	}' . "\n";
 
 			}
 			$i++;
 		}
+		$destroy .= '                    	it()->delete(\'{Name2}\',$id);' . "\n";
 		$destroy .= '                    	@${Name}->delete();
                     }
-                    return response(["status"=>true,"message"=>trans(\'{lang}.deleted\')]);
+                    return response(["status"=>true,"statusCode"=>200,"message"=>trans(\'{lang}.deleted\')]);
                 }else {
                     ${Name} = {ModelName}::find($id);
 	            	if(is_null(${Name}) || empty(${Name})){
-	            	 return errorResponseJson();
+	            	 return errorResponseJson([]);
 	            	}
  ' . "\n";
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
+				$destroy .= '                    	if(!empty(${Name}->' . $conv . ')){' . "\n";
 				$destroy .= '                    	it()->delete(${Name}->' . $conv . ');' . "\n";
-				$destroy .= '                    	it()->delete(\'{Name2}\',$data);' . "\n";
+				$destroy .= '                    	}' . "\n";
 
 			}
 			$i++;
 		}
+		$destroy .= '                    	it()->delete(\'{Name2}\',$data);' . "\n";
 		$destroy .= '
                     ${Name}->delete();
-                    return response(["status"=>true,"message"=>trans(\'{lang}.deleted\')],200);
+                    return response(["status"=>true,"statusCode"=>200,"message"=>trans(\'{lang}.deleted\')],200);
                 }
             }
 
