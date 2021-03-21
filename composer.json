@@ -1,0 +1,39 @@
+{
+	"name":"phpanonymous/it",
+	"description": "A Simple Track to make sense by Mahmoud Ibrahim",
+	"type":"package",
+	"license": "MIT",
+	"keywords":["laravel","It application With It-platinum","php"],
+	"authors":[
+	{
+		"name":"Mahmoud Ibrahim",
+		"email":"it@phpanonymous.com",
+		"homepage":"https://it.phpanonymous.com"
+	}
+	],
+	"require":{
+		"php": ">= 7.3.0",
+		"laravel/framework": "^8.0"
+	},
+	"autoload":{
+		"psr-4":{
+			"Phpanonymous\\It\\":"it/"
+		}
+	},
+	"extra": {
+    "branch-alias": {
+            "dev-master": "1.5.3.x-dev"
+    },
+        "laravel": {
+            "providers": [
+                "Phpanonymous\\It\\ItApplication"
+            ],
+            "aliases": {
+              
+            }
+        }
+  },
+	"version":"1.5.3",
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
