@@ -243,7 +243,7 @@ class Generate extends Command {
 
 		$this->info("To Install (wkhtmltopdf) with brew on macosx brew install wkhtmltopdf");
 
-		$this->info("thank you for using my package (Mahmoud Ibrahim) if you want ask me something text me   php.anonymous@gmail.com");
+		$this->info("thank you for using my package (Mahmoud Ibrahim) if you want ask me something text me   php.anonymous1@gmail.com");
 
 		// config('database.connections.mysql.database', $DB_DATABASE);
 		// config('database.connections.mysql.username', $DB_USERNAME);
