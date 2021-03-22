@@ -10,7 +10,6 @@ class BaboonDataTable extends Controller {
 		$datatable = '<?php
 namespace App\DataTables;
 use {Model};
-//use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Services\DataTable;
 // Auto DataTable By Baboon Script
@@ -169,16 +168,31 @@ class {ClassName}DataTable extends DataTable
 					if (!empty($ex_select[1])) {
 						$lang = $r->input('lang_file');
 						$options = explode('/', $ex_select[1]);
+						$dropdown .= "[" . "\n";
 						foreach ($options as $op) {
 							$kv = explode(',', $op);
 							$dropdown .= "'" . $kv[0] . "'=>trans('" . $lang . "." . $kv[0] . "')," . "\n";
 						}
+						$dropdown .= "]" . "\n";
 					}
+				} elseif (preg_match('/App/i', $ex_select[1])) {
+					// If Pluck Model Do Some Change To get first column to end column
+					// Pakets Model
+					$pluck_ex = str_replace('(', '', explode('pluck', $ex_select[1])[1]);
+					$pluck_ex = str_replace(')', '', $pluck_ex);
+					$pluck_ex = str_replace("'", "", $pluck_ex);
+					$pluck_ex = explode(',', $pluck_ex);
+
+					// Final Pluck Model
+					$new_pluck = explode('::', $ex_select[1])[0] . '::pluck("' . $pluck_ex[0] . '","' . $pluck_ex[0] . '")';
+
+					$dropdown .= "{pluck}";
+					// Append New Pluck
+					$dropdown = str_replace('{pluck}', '\\' . $new_pluck, $dropdown);
 				}
 
 				$finaldropdown .= '
-				". filterElement(\'' . ($x + 2) . '\', \'select\', [
-				' . $dropdown . ']) . "' . "\n";
+				". filterElement(\'' . ($x + 2) . '\', \'select\', ' . $dropdown . ') . "' . "\n";
 
 			} elseif ($r->input('col_type')[$x] != 'file') {
 
