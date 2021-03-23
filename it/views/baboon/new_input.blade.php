@@ -39,7 +39,7 @@
         <label for="col_name_convention" class="col-md-12">{{it_trans('it.col_name_convention')}}</label>
         <input type="text" name="col_name_convention[]"  to="`+x+`" value="{{old('col_name_convention')}}" class="form-control col_name_convention" placeholder="{{it_trans('it.col_name_convention')}}"  />
         <small style="color:#c33">Select - active|1,yes/0,no</small><br>
-        <small style="color:#c33">Select - user_id|App\User::pluck('name','id')</small><br>
+        <small style="color:#c33">Select - user_id|App\Models\User::pluck('name','id')</small><br>
         <small style="color:#c33">checkbox or radio - active#1</small><br>
       </div>
     </div>
