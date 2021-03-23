@@ -103,27 +103,27 @@ $(document).on('click','.checkinput',function(){
 							</thead>
 							<tbody>
 								<tr>
-								<td>{{trans('admin.settings')}}</td>
-								<td>
-									<input type="checkbox"
-									class="checkinput settings_show"
-									{{ checkPermissionGroup('settings_show',$admingroups)?'checked':'' }}
-									permission_name="settings"
-									name="settings_show"
-									value="yes" />
-								</td>
-								<td>
-								</td>
-								<td>
-									<input type="checkbox"
-									{{ checkPermissionGroup('settings_edit',$admingroups)?'checked':'' }}
-									class="checkinput settings_edit"
-									permission_name="settings"
-									name="settings_edit"   value="yes" />
-								</td>
-								<td>
-								</td>
-							</tr>
+									<td>{{trans('admin.settings')}}</td>
+									<td>
+										<input type="checkbox"
+										class="checkinput settings_show"
+										{{ checkPermissionGroup('settings_show',$admingroups)?'checked':'' }}
+										permission_name="settings"
+										name="settings_show"
+										value="yes" />
+									</td>
+									<td>
+									</td>
+									<td>
+										<input type="checkbox"
+										{{ checkPermissionGroup('settings_edit',$admingroups)?'checked':'' }}
+										class="checkinput settings_edit"
+										permission_name="settings"
+										name="settings_edit"   value="yes" />
+									</td>
+									<td>
+									</td>
+								</tr>
 								@foreach(require app_path('Http/AdminRouteList.php') as $perm)
 								<tr>
 									<td>{{trans('admin.'.$perm)}}</td>
@@ -159,28 +159,27 @@ $(document).on('click','.checkinput',function(){
 									</td>
 								</tr>
 								@endforeach
-
-						</tbody>
-					</table>
-				</div>
-				<div class="clearfix"></div>
-				<br>
-				<div class="form-actions">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="row">
-								<div class="col-md-offset-3 col-md-9">
-									{!! Form::submit(trans('admin.save'),['class'=>'btn btn-success']) !!}
+							</tbody>
+						</table>
+					</div>
+					<div class="clearfix"></div>
+					<br>
+					<div class="form-actions">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-offset-3 col-md-9">
+										{!! Form::submit(trans('admin.save'),['class'=>'btn btn-success']) !!}
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					{!! Form::close() !!}
 				</div>
-				{!! Form::close() !!}
+				<div class="clearfix"></div>
 			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
-</div>
 </div>
 @stop

@@ -101,5 +101,6 @@ return [
 	"error_permission_4" => "Okay. Let's show you what to do.",
 	"error_permission_5" => "Return to the home page",
 	"error_permission_6" => "Or check that you can follow the correct link",
+	"admins" => "Admins",
 	"group_id" => "Admin Group",
 ];
