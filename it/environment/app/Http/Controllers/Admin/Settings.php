@@ -6,6 +6,18 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class Settings extends Controller {
+
+	public function __construct() {
+
+		$this->middleware('AdminRole:settings_show', [
+			'only' => ['index', 'show'],
+		]);
+		$this->middleware('AdminRole:settings_edit', [
+			'only' => ['store'],
+		]);
+
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -13,15 +25,6 @@ class Settings extends Controller {
 	 */
 	public function index() {
 		return view('admin.settings', ['title' => trans('admin.settings')]);
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create() {
-		//
 	}
 
 	/**
@@ -41,6 +44,7 @@ class Settings extends Controller {
 			'system_status' => 'required',
 			'system_message' => '',
 		];
+
 		$data = $this->validate(request(), $rules, [], [
 			'sitename_ar' => trans('admin.sitename_ar'),
 			'sitename_en' => trans('admin.sitename_en'),

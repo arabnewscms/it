@@ -173,3 +173,14 @@ if (!function_exists('errorResponse')) {
 
 	}
 }
+
+if (!function_exists('checkPermissionGroup')) {
+	function checkPermissionGroup($permission, $group) {
+		$explode_name = explode('_', $permission);
+		$role = $group->role()->where('name', $explode_name[0])->first();
+		if (!empty($role) && $role->{$explode_name[1]} == 'yes') {
+			return true;
+		}
+		return false;
+	}
+}

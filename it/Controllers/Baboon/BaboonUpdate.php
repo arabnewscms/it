@@ -97,6 +97,14 @@ class BaboonUpdate extends Controller {
              * @param  \Illuminate\Http\Request  $request
              * @return \Illuminate\Http\Response
              */
+            public function updateFillableColumns() {
+				$fillableCols = [];
+				foreach (array_keys((new ' . $r->input('controller_name') . 'Request)->attributes()) as $fillableUpdate) {
+					$fillableCols[$fillableUpdate] = request($fillableUpdate);
+				}
+				return $fillableCols;
+			}
+
             public function update(' . $r->input('controller_name') . 'Request $request,$id)
             {
               // Check Record Exists
@@ -104,7 +112,7 @@ class BaboonUpdate extends Controller {
               if(is_null(${Name}) || empty(${Name})){
               	return backWithError(trans("{lang}.undefinedRecord"));
               }
-              $data = $request->except("_token", "_method"); ' . "\n";
+              $data = $this->updateFillableColumns(); ' . "\n";
 
 		if ($r->has('has_user_id')) {
 			$update .= '              $data[\'admin_id\'] = admin()->id(); ' . "\n";

@@ -41,6 +41,7 @@ Route::group(['prefix' => app('admin'), 'middleware' => 'Lang'], function () {
 		| For any errors you may encounter, please go to this link and put your problem
 		| phpanonymous.com/it/issues
 		 */
+	Route::view('need/permission', 'admin.no_permission');
 
 	Route::group(['middleware' => 'admin:admin'], function () {
 		if (class_exists(\UniSharp\LaravelFilemanager\Lfm::class)) {
@@ -57,6 +58,12 @@ Route::group(['prefix' => app('admin'), 'middleware' => 'Lang'], function () {
 		Route::post('account', 'Admin\AdminAuthenticated@account_post');
 		Route::resource('settings', 'Admin\Settings');
 
+		Route::resource('countries', 'Admin\Countries');
+		Route::post('countries/multi_delete', 'Admin\Countries@multi_delete');
+		Route::resource('cities', 'Admin\Cities');
+		Route::post('cities/multi_delete', 'Admin\Cities@multi_delete');
+		Route::resource('admingroups', 'Admin\AdminGroups');
+		Route::post('admingroups/multi_delete', 'Admin\AdminGroups@multi_delete');
 		//////// Admin Routes /* End */ //////////////
 	});
 

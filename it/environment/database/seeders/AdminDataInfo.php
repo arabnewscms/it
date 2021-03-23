@@ -12,6 +12,7 @@ class AdminDataInfo extends Seeder {
 		return \App\Models\Admin::create([
 			'name' => 'admin',
 			'email' => 'test@test.com',
+			'group_id' => 1,
 			'password' => bcrypt(123456),
 		]);
 	}

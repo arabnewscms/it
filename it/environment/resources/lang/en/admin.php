@@ -93,4 +93,12 @@ return [
 	"undefinedRecord" => "This record does not exist or has already been deleted",
 	"choose" => "..... Choose .....",
 	"record_id" => "Record ID",
+	"admingroups" => "Admin Groups",
+	"group_name" => "Group Name",
+	"error_permission_1" => "You do not have permission to access this page",
+	"error_permission_2" => "403 Sorry, you cannot access this page",
+	"error_permission_3" => "It appears that you do not have permission to access this page.",
+	"error_permission_4" => "Okay. Let's show you what to do.",
+	"error_permission_5" => "Return to the home page",
+	"error_permission_6" => "Or check that you can follow the correct link",
 ];

@@ -45,12 +45,22 @@ class BaboonUpdateApi extends Controller {
              * @param  \Illuminate\Http\Request  $r
              * @return \Illuminate\Http\Response
              */
+            public function updateFillableColumns() {
+				       $fillableCols = [];
+				       foreach (array_keys((new ' . $r->input('controller_name') . 'Request)->attributes()) as $fillableUpdate) {
+  				       $fillableCols[$fillableUpdate] = request($fillableUpdate);
+				       }
+  				     return $fillableCols;
+  	     		}
+
             public function update(' . $r->input('controller_name') . 'Request $request,$id)
             {
             	${ModelName} = {ModelName}::find($id);
             	if(is_null(${ModelName}) || empty(${ModelName})){
             	 return errorResponseJson([]);
-            	}
+  			       }
+
+            	$data = $this->updateFillableColumns();
                  ' . "\n";
 
 		if ($r->has('has_user_id')) {
@@ -71,8 +81,6 @@ class BaboonUpdateApi extends Controller {
 
 		$update .= '              {ModelName}::where(\'id\',$id)->update($data);' . "\n";
 		$update .= '
-
-
               return response([
                "status"=>true,
                "statusCode"=>200,

@@ -123,7 +123,10 @@ class Home extends Controller {
 			}
 
 			Baboon::write(BaboonValidations::validationClass($r), $folder2 . 'Request', 'app\\Http\\Controllers\\Validations\\');
-
+			// Admin Route List Roles Start//
+			$routes = Baboon::RouteListRoles($r);
+			Baboon::write($routes, 'AdminRouteList', 'app\\Http\\');
+			// Admin Route List Roles End//
 			////////////////// Language Files ///////////////////////////////////////
 			$lang_ar = Baboon::Makelang($r);
 			Baboon::write($lang_ar, $r->input('lang_file'), 'resources\\lang\\ar\\');
@@ -219,7 +222,8 @@ class Home extends Controller {
 			$ttitle = '{{trans(\'' . $r->input('lang_file') . '.' . $link . '\')}} ';
 			$create = '{{trans(\'' . $r->input('lang_file') . '.create\')}} ';
 
-			$newmenu = '<li class="nav-item start ' . $link2 . '">' . "\r\n";
+			$newmenu = '@if(admin()->user()->role("' . $link . '_show"))' . "\r\n";
+			$newmenu .= '<li class="nav-item start ' . $link2 . '">' . "\r\n";
 			$newmenu .= '    <a href="javascript:;" class="nav-link nav-toggle">' . "\r\n";
 			$newmenu .= '        <i class="fa ' . $fa_icon . '"></i>' . "\r\n";
 			$newmenu .= '        <span class="title">' . $link5 . '</span>' . "\r\n";
@@ -242,7 +246,8 @@ class Home extends Controller {
 			$newmenu .= '            </a> ' . "\r\n";
 			$newmenu .= '        </li> ' . "\r\n";
 			$newmenu .= '    </ul> ' . "\r\n";
-			$newmenu .= '</li>';
+			$newmenu .= '</li>' . "\r\n";
+			$newmenu .= '@endif';
 			\Storage::put('resources/views/admin/layouts/menu.blade.php', $admin_menu . "\r\n" . $newmenu);
 		}
 

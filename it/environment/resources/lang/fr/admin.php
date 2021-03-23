@@ -92,4 +92,12 @@ return [
 	"undefinedRecord" => "Cet enregistrement n'existe pas ou a déjà été supprimé",
 	"choose" => "..... Choisir .....",
 	"record_id" => "Record ID",
+	"admingroups" => "Admin Groups",
+	"group_name" => "Group Name",
+	"error_permission_1" => "Vous n'avez pas la permission d'accéder à cette page",
+	"error_permission_2" => "403 Désolé, vous ne pouvez pas accéder à cette page",
+	"error_permission_3" => "Il semble que vous n'ayez pas l'autorisation d'accéder à cette page.",
+	"error_permission_4" => "D'accord. Nous allons vous montrer quoi faire.",
+	"error_permission_5" => "Revenir à la page d'accueil",
+	"error_permission_6" => "Ou vérifiez que vous pouvez suivre le bon lien",
 ];

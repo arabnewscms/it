@@ -191,8 +191,7 @@ class {ClassName}DataTable extends DataTable
 					$dropdown = str_replace('{pluck}', '\\' . $new_pluck, $dropdown);
 				}
 
-				$finaldropdown .= '
-				". filterElement(\'' . ($x + 2) . '\', \'select\', ' . $dropdown . ') . "' . "\n";
+				$finaldropdown .= '". filterElement(\'' . ($x + 2) . '\', \'select\', ' . $dropdown . ') . "';
 
 			} elseif ($r->input('col_type')[$x] != 'file') {
 
@@ -203,7 +202,7 @@ class {ClassName}DataTable extends DataTable
 			$x++;
 		}
 		if (!empty($finalInputsCount)) {
-			$finalinputs .= ' ". filterElement(\'' . rtrim($finalInputsCount, ",") . '\', \'input\') . "' . "\n";
+			$finalinputs .= '". filterElement(\'' . rtrim($finalInputsCount, ",") . '\', \'input\') . "';
 		}
 
 		$html = '
@@ -243,6 +242,7 @@ class {ClassName}DataTable extends DataTable
 
             ' . $finalinputs . '
             ' . $finaldropdown . '
+
             }",
                 \'order\' => [[1, \'desc\']],
 

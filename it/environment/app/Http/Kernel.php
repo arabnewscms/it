@@ -63,5 +63,6 @@ class Kernel extends HttpKernel {
 		'admin' => \App\Http\Middleware\AdminAutenticated::class,
 		'admin_guest' => \App\Http\Middleware\AdminGuest::class,
 		'Lang' => \Langnonymous\Lang\Lang::class,
+		'AdminRole' => \App\Http\Middleware\AdminRole::class,
 	];
 }

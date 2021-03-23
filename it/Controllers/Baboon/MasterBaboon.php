@@ -14,23 +14,38 @@ class MasterBaboon extends Controller {
 	static $full_path = '';
 	public static $copyright = '[It V 1.5.0 | https://it.phpanonymous.com]';
 	public static function makeController($r, $namespace, $model, $classname) {
+		$routename = strtolower($classname);
 		$controller = '<?php
 namespace {Space};
 use App\Http\Controllers\Controller;
 use App\DataTables\{ClassName2}DataTable;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 use {Model};
-use Validator;
-use Set;
-use Up;
-use Form;
+
 use App\Http\Controllers\Validations\{ClassName}Request;
 // Auto Controller Maker By Baboon Script
 // Baboon Maker has been Created And Developed By  ' . self::$copyright . '
 // Copyright Reserved  ' . self::$copyright . '
 class {ClassName} extends Controller
-{' . "\n";
+{
+
+	public function __construct() {
+
+		$this->middleware(\'AdminRole:' . $routename . '_show\', [
+			\'only\' => [\'index\', \'show\'],
+		]);
+		$this->middleware(\'AdminRole:' . $routename . '_add\', [
+			\'only\' => [\'create\', \'store\'],
+		]);
+		$this->middleware(\'AdminRole:' . $routename . '_edit\', [
+			\'only\' => [\'edit\', \'update\'],
+		]);
+		$this->middleware(\'AdminRole:' . $routename . '_delete\', [
+			\'only\' => [\'destroy\', \'multi_delete\'],
+		]);
+	}
+
+	' . "\n";
 		$controller .= BaboonCreate::indexMethod($r) . "\n";
 		$controller .= BaboonCreate::createMethod($r) . "\n";
 		$controller .= BaboonCreate::storeMethod($r) . "\n";
@@ -161,7 +176,7 @@ class {ClassName} extends Model {' . "\n\r";
 protected $table    = \'{TBLNAME}\';
 protected $fillable = [' . "\n";
 		$model .= "		'id'," . "\n";
-		$model .= '		' . request()->has('has_user_id') ? "		'admin_id'," . "\n" : "" . "\n";
+		//$model .= '		' . request()->has('has_user_id') ? "		'admin_id'," . "\n" : "" . "\n";
 		$model .= "		      " . self::get_cols(request());
 		$model .= "		'created_at'," . "\n";
 		$model .= "		'updated_at'," . "\n";
@@ -169,6 +184,13 @@ protected $fillable = [' . "\n";
 			$model .= "		'deleted_at'," . "\n";
 		}
 		$model .= '	];' . "\n";
+		if (request()->has('has_user_id')) {
+			$model .= '
+			public function admin_id() {
+			  return $this->hasOne(\App\Models\Admin::class, \'id\', \'admin_id\');
+			}
+	' . "\n";
+		}
 		$model = str_replace('{Space}', $namespace, $model);
 		$model = str_replace('{ClassName}', $classname, $model);
 		$model = str_replace('{TBLNAME}', self::convention_name($classname), $model);
@@ -475,6 +497,73 @@ protected $fillable = [' . "\n";
 
 			return $input;
 		}
+	}
+
+	public static function insertRoleInTbl(array $data) {
+		if (class_exists(\App\Models\AdminGroupRole::class)) {
+			if (class_exists(\App\Models\AdminGroup::class)) {
+				if (\App\Models\AdminGroup::where('id', 1)->count() == 0) {
+					\App\Models\AdminGroup::UpdateOrCreate([
+						'admin_id' => 1,
+						'group_name' => 'Full Permission Group By IT PKG',
+					]);
+				}
+				\App\Models\AdminGroupRole::UpdateOrCreate($data);
+			}
+
+		}
+	}
+	public static function RouteListRoles($r) {
+
+		// Setting Roles //
+		self::insertRoleInTbl([
+			'name' => 'settings',
+			'admin_groups_id' => 1,
+			'show' => 'yes',
+			'add' => 'no',
+			'edit' => 'yes',
+			'delete' => 'no',
+		]);
+		// Setting Roles //
+
+		$checkRoute = app_path('Http/AdminRouteList.php');
+		if (file_exists($checkRoute)) {
+			$baboonRouteListRole = include $checkRoute;
+		}
+		$the_master_admin_route_list = [];
+
+		$routes = '<?php
+return [' . "\n";
+
+		if (!empty($baboonRouteListRole) && count($baboonRouteListRole) > 0) {
+			for ($x = 0; $x < count($baboonRouteListRole); $x++) {
+				$the_master_admin_route_list[] = $baboonRouteListRole[$x];
+			}
+		}
+
+		$mastername = str_replace('controller', '', strtolower($r->input('controller_name')));
+
+		$the_master_admin_route_list[] = $mastername;
+		// Remove Duplicate Values
+		$the_master_admin_route_list = array_unique($the_master_admin_route_list);
+		$x2 = 0;
+		foreach ($the_master_admin_route_list as $route) {
+			$routes .= '	"' . $route . '",' . "\n";
+
+			// Add Full Role In TBL to Master Group 1
+			self::insertRoleInTbl([
+				'name' => $route,
+				'admin_groups_id' => 1,
+				'show' => 'yes',
+				'add' => 'yes',
+				'edit' => 'yes',
+				'delete' => 'yes',
+			]);
+		}
+
+		$routes .= "\n" . '];';
+
+		return $routes;
 	}
 
 	public static function Makelang($r, $folder = 'ar') {
