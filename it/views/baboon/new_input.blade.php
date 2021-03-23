@@ -4,7 +4,7 @@
     <div class="form-group">
       <label for="col_name" class="col-md-12">{{it_trans('it.col_name')}}</label>
       <div class="col-md-12">
-        <input type="text" name="col_name[]" dir="rtl" value="{{old('col_name')}}" class="form-control col_name" placeholder="{{it_trans('it.col_name')}}"  />
+        <input type="text" name="col_name[]" value="{{old('col_name')}}" class="form-control col_name" placeholder="{{it_trans('it.col_name')}}"  />
       </div>
     </div>
   </div>
@@ -37,7 +37,7 @@
     <div class="form-group">
       <div class="col-md-12">
         <label for="col_name_convention" class="col-md-12">{{it_trans('it.col_name_convention')}}</label>
-        <input type="text" name="col_name_convention[]"  to="`+x+`" dir="rtl" value="{{old('col_name_convention')}}" class="form-control col_name_convention" placeholder="{{it_trans('it.col_name_convention')}}"  />
+        <input type="text" name="col_name_convention[]"  to="`+x+`" value="{{old('col_name_convention')}}" class="form-control col_name_convention" placeholder="{{it_trans('it.col_name_convention')}}"  />
         <small style="color:#c33">Select - active|1,yes/0,no</small><br>
         <small style="color:#c33">Select - user_id|App\User::pluck('name','id')</small><br>
         <small style="color:#c33">checkbox or radio - active#1</small><br>
@@ -558,6 +558,6 @@
             </div>
             <div class="clearfix"></div>
           </div>
-
+          <a href="#" class="remove_field btn btn-danger pull-right"><i class="fa fa-trash"></i></a>
          </div>
 `
