@@ -7,11 +7,11 @@
 		</a>
 		<ul class="dropdown-menu pull-right">
 			<li>
-				<a href="{{ aurl('/admingroups/'.$id.'/edit')}}"><i class="fa fa-pencil-square-o"></i> {{trans('admin.edit')}}</a>
+				<a href="{{ aurl('/admins/'.$id.'/edit')}}"><i class="fa fa-pencil-square-o"></i> {{trans('admin.edit')}}</a>
 			</li>
 			<li class="divider"> </li>
 			<li>
-				<a href="{{ aurl('/admingroups/'.$id)}}"><i class="fa fa-eye"></i> {{trans('admin.show')}}</a>
+				<a href="{{ aurl('/admins/'.$id)}}"><i class="fa fa-eye"></i> {{trans('admin.show')}}</a>
 			</li>
 			<li>
 				<a data-toggle="modal" data-target="#delete_record{{$id}}" href="#">
@@ -33,7 +33,7 @@
 			<div class="modal-footer">
 				{!! Form::open([
 				'method' => 'DELETE',
-				'route' => ['admingroups.destroy', $id]
+				'route' => ['admins.destroy', $id]
 				]) !!}
 				{!! Form::submit(trans('admin.approval'), ['class' => 'btn btn-danger']) !!}
 				<a class="btn btn-default" data-dismiss="modal">{{trans('admin.cancel')}}</a>

@@ -57,9 +57,9 @@ $(document).on('click','.checkinput',function(){
 				<div class="col-md-12">
 					{!! Form::open(['url'=>aurl('/admingroups'),'id'=>'admingroups','files'=>true,'class'=>'form-horizontal form-row-seperated']) !!}
 					<div class="form-group">
-						{!! Form::label('name',trans('admin.name'),['class'=>'col-md-3 control-label']) !!}
+						{!! Form::label('group_name',trans('admin.group_name'),['class'=>'col-md-3 control-label']) !!}
 						<div class="col-md-9">
-							{!! Form::text('name',old('name'),['class'=>'form-control','placeholder'=>trans('admin.name')]) !!}
+							{!! Form::text('group_name',old('group_name'),['class'=>'form-control','placeholder'=>trans('admin.group_name')]) !!}
 						</div>
 					</div>
 					<div class="col-md-12 col-lg-12">

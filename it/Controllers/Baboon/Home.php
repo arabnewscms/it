@@ -184,7 +184,7 @@ class Home extends Controller {
 		$end_route = '//////// Admin Routes /* End */ //////////////';
 		$namespace_single = explode('App\Http\Controllers\\', $r->input('controller_namespace'))[1];
 		$route1 = 'Route::resource(\'' . $link . '\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '\'); ' . "\r\n";
-		$route2 = 'Route::post(\'' . $link . '/multi_delete\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '@multi_delete\'); ' . "\r\n";
+		$route2 = '				Route::post(\'' . $link . '/multi_delete\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '@multi_delete\'); ' . "\r\n";
 
 		$admin_routes = file_get_contents(base_path('routes/admin.php'));
 		if (!preg_match("/" . $link . "/i", $admin_routes)) {

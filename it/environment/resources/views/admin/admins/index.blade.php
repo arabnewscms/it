@@ -12,7 +12,7 @@
 				<div class="table-responsive">
 					{!! Form::open([
 					"method" => "post",
-					"url" => [aurl('/admingroups/multi_delete')]
+					"url" => [aurl('/admins/multi_delete')]
 					]) !!}
 					{!! $dataTable->table(["class"=> "table table-striped table-bordered table-hover table-checkable dataTable no-footer"],true) !!}
 					<div class="clearfix"></div>

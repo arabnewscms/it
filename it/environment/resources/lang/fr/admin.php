@@ -100,4 +100,5 @@ return [
 	"error_permission_4" => "D'accord. Nous allons vous montrer quoi faire.",
 	"error_permission_5" => "Revenir à la page d'accueil",
 	"error_permission_6" => "Ou vérifiez que vous pouvez suivre le bon lien",
+	"group_id" => "Admin Group",
 ];

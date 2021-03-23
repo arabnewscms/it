@@ -100,7 +100,9 @@ class BaboonUpdate extends Controller {
             public function updateFillableColumns() {
 				$fillableCols = [];
 				foreach (array_keys((new ' . $r->input('controller_name') . 'Request)->attributes()) as $fillableUpdate) {
-					$fillableCols[$fillableUpdate] = request($fillableUpdate);
+					if (!is_null(request($fillableUpdate))) {
+						$fillableCols[$fillableUpdate] = request($fillableUpdate);
+					}
 				}
 				return $fillableCols;
 			}

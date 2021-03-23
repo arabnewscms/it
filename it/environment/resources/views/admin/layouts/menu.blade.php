@@ -14,7 +14,32 @@
     </a>
 </li>
 @endif
-
+@if(admin()->user()->role("admins_show"))
+<li class="nav-item start {{active_link('admins','active open')}} ">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-users"></i>
+        <span class="title">{{trans('admin.admins')}} </span>
+        <span class="selected"></span>
+        <span class="arrow {{active_link('admins','open')}}"></span>
+    </a>
+    <ul class="sub-menu" style="{{active_link('','block')}}">
+        <li class="nav-item start {{active_link('admins','active open')}}  ">
+            <a href="{{aurl('admins')}}" class="nav-link ">
+                <i class="fa fa-users"></i>
+                <span class="title">{{trans('admin.admins')}}  </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <li class="nav-item start">
+            <a href="{{ aurl('admins/create') }}" class="nav-link ">
+                <i class="fa fa-plus"></i>
+                <span class="title"> {{trans('admin.create')}}  </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+    </ul>
+</li>
+@endif
 @if(admin()->user()->role('admingroups_show'))
 <li class="nav-item start {{active_link('admingroups','active open')}} ">
     <a href="javascript:;" class="nav-link nav-toggle">

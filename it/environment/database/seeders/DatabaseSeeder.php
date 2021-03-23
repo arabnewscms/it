@@ -34,6 +34,15 @@ class DatabaseSeeder extends Seeder {
 					'edit' => 'yes',
 					'delete' => 'yes',
 				]);
+				// admins Role
+				\App\Models\AdminGroupRole::UpdateOrCreate([
+					'name' => 'admins',
+					'admin_groups_id' => 1,
+					'show' => 'yes',
+					'add' => 'yes',
+					'edit' => 'yes',
+					'delete' => 'yes',
+				]);
 				// Settings Role
 				\App\Models\AdminGroupRole::UpdateOrCreate([
 					'name' => 'settings',
