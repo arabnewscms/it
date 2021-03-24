@@ -76,6 +76,12 @@
         <div class="col-md-12">
           <div class="col-md-3" >
             <label class="form-check-input" dir="rtl">
+              email
+              <input type="checkbox" value="1" name="email`+x+`" />
+            </label>
+          </div>
+          <div class="col-md-3" >
+            <label class="form-check-input" dir="rtl">
               {{it_trans('it.url')}}
               <input type="checkbox" value="1" name="url`+x+`" />
             </label>

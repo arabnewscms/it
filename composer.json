@@ -7,7 +7,7 @@
 	"authors":[
 	{
 		"name":"Mahmoud Ibrahim",
-		"email":"it@phpanonymous.com",
+		"email":"php.anonymous1@gmail.com",
 		"homepage":"https://it.phpanonymous.com"
 	}
 	],
@@ -22,7 +22,7 @@
 	},
 	"extra": {
     "branch-alias": {
-            "dev-master": "1.5.7.x-dev"
+            "dev-master": "1.5.8.x-dev"
     },
         "laravel": {
             "providers": [
@@ -33,7 +33,7 @@
             }
         }
   },
-	"version":"1.5.7",
+	"version":"1.5.8",
   "minimum-stability": "dev",
   "prefer-stable": true
 }

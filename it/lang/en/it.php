@@ -34,7 +34,7 @@ return [
 	'time' => 'time',
 	'number' => 'number',
 	'col_name' => 'Label Name (Label Input to insert in lang)',
-	'col_type' => 'Column Type',
+	'col_type' => 'Input Type',
 	'col_name_convention' => 'Column name in table & validation ',
 	'col_name_null' => 'No Need Validation',
 	'controller_name' => 'Controller Name',

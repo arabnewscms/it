@@ -134,9 +134,9 @@ class BaboonRulesAndAttributes extends Controller {
 				////////// Date Validation Laravel ///////////////////////////////////////////////
 
 			} else {
-				if ($r->has('col_type')[$i] == 'email') {
-					$valrule .= 'email|';
-				}
+				// if ($r->has('col_type')[$i] == 'email') {
+				// 	$valrule .= 'email|';
+				// }
 			}
 
 			if ($r->has('col_type')[$i] == 'password' and $conv == 'password') {
