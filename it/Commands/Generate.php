@@ -101,12 +101,14 @@ class Generate extends Command {
 				self::changeEnv('DB_DATABASE', $DB_DATABASE);
 			}
 
-			$DB_USERNAME = $this->ask('What is your DATABASE Username ?');
+			$DB_USERNAME = $this->anticipate('What is your DATABASE Username ?', ['root', 'admin']);
+			//$DB_USERNAME = $this->ask('What is your DATABASE Username ?');
 			if (!empty($DB_USERNAME)) {
 				self::changeEnv('DB_USERNAME', $DB_USERNAME);
 			}
 
-			$DB_PASSWORD = $this->ask('What is your DATABASE Password ?');
+			$DB_PASSWORD = $this->anticipate('What is your DATABASE Password ?', ['root', 'pwd', 'password', '123456', 'password', 'secret']);
+			//$DB_PASSWORD = $this->ask('What is your DATABASE Password ?');
 			if (!empty($DB_PASSWORD)) {
 				self::changeEnv('DB_PASSWORD', $DB_PASSWORD);
 			}
@@ -114,7 +116,12 @@ class Generate extends Command {
 			if (!empty($DB_DATABASE)) {
 				$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name " . $DB_DATABASE . "? ");
 				if ($auto_create_DB) {
-					$pdo = $this->getPDOConnection('', env('DB_PORT'), $DB_USERNAME, $DB_PASSWORD);
+					if (!empty($HAVE_DB_PORT)) {
+						$DB_PORT = $HAVE_DB_PORT;
+					} else {
+						$DB_PORT = 3306;
+					}
+					$pdo = $this->getPDOConnection('', $DB_PORT, $DB_USERNAME, $DB_PASSWORD);
 					shell_exec('php artisan config:clear');
 					shell_exec('php artisan cache:clear');
 					$pdo->exec(sprintf(
@@ -225,23 +232,22 @@ class Generate extends Command {
 			$zip->close();
 		}
 
-		$this->line("All File Extracted And Published");
-
-		$this->info("Link Storage Automatically....");
+		$this->warn("All File Extracted And Published");
+		$this->warn("Link Storage Automatically....");
 		shell_exec('php artisan storage:link');
 
-		$this->info("Auto Publishable Files And Folders....");
+		$this->warn("Auto Publishable Files And Folders....");
 		//shell_exec('php artisan vendor:publish --tag=0 --force');
 		\Artisan::call('vendor:publish --tag=0 --force');
 		$this->info("Publish Files And Folders is Done");
 
-		$this->info("Auto Dump And Compile autoload....");
+		$this->warn("Auto Dump And Compile autoload....");
 		shell_exec('composer dump-autoload');
 		shell_exec('php artisan config:clear');
 
-		$this->info("to Install (wkhtmltopdf) please visit this link urgently (https://github.com/barryvdh/laravel-snappy) to explort PDF Files with YajraDatatable");
+		$this->warn("to Install (wkhtmltopdf) please visit this link urgently (https://github.com/barryvdh/laravel-snappy) to explort PDF Files with YajraDatatable");
 
-		$this->info("To Install (wkhtmltopdf) with brew on macosx brew install wkhtmltopdf");
+		$this->warn("To Install (wkhtmltopdf) with brew on macosx brew install wkhtmltopdf");
 
 		$this->info("thank you for using my package (Mahmoud Ibrahim) if you want ask me something text me   php.anonymous1@gmail.com");
 
