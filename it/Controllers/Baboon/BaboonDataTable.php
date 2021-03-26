@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Phpanonymous\It\Controllers\Baboon\MasterBaboon as Baboon;
 
 class BaboonDataTable extends Controller {
-	public static $copyright = '[It V 1.5.0 | https://it.phpanonymous.com]';
+
 	public static function dbclass($r) {
 		$datatable = '<?php
 namespace App\DataTables;
@@ -13,8 +13,8 @@ use {Model};
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Services\DataTable;
 // Auto DataTable By Baboon Script
-// Baboon Maker has been Created And Developed By ' . self::$copyright . '
-// Copyright Reserved ' . self::$copyright . '
+// Baboon Maker has been Created And Developed By ' . it_version_message() . '
+// Copyright Reserved ' . it_version_message() . '
 class {ClassName}DataTable extends DataTable
 {
     	' . "\n";
@@ -57,7 +57,7 @@ class {ClassName}DataTable extends DataTable
 		$cols = '
     	/**
 	     * Get columns.
-	     * Auto getColumns Method By Baboon Script ' . self::$copyright . '
+	     * Auto getColumns Method By Baboon Script ' . it_version_message() . '
 	     * @return array
 	     */
 
@@ -208,7 +208,7 @@ class {ClassName}DataTable extends DataTable
 		$html = '
     	 /**
 	     * Optional method if you want to use html builder.
-	     *' . self::$copyright . '
+	     *' . it_version_message() . '
 	     * @return \Yajra\Datatables\Html\Builder
 	     */
     	public function html()
@@ -296,7 +296,7 @@ class {ClassName}DataTable extends DataTable
 		$query = '
      /**
      * Get the query object to be processed by dataTables.
-     * Auto Ajax Method By Baboon Script ' . self::$copyright . '
+     * Auto Ajax Method By Baboon Script ' . it_version_message() . '
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection
      */
 	public function query()
@@ -332,13 +332,13 @@ class {ClassName}DataTable extends DataTable
 		$ajax = '
      /**
      * Display a listing of the resource.
-     * Auto Ajax Method By Baboon Script ' . self::$copyright . '
+     * Auto Ajax Method By Baboon Script ' . it_version_message() . '
      * @return \Illuminate\Http\Response
      */
 
      /**
      * Display ajax response.
-     * Auto Ajax Method By Baboon Script ' . self::$copyright . '
+     * Auto Ajax Method By Baboon Script ' . it_version_message() . '
      * @return \Illuminate\Http\JsonResponse
      */
     public function dataTable(DataTables $dataTables, $query)

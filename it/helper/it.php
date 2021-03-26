@@ -83,9 +83,19 @@ if (!function_exists('it_views')) {
 	}
 }
 
+if (!function_exists('it_version_message')) {
+	function it_version_message() {
+		$version = '[It V ' . it_version() . ' | https://it.phpanonymous.com]';
+		app()->singleton('it_version_message', function () use ($version) {
+			return $version;
+		});
+		return $version;
+	}
+}
+
 if (!function_exists('it_version')) {
 	function it_version() {
-		$version = '1.0';
+		$version = '1.5.9';
 		app()->singleton('it_version', function () use ($version) {
 			return $version;
 		});

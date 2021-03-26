@@ -5,13 +5,11 @@ use App\Http\Controllers\Controller;
 
 class BaboonUpdateApi extends Controller {
 
-	public static $copyright = '[It V 1.5.0 | https://it.phpanonymous.com]';
-
 	public static function showMethod($r) {
 		$show = '
             /**
              * Display the specified resource.
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * @param  int  $id
              * @return \Illuminate\Http\Response
              */
@@ -40,7 +38,7 @@ class BaboonUpdateApi extends Controller {
 		$objectlist = [];
 		$update = '
             /**
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * update a newly created resource in storage.
              * @param  \Illuminate\Http\Request  $r
              * @return \Illuminate\Http\Response
@@ -101,7 +99,7 @@ class BaboonUpdateApi extends Controller {
 		$objectlist = [];
 		$destroy = '
             /**
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * destroy a newly created resource in storage.
              * @param  \Illuminate\Http\Request  $r
              * @return \Illuminate\Http\Response

@@ -3,13 +3,11 @@ namespace Phpanonymous\It\Controllers\Baboon;
 use App\Http\Controllers\Controller;
 
 class BaboonUpdate extends Controller {
-	//
 
-	public static $copyright = '[It V 1.5.0 | https://it.phpanonymous.com]';
 	public static function indexMethod($r) {
 		$index = '
             /**
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * Display a listing of the resource.
              * @return \Illuminate\Http\Response
              */
@@ -30,7 +28,7 @@ class BaboonUpdate extends Controller {
 	public static function editMethod($r) {
 		$edit = '
             /**
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * edit the form for creating a new resource.
              * @return \Illuminate\Http\Response
              */
@@ -61,7 +59,7 @@ class BaboonUpdate extends Controller {
 		$show = '
             /**
              * Display the specified resource.
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * @param  int  $id
              * @return \Illuminate\Http\Response
              */
@@ -92,7 +90,7 @@ class BaboonUpdate extends Controller {
 		$objectlist = [];
 		$update = '
             /**
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * update a newly created resource in storage.
              * @param  \Illuminate\Http\Request  $request
              * @return \Illuminate\Http\Response
@@ -149,7 +147,7 @@ class BaboonUpdate extends Controller {
 		$objectlist = [];
 		$destroy = '
             /**
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * destroy a newly created resource in storage.
              * @param  $id
              * @return \Illuminate\Http\Response

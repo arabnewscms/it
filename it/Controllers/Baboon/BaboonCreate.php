@@ -3,12 +3,11 @@ namespace Phpanonymous\It\Controllers\Baboon;
 use App\Http\Controllers\Controller;
 
 class BaboonCreate extends Controller {
-	public static $copyright = '[It V 1.5.0 | https://it.phpanonymous.com]';
 
 	public static function indexMethod($r) {
 		$index = '
             /**
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * Display a listing of the resource.
              * @return \Illuminate\Http\Response
              */
@@ -30,7 +29,7 @@ class BaboonCreate extends Controller {
 	public static function createMethod($r) {
 		$create = '
             /**
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * Show the form for creating a new resource.
              * @return \Illuminate\Http\Response
              */
@@ -75,7 +74,7 @@ class BaboonCreate extends Controller {
 		$objectlist = [];
 		$store = '
             /**
-             * Baboon Script By ' . self::$copyright . '
+             * Baboon Script By ' . it_version_message() . '
              * Store a newly created resource in storage.
              * @param  \Illuminate\Http\Request  $request
              * @return \Illuminate\Http\Response Or Redirect

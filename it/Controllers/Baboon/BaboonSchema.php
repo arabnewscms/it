@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 
 class BaboonSchema extends Controller {
 	//
-	public static $copyright = '[It V 1.5.0 | https://it.phpanonymous.com]';
 
 	public static function convention_name($string) {
 		$conv = strtolower(ltrim(preg_replace('/(?<!\ )[A-Z]/', '_$0', $string), '_'));
@@ -36,8 +35,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 // Auto Schema  By Baboon Script
-// Baboon Maker has been Created And Developed By ' . self::$copyright . '
-// Copyright Reserved  ' . self::$copyright . '
+// Baboon Maker has been Created And Developed By ' . it_version_message() . '
+// Copyright Reserved  ' . it_version_message() . '
 class Create{ClassName}Table extends Migration
 {
     /**

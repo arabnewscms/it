@@ -5,7 +5,6 @@ use Phpanonymous\It\Controllers\Baboon\BaboonRulesAndAttributes as RulesAndAttri
 
 class BaboonValidations extends Controller {
 
-	public static $copyright = '[It V 1.5.0 | https://it.phpanonymous.com]';
 	public static function validationClass($r) {
 		$validation = '<?php
 namespace App\Http\Controllers\Validations;
@@ -17,7 +16,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 class ' . $r->input('controller_name') . 'Request extends FormRequest {
 
 	/**
-	 * Baboon Script By ' . self::$copyright . '
+	 * Baboon Script By ' . it_version_message() . '
 	 * Determine if the user is authorized to make this request.
 	 *
 	 * @return bool
@@ -27,7 +26,7 @@ class ' . $r->input('controller_name') . 'Request extends FormRequest {
 	}
 
 	/**
-	 * Baboon Script By ' . self::$copyright . '
+	 * Baboon Script By ' . it_version_message() . '
 	 * Get the validation rules that apply to the request.
 	 *
 	 * @return array (onCreate,onUpdate,rules) methods
@@ -51,7 +50,7 @@ class ' . $r->input('controller_name') . 'Request extends FormRequest {
 
 
 	/**
-	 * Baboon Script By ' . self::$copyright . '
+	 * Baboon Script By ' . it_version_message() . '
 	 * Get the validation attributes that apply to the request.
 	 *
 	 * @return array
@@ -63,7 +62,7 @@ class ' . $r->input('controller_name') . 'Request extends FormRequest {
 	}
 
 	/**
-	 * Baboon Script By ' . self::$copyright . '
+	 * Baboon Script By ' . it_version_message() . '
 	 * response redirect if fails or failed request
 	 *
 	 * @return redirect

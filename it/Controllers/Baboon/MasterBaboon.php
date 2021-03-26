@@ -12,7 +12,7 @@ use Phpanonymous\It\Controllers\Baboon\BaboonUpdate;
 class MasterBaboon extends Controller {
 	//
 	static $full_path = '';
-	public static $copyright = '[It V 1.5.0 | https://it.phpanonymous.com]';
+
 	public static function makeController($r, $namespace, $model, $classname) {
 		$routename = strtolower($classname);
 		$controller = '<?php
@@ -24,8 +24,8 @@ use {Model};
 
 use App\Http\Controllers\Validations\{ClassName}Request;
 // Auto Controller Maker By Baboon Script
-// Baboon Maker has been Created And Developed By  ' . self::$copyright . '
-// Copyright Reserved  ' . self::$copyright . '
+// Baboon Maker has been Created And Developed By  ' . it_version_message() . '
+// Copyright Reserved  ' . it_version_message() . '
 class {ClassName} extends Controller
 {
 
@@ -74,8 +74,8 @@ use {Model};
 use Validator;
 use App\Http\Controllers\Validations\{ClassName}Request;
 // Auto Controller Maker By Baboon Script
-// Baboon Maker has been Created And Developed By  ' . self::$copyright . '
-// Copyright Reserved  ' . self::$copyright . '
+// Baboon Maker has been Created And Developed By  ' . it_version_message() . '
+// Copyright Reserved  ' . it_version_message() . '
 class {ClassName}Api extends Controller
 {' . "\n";
 		$controller .= BaboonCreateApi::indexMethod($r) . "\n";
@@ -165,8 +165,8 @@ use Illuminate\Database\Eloquent\Model;
 		}
 		$model .= '
 // Auto Models By Baboon Script
-// Baboon Maker has been Created And Developed By  ' . self::$copyright . '
-// Copyright Reserved  ' . self::$copyright . '
+// Baboon Maker has been Created And Developed By  ' . it_version_message() . '
+// Copyright Reserved  ' . it_version_message() . '
 class {ClassName} extends Model {' . "\n\r";
 		if (request()->has('enable_soft_delete')) {
 			$model .= '	use SoftDeletes;' . "\r\n";
