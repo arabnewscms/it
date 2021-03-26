@@ -10,7 +10,7 @@ Work With Laravel 8.0 & above make sure to use php version 7.3 at least
 
 # tutorial videos On YouTube
 
-[see this course on youtube ](https://www.youtube.com/playlist?list=PLcfD4HARQRF_Jo2gdldaiUbh29EzaMqlt&fbclid=IwAR1Iej_mJ1fwGPN3MqgXiv4-vu1rad5fRLomWjXaD3u8APMRRsT9k9q7he8)
+[see this course on youtube ](https://www.youtube.com/playlist?list=PLcfD4HARQRF_IgXv2MSFGbSYqdQNFj9Wu)
 
 # join Us Our Group On Facebook
 [https://www.facebook.com/groups/anonymouses.developers](https://www.facebook.com/groups/anonymouses.developers)
