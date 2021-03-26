@@ -1,6 +1,6 @@
 <div class="col-md-9">
 <div class="col-md-12">
-
+@if(!empty($getAllModule) && count($getAllModule) > 0)
 <script type="text/javascript">
 $(document).ready(function(){
   $(document).on('change','.select_module',function(){
@@ -11,7 +11,6 @@ $(document).ready(function(){
   });
 });
 </script>
-
 <div class="form-group modules alert alert-info">
   <label for="modules" class="col-md-12">Edit Module From List</label>
     <div class="col-md-8">
@@ -30,7 +29,7 @@ $(document).ready(function(){
   </div>
   <div class="clearfix"></div>
 </div>
-
+@endif
 
   <div class="form-group project_title">
       <label for="project_title" class="col-md-12">{{it_trans('it.project_title')}}</label>

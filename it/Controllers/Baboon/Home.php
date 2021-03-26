@@ -169,6 +169,8 @@ class Home extends Controller {
 				Baboon::write($migrate, session('migration_file_name'), 'database\\migrations');
 
 				if (request()->has('auto_migrate')) {
+					// Disable ForignKey Checks DB
+					\DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 					@\DB::table('migrations')->where('migration', session('migration_file_name'))->delete();
 					\Schema::dropIfExists($convname);
 
@@ -180,6 +182,8 @@ class Home extends Controller {
 							'batch' => @\DB::table('migrations')->orderBy('id', 'desc')->first() + 1,
 						]);
 					}
+					// Enable ForignKey Checks DB
+					\DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 				}
 
 			}

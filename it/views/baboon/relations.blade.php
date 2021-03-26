@@ -1,4 +1,5 @@
 <div class="input_fields_wrap2">
+	@if(!empty($module_data) && count($module_data->relations) > 0)
 	@php
 	 $x = 0;
 	@endphp
@@ -82,6 +83,7 @@ $app_model_file = str_replace('\\\\', '\\', $app_model_file);
 	$x++;
 	@endphp
 	@endforeach
+@endif
 </div>
 <br>
 <div class="col-offset-left-2">

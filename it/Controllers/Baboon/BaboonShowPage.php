@@ -121,17 +121,33 @@ class BaboonShowPage extends Controller {
 
 				$pre_name = explode('|', $conv);
 
-				$show .= '
+				if (request()->has('forginkeyto' . $x)) {
+
+					$pre_name = explode('|', $conv);
+					$pluck_name = explode('pluck(', $pre_name[1]);
+					$pluck_name = !empty($pluck_name) && count($pluck_name) > 0 ? explode(',', $pluck_name[1]) : [];
+					$final_pluckName = str_replace("'", "", $pluck_name[0]);
+
+					$show .= '
+<div class="col-md-4 col-lg-4 col-xs-4">
+<b>{{trans(\'{lang}.' . $pre_name[0] . '\')}} :</b>
+@if(!empty(${route}->' . $pre_name[0] . '()->first()))
+   {{ ${route}->' . $pre_name[0] . '()->first()->' . $final_pluckName . ' }}
+@endif
+</div>
+';
+
+				} else {
+					$show .= '
 <div class="col-md-4 col-lg-4 col-xs-4">
 <b>{{trans(\'{lang}.' . $pre_name[0] . '\')}} :</b>
    {{ trans("{lang}.".${route}->' . $pre_name[0] . ') }}
 </div>
 ';
-
+				}
+				$x++;
 			}
-			$x++;
 		}
-
 		$show .= '			</div>
 			<div class="clearfix"></div>
            </div>
@@ -158,7 +174,9 @@ class BaboonShowPage extends Controller {
 			$i = 0;
 			$schema_null = $r->input('schema_null');
 			foreach ($r->input('schema_name') as $schema_name) {
-				$cols .= $schema_name . ',';
+				if (!$r->has('forginkeyto' . $i)) {
+					$cols .= $schema_name . ',';
+				}
 				$i++;
 			}
 		}
@@ -184,6 +202,7 @@ class BaboonShowPage extends Controller {
 				// Disable Column File
 				$cols .= '';
 			} else {
+
 				$cols .= $conv . ',';
 			}
 			$i++;
