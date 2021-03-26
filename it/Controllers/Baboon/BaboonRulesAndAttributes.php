@@ -39,6 +39,7 @@ class BaboonRulesAndAttributes extends Controller {
 				$r->has('url' . $i) ? $valrule .= 'url|' : '';
 				$r->has('nullable' . $i) ? $valrule .= 'nullable|' : '';
 				$r->has('sometimes' . $i) ? $valrule .= 'sometimes|' : '';
+				$r->has('filled' . $i) ? $valrule .= 'filled|' : '';
 				$r->has('confirmed' . $i) ? $valrule .= 'confirmed|' : '';
 				$r->has('integer' . $i) ? $valrule .= 'integer|' : '';
 				$r->has('active_url' . $i) ? $valrule .= 'active_url|' : '';

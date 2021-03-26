@@ -12,7 +12,7 @@ $(document).ready(function(){
 });
 </script>
 
-<div class="form-group modules">
+<div class="form-group modules alert alert-info">
   <label for="modules" class="col-md-12">Edit Module From List</label>
     <div class="col-md-8">
   <select name="module" class="form-control select_module">
@@ -21,17 +21,22 @@ $(document).ready(function(){
       <option value="{{ $module['file'] }}" {{ request('module') == $module['file']?'selected':'' }}>{{ $module['module_name'] }}</option>
       @endforeach
     </select>
-    @if(!empty(request('module')))
+    @if(!empty(request('module')) && !empty($module_last_modified))
+    <p>
+      <b>Last Modified: {{ $module_last_modified }}</b> <br>
     <a href="{{ url('it/baboon-sd') }}" class="btn btn-danger">Cancel to edit this module</a>
+    </p>
     @endif
   </div>
+  <div class="clearfix"></div>
 </div>
 
 
   <div class="form-group project_title">
       <label for="project_title" class="col-md-12">{{it_trans('it.project_title')}}</label>
       <div class="col-md-8">
-        <input type="text" name="project_title" value="{{old('project_title')}}" class="form-control project_title_input" placeholder="{{it_trans('it.project_title')}}"  />
+        <input type="text" name="project_title"  class="form-control project_title_input"
+        value="{{ !empty($module_data)? $module_data->module_name:old('project_title') }}" placeholder="{{it_trans('it.project_title')}}"  />
       </div>
       <div class="col-md-4">
 
@@ -43,12 +48,22 @@ $(document).ready(function(){
   <div class="form-group">
       <label for="admin_folder_path" class="col-md-12">{{it_trans('it.admin_folder_path')}}</label>
       <select name="admin_folder_path" size="5" class="form-control admin_folder_path">
-        <option value="resources/views">resources/views</option>
+
+        <option value="resources/views"
+{{ !empty($module_data) && $module_data->admin_folder_path == 'resources/views' ?'selected':''}}
+        >resources/views</option>
         @foreach( array_filter(glob(base_path('resources/views').'/*'), 'is_dir') as $admin_pathes)
 <?php
 $admin_path = 'resources' . explode('resources', $admin_pathes)[1];
 ?>
-<option value="{{$admin_path}}" {{ preg_match('/admin/i',$admin_path)?'selected':'' }}>{{$admin_path}}</option>
+
+<option value="{{$admin_path}}"
+@if(!empty($module_data) )
+{{ $module_data->admin_folder_path == $admin_path ?'selected':''}}
+@else
+{{ preg_match('/admin/i',$admin_path)?'selected':'' }}
+@endif
+>{{$admin_path}}</option>
         @endforeach
     </select>
   </div>
@@ -56,7 +71,7 @@ $admin_path = 'resources' . explode('resources', $admin_pathes)[1];
 
 <div class="col-md-6 form-group model_name">
   <label for="model_name" class="col-md-12">{{it_trans('it.model_name')}}</label>
-  <input type="text" name="model_name" dir="ltr" value="{{old('model_name')}}" class="form-control" placeholder="{{it_trans('it.model_name')}}"  />
+  <input type="text" name="model_name" dir="ltr" value="{{ !empty($module_data)?$module_data->model_name: old('model_name')}}" class="form-control" placeholder="{{it_trans('it.model_name')}}"  />
   <label for="model_namespace" class="col-md-12">{{it_trans('it.model_namespace')}}</label>
   <select name="model_namespace" size="5" class="form-control model_namespace">
     <option value="App" selected>App</option>
@@ -66,8 +81,10 @@ $admin_path = 'resources' . explode('resources', $admin_pathes)[1];
 $model_prefix = str_replace('/', '\\', 'App\\' . explode('app', $namespaces)[1]);
 $model_prefix = str_replace('\\\\', '\\', $model_prefix);
 ?>
-@if(!preg_match('/Exceptions|Console|it|ItHelpers|Mail|Http|Handlers|Providers/i',$model_prefix))
-    <option value="{{$model_prefix}}">{{$model_prefix}}</option>
+@if(!preg_match('/Exceptions|Console|DataTables|it|ItHelpers|Mail|Http|Handlers|Providers/i',$model_prefix))
+    <option value="{{$model_prefix}}"
+    {{ !empty($module_data) && $module_data->model_namespace == $model_prefix?'selected':'' }}
+    >{{$model_prefix}}</option>
     @endif
     @endforeach
   </select>
@@ -78,19 +95,23 @@ $model_prefix = str_replace('\\\\', '\\', $model_prefix);
   <div class="col-md-6">
 <div class="form-group controller_name">
     <label for="controller_name" class="col-md-12">{{it_trans('it.controller_name')}}</label>
-    <input type="text" name="controller_name" dir="ltr" value="{{old('controller_name')}}" class="form-control" placeholder="{{it_trans('it.controller_name')}}"  />
+    <input type="text" name="controller_name" dir="ltr" value="{{!empty($module_data)?$module_data->controller_name:old('controller_name')}}" class="form-control" placeholder="{{it_trans('it.controller_name')}}"  />
 
   <label for="controller_namespace" class="col-md-12">{{it_trans('it.controller_namespace')}}</label>
 
 <select name="controller_namespace" size="5" class="form-control controller_namespace">
-      <option value="App\Http\Controllers" selected="selected">App\Http\Controllers</option>
+      <option value="App\Http\Controllers"
+       {{ !empty($module_data) && $module_data->controller_namespace == 'App\Http\Controllers'?'selected':'' }}
+       selected="selected">App\Http\Controllers</option>
       @foreach( array_filter(glob(app_path('Http/Controllers').'/*'), 'is_dir') as $namespaces)
 <?php
 $controller_namespace_prefix = str_replace('/', '\\', 'App\\' . explode('app', $namespaces)[1]);
 $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_prefix);
 ?>
       @if(!empty($controller_namespace_prefix))
-      <option value="{{$controller_namespace_prefix}}">{{$controller_namespace_prefix}}</option>
+      <option value="{{$controller_namespace_prefix}}"
+      {{ !empty($module_data) && $module_data->controller_namespace == $controller_namespace_prefix?'selected':'' }}
+      >{{$controller_namespace_prefix}}</option>
       {!! getnamespace($controller_namespace_prefix) !!}
       @endif
       @endforeach
@@ -106,16 +127,19 @@ $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_p
 </div>
 <div class="col-md-3">
   <center><h3>Simulator Menu</h3></center>
-<ul>
-  <li> <span class="project_title_final">None Name</span> <span class="fa_menulist"><i class="fa fa-list"></i></span></li>
+
+<ul dir="rtl">
+  <li><span class="fa_menulist">
+    <i class="fa {{ !empty($module_data)? $module_data->fa_icon:'fa-list' }}"></i>
+  </span> <span class="project_title_final">{{ !empty($module_data)? $module_data->module_name:'None Name' }}</span> </li>
   <li>
     <ul>
-      <li> <span class="project_title_final">None Name</span> <span class="fa_menulist"><i class="fa fa-list"></i></span></li>
-      <li>{{ trans('admin.create') }} <i class="fa fa-plus"></i></li>
+      <li><i class="fa {{ !empty($module_data)? $module_data->fa_icon:'fa-list' }}"></i></span> <span class="project_title_final">{{ !empty($module_data)? $module_data->module_name:'None Name' }}</span> <span class="fa_menulist"></li>
+      <li><i class="fa fa-plus"></i> {{ trans('admin.create') }} </li>
     </ul>
   </li>
 </ul>
-<input type="hidden" name="fa_icon" class="fa_icon">
+<input type="hidden" name="fa_icon" value="{{ !empty($module_data)? $module_data->fa_icon:old('fa_icon') }}" class="fa_icon">
 </div>
 
 

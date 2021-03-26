@@ -26,14 +26,14 @@ class BaboonModule extends Controller {
 			'model_namespace' => request('model_namespace'),
 			'model_name' => request('model_name'),
 			'controller_name' => request('controller_name'),
-			'controller_namespace' => request('controller_namespace'),
+			'controller_namespace' => str_replace('\\\\', '\\', request('controller_namespace')),
 			'fa_icon' => request('fa_icon'),
 			'lang_file' => request('lang_file'),
-			'use_collective' => !empty(request('use_collective')) ? 'yes' : 'no',
-			'auto_migrate' => !empty(request('auto_migrate')) ? 'yes' : 'no',
-			'make_model' => !empty(request('make_model')) ? 'yes' : 'no',
-			'make_controller' => !empty(request('make_controller')) ? 'yes' : 'no',
-			'make_views' => !empty(request('make_views')) ? 'yes' : 'no',
+			'use_collective' => !empty(request('use_collective')) ? 'checked' : '',
+			'auto_migrate' => !empty(request('auto_migrate')) ? 'checked' : '',
+			'make_model' => !empty(request('make_model')) ? 'checked' : '',
+			'make_controller' => !empty(request('make_controller')) ? 'checked' : '',
+			'make_views' => !empty(request('make_views')) ? 'checked' : '',
 		];
 		$this->write($this->initdata());
 	}
@@ -63,6 +63,7 @@ class BaboonModule extends Controller {
 			'has_user_id' => !empty(request('has_user_id')) ? 'checked' : '',
 			'make_migration' => !empty(request('make_migration')) ? 'checked' : '',
 			'make_datatable' => !empty(request('make_datatable')) ? 'checked' : '',
+			'relation_count' => !empty(request('schema_name')) && count(request('schema_name')) > 0 ? count(request('schema_name')) : 0,
 			'relations' => $this->getRelations(),
 			'count_inputs' => count(request('col_name_convention')),
 			'inputs_columns' => $this->prepareInputs(),
@@ -86,7 +87,7 @@ class BaboonModule extends Controller {
 				'col_type' => request('col_type')[$x],
 				'col_name_convention' => request('col_name_convention')[$x],
 				'col_name_null' . $x => request('col_name_null' . $x),
-				'rules' => request('col_name_null' . $x) == 'has' ? $this->getRules($x) : [],
+				'rules' => $this->getRules($x),
 			];
 
 			$x++;
@@ -102,6 +103,7 @@ class BaboonModule extends Controller {
 		$rules['email' . $i] = request()->has('email' . $i) ? 'checked' : '';
 		$rules['url' . $i] = request()->has('url' . $i) ? 'checked' : '';
 		$rules['sometimes' . $i] = request()->has('sometimes' . $i) ? 'checked' : '';
+		$rules['filled' . $i] = request()->has('filled' . $i) ? 'checked' : '';
 		$rules['nullable' . $i] = request()->has('nullable' . $i) ? 'checked' : '';
 		$rules['confirmed' . $i] = request()->has('confirmed' . $i) ? 'checked' : '';
 		$rules['integer' . $i] = request()->has('integer' . $i) ? 'checked' : '';
@@ -156,7 +158,8 @@ class BaboonModule extends Controller {
 		$rules['prohibited_unless' . $i] = request()->has('prohibited_unless' . $i) ? ['checked', request('prohibited_unless_text' . $i)] : '';
 		$rules['unique' . $i] = request()->has('unique' . $i) ? ['checked', request('unique_text' . $i)] : '';
 		$rules['exists_table' . $i] = request()->has('exists_table' . $i) ? ['selected', request('exists_table' . $i)] : '';
-		$rules['date' . $i] = request()->has('date' . $i) ? ['checked',
+
+		$rules['date' . $i] = request()->has('date' . $i) && !empty(request('date' . $i)) ? ['checked',
 			[
 				'date_format' . $i => request('date_format' . $i),
 				'after_before' . $i => $this->value('after_before' . $i),
@@ -181,17 +184,17 @@ class BaboonModule extends Controller {
 
 	public function getRelations() {
 		$relations = [];
-		$relations['relation_count'] = count(request('schema_name'));
+		if (!empty(request('schema_name')) && count(request('schema_name')) > 0) {
+			$x = 0;
+			foreach (request('schema_name') as $schema) {
+				$relations[] = [
+					'schema_name' => request('schema_name')[$x],
+					'linkatmodel' => request('linkatmodel')[$x],
+					'relation_type' => request('relation_type')[$x],
+				];
 
-		$x = 0;
-		foreach (request('schema_name') as $schema) {
-			$relations['relation' . $x] = [
-				'schema_name' => request('schema_name')[$x],
-				'linkatmodel' => request('linkatmodel')[$x],
-				'relation_type' => request('relation_type')[$x],
-			];
-
-			$x++;
+				$x++;
+			}
 		}
 		return $relations;
 	}

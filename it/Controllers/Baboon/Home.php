@@ -33,9 +33,11 @@ class Home extends Controller {
 	public function index_post(Request $r) {
 
 		$this->validate(request(), [
-			'model_name' => 'required',
 			'project_title' => 'required',
 			'controller_name' => 'required',
+			'controller_namespace' => 'required',
+			'model_name' => 'required',
+			'model_namespace' => 'required',
 			'lang_file' => 'required',
 			'col_name' => 'required',
 			'col_type' => 'required',
@@ -48,6 +50,9 @@ class Home extends Controller {
 			'col_name' => it_trans('it.col_name'),
 			'col_type' => it_trans('it.col_type'),
 			'col_name_convention' => it_trans('it.col_name_convention'),
+			'controller_namespace' => it_trans('it.controller_namespace'),
+			'model_namespace' => it_trans('it.model_namespace'),
+			'model_name' => it_trans('it.model_name'),
 		]);
 
 		$controller = Baboon::makeController($r, $r->input('controller_namespace'),

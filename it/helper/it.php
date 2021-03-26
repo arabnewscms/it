@@ -55,22 +55,30 @@ if (!function_exists('it_int')) {
 }
 
 if (!function_exists('it_views')) {
+	// Init & RUN Baboon Module Class
 	function it_views($view, $data = []) {
 		$baboonModule = (new \Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonModule);
+		// Load all Modules
 		$getAllModule = $baboonModule->getAllModules();
 
 		$data['getAllModule'] = $getAllModule;
 		if (!empty(request('module')) && !is_null(request('module'))) {
 			$Modulefile = 'baboon/' . request('module');
+			// Edit Modules
 			$readmodule = $baboonModule->read($Modulefile);
 			if ($readmodule === false) {
-				return redirect('it/baboon-sd');
+				// redirect if fails load Files
+				header('Location: ' . url('it/baboon-sd'));
+				exit;
 			} else {
-				$data['module_input'] = $readmodule;
+				$data['module_data'] = $readmodule;
 				$data['module_last_modified'] = date('Y-m-d h:i:s A T', $baboonModule->lastModified($Modulefile));
 			}
+		} else {
+			$data['module_data'] = null;
+			$data['module_last_modified'] = null;
 		}
-		//	return dd($data);
+
 		return view('it::' . $view, $data);
 	}
 }

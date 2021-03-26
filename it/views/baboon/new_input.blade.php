@@ -46,7 +46,7 @@
   </div>
   <div class="clearfix"></div>
   <hr />
-  <div class="col-md-12 alert alert-info" style="background-color: #00000`+x+`">
+  <div class="col-md-12 alert alert-info" style="background-color: #000000">
     <div class="col-md-12">
       <label class="mt-radio">
         <input type="radio" name="col_name_null`+x+`" class="col_name_null" list="`+x+`" id="col_name_null" value="null" checked>
@@ -300,7 +300,7 @@
           <div class="col-md-6" style="text-align:right;">
             <label class="form-check-input" dir="ltr"> dimensions:min_width=100,min_height=200
               <input type="checkbox" class="additional_input" input_name="dimensions_text" num="`+x+`" value="1" name="dimensions`+x+`" />
-              <input type="text" class="form-control hidden" value="min_width=100,min_height=20`+x+`"  name="dimensions_text`+x+`" />
+              <input type="text" class="form-control hidden" value="min_width=100,min_height=200"  name="dimensions_text`+x+`" />
               <p>(min_width=100,min_height=200 or ratio=3/2)</p>
             </label>
           </div>
@@ -443,14 +443,44 @@
           </div>
           <div class="col-md-4">
             <label class="form-check-input" dir="rtl"> {{it_trans('it.exists_table')}}
-              @include('baboon.exists_table_model')
+<select name="exists_table`+x+`" class="form-control exists_table" linkmod="`+x+`">
+  <option value="">without check Exist</option>
+  <optgroup label="App">
+    @foreach(array_filter(glob(app_path().'/*'), 'is_file') as $app_model_file)
+<?php
+$app_model_file = explode('app', $app_model_file);
+$app_model_file = str_replace('.php', '', $app_model_file[1]);
+$app_model_file = str_replace('/', '\\', $app_model_file);
+?>
+<option value="App{{ $app_model_file }}">App{{ $app_model_file }}</option>
+    @endforeach
+  </optgroup>
+  @foreach(array_filter(glob(app_path().'/*'), 'is_dir') as $model_list)
+<?php
+$data_ = explode('/', $model_list);
+$explode_last = $data_[count($data_) - 1];
+?>
+@if(!in_array($explode_last,['Console','Http','Handlers','DataTables','Exceptions','Mail','Providers']))
+  <optgroup label="{{ $explode_last }}">
+    @foreach(array_filter(glob($model_list.'/*'), 'is_file') as $app_model_file)
+<?php
+$app_model_file = explode('app', $app_model_file);
+$app_model_file = str_replace('.php', '', $app_model_file[1]);
+$app_model_file = str_replace('/', '\\', $app_model_file);
+?>
+    <option value="App{{ $app_model_file }}">App{{ $app_model_file }}</option>
+    @endforeach
+  </optgroup>
+  @endif
+  @endforeach
+</select>
             </label>
           </div>
           <div class="col-md-8">
             <label class="form-check-input" dir="rtl"> {{it_trans('it.date')}}
               <input type="checkbox" value="1" class="date_data" to="`+x+`" name="date`+x+`" />
             </label>
-            <div class="date_list0 hidden">
+            <div class="date_list`+x+` hidden">
               <div class="col-md-3" >
                 <label class="" dir="rtl"> {{it_trans('it.date_format')}}</label>
                 <select name="date_format`+x+`" class="form-control">
@@ -485,7 +515,7 @@
                 <label class="form-check-input" dir="rtl"> {{it_trans('it.before')}}
                   <input type="radio" value="before" class="after_before" to="`+x+`" name="after_before`+x+`" />
                 </label>
-                <div class="after_before_list0 hidden">
+                <div class="after_before_list`+x+` hidden">
                   <ol>
                     <li>
                       <label class="mt-radio" dir="rtl"> {{it_trans('it.today')}}
@@ -510,11 +540,11 @@
                   </ol>
                 </div>
               </div>
-              <div class="col-md-3 each_other_col0 hidden">
+              <div class="col-md-3 each_other_col`+x+` hidden">
                 Select The Column
                 <span class="each_col_name_other_col`+x+`"></span>
               </div>
-              <div class="col-md-3 each_other_carbon0 hidden">
+              <div class="col-md-3 each_other_carbon`+x+` hidden">
                 Write Carbon Days
                 <label>
                   Days <input type="text" name="other_carbon`+x+`" placeholder="Days" class="form-control" >
@@ -550,16 +580,16 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label class="form-check-input" dir="rtl"> {{it_trans('it.nullable')}}
-                  <input type="checkbox" name="schema_nullable`+x+`" class="func_nullable" to="`+x+`" />
+                  <input type="checkbox" name="schema_nullable`+x+`"  value="1"  class="func_nullable" to="`+x+`" />
                 </div>
                 <div class="form-group">
                   <label class="form-check-input" dir="rtl"> {{it_trans('it.onDelete')}}
-                    <input type="checkbox" name="schema_onDelete`+x+`" class="onDelete" to="`+x+`" />
+                    <input type="checkbox" name="schema_onDelete`+x+`"  value="1"   class="onDelete" to="`+x+`" />
                   </div>
                 </div>
                 <div class="clearfix"></div>
-                <p>$table->integer('<span class="col_name_`+x+`"></span>')->unsigned()<span class="func_nullable0 hidden">->nullable()</span>;</p>
-                <p>$table->foreign('<span class="col_name_`+x+`"></span>')->references('<span class="references`+x+`"></span>')->on('<span class="forgin_table_name`+x+`"></span>')<span  class="schema_onDelete0 hidden">->onDelete('cascade')</span>;</p>
+                <p>$table->integer('<span class="col_name_`+x+`"></span>')->unsigned()<span class="func_nullable`+x+` hidden">->nullable()</span>;</p>
+                <p>$table->foreign('<span class="col_name_`+x+`"></span>')->references('<span class="references`+x+`"></span>')->on('<span class="forgin_table_name`+x+`"></span>')<span  class="schema_onDelete`+x+` hidden">->onDelete('cascade')</span>;</p>
               </div>
             </div>
             <div class="clearfix"></div>

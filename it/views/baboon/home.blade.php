@@ -43,11 +43,35 @@ $(document).on('keyup','.schema_name',function(){
  $('.forginkey'+number).text(schema_name);
 });
 
+<?php
+$data = [];
+$baboonModule = (new \Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonModule);
+// Load all Modules
+$getAllModule = $baboonModule->getAllModules();
+
+$data['getAllModule'] = $getAllModule;
+if (!empty(request('module')) && !is_null(request('module'))) {
+	$Modulefile = 'baboon/' . request('module');
+	// Edit Modules
+	$readmodule = $baboonModule->read($Modulefile);
+	if ($readmodule === false) {
+		// redirect if fails load Files
+		header('Location: ' . url('it/baboon-sd'));
+		exit;
+	} else {
+		$data['module_data'] = $readmodule;
+	}
+} else {
+	$data['module_data'] = null;
+	$data['module_last_modified'] = null;
+}
+?>
 
 var i      = 999; //maximum input boxes allowed
 var wrapper         = $(".input_fields_wrap"); //Fields wrapper
 var add_button      = $(".add_field_button"); //Add button ID
-var x = 0; //initlal text box count
+var x = {{ !empty($data['module_data']) && $data['module_data']->count_inputs > 0?
+($data['module_data']->count_inputs-1):0 }}; //initlal text box count
 $(add_button).click(function(e){ //on add input button click
 e.preventDefault();
 if(x < i){ //max input box allowed
@@ -63,12 +87,13 @@ x--;
 var i2      = 999; //maximum input boxes allowed
 var wrapper2         = $(".input_fields_wrap2"); //Fields wrapper
 var add_button2      = $(".add_field_button2"); //Add button ID
-var x2 = 0; //initlal text box count
+var x2 = {{ !empty($data['module_data']) && $data['module_data']->relation_count > 0?
+($data['module_data']->relation_count-1):0 }}; //initlal text box count
 $(add_button2).click(function(e){ //on add input button click
 e.preventDefault();
 if(x2 < i2){ //max input box allowed
 x2++; //text box increment
-$(wrapper2).append(@include('baboon.new_input2')); //add input box
+$(wrapper2).append(@include('baboon.relation_input')); //add input box
 }
 });
 $(wrapper2).on("click",".remove_field2", function(e){ //user click on remove text
@@ -129,41 +154,30 @@ $('.controller_namespace_list').html('');
           <div class="tab-pane active" id="panel-info">
             {!! it_views('baboon.Initialize') !!}
              <div class="clearfix"></div>
-              <button type="button" class="btn btn-primary  generate">
-               {{it_trans('it.generate_crud')}}
-               <i class="fa fa-plus"></i>
-             </button>
-             <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
           </div>
           <div class="tab-pane" id="panel-language">
             {!! it_views('baboon.language') !!}
              <div class="clearfix"></div>
-              <button type="button" class="btn btn-primary  generate">
-               {{it_trans('it.generate_crud')}}
-               <i class="fa fa-plus"></i>
-             </button>
-             <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
           </div>
           <div class="tab-pane" id="panel-columns">
             {!! it_views('baboon.columns_input') !!}
              <div class="clearfix"></div>
-             <br>
-             <button type="button" class="btn btn-primary  generate">
-               {{it_trans('it.generate_crud')}}
-               <i class="fa fa-plus"></i>
-             </button>
-             <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
           </div>
           <div class="tab-pane" id="panel-relations">
              {!! it_views('baboon.relations') !!}
              <div class="clearfix"></div>
-              <button type="button" class="btn btn-primary  generate">
+          </div>
+             <div class="clearfix"></div>
+             <br />
+        <div class="col-md-12">
+             <button type="button" class="btn btn-primary  generate">
                {{it_trans('it.generate_crud')}}
                <i class="fa fa-plus"></i>
              </button>
-             <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
-          </div>
-             <div class="clearfix"></div>
+              <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
+        </div>
+        <div class="clearfix"></div>
+             <br />
         </div>
       </div>
 
