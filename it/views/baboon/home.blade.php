@@ -92,6 +92,8 @@ $('.controller_namespace_list').html('');
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 baboon-tab-container">
 
 
+
+
     <div class="tabbable" id="tabs-114052">
         <ul class="nav nav-tabs">
           <li class="nav-item active">

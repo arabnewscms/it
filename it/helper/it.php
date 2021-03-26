@@ -7,13 +7,13 @@ if (!function_exists('disable_folder_list')) {
 if (!function_exists('getnamespace')) {
 	function getnamespace($namespaces) {
 		$namespaces = str_replace('App/Http/Controllers/', '', str_replace('\\', '/', $namespaces));
-		$namespaces = app_path('Http/Controllers/'.$namespaces);
-		foreach (array_filter(glob($namespaces.'/*'), 'is_dir') as $namespace) {
-			$controller_namespace_prefix = str_replace('/', '\\', 'App\\'.explode('app', $namespace)[1]);
+		$namespaces = app_path('Http/Controllers/' . $namespaces);
+		foreach (array_filter(glob($namespaces . '/*'), 'is_dir') as $namespace) {
+			$controller_namespace_prefix = str_replace('/', '\\', 'App\\' . explode('app', $namespace)[1]);
 			$controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_prefix);
 			echo getnamespace($namespaces);
 			echo $namespace;
-			echo '<option value="'.$controller_namespace_prefix.'">'.$controller_namespace_prefix.'</option>';
+			echo '<option value="' . $controller_namespace_prefix . '">' . $controller_namespace_prefix . '</option>';
 		}
 
 	}
@@ -22,13 +22,13 @@ if (!function_exists('getnamespace')) {
 if (!function_exists('get_model_baboon')) {
 	function get_model_baboon($model_list) {
 		$model_list = str_replace('App/Http/Controllers/', '', str_replace('\\', '/', $model_list));
-		$model_list = app_path('Http/Controllers/'.$model_list);
-		foreach (array_filter(glob($model_list.'/*'), 'is_dir') as $namespace) {
-			$model_list_files = str_replace('/', '\\', 'App\\'.explode('app', $namespace)[1]);
+		$model_list = app_path('Http/Controllers/' . $model_list);
+		foreach (array_filter(glob($model_list . '/*'), 'is_dir') as $namespace) {
+			$model_list_files = str_replace('/', '\\', 'App\\' . explode('app', $namespace)[1]);
 			$model_list_files = str_replace('\\\\', '\\', $model_list_files);
 			echo get_model_baboon($model_list);
 			echo $namespace;
-			echo '<optgroup label="'.$model_list_files.'">'.$model_list_files.'</optgroup>';
+			echo '<optgroup label="' . $model_list_files . '">' . $model_list_files . '</optgroup>';
 		}
 
 	}
@@ -36,7 +36,7 @@ if (!function_exists('get_model_baboon')) {
 
 if (!function_exists('check_package')) {
 	function check_package($packageName) {
-		$file     = base_path('composer.lock');
+		$file = base_path('composer.lock');
 		$packages = json_decode(file_get_contents($file), true)['packages'];
 		foreach ($packages as $package) {
 			if ($package['name'] == $packageName) {
@@ -56,7 +56,22 @@ if (!function_exists('it_int')) {
 
 if (!function_exists('it_views')) {
 	function it_views($view, $data = []) {
-		return view('it::'.$view, $data);
+		$baboonModule = (new \Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonModule);
+		$getAllModule = $baboonModule->getAllModules();
+
+		$data['getAllModule'] = $getAllModule;
+		if (!empty(request('module')) && !is_null(request('module'))) {
+			$Modulefile = 'baboon/' . request('module');
+			$readmodule = $baboonModule->read($Modulefile);
+			if ($readmodule === false) {
+				return redirect('it/baboon-sd');
+			} else {
+				$data['module_input'] = $readmodule;
+				$data['module_last_modified'] = date('Y-m-d h:i:s A T', $baboonModule->lastModified($Modulefile));
+			}
+		}
+		//	return dd($data);
+		return view('it::' . $view, $data);
 	}
 }
 
@@ -64,8 +79,8 @@ if (!function_exists('it_version')) {
 	function it_version() {
 		$version = '1.0';
 		app()->singleton('it_version', function () use ($version) {
-				return $version;
-			});
+			return $version;
+		});
 		return $version;
 	}
 }
@@ -73,13 +88,13 @@ if (!function_exists('it_version')) {
 if (!function_exists('it_trans')) {
 	function it_trans($trans) {
 		//	\Lang::addNamespace('it', base_path('app/it/lang'));
-		return Lang::get('it::'.$trans);
+		return Lang::get('it::' . $trans);
 	}
 }
 
 if (!function_exists('it_des')) {
 	function it_des($path) {
-		return url('it_des/'.$path);
+		return url('it_des/' . $path);
 	}
 }
 
@@ -87,52 +102,52 @@ if (!function_exists('it_permissions')) {
 	function it_permissions($path) {
 		$perms = fileperms($path);
 
-		switch ($perms&0xF000) {
-			case 0xC000:// socket
-				$info = 's';
-				break;
-			case 0xA000:// symbolic link
-				$info = 'l';
-				break;
-			case 0x8000:// regular
-				$info = 'r';
-				break;
-			case 0x6000:// block special
-				$info = 'b';
-				break;
-			case 0x4000:// directory
-				$info = 'd';
-				break;
-			case 0x2000:// character special
-				$info = 'c';
-				break;
-			case 0x1000:// FIFO pipe
-				$info = 'p';
-				break;
-			default:// unknown
-				$info = 'u';
+		switch ($perms & 0xF000) {
+		case 0xC000: // socket
+			$info = 's';
+			break;
+		case 0xA000: // symbolic link
+			$info = 'l';
+			break;
+		case 0x8000: // regular
+			$info = 'r';
+			break;
+		case 0x6000: // block special
+			$info = 'b';
+			break;
+		case 0x4000: // directory
+			$info = 'd';
+			break;
+		case 0x2000: // character special
+			$info = 'c';
+			break;
+		case 0x1000: // FIFO pipe
+			$info = 'p';
+			break;
+		default: // unknown
+			$info = 'u';
 		}
 
 		// Owner
-		$info .= (($perms&0x0100)?'r':'-');
-		$info .= (($perms&0x0080)?'w':'-');
-		$info .= (($perms&0x0040)?
-			(($perms&0x0800)?'s':'x'):
-			(($perms&0x0800)?'S':'-'));
+		$info .= (($perms & 0x0100) ? 'r' : '-');
+		$info .= (($perms & 0x0080) ? 'w' : '-');
+		$info .= (($perms & 0x0040) ?
+			(($perms & 0x0800) ? 's' : 'x') :
+			(($perms & 0x0800) ? 'S' : '-'));
 
 		// Group
-		$info .= (($perms&0x0020)?'r':'-');
-		$info .= (($perms&0x0010)?'w':'-');
-		$info .= (($perms&0x0008)?
-			(($perms&0x0400)?'s':'x'):
-			(($perms&0x0400)?'S':'-'));
+		$info .= (($perms & 0x0020) ? 'r' : '-');
+		$info .= (($perms & 0x0010) ? 'w' : '-');
+		$info .= (($perms & 0x0008) ?
+			(($perms & 0x0400) ? 's' : 'x') :
+			(($perms & 0x0400) ? 'S' : '-'));
 
 		// World
-		$info .= (($perms&0x0004)?'r':'-');
-		$info .= (($perms&0x0002)?'w':'-');
-		$info .= (($perms&0x0001)?
-			(($perms&0x0200)?'t':'x'):
-			(($perms&0x0200)?'T':'-'));
+		$info .= (($perms & 0x0004) ? 'r' : '-');
+		$info .= (($perms & 0x0002) ? 'w' : '-');
+		$info .= (($perms & 0x0001) ?
+			(($perms & 0x0200) ? 't' : 'x') :
+			(($perms & 0x0200) ? 'T' : '-'));
 
 		return $info;
 	}

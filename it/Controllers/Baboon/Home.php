@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Phpanonymous\It\Controllers\Baboon\BaboonDataTable;
 use Phpanonymous\It\Controllers\Baboon\BaboonShowPage;
+use Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonModule;
 use Phpanonymous\It\Controllers\Baboon\MasterBaboon as Baboon;
 
 class Home extends Controller {
@@ -85,6 +86,9 @@ class Home extends Controller {
 			if (request()->has('make_controller')) {
 				Baboon::write($controller, $r->input('controller_name'), $r->input('controller_namespace'));
 			}
+
+			// Create .baboon Text CRUD
+			(new BaboonModule)->init();
 
 			// if (request()->has('make_controller_api')) {
 			Baboon::write($controllerApi, $r->input('controller_name') . 'Api', 'App\Http\Controllers/Api');

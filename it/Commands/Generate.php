@@ -41,10 +41,6 @@ class Generate extends Command {
 	 * @return mixed
 	 */
 	public function handle() {
-		self::changeEnv('DB_DATABASE', 'fake');
-		self::changeEnv('DB_USERNAME', 'fake');
-		self::changeEnv('DB_PASSWORD', 'fake');
-
 		\Config::set('filesystems.default', 'it');
 
 		if (!class_exists('ZipArchive')) {
@@ -73,12 +69,8 @@ class Generate extends Command {
 		$NEED_PORT = $this->confirm('You Want Add A Custom Port To Your localhost ?');
 		if ($NEED_PORT) {
 			$HAVE_PORT = $this->ask('What is Your Custom Domain Port (Default Port is 80) ?');
-			if (!empty($HAVE_PORT)) {
-				self::changeEnv('DB_HOST', 'localhost:' . $HAVE_PORT);
-			} else {
-				self::changeEnv('DB_HOST', 'localhost');
-			}
 		}
+
 		// Set  CUSTOM PORT //
 
 		// Set DB CUSTOM PORT //
@@ -114,6 +106,7 @@ class Generate extends Command {
 			}
 
 			if (!empty($DB_DATABASE)) {
+
 				$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name " . $DB_DATABASE . "? ");
 				if ($auto_create_DB) {
 					if (!empty($HAVE_DB_PORT)) {
@@ -121,9 +114,14 @@ class Generate extends Command {
 					} else {
 						$DB_PORT = 3306;
 					}
-					$pdo = $this->getPDOConnection('', $DB_PORT, $DB_USERNAME, $DB_PASSWORD);
-					shell_exec('php artisan config:clear');
-					shell_exec('php artisan cache:clear');
+
+					$pdo = $this->getPDOConnection(
+						'localhost',
+						$DB_PORT,
+						$DB_USERNAME,
+						$DB_PASSWORD
+					);
+
 					$pdo->exec(sprintf(
 						'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
 						$DB_DATABASE,
@@ -131,27 +129,26 @@ class Generate extends Command {
 						config('database.connections.mysql.collation')
 					));
 
-					$this->info("DATABAES " . $DB_DATABASE . " Created and is ready ");
+					shell_exec('php artisan config:clear');
+					shell_exec('php artisan cache:clear');
 
+					$this->info("DATABAES " . $DB_DATABASE . " Created & is ready now");
 				}
-
 			}
 
 			if (!empty($HAVE_PORT)) {
-				self::changeEnv('DB_HOST', '127.0.0.1:' . $HAVE_PORT);
 				self::changeEnv('APP_URL', 'http://localhost:' . $HAVE_PORT);
 			} else {
-				self::changeEnv('DB_HOST', '127.0.0.1');
 				self::changeEnv('APP_URL', 'http://localhost');
 			}
 		}
 		$this->line("we are build your admin panel and downloading default packages this new version is super fast please wait ...");
-		$phpversion = explode('.', phpversion())[1];
+		//$phpversion = explode('.', phpversion())[1];
 
-		if ($phpversion == '2' && check_package("mockery/mockery") === null) {
-			$this->info("Downloading mockery Package....");
-			shell_exec('composer require mockery/mockery "1.3.2"');
-		}
+		// if ($phpversion == '2' && check_package("mockery/mockery") === null) {
+		// 	$this->info("Downloading mockery Package....");
+		// 	shell_exec('composer require mockery/mockery "1.3.2"');
+		// }
 
 		if (check_package("langnonymous/lang") === null) {
 			$this->info("Downloading Langnonymous Package....");
@@ -160,20 +157,12 @@ class Generate extends Command {
 
 		if (check_package("spatie/laravel-honeypot") === null) {
 			$this->info("Downloading spatie/laravel-honeypot Package....");
-			if ($phpversion == '2') {
-				shell_exec('composer require spatie/laravel-honeypot "^2.2"');
-			} else {
-				shell_exec('composer require spatie/laravel-honeypot');
-			}
+			shell_exec('composer require spatie/laravel-honeypot');
 		}
 
 		if (check_package("laravel/ui") === null) {
 			$this->info("Downloading laravel/ui Package....");
-			if ($phpversion == '2') {
-				shell_exec('composer require laravel/ui "^2.0"');
-			} else {
-				shell_exec('composer require laravel/ui');
-			}
+			shell_exec('composer require laravel/ui');
 		}
 		if (check_package("intervention/image") === null) {
 			$this->info("Downloading intervention Image Package....");
@@ -251,23 +240,6 @@ class Generate extends Command {
 
 		$this->info("thank you for using my package (Mahmoud Ibrahim) if you want ask me something text me   php.anonymous1@gmail.com");
 
-		// config('database.connections.mysql.database', $DB_DATABASE);
-		// config('database.connections.mysql.username', $DB_USERNAME);
-		// config('database.connections.mysql.password', $DB_PASSWORD);
-
-		//if (\Artisan::call('migrate') == 0) {
-		// $this->info("Auto Migrate Tables....");
-		// $this->info("Migrate Tables Done");
-		// \Artisan::call('db:seed');
-		// $this->info("Auto Seed And Inject The Admin Login Data....");
-		// $this->info("Seed is Done");
-		// $this->info("your admin panel now is ready ");
-		//} else {
-		// $this->info("please run this command php artisan vendor:publish --force and select 0 value to publish all config files");
-
-		// $this->info("please run this command composer dump-autoload to refresh seeder path");
-
-		//}
 		$this->info("your admin panel now is ready ");
 		$this->info("don't forget to rate us on github visit link: https://github.com/arabnewscms/it ");
 		$this->info("auth types \r\n1 - php artisan ui:auth --views");
@@ -287,10 +259,10 @@ class Generate extends Command {
 		}
 	}
 
-	private function getPDOConnection($host, $port, $username, $password) {
-		$host = empty($host) ? '127.0.0.1' : $host;
-		$port = empty($port) ? '3306' : $port;
-		return new \PDO('mysql:port=' . $port . ';host=' . $host, $username, $password);
+	// Connection PDO Library Native
+	public function getPDOConnection($host, $port, $username, $password) {
+		$pdo = new \PDO('mysql:port=' . $port . ';host=' . $host, $username, $password);
+		return $pdo;
 	}
 
 }

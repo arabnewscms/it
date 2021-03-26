@@ -1,5 +1,33 @@
 <div class="col-md-9">
 <div class="col-md-12">
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(document).on('change','.select_module',function(){
+    var select_module = $('.select_module option:selected').val();
+    if(select_module != ''){
+      window.location.href = '{{ url('it/baboon-sd') }}?module='+select_module;
+    }
+  });
+});
+</script>
+
+<div class="form-group modules">
+  <label for="modules" class="col-md-12">Edit Module From List</label>
+    <div class="col-md-8">
+  <select name="module" class="form-control select_module">
+    <option>......Choose Module.......</option>
+      @foreach($getAllModule as $module)
+      <option value="{{ $module['file'] }}" {{ request('module') == $module['file']?'selected':'' }}>{{ $module['module_name'] }}</option>
+      @endforeach
+    </select>
+    @if(!empty(request('module')))
+    <a href="{{ url('it/baboon-sd') }}" class="btn btn-danger">Cancel to edit this module</a>
+    @endif
+  </div>
+</div>
+
+
   <div class="form-group project_title">
       <label for="project_title" class="col-md-12">{{it_trans('it.project_title')}}</label>
       <div class="col-md-8">
@@ -18,7 +46,7 @@
         <option value="resources/views">resources/views</option>
         @foreach( array_filter(glob(base_path('resources/views').'/*'), 'is_dir') as $admin_pathes)
 <?php
-$admin_path = 'resources'.explode('resources', $admin_pathes)[1];
+$admin_path = 'resources' . explode('resources', $admin_pathes)[1];
 ?>
 <option value="{{$admin_path}}" {{ preg_match('/admin/i',$admin_path)?'selected':'' }}>{{$admin_path}}</option>
         @endforeach
@@ -35,7 +63,7 @@ $admin_path = 'resources'.explode('resources', $admin_pathes)[1];
     @foreach( array_filter(glob(app_path().'/*'), 'is_dir') as $namespaces)
 
 <?php
-$model_prefix = str_replace('/', '\\', 'App\\'.explode('app', $namespaces)[1]);
+$model_prefix = str_replace('/', '\\', 'App\\' . explode('app', $namespaces)[1]);
 $model_prefix = str_replace('\\\\', '\\', $model_prefix);
 ?>
 @if(!preg_match('/Exceptions|Console|it|ItHelpers|Mail|Http|Handlers|Providers/i',$model_prefix))
@@ -58,7 +86,7 @@ $model_prefix = str_replace('\\\\', '\\', $model_prefix);
       <option value="App\Http\Controllers" selected="selected">App\Http\Controllers</option>
       @foreach( array_filter(glob(app_path('Http/Controllers').'/*'), 'is_dir') as $namespaces)
 <?php
-$controller_namespace_prefix = str_replace('/', '\\', 'App\\'.explode('app', $namespaces)[1]);
+$controller_namespace_prefix = str_replace('/', '\\', 'App\\' . explode('app', $namespaces)[1]);
 $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_prefix);
 ?>
       @if(!empty($controller_namespace_prefix))
@@ -220,3 +248,4 @@ return false;
 
   </div>
 </div>
+
