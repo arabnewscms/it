@@ -24,16 +24,16 @@
     "branch-alias": {
             "dev-master": "1.5.9.x-dev"
     },
-        "laravel": {
-            "providers": [
-                "Phpanonymous\\It\\ItApplication"
-            ],
-            "aliases": {
-              
-            }
+    "laravel": {
+        "providers": [
+            "Phpanonymous\\It\\ItApplication"
+        ],
+        "aliases": {
+          
         }
+    }
   },
-	"version":"1.5.9",
+  "version":"1.5.9",
   "minimum-stability": "dev",
   "prefer-stable": true
 }

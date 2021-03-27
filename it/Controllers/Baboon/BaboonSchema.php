@@ -1,10 +1,8 @@
 <?php
 namespace Phpanonymous\It\Controllers\Baboon;
-
 use App\Http\Controllers\Controller;
 
 class BaboonSchema extends Controller {
-	//
 
 	public static function convention_name($string) {
 		$conv = strtolower(ltrim(preg_replace('/(?<!\ )[A-Z]/', '_$0', $string), '_'));

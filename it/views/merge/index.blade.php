@@ -35,7 +35,6 @@
             });
         </script>
 	@endsection
-
 <div class="container-fluid">
 	<div class="row">
 			<div class="panel panel-default">

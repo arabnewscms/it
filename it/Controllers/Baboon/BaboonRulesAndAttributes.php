@@ -140,7 +140,7 @@ class BaboonRulesAndAttributes extends Controller {
 				// }
 			}
 
-			if ($r->has('col_type')[$i] == 'password' and $conv == 'password') {
+			if ($r->input('col_type')[$i] == 'password') {
 				$valrule .= 'confirmed|';
 			}
 

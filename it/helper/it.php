@@ -4,6 +4,7 @@ if (!function_exists('disable_folder_list')) {
 		return ['App\Console', 'App\DataTables', 'App\Exceptions', 'App\Http', 'App\Mail', 'App\Providers', 'App\it'];
 	}
 }
+
 if (!function_exists('getnamespace')) {
 	function getnamespace($namespaces) {
 		$namespaces = str_replace('App/Http/Controllers/', '', str_replace('\\', '/', $namespaces));
@@ -30,7 +31,6 @@ if (!function_exists('get_model_baboon')) {
 			echo $namespace;
 			echo '<optgroup label="' . $model_list_files . '">' . $model_list_files . '</optgroup>';
 		}
-
 	}
 }
 
@@ -43,7 +43,6 @@ if (!function_exists('check_package')) {
 				return $package['version'];
 			}
 		}
-
 		return null;
 	}
 }
@@ -78,7 +77,6 @@ if (!function_exists('it_views')) {
 			$data['module_data'] = null;
 			$data['module_last_modified'] = null;
 		}
-
 		return view('it::' . $view, $data);
 	}
 }
@@ -119,7 +117,6 @@ if (!function_exists('it_des')) {
 if (!function_exists('it_permissions')) {
 	function it_permissions($path) {
 		$perms = fileperms($path);
-
 		switch ($perms & 0xF000) {
 		case 0xC000: // socket
 			$info = 's';

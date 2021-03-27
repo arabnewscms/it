@@ -1,5 +1,4 @@
 <?php
-
 if (!function_exists('fa')) {
 	function fa() {
 		return [

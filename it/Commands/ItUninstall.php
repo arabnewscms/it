@@ -1,5 +1,4 @@
 <?php
-
 namespace Phpanonymous\It\Commands;
 
 use Illuminate\Console\Command;
@@ -11,18 +10,17 @@ class ItUninstall extends Command {
 	 *
 	 * @var string
 	 */
-
 	protected $signature = 'it:uninstall {plugin?}';
-	protected $beer      = "\360\237\215\272";
-	protected $ops       = "\xF0\x9F\x98\xB1";
-	protected $like      = "\xF0\x9F\x91\x8D";
-	protected $dislike   = "\xF0\x9F\x91\x8E";
-	protected $love      = "\xF0\x9F\x98\x8D";
-	protected $heart     = "\xE2\x9D\xA4";
-	protected $plugins   = ['merge', 'baboon', 'laravelcollective', 'yajra', 'intervention'];// 'payment', 'editors',
-	protected $app       = "'providers' => [";
+	protected $beer = "\360\237\215\272";
+	protected $ops = "\xF0\x9F\x98\xB1";
+	protected $like = "\xF0\x9F\x91\x8D";
+	protected $dislike = "\xF0\x9F\x91\x8E";
+	protected $love = "\xF0\x9F\x98\x8D";
+	protected $heart = "\xE2\x9D\xA4";
+	protected $plugins = ['merge', 'baboon', 'laravelcollective', 'yajra', 'intervention']; // 'payment', 'editors',
+	protected $app = "'providers' => [";
 	protected $providers = "'providers' => [";
-	protected $aliases   = "'aliases' => [";
+	protected $aliases = "'aliases' => [";
 
 	/**
 	 * The console command description.
@@ -46,13 +44,13 @@ class ItUninstall extends Command {
 
 		$final = str_replace('Barryvdh\Elfinder\ElfinderServiceProvider::class ,', "", $app);
 		Storage::disk('it')->put('config/app.php', $final);
-		$this->info('It'.$this->beer.'  Barryvdh\Elfinder\ElfinderServiceProvider::class , from app.php is removed');
+		$this->info('It' . $this->beer . '  Barryvdh\Elfinder\ElfinderServiceProvider::class , from app.php is removed');
 		Storage::deleteDirectory('public/packages');
-		$this->info('It'.$this->beer.' the public/packages folder is removed');
+		$this->info('It' . $this->beer . ' the public/packages folder is removed');
 		Storage::deleteDirectory('resources/views/vendor/elfinder');
-		$this->info('It'.$this->beer.' the resources/views/vendor/elfinder folder is removed');
+		$this->info('It' . $this->beer . ' the resources/views/vendor/elfinder folder is removed');
 		Storage::delete('config/elfinder.php');
-		$this->info('It'.$this->beer.' the config/elfinder.php file is removed');
+		$this->info('It' . $this->beer . ' the config/elfinder.php file is removed');
 		shell_exec('composer dump-autoload');
 	}
 
@@ -62,43 +60,43 @@ class ItUninstall extends Command {
 		shell_exec('composer remove yajra/laravel-datatables-oracle');
 
 		/*$app = file_get_contents(base_path('config/app.php'));
-		if (!preg_match('/Yajra/i', $app)) {
-		$final = str_replace($this->providers, $this->providers."\r\n".'		Yajra\DataTables\HtmlServiceProvider::class ,', $app);
-		$this->info('It'.$this->beer.' the provider Yajra\DataTables\HtmlServiceProvider::class auto Pushed in providers array');
+			if (!preg_match('/Yajra/i', $app)) {
+			$final = str_replace($this->providers, $this->providers."\r\n".'		Yajra\DataTables\HtmlServiceProvider::class ,', $app);
+			$this->info('It'.$this->beer.' the provider Yajra\DataTables\HtmlServiceProvider::class auto Pushed in providers array');
 
-		$final = str_replace($this->providers, $this->providers."\r\n".'		Yajra\DataTables\ButtonsServiceProvider::class ,', $app);
-		$this->info('It'.$this->beer.' the provider Yajra\DataTables\ButtonsServiceProvider::class auto Pushed in providers array');
+			$final = str_replace($this->providers, $this->providers."\r\n".'		Yajra\DataTables\ButtonsServiceProvider::class ,', $app);
+			$this->info('It'.$this->beer.' the provider Yajra\DataTables\ButtonsServiceProvider::class auto Pushed in providers array');
 
-		$final = str_replace($this->providers, $this->providers."\r\n".'		Yajra\DataTables\DataTablesServiceProvider::class ,', $app);
-		$this->info('It'.$this->beer.' the provider Yajra\DataTables\DataTablesServiceProvider::class auto Pushed in providers array');
+			$final = str_replace($this->providers, $this->providers."\r\n".'		Yajra\DataTables\DataTablesServiceProvider::class ,', $app);
+			$this->info('It'.$this->beer.' the provider Yajra\DataTables\DataTablesServiceProvider::class auto Pushed in providers array');
 
-		}*/
+		*/
 
 		shell_exec('composer remove yajra/laravel-datatables');
 
 		/*shell_exec('php artisan vendor:publish --tag=datatables');
-		shell_exec('php artisan vendor:publish --tag=datatables-buttons');
-		shell_exec('php artisan vendor:publish --tag=datatables-html');*/
+			shell_exec('php artisan vendor:publish --tag=datatables-buttons');
+		*/
 
 		shell_exec('composer dump-autoload');
-		$this->info('It'.$this->beer.' Yajra Package Is removed');
+		$this->info('It' . $this->beer . ' Yajra Package Is removed');
 
 	}
 
 	private function uninstall_laravelcollective() {
 		shell_exec('composer remove laravelcollective/html');
-		$app   = file_get_contents(base_path('config/app.php'));
+		$app = file_get_contents(base_path('config/app.php'));
 		$final = str_replace('		Collective\Html\HtmlServiceProvider::class ,', "", $app);
-		$this->info('It'.$this->beer.' the provider Collective\Html\HtmlServiceProvider::class auto removed from array providers');
+		$this->info('It' . $this->beer . ' the provider Collective\Html\HtmlServiceProvider::class auto removed from array providers');
 		$final = str_replace("'Form' => Collective\Html\FormFacade::class ,", "", $final);
 		$final = str_replace("'Form'   => Collective\Html\FormFacade::class ,", "", $final);
 		$final = str_replace("'Form'         => Collective\Html\FormFacade::class ,", "", $final);
-		$this->info('It'.$this->beer.' the Alias \'Form\' => Collective\Html\FormFacade::class auto removed from array Aliases');
+		$this->info('It' . $this->beer . ' the Alias \'Form\' => Collective\Html\FormFacade::class auto removed from array Aliases');
 		$final = str_replace("'Html' => Collective\Html\HtmlFacade::class ,", "", $final);
 		$final = str_replace("'Html'   => Collective\Html\HtmlFacade::class ,", "", $final);
 		$final = str_replace("'Html'         => Collective\Html\HtmlFacade::class ,", "", $final);
 		\Storage::disk('it')->put('config/app.php', $final);
-		$this->info('It'.$this->beer.' the Alias \'Html\' => Collective\Html\HtmlFacade::class, auto removed from array Aliases');
+		$this->info('It' . $this->beer . ' the Alias \'Html\' => Collective\Html\HtmlFacade::class, auto removed from array Aliases');
 		shell_exec('composer dump-autoload');
 	}
 
@@ -106,7 +104,7 @@ class ItUninstall extends Command {
 
 		shell_exec('composer remove intervention/image');
 		shell_exec('composer dump-autoload');
-		$this->info('It'.$this->beer.' intervention image Package Is removed');
+		$this->info('It' . $this->beer . ' intervention image Package Is removed');
 
 	}
 
@@ -122,7 +120,7 @@ class ItUninstall extends Command {
 		$plugin = $this->argument('plugin');
 		if (in_array($plugin, $this->plugins)) {
 			if ($plugin == 'merge') {
-				$this->info('It'.$this->beer.' preparing file system merge to remove');
+				$this->info('It' . $this->beer . ' preparing file system merge to remove');
 				$this->uninstall_merge();
 
 			} else if ($plugin == 'laravelcollective') {
@@ -135,10 +133,10 @@ class ItUninstall extends Command {
 		} else {
 			$plugg = [];
 
-			$this->error('It'.$this->beer.' Ops Choose Plugin From List ');
+			$this->error('It' . $this->beer . ' Ops Choose Plugin From List ');
 			$headers = [
 				'Command (php artisan it:uninstall)',
-				'Description'
+				'Description',
 			];
 			foreach ($this->plugins as $plug) {
 				if ($plug == 'merge') {
