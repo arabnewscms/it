@@ -214,6 +214,11 @@ class Generate extends Command {
 			shell_exec('php artisan it:install yajra');
 		}
 
+		if (check_package("phpanonymous/c3js") === null) {
+			$this->info("Downloading phpanonymous c3js Chart Package....");
+			shell_exec('composer require phpanonymous/c3js');
+		}
+
 		$zip = new \ZipArchive;
 		$res = $zip->open(__DIR__ . '/../environment/public.zip');
 		if ($res === true) {
