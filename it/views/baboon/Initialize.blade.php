@@ -51,7 +51,7 @@ $(document).ready(function(){
         <option value="resources/views"
 {{ !empty($module_data) && $module_data->admin_folder_path == 'resources/views' ?'selected':''}}
         >resources/views</option>
-        @foreach(array_filter(glob(base_path('resources/views').'/*'), 'is_dir') as $admin_pathes)
+        @foreach( array_filter(glob(base_path('resources/views').'/*'), 'is_dir') as $admin_pathes)
 <?php
 $admin_path = 'resources' . explode('resources', $admin_pathes)[1];
 ?>
@@ -72,12 +72,20 @@ $admin_path = 'resources' . explode('resources', $admin_pathes)[1];
   <label for="model_name" class="col-md-12">{{it_trans('it.model_name')}}</label>
   <input type="text" name="model_name" dir="ltr" value="{{ !empty($module_data)?$module_data->model_name: old('model_name')}}" class="form-control" placeholder="{{it_trans('it.model_name')}}"  />
   <label for="model_namespace" class="col-md-12">{{it_trans('it.model_namespace')}}</label>
+
   <select name="model_namespace" size="5" class="form-control model_namespace">
     <option value="App" selected>App</option>
     @foreach(array_filter(glob(app_path().'/*'), 'is_dir') as $namespaces)
 
 <?php
-$model_prefix = str_replace('/', '\\', 'App\\' . explode('app', $namespaces)[1]);
+// Check if Duplicate name to explode it
+$namespace_ex_model = explode('app', $namespaces);
+// check if offset 2 not empty and exisist
+if (isset($namespace_ex_model[2]) && !empty($namespace_ex_model[2])) {
+	$model_prefix = str_replace('/', '\\', 'App\\' . $namespace_ex_model[2]);
+} else {
+	$model_prefix = str_replace('/', '\\', 'App\\' . $namespace_ex_model[1]);
+}
 $model_prefix = str_replace('\\\\', '\\', $model_prefix);
 ?>
 @if(!preg_match('/Exceptions|Console|DataTables|it|ItHelpers|Mail|Http|Handlers|Providers/i',$model_prefix))
@@ -104,9 +112,17 @@ $model_prefix = str_replace('\\\\', '\\', $model_prefix);
        selected="selected">App\Http\Controllers</option>
       @foreach(array_filter(glob(app_path('Http/Controllers').'/*'), 'is_dir') as $namespaces)
 <?php
-$controller_namespace_prefix = str_replace('/', '\\', 'App\\' . explode('app', $namespaces)[1]);
+// Check if Duplicate name to explode it
+$ex_controller_path = explode('app', $namespaces);
+// check if offset 2 not empty and exisist
+if (isset($ex_controller_path[2]) && !empty($ex_controller_path[2])) {
+	$controller_namespace_prefix = str_replace('/', '\\', 'App\\' . $ex_controller_path[2]);
+} else {
+	$controller_namespace_prefix = str_replace('/', '\\', 'App\\' . $ex_controller_path[1]);
+}
 $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_prefix);
 ?>
+
       @if(!empty($controller_namespace_prefix))
       <option value="{{$controller_namespace_prefix}}"
       {{ !empty($module_data) && $module_data->controller_namespace == $controller_namespace_prefix?'selected':'' }}
@@ -271,4 +287,3 @@ return false;
 
   </div>
 </div>
-

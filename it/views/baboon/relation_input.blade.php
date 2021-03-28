@@ -19,7 +19,11 @@
 						@foreach(array_filter(glob(app_path().'/*'), 'is_file') as $app_model_file)
 						<?php
 $app_model_file = explode('app', $app_model_file);
-$app_model_file = str_replace('.php', '::class', $app_model_file[1]);
+if (isset($app_model_file[2]) && !empty($app_model_file[2])) {
+	$app_model_file = str_replace('.php', '::class', $app_model_file[2]);
+} else {
+	$app_model_file = str_replace('.php', '::class', $app_model_file[1]);
+}
 $app_model_file = str_replace('/', '\\\\', $app_model_file);
 ?>
 						<option value="App\{{ $app_model_file }}">App\{{ $app_model_file }}</option>
@@ -35,7 +39,11 @@ $explode_last = $data_[count($data_) - 1];
 						@foreach(array_filter(glob($model_list.'/*'), 'is_file') as $app_model_file)
 						<?php
 $app_model_file = explode('app', $app_model_file);
-$app_model_file = str_replace('.php', '::class', $app_model_file[1]);
+if (isset($app_model_file[2]) && !empty($app_model_file[2])) {
+	$app_model_file = str_replace('.php', '::class', $app_model_file[2]);
+} else {
+	$app_model_file = str_replace('.php', '::class', $app_model_file[1]);
+}
 $app_model_file = str_replace('/', '\\\\', $app_model_file);
 ?>
 						<option value="App\{{ $app_model_file }}">App\{{ $app_model_file }}</option>
