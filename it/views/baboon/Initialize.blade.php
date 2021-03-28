@@ -51,7 +51,7 @@ $(document).ready(function(){
         <option value="resources/views"
 {{ !empty($module_data) && $module_data->admin_folder_path == 'resources/views' ?'selected':''}}
         >resources/views</option>
-        @foreach( array_filter(glob(base_path('resources/views').'/*'), 'is_dir') as $admin_pathes)
+        @foreach(array_filter(glob(base_path('resources/views').'/*'), 'is_dir') as $admin_pathes)
 <?php
 $admin_path = 'resources' . explode('resources', $admin_pathes)[1];
 ?>
@@ -74,7 +74,7 @@ $admin_path = 'resources' . explode('resources', $admin_pathes)[1];
   <label for="model_namespace" class="col-md-12">{{it_trans('it.model_namespace')}}</label>
   <select name="model_namespace" size="5" class="form-control model_namespace">
     <option value="App" selected>App</option>
-    @foreach( array_filter(glob(app_path().'/*'), 'is_dir') as $namespaces)
+    @foreach(array_filter(glob(app_path().'/*'), 'is_dir') as $namespaces)
 
 <?php
 $model_prefix = str_replace('/', '\\', 'App\\' . explode('app', $namespaces)[1]);
@@ -102,7 +102,7 @@ $model_prefix = str_replace('\\\\', '\\', $model_prefix);
       <option value="App\Http\Controllers"
        {{ !empty($module_data) && $module_data->controller_namespace == 'App\Http\Controllers'?'selected':'' }}
        selected="selected">App\Http\Controllers</option>
-      @foreach( array_filter(glob(app_path('Http/Controllers').'/*'), 'is_dir') as $namespaces)
+      @foreach(array_filter(glob(app_path('Http/Controllers').'/*'), 'is_dir') as $namespaces)
 <?php
 $controller_namespace_prefix = str_replace('/', '\\', 'App\\' . explode('app', $namespaces)[1]);
 $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_prefix);
