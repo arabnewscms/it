@@ -58,10 +58,6 @@ Route::group(['prefix' => app('admin'), 'middleware' => 'Lang'], function () {
 		Route::post('account', 'Admin\AdminAuthenticated@account_post');
 		Route::resource('settings', 'Admin\Settings');
 
-		Route::resource('countries', 'Admin\Countries');
-		Route::post('countries/multi_delete', 'Admin\Countries@multi_delete');
-		Route::resource('cities', 'Admin\Cities');
-		Route::post('cities/multi_delete', 'Admin\Cities@multi_delete');
 		Route::resource('admingroups', 'Admin\AdminGroups');
 		Route::post('admingroups/multi_delete', 'Admin\AdminGroups@multi_delete');
 		Route::resource('admins', 'Admin\Admins');
