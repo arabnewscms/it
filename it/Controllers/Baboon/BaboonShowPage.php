@@ -102,7 +102,6 @@ class BaboonShowPage extends Controller {
 
 		$x = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
-
 			if ($r->has('image' . $x)) {
 				$show .= '
 <div class="col-md-4 col-lg-4 col-xs-4">
@@ -145,8 +144,8 @@ class BaboonShowPage extends Controller {
 </div>
 ';
 				}
-				$x++;
 			}
+			$x++;
 		}
 		$show .= '			</div>
 			<div class="clearfix"></div>
@@ -166,24 +165,22 @@ class BaboonShowPage extends Controller {
 	public static function get_cols($r) {
 		$cols = '';
 
-		if ($r->has('has_user_id')) {
-			//$cols .= 'admin_id,';
-		}
-
-		if ($r->has('schema_name')) {
-			$i = 0;
-			$schema_null = $r->input('schema_null');
-			foreach ($r->input('schema_name') as $schema_name) {
-				if (!$r->has('forginkeyto' . $i)) {
-					$cols .= $schema_name . ',';
-				}
-				$i++;
-			}
-		}
+		// if ($r->has('schema_name')) {
+		// 	$i = 0;
+		// 	$schema_null = $r->input('schema_null');
+		// 	foreach ($r->input('schema_name') as $schema_name) {
+		// 		if (!$r->has('forginkeyto' . $i)) {
+		// 			$cols .= $schema_name . ',';
+		// 		}
+		// 		$i++;
+		// 	}
+		// }
 		$i = 0;
 
 		foreach ($r->input('col_name_convention') as $conv) {
-			if ($r->has('image' . $i)) {
+			if (request()->has('forginkeyto' . $i)) {
+				// Disable Forginkey
+			} elseif ($r->has('image' . $i)) {
 				// Disable Any Image Here
 				$cols .= '';
 			} elseif (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
