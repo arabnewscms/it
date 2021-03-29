@@ -164,6 +164,17 @@ class BaboonShowPage extends Controller {
 
 	public static function get_cols($r) {
 		$cols = '';
+
+		// if ($r->has('schema_name')) {
+		// 	$i = 0;
+		// 	$schema_null = $r->input('schema_null');
+		// 	foreach ($r->input('schema_name') as $schema_name) {
+		// 		if (!$r->has('forginkeyto' . $i)) {
+		// 			$cols .= $schema_name . ',';
+		// 		}
+		// 		$i++;
+		// 	}
+		// }
 		$i = 0;
 
 		foreach ($r->input('col_name_convention') as $conv) {
@@ -172,6 +183,9 @@ class BaboonShowPage extends Controller {
 			} elseif ($r->has('image' . $i)) {
 				// Disable Any Image Here
 				$cols .= '';
+			} elseif ($r->has('has_user_id')) {
+				// Disable Any Image Here
+				$cols .= 'admin_id,';
 			} elseif (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
 				// disable dropdown
 				// $pre_name = explode('|', $conv);
