@@ -177,15 +177,17 @@ class BaboonShowPage extends Controller {
 		// }
 		$i = 0;
 
+		if ($r->has('has_user_id')) {
+			// Disable Any Image Here
+			$cols .= 'admin_id,';
+		}
+
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (request()->has('forginkeyto' . $i)) {
 				// Disable Forginkey
 			} elseif ($r->has('image' . $i)) {
 				// Disable Any Image Here
 				$cols .= '';
-			} elseif ($r->has('has_user_id')) {
-				// Disable Any Image Here
-				$cols .= 'admin_id,';
 			} elseif (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
 				// disable dropdown
 				// $pre_name = explode('|', $conv);
