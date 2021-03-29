@@ -116,7 +116,7 @@ class BaboonRulesAndAttributes extends Controller {
 						$modelname = explode('\\', $r->input('exists_table' . $i));
 						$tableName = $modelname[count($modelname) - 1];
 						$convname = BaboonSchema::convention_name($tableName);
-						$valrule .= 'exists:' . $convname . '|';
+						$valrule .= 'exists:' . $convname . ',id|';
 					}
 				}
 

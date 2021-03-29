@@ -450,7 +450,7 @@
 <?php
 $app_model_file = explode('app', $app_model_file);
 $app_model_file = str_replace('.php', '', $app_model_file[1]);
-$app_model_file = str_replace('/', '\\', $app_model_file);
+$app_model_file = str_replace('/', '\\\\', $app_model_file);
 ?>
 <option value="App{{ $app_model_file }}">App{{ $app_model_file }}</option>
     @endforeach
@@ -466,7 +466,7 @@ $explode_last = $data_[count($data_) - 1];
 <?php
 $app_model_file = explode('app', $app_model_file);
 $app_model_file = str_replace('.php', '', $app_model_file[1]);
-$app_model_file = str_replace('/', '\\', $app_model_file);
+$app_model_file = str_replace('/', '\\\\', $app_model_file);
 ?>
     <option value="App{{ $app_model_file }}">App{{ $app_model_file }}</option>
     @endforeach
