@@ -176,7 +176,7 @@ class {ClassName} extends Model {' . "\n\r";
 protected $table    = \'{TBLNAME}\';
 protected $fillable = [' . "\n";
 		$model .= "		'id'," . "\n";
-		//$model .= '		' . request()->has('has_user_id') ? "		'admin_id'," . "\n" : "" . "\n";
+		$model .= '		' . request()->has('has_user_id') ? "		'admin_id'," . "\n" : "" . "\n";
 		$model .= "		      " . self::get_cols(request());
 		$model .= "		'created_at'," . "\n";
 		$model .= "		'updated_at'," . "\n";
