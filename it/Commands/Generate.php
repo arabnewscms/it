@@ -243,8 +243,6 @@ class Generate extends Command {
 
 		$this->warn("To Install (wkhtmltopdf) with brew on macosx brew install wkhtmltopdf");
 
-		$this->info("thank you for using my package (Mahmoud Ibrahim) if you want ask me something text me   php.anonymous1@gmail.com");
-
 		$this->info("your admin panel now is ready ");
 		$this->info("don't forget to rate us on github visit link: https://github.com/arabnewscms/it ");
 		$this->info("auth types \r\n1 - php artisan ui:auth --views");
@@ -256,6 +254,12 @@ class Generate extends Command {
 		$this->info("please run this command php artisan db:seed to fetch admin data (email: test@test.com) - (password: 123456) also");
 
 		$this->info("Login your Admin Panel with (email: test@test.com) - (password: 123456)");
+
+		$this->warn("to use big inputs data with baboon edit your php.ini and set max_input_vars=500000 Because the default limits for the basic settings are var and set yor max_input_time = 6000 & memory_limit = 3000M max_execution_time = 300 & post_max_size = 2000M & max_file_uploads = 200 & upload_max_filesize = 2000M ");
+
+		$this->warn("Do not forget that after you have finished using the package, return values depending on what you want");
+
+		$this->info("thank you for using my package (Mahmoud Ibrahim) if you want ask me something text me   php.anonymous1@gmail.com");
 
 		$this->info("Enjoy <3");
 		$this->info("regards and i can assist you now");

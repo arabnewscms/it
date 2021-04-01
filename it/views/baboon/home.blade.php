@@ -194,6 +194,7 @@ $.ajax({
 url:'{{ URL::current() }}',
 dataType:'json',
 type:'post',
+timeout: 0,
 data:form,
 beforeSend: function()
 {

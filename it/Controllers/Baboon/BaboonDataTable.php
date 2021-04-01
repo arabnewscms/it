@@ -175,7 +175,7 @@ class {ClassName}DataTable extends DataTable
 						}
 						$dropdown .= "]" . "\n";
 					}
-				} elseif (preg_match('/App/i', $ex_select[1])) {
+				} elseif (preg_match('/App/i', $ex_select[1]) && $r->has('forginkeyto' . $x)) {
 					// If Pluck Model Do Some Change To get first column to end column
 					// Pakets Model
 					$pluck_ex = str_replace('(', '', explode('pluck', $ex_select[1])[1]);

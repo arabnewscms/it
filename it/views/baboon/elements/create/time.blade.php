@@ -3,7 +3,7 @@ if ($data['use_collective'] == 'yes') {
 	$text = '
 <div class="col-md-6">
     <div class="form-group">
-        {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\'),[\'class\'=>\'col-md-3 control-label\']) !!}
+        {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\'),[\'class\'=>\'control-label\']) !!}
         <div class="col-md-12">
             {!! Form::time(\'{Convention}\',old(\'{Convention}\'),[\'class\'=>\'form-control\',\'placeholder\'=>trans(\'{lang}.{Convention}\')]) !!}
         </div>
@@ -14,7 +14,7 @@ if ($data['use_collective'] == 'yes') {
 	$text = '
 <div class="col-md-6">
     <div class="form-group">
-        <label for="{Convention}" class="col-md-3 control-label">{{trans(\'{lang}.{Convention}\')}}</label>
+        <label for="{Convention}" class="control-label">{{trans(\'{lang}.{Convention}\')}}</label>
         <div class="col-md-12">
             <input type="time" id="{Convention}" name="{Convention}" value="{{old(\'{Convention}\')}}" class="form-control" placeholder="{{trans(\'{lang}.{Convention}\')}}" />
         </div>
