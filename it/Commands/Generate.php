@@ -259,7 +259,7 @@ class Generate extends Command {
 
 		$this->warn("Do not forget that after you have finished using the package, return values depending on what you want");
 
-		$this->info("thank you for using my package (Mahmoud Ibrahim) if you want ask me something text me   php.anonymous1@gmail.com");
+		$this->info("thank you for using my package (Mahmoud Ibrahim) if you want ask me something text me   php.anonymous1@gmail.com or php.anonymous@outlock.com");
 
 		$this->info("Enjoy <3");
 		$this->info("regards and i can assist you now");

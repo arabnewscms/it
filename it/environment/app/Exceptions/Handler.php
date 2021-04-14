@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use \Illuminate\Validation\ValidationException;
@@ -37,6 +37,23 @@ class Handler extends ExceptionHandler {
 			'errors' => $exception->errors(),
 		], $exception->status);
 	}
+
+	protected function unauthenticated($request, AuthenticationException $exception) {
+		if ($request->expectsJson()) {
+			return response()->json([
+				'status' => false,
+				'authorized' => false,
+				'message' => 'Unauthenticated',
+				'StatusType' => 'Unauthorized',
+				'StatusCode' => 401,
+				'explainError' => 'Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource.',
+
+			], 401);
+		}
+
+		return redirect()->guest('login');
+	}
+
 	/**
 	 * Register the exception handling callbacks for the application.
 	 *
