@@ -1,7 +1,7 @@
 <?php
 if ($data['use_collective'] == 'yes') {
 	$text = '
-<div class="col-md-6">
+<div class="' . $data['col_width'] . '">
 <div class="form-group">
     {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\'),[\'class\'=>\'control-label\']) !!}
     <div class="col-md-12">
@@ -12,7 +12,7 @@ if ($data['use_collective'] == 'yes') {
 ';
 } else {
 	$text = '
-<div class="col-md-6">
+<div class="' . $data['col_width'] . '">
 <div class="form-group">
     <label for="{Convention}" class="control-label">{{trans(\'{lang}.{Convention}\')}}</label>
     <div class="col-md-12">

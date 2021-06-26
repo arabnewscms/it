@@ -102,9 +102,10 @@ class BaboonCreate extends Controller {
 			$store .= '$data[\'admin_id\'] = admin()->id(); ' . "\n";
 		}
 
-		$store .= '                {ModelName}::create($data); ';
+		$store .= '                {ModelName}::create($data); ' . "\n";
+		$store .= '                $redirect = isset($request["add_back"])?"/create":"";';
 		$store .= '
-                return redirectWithSuccess(aurl(\'{Name}\'), trans(\'{lang}.added\'));
+                return redirectWithSuccess(aurl(\'{Name}\'.$redirect), trans(\'{lang}.added\'));
             }';
 		$Name = str_replace('controller', '', strtolower($r->input('controller_name')));
 		$store = str_replace('{ModelName}', $r->input('model_name'), $store);

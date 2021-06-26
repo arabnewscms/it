@@ -4,8 +4,8 @@
 </div>
 <!-- END CONTENT -->
 <!-- BEGIN QUICK SIDEBAR -->
-<a href="javascript:;" class="page-quick-sidebar-toggler">
-<i class="fa fa-login"></i>
+<a href="javascript:;" class="page-quick-sidebar-toggler fa fa-list">
+
 </a>
 <div class="page-quick-sidebar-wrapper" data-close-on-body-click="false">
 <div class="page-quick-sidebar">

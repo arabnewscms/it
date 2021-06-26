@@ -87,5 +87,6 @@ return [
 	'date_time' => 'DateTime',
 	'timestamp' => 'Timestamp',
 	'routelist' => 'قائمة المسارات',
+	"col_width" => "column bootstrap width",
 
 ];

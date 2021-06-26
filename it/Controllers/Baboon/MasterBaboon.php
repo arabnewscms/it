@@ -342,10 +342,16 @@ protected $fillable = [' . "\n";
 		if ($r->has('col_type') and $r->has('col_name')) {
 			$i = 0;
 			foreach ($r->input('col_name') as $col_name) {
+				$col_width_lg = $r->input('col_width_lg')[$i];
+				$col_width_md = $r->input('col_width_md')[$i];
+				$col_width_sm = $r->input('col_width_sm')[$i];
+				$col_width_xs = $r->input('col_width_xs')[$i];
+				$col_width = 'col-md-' . $col_width_md . ' col-lg-' . $col_width_lg . ' col-sm-' . $col_width_sm . ' col-xs-' . $col_width_xs;
 				$data = [
 					'use_collective' => $r->input('use_collective'),
 					'lang_file' => $r->input('lang_file'),
 					'col_name_convention' => $r->input('col_name_convention')[$i],
+					'col_width' => $col_width,
 					'name' => $col_name,
 					'forginkeyto' => $r->input('forginkeyto' . $i) ? 'yes' : 'no',
 					'i' => $i,
@@ -471,6 +477,11 @@ protected $fillable = [' . "\n";
 		if ($r->has('col_type') and $r->has('col_name')) {
 			$i = 0;
 			foreach ($r->input('col_name') as $col_name) {
+				$col_width_lg = $r->input('col_width_lg')[$i];
+				$col_width_md = $r->input('col_width_md')[$i];
+				$col_width_sm = $r->input('col_width_sm')[$i];
+				$col_width_xs = $r->input('col_width_xs')[$i];
+				$col_width = 'col-md-' . $col_width_md . ' col-lg-' . $col_width_lg . ' col-sm-' . $col_width_sm . ' col-xs-' . $col_width_xs;
 				$data = [
 					'use_collective' => $r->input('use_collective'),
 					'lang_file' => $r->input('lang_file'),
@@ -478,6 +489,7 @@ protected $fillable = [' . "\n";
 					'col_name_convention2' => '$' . $route . '->' . @explode('#', $r->input('col_name_convention')[$i])[0],
 					'selectvar' => '$' . $route . '->',
 					'name' => $col_name,
+					'col_width' => $col_width,
 					'forginkeyto' => $r->input('forginkeyto' . $i) ? 'yes' : 'no',
 					'i' => $i,
 				];

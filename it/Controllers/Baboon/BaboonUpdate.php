@@ -132,9 +132,10 @@ class BaboonUpdate extends Controller {
 			$i++;
 		}
 
-		$update .= '              {ModelName}::where(\'id\',$id)->update($data);';
+		$update .= '              {ModelName}::where(\'id\',$id)->update($data);' . "\n";
+		$update .= '              $redirect = isset($request["save_back"])?"/".$id."/edit":"";';
 		$update .= '
-              return redirectWithSuccess(aurl(\'{Name}\'), trans(\'{lang}.updated\'));
+              return redirectWithSuccess(aurl(\'{Name}\'.$redirect), trans(\'{lang}.updated\'));
             }';
 		$Name = str_replace('controller', '', strtolower($r->input('controller_name')));
 		$update = str_replace('{ModelName}', $r->input('model_name'), $update);

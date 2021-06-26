@@ -19,7 +19,7 @@ $rules = $input->rules;
     </div>
   </div>
   <div class="col-md-4">
-    <div class="form-group">
+    <div class="form-group" style="margin-top: -16px;">
       <label for="col_type" class="col-md-12">{{it_trans('it.col_type')}}</label>
       <div class="col-md-12">
         <select name="col_type[]" class="form-control">
@@ -41,6 +41,77 @@ $rules = $input->rules;
           <option {{ $input->col_type == 'color'?'selected':'' }} value="color">{{it_trans('it.color')}}</option>
         </select>
       </div>
+      <div class="form-group">
+      <label for="col_width" class="col-md-12">{{it_trans('it.col_width')}}</label>
+      <div class="col-md-3">
+        <p>col-lg-{{ $input->col_width_lg }}</p>
+        <select name="col_width_lg[]" class="form-control">
+          <option {{ $input->col_width_lg == 1?'selected':'' }} value="1">1</option>
+          <option {{ $input->col_width_lg == 2?'selected':'' }} value="2">2</option>
+          <option {{ $input->col_width_lg == 3?'selected':'' }} value="3">3</option>
+          <option {{ $input->col_width_lg == 4?'selected':'' }} value="4">4</option>
+          <option {{ $input->col_width_lg == 5?'selected':'' }} value="5">5</option>
+          <option {{ $input->col_width_lg == 6?'selected':'' }} value="6" selected>6</option>
+          <option {{ $input->col_width_lg == 7?'selected':'' }} value="7">7</option>
+          <option {{ $input->col_width_lg == 8?'selected':'' }} value="8">8</option>
+          <option {{ $input->col_width_lg == 9?'selected':'' }} value="9">9</option>
+          <option {{ $input->col_width_lg == 10?'selected':'' }} value="10">10</option>
+          <option {{ $input->col_width_lg == 11?'selected':'' }} value="11">11</option>
+          <option {{ $input->col_width_lg == 12?'selected':'' }} value="12">12</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <p>col-md-{{ $input->col_width_md }}</p>
+        <select name="col_width_md[]" class="form-control">
+          <option {{ $input->col_width_md == 1?'selected':'' }} value="1">1</option>
+          <option {{ $input->col_width_md == 2?'selected':'' }} value="2">2</option>
+          <option {{ $input->col_width_md == 3?'selected':'' }} value="3">3</option>
+          <option {{ $input->col_width_md == 4?'selected':'' }} value="4">4</option>
+          <option {{ $input->col_width_md == 5?'selected':'' }} value="5">5</option>
+          <option {{ $input->col_width_md == 6?'selected':'' }} value="6" selected>6</option>
+          <option {{ $input->col_width_md == 7?'selected':'' }} value="7">7</option>
+          <option {{ $input->col_width_md == 8?'selected':'' }} value="8">8</option>
+          <option {{ $input->col_width_md == 9?'selected':'' }} value="9">9</option>
+          <option {{ $input->col_width_md == 10?'selected':'' }} value="10">10</option>
+          <option {{ $input->col_width_md == 11?'selected':'' }} value="11">11</option>
+          <option {{ $input->col_width_md == 12?'selected':'' }} value="12">12</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+       <p>col-sm-{{ $input->col_width_sm }}</p>
+       <select name="col_width_sm[]" class="form-control">
+          <option {{ $input->col_width_sm == 1?'selected':'' }} value="1">1</option>
+          <option {{ $input->col_width_sm == 2?'selected':'' }} value="2">2</option>
+          <option {{ $input->col_width_sm == 3?'selected':'' }} value="3">3</option>
+          <option {{ $input->col_width_sm == 4?'selected':'' }} value="4">4</option>
+          <option {{ $input->col_width_sm == 5?'selected':'' }} value="5">5</option>
+          <option {{ $input->col_width_sm == 6?'selected':'' }} value="6" selected>6</option>
+          <option {{ $input->col_width_sm == 7?'selected':'' }} value="7">7</option>
+          <option {{ $input->col_width_sm == 8?'selected':'' }} value="8">8</option>
+          <option {{ $input->col_width_sm == 9?'selected':'' }} value="9">9</option>
+          <option {{ $input->col_width_sm == 10?'selected':'' }} value="10">10</option>
+          <option {{ $input->col_width_sm == 11?'selected':'' }} value="11">11</option>
+          <option {{ $input->col_width_sm == 12?'selected':'' }} value="12">12</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <p>col-xs-{{ $input->col_width_xs }}</p>
+        <select name="col_width_xs[]" class="form-control">
+          <option {{ $input->col_width_xs == 1?'selected':'' }} value="1">1</option>
+          <option {{ $input->col_width_xs == 2?'selected':'' }} value="2">2</option>
+          <option {{ $input->col_width_xs == 3?'selected':'' }} value="3">3</option>
+          <option {{ $input->col_width_xs == 4?'selected':'' }} value="4">4</option>
+          <option {{ $input->col_width_xs == 5?'selected':'' }} value="5">5</option>
+          <option {{ $input->col_width_xs == 6?'selected':'' }} value="6">6</option>
+          <option {{ $input->col_width_xs == 7?'selected':'' }} value="7">7</option>
+          <option {{ $input->col_width_xs == 8?'selected':'' }} value="8">8</option>
+          <option {{ $input->col_width_xs == 9?'selected':'' }} value="9">9</option>
+          <option {{ $input->col_width_xs == 10?'selected':'' }} value="10">10</option>
+          <option {{ $input->col_width_xs == 11?'selected':'' }} value="11">11</option>
+          <option {{ $input->col_width_xs == 12?'selected':'' }} value="12" selected>12</option>
+        </select>
+      </div>
+    </div>
     </div>
   </div>
   <div class="col-md-4">

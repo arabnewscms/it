@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="col-md-4">
-    <div class="form-group">
+    <div class="form-group" style="margin-top: -16px;">
       <label for="col_type" class="col-md-12">{{it_trans('it.col_type')}}</label>
       <div class="col-md-12">
         <select name="col_type[]" class="form-control">
@@ -28,6 +28,77 @@
           <option value="time">{{it_trans('it.time')}}</option>
           <option value="timestamp">{{it_trans('it.timestamp')}}</option>
           <option value="color">{{it_trans('it.color')}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="col_width" class="col-md-12">{{it_trans('it.col_width')}}</label>
+      <div class="col-md-3">
+        <p>col-lg-6</p>
+        <select name="col_width_lg[]" class="form-control">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6" selected>6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <p>col-md-6</p>
+        <select name="col_width_md[]" class="form-control">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6" selected>6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <p>col-sm-6</p>
+        <select name="col_width_sm[]" class="form-control">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6" selected>6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <p>col-xs-12</p>
+        <select name="col_width_xs[]" class="form-control">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12" selected>12</option>
         </select>
       </div>
     </div>

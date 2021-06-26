@@ -87,5 +87,6 @@ return [
 	'date_time' => 'DateTime',
 	'timestamp' => 'Timestamp',
 	'routelist' => 'Route List',
+	"col_width" => "column bootstrap width",
 
 ];
