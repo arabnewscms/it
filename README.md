@@ -1,4 +1,4 @@
-# it version 1.6.3 release version
+# it version 1.6.3 is released now
 # now every rules for laravel to use in validation now is available try it now
 Work With Laravel 8.0 & above make sure to use php version 7.3 at least 
 # A simple Track To make sense
@@ -23,4 +23,4 @@ Work With Laravel 8.0 & above make sure to use php version 7.3 at least
 
 Your assistant Is Ready (<3)
 
-Copyright Reserved 2020 LTS Script By phpanonymous.com
+Copyright Reserved 2021 LTS Script By phpanonymous.com
