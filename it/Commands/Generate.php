@@ -24,11 +24,21 @@ class Generate extends Command {
 	 * @return void
 	 */
 
+	private function progress($length) {
+		$bar = $this->output->createProgressBar(0);
+		$bar->setFormat('[<fg=magenta>%bar%</>] <info>%elapsed%</info>');
+		$bar->setEmptyBarCharacter('..');
+		$bar->setProgressCharacter("\xf0\x9f\x8c\x80");
+		$bar->advance($length);
+		$bar->finish();
+		echo "\r\n";
+	}
+
 	public static function changeEnv($key, $value) {
 		$value = preg_replace('/\s+/', '', $value);
-		$key = strtoupper($key);
-		$env = file_get_contents(base_path('.env'));
-		$env = str_replace("$key=" . env($key), "$key=" . $value, $env, $counter);
+		$key   = strtoupper($key);
+		$env   = file_get_contents(base_path('.env'));
+		$env   = str_replace("$key=" .env($key), "$key=" .$value, $env, $counter);
 		if ($counter < 1) {
 			$env .= "\n\r\n\r{$key}={$value}\n\r";
 		}
@@ -60,6 +70,10 @@ class Generate extends Command {
 				}
 			}
 		}
+
+		// auto add jwt options
+		self::changeEnv('JWT_TTL', 'null');
+		self::changeEnv('JWT_SECRET', 'null');
 
 		// App Name Question
 		$APP_NAME = $this->ask('What is Your APP NAME ?');
@@ -107,7 +121,7 @@ class Generate extends Command {
 
 			if (!empty($DB_DATABASE)) {
 
-				$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name " . $DB_DATABASE . "? ");
+				$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name ".$DB_DATABASE."? ");
 				if ($auto_create_DB) {
 					if (!empty($HAVE_DB_PORT)) {
 						$DB_PORT = $HAVE_DB_PORT;
@@ -123,21 +137,22 @@ class Generate extends Command {
 					);
 
 					$pdo->exec(sprintf(
-						'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
-						$DB_DATABASE,
-						config('database.connections.mysql.charset'),
-						config('database.connections.mysql.collation')
-					));
+							'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
+							$DB_DATABASE,
+							config('database.connections.mysql.charset'),
+							config('database.connections.mysql.collation')
+						));
 
 					shell_exec('php artisan config:clear');
 					shell_exec('php artisan cache:clear');
 
-					$this->info("DATABAES " . $DB_DATABASE . " Created & is ready now");
+					$this->info("DATABAES ".$DB_DATABASE." Created & is ready now");
+					$this->progress(100);
 				}
 			}
 
 			if (!empty($HAVE_PORT)) {
-				self::changeEnv('APP_URL', 'http://localhost:' . $HAVE_PORT);
+				self::changeEnv('APP_URL', 'http://localhost:'.$HAVE_PORT);
 			} else {
 				self::changeEnv('APP_URL', 'http://localhost');
 			}
@@ -153,91 +168,121 @@ class Generate extends Command {
 		if (check_package("langnonymous/lang") === null) {
 			$this->info("Downloading Langnonymous Package....");
 			shell_exec('composer require Langnonymous/Lang:dev-master');
+			$this->progress(100);
 		}
 
 		if (check_package("spatie/laravel-honeypot") === null) {
 			$this->info("Downloading spatie/laravel-honeypot Package....");
 			shell_exec('composer require spatie/laravel-honeypot');
+			$this->progress(100);
 		}
 
 		if (check_package("laravel/ui") === null) {
 			$this->info("Downloading laravel/ui Package....");
 			shell_exec('composer require laravel/ui');
+			$this->progress(100);
 		}
 		if (check_package("intervention/image") === null) {
 			$this->info("Downloading intervention Image Package....");
 			shell_exec('composer require intervention/image');
+			$this->progress(100);
 		}
 
 		if (check_package("laravelcollective/html") === null) {
 			$this->info("Downloading laravelcollective Package....");
 			shell_exec('php artisan it:install laravelcollective');
+			$this->progress(100);
 		}
 
 		if (check_package("maatwebsite/excel") === null) {
 			$this->info("Downloading tcpdf....");
 			shell_exec('composer require maatwebsite/excel');
+			$this->progress(100);
 		}
 
 		if (check_package("tecnickcom/tcpdf") === null) {
 			$this->info("Downloading tcpdf....");
 			shell_exec('composer require tecnickcom/tcpdf');
+			$this->progress(100);
 		}
 
 		if (check_package("mpdf/mpdf") === null) {
 			$this->info("Downloading mpdf....");
 			shell_exec('composer require mpdf/mpdf');
+			$this->progress(100);
 		}
 
 		if (check_package("barryvdh/laravel-snappy") === null) {
 			$this->info("Downloading laravel-snappy....");
 			shell_exec('composer require barryvdh/laravel-snappy');
+			$this->progress(100);
 		}
 
 		if (check_package("dompdf/dompdf") === null) {
 			$this->info("Downloading dompdf....");
 			shell_exec('composer require dompdf/dompdf');
+			$this->progress(100);
 		}
 
 		if (check_package("unisharp/laravel-filemanager") === null) {
 			$this->info("Downloading filemanager....");
 			shell_exec('composer require unisharp/laravel-filemanager');
+			$this->progress(100);
 		}
 
 		if (check_package("phpoffice/phpspreadsheet") === null) {
 			$this->info("Downloading Datatable Yajra Package....");
 			shell_exec('composer require phpoffice/phpspreadsheet');
+			$this->progress(100);
 		}
 
 		if (check_package("yajra/laravel-datatables-oracle") === null) {
 			$this->info("Downloading Datatable Yajra Package....");
 			shell_exec('php artisan it:install yajra');
+			$this->progress(100);
+		}
+
+		if (check_package("tymon/jwt-auth") === null) {
+			$this->info("Downloading tymon jwt-auth  Package....");
+			shell_exec('composer require tymon/jwt-auth');
+			$this->progress(100);
 		}
 
 		if (check_package("phpanonymous/c3js") === null) {
 			$this->info("Downloading phpanonymous c3js Chart Package....");
 			shell_exec('composer require phpanonymous/c3js');
+			$this->progress(100);
 		}
 
 		$zip = new \ZipArchive;
-		$res = $zip->open(__DIR__ . '/../environment/public.zip');
+		$res = $zip->open(__DIR__ .'/../environment/public.zip');
 		if ($res === true) {
 			$zip->extractTo(base_path('public'));
 			$zip->close();
+			$this->progress(100);
 		}
 
 		$this->warn("All File Extracted And Published");
 		$this->warn("Link Storage Automatically....");
 		shell_exec('php artisan storage:link');
+		$this->progress(100);
 
 		$this->warn("Auto Publishable Files And Folders....");
 		//shell_exec('php artisan vendor:publish --tag=0 --force');
 		\Artisan::call('vendor:publish --tag=0 --force');
+		$this->progress(100);
 		$this->info("Publish Files And Folders is Done");
 
 		$this->warn("Auto Dump And Compile autoload....");
 		shell_exec('composer dump-autoload');
+		$this->progress(50);
 		shell_exec('php artisan config:clear');
+		$this->progress(100);
+
+		$this->warn("Auto generate kwt secret key or use manual command (php artisan jwt:secret)....");
+		shell_exec('php artisan jwt:secret --force');
+		$this->progress(100);
+		//\Artisan::call('jwt:secret');
 
 		$this->warn("to Install (wkhtmltopdf) please visit this link urgently (https://github.com/barryvdh/laravel-snappy) to explort PDF Files with YajraDatatable");
 
@@ -264,13 +309,13 @@ class Generate extends Command {
 		$this->info("Enjoy <3");
 		$this->info("regards and i can assist you now");
 		if (date('m') == 1) {
-			$this->info("Happy New Year " . date('Y'));
+			$this->info("Happy New Year ".date('Y'));
 		}
 	}
 
 	// Connection PDO Library Native
 	public function getPDOConnection($host, $port, $username, $password) {
-		$pdo = new \PDO('mysql:port=' . $port . ';host=' . $host, $username, $password);
+		$pdo = new \PDO('mysql:port='.$port.';host='.$host, $username, $password);
 		return $pdo;
 	}
 

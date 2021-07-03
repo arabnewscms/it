@@ -3,10 +3,10 @@
 //return dd(config('filesystems.disks.public.url'));
 ////// direction Function /////////////////////
 app()->singleton('direction', function () {
-	if (app('l') == 'ar') {
-		return '-rtl';
-	}
-});
+		if (app('l') == 'ar') {
+			return '-rtl';
+		}
+	});
 ////// direction Function /////////////////////
 
 //////  upload Function /////////////////////
@@ -21,9 +21,9 @@ if (!function_exists('it')) {
 if (!function_exists('aurl')) {
 	function aurl($link) {
 		if (substr($link, 0, 1) == '/') {
-			return url(app('admin') . $link);
+			return url(app('admin').$link);
 		} else {
-			return url(app('admin') . '/' . $link);
+			return url(app('admin').'/'.$link);
 		}
 	}
 }
@@ -73,21 +73,21 @@ if (!function_exists('active_link')) {
 
 if (!function_exists('l')) {
 	function l($obj) {
-		return $obj . '_' . app('l');
+		return $obj.'_'.app('l');
 	}
 }
 
 if (!function_exists('mK')) {
 	function mK($num) {
 		if ($num > 1000) {
-			$x = round($num);
+			$x               = round($num);
 			$x_number_format = number_format($x);
-			$x_array = explode(',', $x_number_format);
-			$x_parts = array('k', 'm', 'b', 't');
-			$x_count_parts = count($x_array) - 1;
-			$x_display = $x;
-			$x_display = $x_array[0] . ((int) $x_array[1][0] !== 0 ? '.' . $x_array[1][0] : '');
-			$x_display .= $x_parts[$x_count_parts - 1];
+			$x_array         = explode(',', $x_number_format);
+			$x_parts         = array('k', 'm', 'b', 't');
+			$x_count_parts   = count($x_array)-1;
+			$x_display       = $x;
+			$x_display       = $x_array[0].((int) $x_array[1][0] !== 0?'.'.$x_array[1][0]:'');
+			$x_display .= $x_parts[$x_count_parts-1];
 			return $x_display;
 		}
 		return $num;
@@ -98,7 +98,7 @@ if (!function_exists('filterElement')) {
 	function filterElement($key, $type = 'input', $data = []) {
 		if ($type == 'input') {
 			$input = "
-			this.api().columns([" . $key . "]).every(function () {
+			this.api().columns([".$key."]).every(function () {
 
 				var column = this;
                 var input = document.createElement(\"input\");
@@ -113,11 +113,11 @@ if (!function_exists('filterElement')) {
 			return $input;
 		} elseif ($type == 'select') {
 			$select = "
-			this.api().columns([" . $key . "]).every(function () {
+			this.api().columns([".$key."]).every(function () {
 				var column = this;
-                var select = '<select style=\"width:100%;\" class=\"form-control\"><option selected value=\"\">" . trans('admin.choose') . "</option>";
+                var select = '<select style=\"width:100%;\" class=\"form-control\"><option selected value=\"\">".trans('admin.choose')."</option>";
 			foreach ($data as $key => $val) {
-				$select .= '<option value=\"' . $key . '\">' . $val . '</option>';
+				$select .= '<option value=\"'.$key.'\">'.$val.'</option>';
 			}
 			$select .= "</select>';
                 $(select).appendTo($(column.footer()).empty())
@@ -136,40 +136,85 @@ if (!function_exists('filterElement')) {
 
 if (!function_exists('redirectWithSuccess')) {
 	function redirectWithSuccess($url, $msg = null) {
-		!empty($msg) && !is_null($msg) ? session()->flash('success', $msg) : '';
-		return redirect($url);
+		!empty($msg)?session()->flash('success', $msg):'';
+		if (request()->ajax() or request()->wantsJson()) {
+			return successResponseJson([
+					'message' => $msg,
+				]);
+		} else {
+			return redirect($url);
+		}
 	}
 }
 
 if (!function_exists('redirectWithError')) {
 	function redirectWithError($url, $msg = null) {
-		!empty($msg) && !is_null($msg) ? session()->flash('error', $msg) : '';
-		return redirect($url);
+		if (request()->ajax() || !request()->ajax()) {
+			!empty($msg) && !is_null($msg)?session()->flash('error', $msg):'';
+		}
+
+		if (request()->ajax() or request()->wantsJson()) {
+			return errorResponseJson([
+					'message' => $msg,
+				]);
+		} else {
+			return redirect($url);
+		}
 	}
 }
 
 if (!function_exists('backWithSuccess')) {
 	function backWithSuccess($msg = null) {
-		!empty($msg) && !is_null($msg) ? session()->flash('success', $msg) : '';
-		return back();
+		if (request()->ajax() || !request()->ajax()) {
+			!empty($msg) && !is_null($msg)?session()->flash('error', $msg):'';
+		}
+
+		if (request()->ajax() or request()->wantsJson()) {
+			return successResponseJson([
+					'message' => $msg,
+				]);
+		} else {
+			return back();
+		}
 	}
 }
 
 if (!function_exists('backWithError')) {
 	function backWithError($msg = null) {
-		!empty($msg) && !is_null($msg) ? session()->flash('error', $msg) : '';
-		return back();
+		if (request()->ajax() || !request()->ajax()) {
+			!empty($msg) && !is_null($msg)?session()->flash('error', $msg):'';
+		}
+
+		if (request()->ajax() or request()->wantsJson()) {
+			return errorResponseJson([
+					'message' => $msg,
+				]);
+		} else {
+			return back();
+		}
 	}
 }
 
 if (!function_exists('errorResponse')) {
-	function errorResponseJson(array $data) {
-		$data['status'] = false;
-		$data['StatusCode'] = 422;
-		$data['StatusType'] = 'Unprocessable Entity';
+	function errorResponseJson(array $data, $status = 422) {
+		$data['status']       = false;
+		$data['StatusCode']   = $status;
+		$data['StatusType']   = 'Unprocessable Entity';
 		$data['explainError'] = 'The request was well-formed but was unable to be followed due to semantic errors.';
-		$data['message'] = trans("admin.undefinedRecord");
-		return response($data, 422);
+		if (!isset($data['message'])) {
+			$data['message'] = trans("admin.undefinedRecord");
+		}
+		return response()->json($data, $status);
+
+	}
+}
+
+if (!function_exists('successResponseJson')) {
+	function successResponseJson(array $data) {
+		$data['status']     = true;
+		$data['StatusCode'] = 200;
+		$data['StatusType'] = 'OK';
+		return response()->json($data, 200);
 
 	}
 }
@@ -177,8 +222,8 @@ if (!function_exists('errorResponse')) {
 if (!function_exists('checkPermissionGroup')) {
 	function checkPermissionGroup($permission, $group) {
 		$explode_name = explode('_', $permission);
-		$role = $group->role()->where('name', $explode_name[0])->first();
-		if (!empty($role) && $role->{$explode_name[1]} == 'yes') {
+		$role         = $group->role()->where('name', $explode_name[0])->first();
+		if (!empty($role) && $role->{ $explode_name[1]} == 'yes') {
 			return true;
 		}
 		return false;

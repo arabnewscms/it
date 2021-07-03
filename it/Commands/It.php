@@ -4,7 +4,6 @@ namespace Phpanonymous\It\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-
 use Illuminate\Support\Facades\Schema;
 
 class It extends Command {
@@ -75,6 +74,7 @@ class It extends Command {
 		$bar->finish();
 		echo "\r\n";
 	}
+
 	private function decoct($path) {
 		return decoct(fileperms(base_path($path))&0777);
 	}
@@ -198,8 +198,8 @@ class It extends Command {
 		echo "\r\n";
 
 		$this->line("Laravel Version ".app()->version());
-		$this->line("It Version 1.0");
-		if (phpversion() < 7.1) {
+		$this->line("It Version 1.6.3");
+		if (phpversion() < 8.0) {
 			$this->error("PHP Version is Not Supported ".$this->dislike." ".phpversion());
 		} else {
 			$this->line("PHP Version is Supported ".$this->like." ".phpversion());
