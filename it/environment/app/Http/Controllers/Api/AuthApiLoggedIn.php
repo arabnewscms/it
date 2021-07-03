@@ -1,12 +1,12 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 // Auto Configured by (IT) Baboon maker (phpanonymous/it package)
 
-class AuthController extends Controller {
+class AuthApiLoggedIn extends Controller {
 
 	/**
 	 * Create a new AuthController instance.

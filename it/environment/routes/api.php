@@ -22,9 +22,9 @@ function (Request $request) {
 
 Route::group(['middleware' => ['ApiLang', 'cors'], 'prefix' => 'v1', 'namespace' => 'Api'], function () {
 		// Insert your Api Here Start //
-		Route::post('login', 'AuthController@login');
-		Route::post('logout', 'AuthController@logout');
-		Route::post('refresh', 'AuthController@refresh');
-		Route::post('me', 'AuthController@me');
+		Route::post('login', 'AuthApiLoggedIn@login');
+		Route::post('logout', 'AuthApiLoggedIn@logout');
+		Route::post('refresh', 'AuthApiLoggedIn@refresh');
+		Route::post('me', 'AuthApiLoggedIn@me');
 		// Insert your Api Here End //
 	});

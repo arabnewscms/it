@@ -2,6 +2,7 @@
 namespace Phpanonymous\It\Commands;
 use Config;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class Generate extends Command {
 	/**
@@ -73,7 +74,7 @@ class Generate extends Command {
 
 		// auto add jwt options
 		self::changeEnv('JWT_TTL', 'null');
-		self::changeEnv('JWT_SECRET', 'null');
+		self::changeEnv('JWT_SECRET', Str::random(72));
 
 		// App Name Question
 		$APP_NAME = $this->ask('What is Your APP NAME ?');
@@ -275,13 +276,13 @@ class Generate extends Command {
 
 		$this->warn("Auto Dump And Compile autoload....");
 		shell_exec('composer dump-autoload');
-		$this->progress(50);
+		//$this->progress(50);
 		shell_exec('php artisan config:clear');
 		$this->progress(100);
 
-		$this->warn("Auto generate kwt secret key or use manual command (php artisan jwt:secret)....");
-		shell_exec('php artisan jwt:secret --force');
-		$this->progress(100);
+		//$this->warn("Auto generate kwt secret key or use manual command (php artisan jwt:secret)....");
+		//shell_exec('php artisan jwt:secret --force');
+		//$this->progress(100);
 		//\Artisan::call('jwt:secret');
 
 		$this->warn("to Install (wkhtmltopdf) please visit this link urgently (https://github.com/barryvdh/laravel-snappy) to explort PDF Files with YajraDatatable");
