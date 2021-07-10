@@ -156,11 +156,6 @@
                   </label>
                 </div>
                 <div class="col-md-3" >
-                  <label class="form-check-input" dir="rtl"> {{it_trans('it.image')}}
-                    <input type="checkbox" value="1" name="image0" />
-                  </label>
-                </div>
-                <div class="col-md-3" >
                   <label class="form-check-input" dir="rtl"> {{it_trans('it.required')}}
                     <input type="checkbox" value="1" name="required0" />
                   </label>
@@ -278,6 +273,71 @@
                 <div class="col-md-3" >
                   <label class="form-check-input" dir="rtl"> ipv6
                     <input type="checkbox" value="1" name="ipv60" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> {{it_trans('it.image')}}
+                    <input type="checkbox" value="1" name="image0" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> pdf
+                    <input type="checkbox" value="1" name="pdf0" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> docx
+                    <input type="checkbox" value="1" name="docx0" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mp3
+                    <input type="checkbox" value="1" name="mp30" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mp4
+                    <input type="checkbox" value="1" name="mp40" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mpeg
+                    <input type="checkbox" value="1" name="mpeg0" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mov
+                    <input type="checkbox" value="1" name="mov0" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> 3gp
+                    <input type="checkbox" value="1" name="3gp0" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> webm
+                    <input type="checkbox" value="1" name="webm0" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mkv
+                    <input type="checkbox" value="1" name="mkv0" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> wmv
+                    <input type="checkbox" value="1" name="wmv0" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> avi
+                    <input type="checkbox" value="1" name="avi0" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> vob
+                    <input type="checkbox" value="1" name="vob0" />
                   </label>
                 </div>
               </div>
@@ -527,8 +587,8 @@ $app_model_file = str_replace('/', '\\', $app_model_file);
   </optgroup>
   @foreach(array_filter(glob(app_path().'/*'), 'is_dir') as $model_list)
 <?php
-$data_ = explode('/', $model_list);
-$explode_last = $data_[count($data_) - 1];
+$data_        = explode('/', $model_list);
+$explode_last = $data_[count($data_)-1];
 ?>
 @if(!in_array($explode_last,['Console','Http','Handlers','DataTables','Exceptions','Mail','Providers']))
   <optgroup label="{{ $explode_last }}">

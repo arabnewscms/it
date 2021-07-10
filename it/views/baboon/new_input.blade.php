@@ -157,11 +157,6 @@
                   </label>
                 </div>
                 <div class="col-md-3" >
-                  <label class="form-check-input" dir="rtl"> {{it_trans('it.image')}}
-                    <input type="checkbox" value="1" name="image`+x+`" />
-                  </label>
-                </div>
-                <div class="col-md-3" >
                   <label class="form-check-input" dir="rtl"> {{it_trans('it.required')}}
                     <input type="checkbox" value="1" name="required`+x+`" />
                   </label>
@@ -279,6 +274,71 @@
                 <div class="col-md-3" >
                   <label class="form-check-input" dir="rtl"> ipv6
                     <input type="checkbox" value="1" name="ipv6`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> {{it_trans('it.image')}}
+                    <input type="checkbox" value="1" name="image`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> pdf
+                    <input type="checkbox" value="1" name="pdf`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> docx
+                    <input type="checkbox" value="1" name="docx`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mp3
+                    <input type="checkbox" value="1" name="mp3`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mp4
+                    <input type="checkbox" value="1" name="mp4`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mpeg
+                    <input type="checkbox" value="1" name="mpeg`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mov
+                    <input type="checkbox" value="1" name="mov`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> 3gp
+                    <input type="checkbox" value="1" name="3gp`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> webm
+                    <input type="checkbox" value="1" name="webm`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mkv
+                    <input type="checkbox" value="1" name="mkv`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> wmv
+                    <input type="checkbox" value="1" name="wmv`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> avi
+                    <input type="checkbox" value="1" name="avi`+x+`" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> vob
+                    <input type="checkbox" value="1" name="vob`+x+`" />
                   </label>
                 </div>
               </div>
@@ -517,23 +577,23 @@
                       <option value="">without check Exist</option>
                       <optgroup label="App">
                         @foreach(array_filter(glob(app_path().'/*'), 'is_file') as $app_model_file)
-                        <?php
+<?php
 $app_model_file = explode('app', $app_model_file);
 $app_model_file = str_replace('.php', '', $app_model_file[1]);
 $app_model_file = str_replace('/', '\\\\', $app_model_file);
 ?>
-                        <option value="App{{ $app_model_file }}">App{{ $app_model_file }}</option>
+<option value="App{{ $app_model_file }}">App{{ $app_model_file }}</option>
                         @endforeach
                       </optgroup>
                       @foreach(array_filter(glob(app_path().'/*'), 'is_dir') as $model_list)
-                      <?php
-$data_ = explode('/', $model_list);
-$explode_last = $data_[count($data_) - 1];
+<?php
+$data_        = explode('/', $model_list);
+$explode_last = $data_[count($data_)-1];
 ?>
-                      @if(!in_array($explode_last,['Console','Http','Handlers','DataTables','Exceptions','Mail','Providers']))
+@if(!in_array($explode_last,['Console','Http','Handlers','DataTables','Exceptions','Mail','Providers']))
                       <optgroup label="{{ $explode_last }}">
                         @foreach(array_filter(glob($model_list.'/*'), 'is_file') as $app_model_file)
-                        <?php
+<?php
 $app_model_file = explode('app', $app_model_file);
 $app_model_file = str_replace('.php', '', $app_model_file[1]);
 $app_model_file = str_replace('/', '\\\\', $app_model_file);

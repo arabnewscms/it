@@ -166,11 +166,7 @@ $rules = $input->rules;
                     <input type="checkbox" value="1" {{ $rules->{'url'.$x} }} name="url{{ $x }}" />
                   </label>
                 </div>
-                <div class="col-md-3" >
-                  <label class="form-check-input" dir="rtl"> {{it_trans('it.image')}}
-                    <input type="checkbox" value="1" {{ $rules->{'image'.$x} }} name="image{{ $x }}" />
-                  </label>
-                </div>
+
                 <div class="col-md-3" >
                   <label class="form-check-input" dir="rtl"> {{it_trans('it.required')}}
                     <input type="checkbox" value="1" {{ $rules->{'required'.$x} }}  name="required{{ $x }}" />
@@ -289,6 +285,72 @@ $rules = $input->rules;
                 <div class="col-md-3" >
                   <label class="form-check-input" dir="rtl"> ipv6
                     <input type="checkbox" value="1" {{ $rules->{'ipv6'.$x} }}   name="ipv6{{ $x }}" />
+                  </label>
+                </div>
+
+                 <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> {{it_trans('it.image')}}
+                    <input type="checkbox" value="1" {{ $rules->{'image'.$x} }} name="image{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> pdf
+                    <input type="checkbox" value="1" {{ $rules->{'pdf'.$x} }} name="pdf{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> docx
+                    <input type="checkbox" value="1" {{ $rules->{'docx'.$x} }} name="docx{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mp3
+                    <input type="checkbox" value="1" {{ $rules->{'mp3'.$x} }} name="mp3{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mp4
+                    <input type="checkbox" value="1" {{ $rules->{'mp4'.$x} }} name="mp4{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mpeg
+                    <input type="checkbox" value="1" {{ $rules->{'mpeg'.$x} }} name="mpeg{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mov
+                    <input type="checkbox" value="1" {{ $rules->{'mov'.$x} }} name="mov{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> 3gp
+                    <input type="checkbox" value="1" {{ $rules->{'3gp'.$x} }} name="3gp{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> webm
+                    <input type="checkbox" value="1" {{ $rules->{'webm'.$x} }} name="webm{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> mkv
+                    <input type="checkbox" value="1" {{ $rules->{'mkv'.$x} }} name="mkv{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> wmv
+                    <input type="checkbox" value="1" {{ $rules->{'wmv'.$x} }} name="wmv{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> avi
+                    <input type="checkbox" value="1" {{ $rules->{'avi'.$x} }} name="avi{{ $x }}" />
+                  </label>
+                </div>
+                <div class="col-md-3" >
+                  <label class="form-check-input" dir="rtl"> vob
+                    <input type="checkbox" value="1" {{ $rules->{'vob'.$x} }} name="vob{{ $x }}" />
                   </label>
                 </div>
               </div>
@@ -829,8 +891,8 @@ $app_model_file = str_replace('/', '\\', $app_model_file);
 	</optgroup>
 	@foreach(array_filter(glob(app_path().'/*'), 'is_dir') as $model_list)
 <?php
-$data_ = explode('/', $model_list);
-$explode_last = $data_[count($data_) - 1];
+$data_        = explode('/', $model_list);
+$explode_last = $data_[count($data_)-1];
 ?>
 @if(!in_array($explode_last,['Console','Http','Handlers','DataTables','Exceptions','Mail','Providers']))
 	<optgroup label="{{ $explode_last }}">

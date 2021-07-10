@@ -14,17 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::middleware('auth:api')->get('/user',
-
-function (Request $request) {
-		return $request->user();
-	});
-
-Route::group(['middleware' => ['ApiLang', 'cors'], 'prefix' => 'v1', 'namespace' => 'Api'], function () {
+Route::group(['middleware' => ['ApiLang', 'cors'], 'prefix' => 'v1', 'namespace' => 'Api'],
+function () {
 		// Insert your Api Here Start //
-		Route::post('login', 'AuthApiLoggedIn@login');
-		Route::post('logout', 'AuthApiLoggedIn@logout');
-		Route::post('refresh', 'AuthApiLoggedIn@refresh');
-		Route::post('me', 'AuthApiLoggedIn@me');
+		Route::group(['guest'], function () {
+				Route::post('login', 'AuthApiLoggedIn@login');
+			});
+
+		Route::group(['auth:api'], function () {
+				Route::middleware('auth:api')->get('/user',
+					function (Request $request) {
+						return $request->user();
+					});
+				Route::post('logout', 'AuthApiLoggedIn@logout');
+				Route::post('refresh', 'AuthApiLoggedIn@refresh');
+				Route::post('me', 'AuthApiLoggedIn@me');
+			});
 		// Insert your Api Here End //
 	});
