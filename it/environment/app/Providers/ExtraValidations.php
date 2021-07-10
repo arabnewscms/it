@@ -19,7 +19,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'application/pdf':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'application/pdf':false;
 				}
 			}, trans('validation.pdf'));
@@ -31,7 +31,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':false;
 				}
 			}, trans('validation.docx'));
@@ -43,7 +43,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':false;
 				}
 			}, trans('validation.docx'));
@@ -55,7 +55,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'audio/mpeg':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'audio/mpeg':false;
 				}
 			}, trans('validation.mp3'));
@@ -67,7 +67,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'video/mp4':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'video/mp4':false;
 				}
 			}, trans('validation.mp4'));
@@ -79,7 +79,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'video/3gpp':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'video/3gpp':false;
 				}
 			}, trans('validation.3gp'));
@@ -91,7 +91,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'video/mpeg':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'video/mpeg':false;
 				}
 			}, trans('validation.mpeg'));
@@ -103,7 +103,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'video/quicktime':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'video/quicktime':false;
 				}
 			}, trans('validation.mov'));
@@ -115,7 +115,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'video/webm':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'video/webm':false;
 				}
 			}, trans('validation.webm'));
@@ -127,7 +127,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'video/x-matroska':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'video/x-matroska':false;
 				}
 			}, trans('validation.mkv'));
@@ -139,7 +139,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'video/x-ms-wmv':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'video/x-ms-wmv':false;
 				}
 			}, trans('validation.wmv'));
@@ -151,7 +151,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'video/x-msvideo':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'video/x-msvideo':false;
 				}
 			}, trans('validation.avi'));
@@ -163,7 +163,7 @@ class ExtraValidations extends ServiceProvider {
 						$data->getMimetype() == 'video/video/x-ms-vob':false;
 					}
 				} else {
-					return $data->isValid()?
+					return $value->isValid()?
 					$value->getMimetype() == 'video/video/x-ms-vob':false;
 				}
 			}, trans('validation.vob'));
