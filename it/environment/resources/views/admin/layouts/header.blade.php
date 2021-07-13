@@ -82,6 +82,16 @@
                 padding-top:70px;
             }
         </style>
+         <!-- Video.js base CSS -->
+<link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet">
+<!-- City -->
+<link href="https://unpkg.com/@videojs/themes@1/dist/city/index.css" rel="stylesheet">
+<!-- Fantasy -->
+<link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet">
+<!-- Forest -->
+<link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet">
+<!-- Sea -->
+<link href="https://unpkg.com/@videojs/themes@1/dist/sea/index.css" rel="stylesheet">
     </head>
     <!-- END HEAD -->
     <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">

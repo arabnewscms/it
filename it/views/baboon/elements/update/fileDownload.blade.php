@@ -1,7 +1,20 @@
 <?php
+
+if ($data['video']['status']) {
+	$video = '@include("admin.show_video",["video"=>{Convention2}])';
+} else {
+	$video = '';
+}
+
+if ($data['audio']['status']) {
+	$audio = '@include("admin.show_audio",["audio"=>{Convention2}])';
+} else {
+	$audio = '';
+}
+
 if ($data['use_collective'] == 'yes') {
 	$text = '
-<div class="' . $data['col_width'] . '">
+<div class="'.$data['col_width'].'">
     <div class="form-group">
         {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\'),[\'class\'=>\'control-label\']) !!}
         <div class="col-md-12">
@@ -9,6 +22,7 @@ if ($data['use_collective'] == 'yes') {
                 {!! Form::file(\'{Convention}\',[\'class\'=>\'form-control\',\'placeholder\'=>trans(\'{lang}.{Convention}\')]) !!}
             </div>
             <div class="col-md-3">
+                '.$video.''.$audio.'
                 <a href="{{ it()->url({Convention2}) }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>
             </div>
         </div>
@@ -17,7 +31,7 @@ if ($data['use_collective'] == 'yes') {
 ';
 } else {
 	$text = '
-<div class="' . $data['col_width'] . '">
+<div class="'.$data['col_width'].'">
     <div class="form-group">
         <label for="{Convention}" class="control-label">{{trans(\'{lang}.{Convention}\')}}</label>
         <div class="col-md-12">
@@ -25,6 +39,7 @@ if ($data['use_collective'] == 'yes') {
                 <input type="file" id="{Convention}" name="{Convention}" class="form-control" placeholder="{{trans(\'{lang}.{Convention}\')}}" />
             </div>
             <div class="col-md-3">
+                '.$video.''.$audio.'
                 <a href="{{ it()->url({Convention2}) }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>
             </div>
         </div>

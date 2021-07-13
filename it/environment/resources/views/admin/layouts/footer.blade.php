@@ -674,9 +674,11 @@
                         $.fn.dataTable.ext.errMode = 'none';
                         });
                         </script>
-
+                        <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+  <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
+                        <!-- END THEME LAYOUT SCRIPTS -->
                         @stack('js')
 
-                        <!-- END THEME LAYOUT SCRIPTS -->
                     </body>
                 </html>
