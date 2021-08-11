@@ -119,5 +119,8 @@ return [
 	"need" => "غير مصرح لك",
 	"created_at" => "تاريخ الانشاء",
 	"updated_at" => "أخر تحديث",
+	"lock_screen" => "اقفل الشاشة",
+	"password_retrieve_session" => "أدخل كلمة المرور الخاصة بك لاسترداد الجلسة الخاصة بك",
+	"or_sign_different_user" => "أو قم بتسجيل الدخول كمستخدم مختلف",
 
 ];

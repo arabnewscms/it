@@ -109,6 +109,9 @@ return [
 	"alert" => "Alerte",
 	"success" => "Succès",
 	"need" => "Nedd Permission",
-	"created_at" => "Created at",
-	"updated_at" => "Updated at",
+	"created_at" => "Créé à",
+	"updated_at" => "Mis à jour à",
+	"lock_screen" => "Écran verrouillé",
+	"password_retrieve_session" => "Entrez votre mot de passe pour récupérer votre session",
+	"or_sign_different_user" => "Ou connectez-vous en tant qu'utilisateur différent",
 ];

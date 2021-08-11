@@ -20,12 +20,13 @@ app()->singleton('admin', function () {
 \L::LangNonymous(); // Run Route Lang 'namespace' => 'Admin',
 
 Route::group(['prefix' => app('admin'), 'middleware' => 'Lang'], function () {
-
+	Route::get('lock/screen', 'Admin\AdminAuthenticated@lock_screen');
 	Route::get('theme/{id}', 'Admin\Dashboard@theme');
 	Route::group(['middleware' => 'admin_guest'], function () {
 
 		Route::get('login', 'Admin\AdminAuthenticated@login_page');
 		Route::post('login', 'Admin\AdminAuthenticated@login_post');
+		Route::view('forgot/password', 'admin.forgot_password');
 
 		Route::post('reset/password', 'Admin\AdminAuthenticated@reset_password');
 		Route::get('password/reset/{token}', 'Admin\AdminAuthenticated@reset_password_final');
@@ -62,6 +63,8 @@ Route::group(['prefix' => app('admin'), 'middleware' => 'Lang'], function () {
 		Route::post('admingroups/multi_delete', 'Admin\AdminGroups@multi_delete');
 		Route::resource('admins', 'Admin\Admins');
 		Route::post('admins/multi_delete', 'Admin\Admins@multi_delete');
+		Route::resource('tests', 'Admin\Tests');
+		Route::post('tests/multi_delete', 'Admin\Tests@multi_delete');
 		//////// Admin Routes /* End */ //////////////
 	});
 

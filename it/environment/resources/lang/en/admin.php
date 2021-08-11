@@ -116,4 +116,8 @@ return [
 	"need" => "Nedd Permission",
 	"created_at" => "Created at",
 	"updated_at" => "Updated at",
+	"lock_screen" => "Lock Screen",
+	"password_retrieve_session" => "Enter your password to retrieve your session",
+	"or_sign_different_user" => "Or sign in as a different user",
+
 ];
