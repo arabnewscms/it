@@ -100,7 +100,7 @@ return [
 	"undefinedRecord" => "This record does not exist or has already been deleted",
 	"choose" => "..... Choose .....",
 	"record_id" => "Record ID",
-	"admingroups" => "Admin Groups",
+	"admingroups" => "Admin Permissions",
 	"group_name" => "Group Name",
 	"error_permission_1" => "You do not have permission to access this page",
 	"error_permission_2" => "403 Sorry, you cannot access this page",

@@ -96,7 +96,7 @@ return [
 	"undefinedRecord" => "Cet enregistrement n'existe pas ou a déjà été supprimé",
 	"choose" => "..... Choisir .....",
 	"record_id" => "Record ID",
-	"admingroups" => "Admin Groups",
+	"admingroups" => "Admin Permissions",
 	"group_name" => "Group Name",
 	"error_permission_1" => "Vous n'avez pas la permission d'accéder à cette page",
 	"error_permission_2" => "403 Désolé, vous ne pouvez pas accéder à cette page",
