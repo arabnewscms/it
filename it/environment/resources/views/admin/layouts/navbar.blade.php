@@ -30,11 +30,11 @@
     <ul class="navbar-nav mr-auto-navbav">
       @if(count(L::all()) > 0)
        <!-- Language Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <li class="nav-item  dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="fas fa-language"></i>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <div class="dropdown-menu dropdown-menu-lg  languages {{ app('l') == 'ar'?'dropdown-menu-right':'dropdown-menu-left' }}">
           @foreach(L::all() as $l)
             <a href="{{aurl('lang/'.$l)}}" class="dropdown-item">
             <i class="fas fa-language"></i> {{trans('admin.'.$l)}} </a>
@@ -49,7 +49,7 @@
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg messages  dropdown-menu-right">
+        <div class="dropdown-menu dropdown-menu-lg messages  {{ app('l') == 'ar'?'dropdown-menu-right':'dropdown-menu-left' }}">
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
@@ -107,7 +107,7 @@
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg notifications dropdown-menu-right">
+        <div class="dropdown-menu dropdown-menu-lg notifications {{ app('l') == 'ar'?'dropdown-menu-right':'dropdown-menu-left' }}">
           <span class="dropdown-item dropdown-header">15 Notifications</span>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">

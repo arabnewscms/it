@@ -99,3 +99,8 @@
 .notifications,.messages{
     width: 300px;
 }
+
+.languages{
+    max-width: 130px;
+    min-width: 130px;
+}

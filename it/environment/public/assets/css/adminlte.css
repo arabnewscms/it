@@ -1,7 +1,7 @@
 /*!
  *   AdminLTE v3.0.0-rc.1
  *   Author: Colorlib
- *	 Website: AdminLTE.io <http://adminlte.io>
+ *   Website: AdminLTE.io <http://adminlte.io>
  *   License: Open source - MIT <http://opensource.org/licenses/MIT>
  */
 /*!
@@ -24124,3 +24124,8 @@ a.text-muted:hover {
   color: #e6e8ea;
 }
 /*# sourceMappingURL=adminlte.css.map */
+
+.languages{
+  max-width: 130px;
+  min-width: 130px;
+}
