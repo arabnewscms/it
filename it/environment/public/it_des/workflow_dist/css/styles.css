@@ -1,0 +1,570 @@
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: #fff;
+}
+
+.ui-effects-transfer {
+  border: 2px dotted #61b7cf;
+  background: rgba(97, 183, 207, 0.15);
+  z-index: 10001;
+}
+
+nav, aside, footer {
+  background: #ddd;
+}
+
+nav {
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -100px;
+}
+
+aside {
+  background: #f7f7f7;
+  width: 250px;
+  position: absolute;
+  bottom: 51px;
+  right: 0px;
+  padding: 0;
+  font-size: 12px;
+  z-index: 998;
+  box-shadow: -1px 0 10px 0 rgba(0, 0, 0, 0.35);
+}
+aside .table {
+  background: #f7f7f7;
+  margin: 0;
+}
+aside .table > tbody > tr > td,
+aside .table > thead > tr > th {
+  border-color: #ccc;
+}
+aside .table > thead > tr > th {
+  text-align: right;
+}
+aside .table > tbody > tr > td {
+  padding: 0;
+}
+aside .table > tbody > tr > td.action {
+  width: 30px;
+}
+aside .table > tbody > tr > td input {
+  width: 100%;
+  height: 30px;
+}
+aside .table > tbody > tr > td a, aside .table > tbody > tr > td span {
+  display: block;
+  height: 30px;
+  width: 188px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 30px;
+  padding: 0 5px;
+}
+aside .table > tbody > tr > td span {
+  background: #428bca;
+  color: #fff;
+}
+aside .table > tbody > tr > td.action a {
+  text-align: center;
+  padding: 0;
+  width: auto;
+}
+aside .table > tbody > tr > td.delete a {
+  width: auto;
+  font-size: 21px;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+  padding: 0;
+}
+aside .table > tbody > tr > td.delete a:hover {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
+
+footer {
+  position: fixed;
+  z-index: 997;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  horizontal-align: middle;
+  height: 50px;
+  padding: 0;
+  background: -webkit-linear-gradient( #d5d9dc, #bbbbbb) left repeat;
+  background: linear-gradient( #d5d9dc, #bbbbbb) left repeat;
+  border-top: solid 1px #bbc0c4;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.35);
+}
+footer.dirty {
+  background: -webkit-linear-gradient( #e7c7c7, #d9a6a6) left repeat;
+  background: linear-gradient( #e7c7c7, #d9a6a6) left repeat;
+}
+footer .btn {
+  margin-top: 7px;
+}
+footer #workflowBtn {
+  margin: 0;
+  border-radius: 0;
+  height: 50px;
+  width: 250px;
+}
+
+article {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+article .context {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: url(../img/graphpaper-background.png);
+}
+article .context h1 {
+  margin: 10px;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.step {
+  height: 145px;
+  position: absolute;
+  width: 165px;
+}
+.step:hover {
+  box-shadow: 0 2px 19px rgba(0, 0, 0, 0.25);
+  cursor: grab;
+}
+.step:active {
+  cursor: grabbing;
+}
+.step .step-inner {
+  width: 100%;
+  height: 145px;
+  position: relative;
+}
+
+.panel-default {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: #5d85a1;
+  border-radius: 0;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+}
+
+.panel-heading {
+  height: 38px;
+  border-radius: 0;
+  padding: 0;
+}
+.panel-heading:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.panel-body {
+  height: 105px;
+  background: none;
+  border-radius: 0;
+  padding: 5px 10px;
+  font-size: 11px;
+  line-height: 14px;
+  text-align: center;
+}
+.panel-body:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.result {
+  position: absolute;
+  height: 52px;
+  width: 140px;
+  margin-left: -65px;
+  margin-top: -10px;
+  background: #fff;
+  border: 1px dotted gray;
+  padding: 0.4em;
+  font: bold 10px sans-serif;
+  color: #000;
+  z-index: 10000;
+  text-align: center;
+  box-shadow: 0 2px 19px rgba(0, 0, 0, 0.25);
+}
+.result .result-inner {
+  position: relative;
+}
+.result .resultLabel {
+  width: 110px;
+  margin-bottom: 5px;
+}
+.result .resultDays {
+  width: 25px;
+}
+
+.step-inner:hover .delete, .result-inner:hover .delete {
+  opacity: 0.85;
+}
+.step-inner .delete, .result-inner .delete {
+  border-radius: 100px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  line-height: 12px;
+  opacity: 0;
+  -webkit-transition: opacity 200ms ease-in-out;
+  -moz-transition: opacity 200ms ease-in-out;
+  transition: opacity 200ms ease-in-out;
+}
+.step-inner .delete.btn-default, .result-inner .delete.btn-default {
+  border-color: #5d85a1;
+}
+.step-inner .delete:hover, .step-inner .delete:active, .result-inner .delete:hover, .result-inner .delete:active {
+  opacity: 1.0;
+  outline: none;
+}
+
+.result-inner .delete {
+  top: -14px;
+  right: -14px;
+}
+
+.editable {
+  position: relative;
+}
+.editable select, .editable input, .editable textarea, .editable label, .editable .placeholder {
+  position: absolute;
+  z-index: 999;
+}
+
+.isStart {
+  position: absolute;
+  top: -17px;
+  left: 0px;
+  line-height: normal;
+  height: 17px;
+  width: 50px;
+}
+.isStart label {
+  display: block;
+  position: relative;
+  height: 17px;
+  overflow: hidden;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  font-size: 10px;
+  line-height: 17px;
+}
+.isStart label:after {
+  content: "Start ?";
+}
+.isStart label:hover {
+  cursor: pointer;
+}
+.isStart label.active {
+  background: #7ab02c;
+}
+.isStart label.active:after {
+  content: "Start";
+}
+.isStart label input {
+  position: absolute;
+  top: -100px;
+}
+
+.contact a, .name a, .desc a {
+  display: block;
+  color: #333;
+}
+.contact a:hover, .name a:hover, .desc a:hover {
+  text-decoration: none;
+}
+
+.contact, .name {
+  height: 37px;
+  width: 37px;
+  float: left;
+}
+
+.contact {
+  border-right: solid 1px rgba(0, 0, 0, 0.13);
+}
+.contact a {
+  font-size: 24px;
+  text-align: center;
+  line-height: 42px;
+}
+.contact select {
+  left: -20px;
+}
+
+.name {
+  width: 125px;
+  border-left: solid 1px #fff;
+}
+.name a {
+  font-size: 11px;
+  line-height: 37px;
+  text-indent: 5px;
+  font-weight: bold;
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.name a:hover {
+  cursor: text;
+}
+.name input {
+  height: 31px;
+  width: 200px;
+  top: 3px;
+  left: 3px;
+}
+
+.user {
+  height: 16px;
+}
+.user a {
+  font-weight: bold;
+}
+.user select {
+  left: 15%;
+}
+
+.desc {
+  height: 45px;
+  margin: 4px 0;
+}
+.desc a {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: block;
+  height: 45px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  z-index: 10;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.35);
+  font-weight: bold;
+  text-align: center;
+}
+.desc a:hover {
+  cursor: text;
+}
+.desc .placeholder {
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+  color: #000;
+  font-style: italic;
+  display: block;
+  text-align: center;
+  width: 100%;
+  background: #fff;
+}
+.desc textarea {
+  width: 300px;
+  height: 130px;
+  left: 0px;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 1005;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.poppanel {
+  position: absolute;
+  z-index: 1010;
+  top: 50%;
+  left: 50%;
+  padding: 1px;
+  text-align: left;
+  white-space: normal;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.poppanel .poppanel-title, .poppanel .poppanel-footer {
+  padding: 8px 14px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 18px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+}
+.poppanel .poppanel-footer {
+  border-bottom: 0;
+  border-top: 1px solid #ebebeb;
+}
+.poppanel .poppanel-footer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.poppanel .poppanel-footer .btn {
+  margin: 0;
+}
+.poppanel .poppanel-content {
+  padding: 0;
+}
+.poppanel .poppanel-content:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.poppanel .poppanel-content .img {
+  float: left;
+  padding: 5px;
+  width: 460px;
+  text-align: center;
+}
+.poppanel .poppanel-content .img img {
+  max-height: 300px;
+  max-width: 450px;
+}
+.poppanel .poppanel-content .right {
+  width: 200px;
+  float: right;
+  position: relative;
+  border-left: solid 1px #ddd;
+}
+.poppanel .poppanel-content .right .list {
+  height: 310px;
+  overflow: auto;
+}
+.poppanel .poppanel-content .table > tbody > tr > td {
+  padding: 0;
+  line-height: normal;
+}
+.poppanel .poppanel-content .table > tbody > tr > td label {
+  width: 150px;
+  margin: 0;
+  position: relative;
+  display: block;
+  padding: 5px;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.poppanel .poppanel-content .table > tbody > tr > td label:hover {
+  cursor: pointer;
+}
+.poppanel .poppanel-content .table > tbody > tr > td label input {
+  position: absolute;
+  left: -100px;
+}
+.poppanel .poppanel-content .table > tbody > tr > td label .glyphicon {
+  min-width: 16px;
+}
+
+.flowchart-demo .aLabel {
+  background-color: white;
+  padding: 0.4em;
+  font: bold 10px sans-serif;
+  color: #000;
+  z-index: 21;
+  border: 1px dotted gray;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  cursor: pointer;
+  text-align: center;
+}
+.flowchart-demo .aLabel._jsPlumb_hover {
+  background-color: #5C96BC;
+  color: white;
+  border: 1px solid white;
+  z-index: 10000;
+}
+.flowchart-demo ._jsPlumb_connector._jsPlumb_hover {
+  z-index: 9999;
+}
+
+.key {
+  display: none;
+  height: 460px;
+  width: 200px;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.65);
+  border: solid 1px #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 19px rgba(0, 0, 0, 0.25);
+}
+.key .help {
+  display: none;
+  text-align: center;
+  line-height: 26px;
+}
+.key .content {
+  padding: 10px;
+}
+.key h2 {
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  line-height: 20px;
+  border-bottom: solid 1px #ddd;
+}
+.key p {
+  font-size: 11px;
+  line-height: 13px;
+  margin-bottom: 10px;
+}
+.key label {
+  display: block;
+  position: relative;
+  height: 20px;
+  padding-left: 30px;
+  font-size: 11px;
+}
+.key label svg, .key label img {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  margin-top: -12px;
+}
+.key.collapsed {
+  height: 26px;
+  width: 26px;
+}
+.key.collapsed .help {
+  display: block;
+}
+.key.collapsed .content {
+  display: none;
+}

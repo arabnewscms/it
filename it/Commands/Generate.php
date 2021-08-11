@@ -37,9 +37,9 @@ class Generate extends Command {
 
 	public static function changeEnv($key, $value) {
 		$value = preg_replace('/\s+/', '', $value);
-		$key   = strtoupper($key);
-		$env   = file_get_contents(base_path('.env'));
-		$env   = str_replace("$key=" .env($key), "$key=" .$value, $env, $counter);
+		$key = strtoupper($key);
+		$env = file_get_contents(base_path('.env'));
+		$env = str_replace("$key=" . env($key), "$key=" . $value, $env, $counter);
 		if ($counter < 1) {
 			$env .= "\n\r\n\r{$key}={$value}\n\r";
 		}
@@ -122,7 +122,7 @@ class Generate extends Command {
 
 			if (!empty($DB_DATABASE)) {
 
-				$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name ".$DB_DATABASE."? ");
+				$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name " . $DB_DATABASE . "? ");
 				if ($auto_create_DB) {
 					if (!empty($HAVE_DB_PORT)) {
 						$DB_PORT = $HAVE_DB_PORT;
@@ -138,22 +138,22 @@ class Generate extends Command {
 					);
 
 					$pdo->exec(sprintf(
-							'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
-							$DB_DATABASE,
-							config('database.connections.mysql.charset'),
-							config('database.connections.mysql.collation')
-						));
+						'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
+						$DB_DATABASE,
+						config('database.connections.mysql.charset'),
+						config('database.connections.mysql.collation')
+					));
 
 					shell_exec('php artisan config:clear');
 					shell_exec('php artisan cache:clear');
 
-					$this->info("DATABAES ".$DB_DATABASE." Created & is ready now");
+					$this->info("DATABAES " . $DB_DATABASE . " Created & is ready now");
 					$this->progress(100);
 				}
 			}
 
 			if (!empty($HAVE_PORT)) {
-				self::changeEnv('APP_URL', 'http://localhost:'.$HAVE_PORT);
+				self::changeEnv('APP_URL', 'http://localhost:' . $HAVE_PORT);
 			} else {
 				self::changeEnv('APP_URL', 'http://localhost');
 			}
@@ -255,15 +255,16 @@ class Generate extends Command {
 			$this->progress(100);
 		}
 
-		$zip = new \ZipArchive;
-		$res = $zip->open(__DIR__ .'/../environment/public.zip');
-		if ($res === true) {
-			$zip->extractTo(base_path('public'));
-			$zip->close();
-			$this->progress(100);
-		}
+		// $zip = new \ZipArchive;
+		// $res = $zip->open(__DIR__ .'/../environment/public.zip');
+		// if ($res === true) {
+		// 	$zip->extractTo(base_path('public'));
+		// 	$zip->close();
+		// 	$this->progress(100);
+		// }
 
-		$this->warn("All File Extracted And Published");
+		// $this->warn("All File Extracted And Published");
+
 		$this->warn("Link Storage Automatically....");
 		shell_exec('php artisan storage:link');
 		$this->progress(100);
@@ -310,13 +311,13 @@ class Generate extends Command {
 		$this->info("Enjoy <3");
 		$this->info("regards and i can assist you now");
 		if (date('m') == 1) {
-			$this->info("Happy New Year ".date('Y'));
+			$this->info("Happy New Year " . date('Y'));
 		}
 	}
 
 	// Connection PDO Library Native
 	public function getPDOConnection($host, $port, $username, $password) {
-		$pdo = new \PDO('mysql:port='.$port.';host='.$host, $username, $password);
+		$pdo = new \PDO('mysql:port=' . $port . ';host=' . $host, $username, $password);
 		return $pdo;
 	}
 
