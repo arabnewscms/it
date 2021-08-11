@@ -54,10 +54,6 @@ class Generate extends Command {
 	public function handle() {
 		\Config::set('filesystems.default', 'it');
 
-		// if (!class_exists('ZipArchive')) {
-		// 	$this->error("you should be enable the ZipArchive extension On Your Apache To continue ");
-		// 	return '';
-		// }
 		$this->warn("attention please: If an event with you (No such file or directory) OR (Connection refused) You should make sure that you have network access validity to ip 127.0.0.1 and default port and access to your mysql check your Apache if you are use MAMP or Xampp Or Wamp Or Lamp ");
 
 		$this->line("Hello Developer thank you for choosing Our Package  \r\n & Welcome to (IT) Super package \r\n Please Answer this questions to auto create your database !!");
@@ -254,16 +250,6 @@ class Generate extends Command {
 			shell_exec('composer require phpanonymous/c3js');
 			$this->progress(100);
 		}
-
-		// $zip = new \ZipArchive;
-		// $res = $zip->open(__DIR__ .'/../environment/public.zip');
-		// if ($res === true) {
-		// 	$zip->extractTo(base_path('public'));
-		// 	$zip->close();
-		// 	$this->progress(100);
-		// }
-
-		// $this->warn("All File Extracted And Published");
 
 		$this->warn("Link Storage Automatically....");
 		shell_exec('php artisan storage:link');
