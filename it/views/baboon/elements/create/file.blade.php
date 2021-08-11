@@ -61,7 +61,7 @@ if ($data['use_collective'] == 'yes') {
         </div>
     </div>
 </div>
-' . $data['file_type'] . '
+
 ';
 }
 $text = str_replace('{Convention}', $data['col_name_convention'], $text);

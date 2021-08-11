@@ -60,7 +60,7 @@ if ($data['use_collective'] == 'yes') {
         <div class="col-md-4" style="padding-top: 30px;">
             <div class="row">
                 <div class="col-md-6">
-                    ' . $video . '' . $audio . ' ' . $data['file_type'] . '
+                    ' . $video . '' . $audio . '
                 </div>
                 <div class="col-md-6">
                     <a href="{{ it()->url({Convention2}) }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>
