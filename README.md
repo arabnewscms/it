@@ -37,4 +37,4 @@ Your assistant Is Ready (<3)
 
 Copyright Reserved 2021 LTS Script By phpanonymous.com
 # follow me on Facebook
-[Mahmoud Ibrahim](facebook.com/anonym0us.dev/)
+[Mahmoud Ibrahim](https://facebook.com/anonym0us.dev/)
