@@ -1,6 +1,6 @@
 @if(!empty($video))
 @php
-$random = Str::random(40);
+$random = Str::random(5);
 $ext =  !is_null(explode('.',$video)) && count(explode('.',$video)) > 0?explode('.',$video)[1]:'mp4';
 @endphp
 
@@ -36,7 +36,7 @@ preload: 'auto'
 });
 $('#video{{ $random }}').removeClass('hidden');
 });
-$(window).on('hidden.bs.modal', function() {
+$("#video_{{ $random }}").on('hidden.bs.modal', function() {
 mplayer.pause();
 });
 });

@@ -1,6 +1,6 @@
 @if(!empty($image))
 @php
-$random = Str::random(40);
+$random = Str::random(5);
 @endphp
 <div style="margin-top: 5px;display: inline-block;">
 <a href="#" data-toggle="modal" data-target="#img_{{ $random }}">

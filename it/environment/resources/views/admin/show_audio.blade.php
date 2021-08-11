@@ -1,6 +1,6 @@
 @if(!empty($audio))
 @php
-$random = Str::random(40);
+$random = Str::random(5);
 $ext =  !is_null(explode('.',$audio)) && count(explode('.',$audio)) > 0?explode('.',$audio)[1]:'mp4';
 @endphp
 <div style="margin-top: 5px;display: inline-block;">
@@ -30,7 +30,8 @@ var mplayer;
 $("#audio_{{ $random }}").on('shown.bs.modal', function (e) {
   $('.audioTrack{{ $random }}').removeClass('hidden');
 });
-  $(window).on('hidden.bs.modal', function() {
+  $("#audio_{{ $random }}").on('hidden.bs.modal', function() {
+  //$('.audioTrack{{ $random }}')[0].pause();
   $('.audioTrack{{ $random }}')[0].pause();
   });
 });
