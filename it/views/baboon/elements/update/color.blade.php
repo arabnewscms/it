@@ -9,7 +9,7 @@ if ($data['use_collective'] == 'yes') {
             <div class="input-group colorpicker">
                 {!! Form::text(\'{Convention}\', {Convention2} ,[\'class\'=>\'form-control\',\'placeholder\'=>trans(\'{lang}.{Convention}\'),"readonly"=>"readonly"]) !!}
                 <div class="input-group-append">
-                    <span class="input-group-text"><i class="fas fa-square"></i></span>
+                    <span class="input-group-text"><i class="fas fa-square" style="color: {{ {Convention2} }};"></i></span>
                 </div>
             </div>
             <!-- /.input group -->
@@ -28,7 +28,7 @@ if ($data['use_collective'] == 'yes') {
             <div class="input-group colorpicker">
                 <input type="text" name="{Convention}" value="{{ {Convention2} }}" placeholder="{{trans(\'{lang}.{Convention}\')}}" readonly class="form-control">
                 <div class="input-group-append">
-                    <span class="input-group-text"><i class="fas fa-square"></i></span>
+                    <span class="input-group-text"><i class="fas fa-square" style="color: {{ {Convention2} }};"></i></span>
                 </div>
             </div>
             <!-- /.input group -->
