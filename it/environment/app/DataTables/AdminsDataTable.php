@@ -12,7 +12,7 @@ class AdminsDataTable extends DataTable {
 	public function dataTable(DataTables $dataTables, $query) {
 		return datatables($query)
 			->addColumn('actions', 'admin.admins.buttons.actions')
-			->addColumn('photo_profile', 'admin.admins.buttons.photo_profile')
+			->addColumn('photo_profile', '{!! view("admin.show_image",["image"=>$photo_profile])->render() !!}')
 			->addColumn('checkbox', '<div  class="icheck-danger d-inline ml-2">
                   <input type="checkbox" class="selected_data" value="" name="selected_data[]" id="selectdata" value="{{ $id }}" >
                   <label for="selectdata"></label>

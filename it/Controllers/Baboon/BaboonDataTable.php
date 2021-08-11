@@ -367,9 +367,10 @@ class {ClassName}DataTable extends DataTable
 		foreach ($r->input('col_name_convention') as $conv) {
 
 			// Here Add New Column Image To View Image with Modal Start//
-			if ($r->has('image' . $i)) {
-				$ajax .= '            ->addColumn(\'' . $conv . '\', \'{path}.{name}.buttons.' . $conv . '\')' . "\n\r";
-			} elseif (
+			// if ($r->has('image' . $i)) {
+			// 	$ajax .= '            ->addColumn(\'' . $conv . '\', \'{path}.{name}.buttons.' . $conv . '\')' . "\n\r";
+			// } else
+			if (
 				$r->has('video' . $i) ||
 				$r->has('mp4' . $i) ||
 				$r->has('mpeg' . $i) ||
@@ -384,6 +385,9 @@ class {ClassName}DataTable extends DataTable
 				$rowColumnsHtml .= '"' . $conv . '"' . ',';
 			} elseif ($r->has('mp3' . $i)) {
 				$ajax .= '            ->addColumn(\'' . $conv . '\', \'{!! view("admin.show_audio",["audio"=>$' . $conv . '])->render() !!}\')' . "\n\r";
+				$rowColumnsHtml .= '"' . $conv . '"' . ',';
+			} elseif ($r->has('image' . $i)) {
+				$ajax .= '            ->addColumn(\'' . $conv . '\', \'{!! view("admin.show_image",["image"=>$' . $conv . '])->render() !!}\')' . "\n\r";
 				$rowColumnsHtml .= '"' . $conv . '"' . ',';
 			} elseif ($r->input('col_type')[$i] == 'file' && !$r->has('image' . $i)) {
 				$ajax .= '            ->addColumn(\'' . $conv . '\', \'<a href="{{ it()->url($' . $conv . ') }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>\')' . "\n\r";
@@ -410,49 +414,49 @@ class {ClassName}DataTable extends DataTable
                   <input type="checkbox" class="selected_data" value="" name="selected_data[]" id="selectdata" value="{{ $id }}" >
                   <label for="selectdata"></label>
                 </div>\')
-            ->rawColumns([\'checkbox\',\'actions\',{images_html}' . $rowColumnsHtml . ']);
+            ->rawColumns([\'checkbox\',\'actions\',' . $rowColumnsHtml . ']);
     }
   ';
 
-		// Create Image Start //
-		$x = 0;
-		$images_html = '';
-		foreach ($r->input('col_name_convention') as $conv) {
+// 		// Create Image Start //
+		// 		$x = 0;
+		// 		$images_html = '';
+		// 		foreach ($r->input('col_name_convention') as $conv) {
 
-			if ($r->has('image' . $x)) {
-				$images_html .= "'" . $conv . "',";
-				$blade_name = str_replace('controller', '', strtolower(request('controller_name')));
-				$img = '@if(!empty($' . $conv . '))
-                <a href="#" data-toggle="modal" data-target="#img{{ $id }}"><img src="{{ it()->url($' . $conv . ') }}" style="width:32px;height:32px" /></a>';
-				$img .= '
-<div id="img{{ $id }}" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="">
-        <button type="button" class="btn btn-default btn-sm float-left" data-dismiss="modal">x</button>
-      </div>
-      <div class="modal-body">
-      <center>
-        <img src="{{ it()->url($' . $conv . ') }}" style="width:100%;height:100%;" />
-      </center>
-      </div>
-    </div>
-  </div>
-</div>
-@endif
-                ';
-				if (!empty($img)) {
-					Baboon::check_path($r->input('admin_folder_path') . '\\' . $blade_name);
-					Baboon::write($img, $conv . '.blade', $r->input('admin_folder_path') . '\\' . $blade_name . '\\buttons');
-				}
+// 			if ($r->has('image' . $x)) {
+		// 				$images_html .= "'" . $conv . "',";
+		// 				$blade_name = str_replace('controller', '', strtolower(request('controller_name')));
+		// 				$img = '@if(!empty($' . $conv . '))
+		//                 <a href="#" data-toggle="modal" data-target="#img{{ $id }}"><img src="{{ it()->url($' . $conv . ') }}" style="width:32px;height:32px" /></a>';
+		// 				$img .= '
+		// <div id="img{{ $id }}" class="modal fade" role="dialog">
+		//   <div class="modal-dialog">
+		//     <div class="modal-content">
+		//       <div class="">
+		//         <button type="button" class="btn btn-default btn-sm float-left" data-dismiss="modal">x</button>
+		//       </div>
+		//       <div class="modal-body">
+		//       <center>
+		//         <img src="{{ it()->url($' . $conv . ') }}" style="width:100%;height:100%;" />
+		//       </center>
+		//       </div>
+		//     </div>
+		//   </div>
+		// </div>
+		// @endif
+		//                 ';
+		// 				if (!empty($img)) {
+		// 					Baboon::check_path($r->input('admin_folder_path') . '\\' . $blade_name);
+		// 					Baboon::write($img, $conv . '.blade', $r->input('admin_folder_path') . '\\' . $blade_name . '\\buttons');
+		// 				}
 
-			}
-			$x++;
-		}
-		// Create Image End //
+// 			}
+		// 			$x++;
+		// 		}
+		// 		// Create Image End //
 
 		$nameclass = str_replace('controller', '', strtolower($r->input('controller_name')));
-		$ajax = str_replace('{images_html}', $images_html, $ajax);
+		//$ajax = str_replace('{images_html}', $images_html, $ajax);
 		$ajax = str_replace('{name}', $nameclass, $ajax);
 		$blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
 		$ajax = str_replace('{path}', $blade_path, $ajax);
