@@ -37,6 +37,8 @@ if ($data['file_type'] == 'pdf') {
 	$accept = 'video/mp4,video/3gpp,video/mpeg,video/quicktime,video/webm,video/x-matroska,video/x-ms-wmv,video/x-msvideo,video/video/x-ms-vob';
 } elseif ($data['file_type'] == 'image') {
 	$accept = 'image/*';
+} elseif ($data['file_type'] == 'mp3') {
+	$accept = 'audio/mpeg';
 }
 
 if ($data['use_collective'] == 'yes') {

@@ -322,6 +322,8 @@ protected $fillable = [' . "\n";
 			return 'video';
 		} elseif (!empty(request('image' . $i))) {
 			return 'image';
+		} elseif (!empty(request('mp3' . $i))) {
+			return 'mp3';
 		} else {
 			return '';
 		}
