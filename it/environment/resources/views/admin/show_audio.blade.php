@@ -11,16 +11,15 @@ $ext =  !is_null(explode('.',$audio)) && count(explode('.',$audio)) > 0?explode(
 <div id="audio_{{ $random }}" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
+      <div class="">
+        <button type="button" class="btn btn-default btn-sm float-left" data-dismiss="modal">x</button>
+      </div>
       <div class="modal-body">
         <audio controls class="audioTrack{{ $random }} hidden" style="width:100%">
           <source src="{{ it()->url($audio) }}" type="audio/{{ $ext }}">
           Your browser does not support the audio element.
         </audio>
-        <hr />
-        <a href="{{ it()->url($audio) }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans("admin.close") }}</button>
+        <a href="{{ it()->url($audio) }}" target="_blank" class="float-left"><i class="fa fa-download"></i></a>
       </div>
     </div>
   </div>

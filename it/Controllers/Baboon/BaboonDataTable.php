@@ -426,13 +426,15 @@ class {ClassName}DataTable extends DataTable
                 <a href="#" data-toggle="modal" data-target="#img{{ $id }}"><img src="{{ it()->url($' . $conv . ') }}" style="width:32px;height:32px" /></a>';
 				$img .= '
 <div id="img{{ $id }}" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-body">
-        <img src="{{ it()->url($' . $conv . ') }}" style="width:100%;height:500px" />
+      <div class="">
+        <button type="button" class="btn btn-default btn-sm float-left" data-dismiss="modal">x</button>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans("admin.close") }}</button>
+      <div class="modal-body">
+      <center>
+        <img src="{{ it()->url($' . $conv . ') }}" style="width:100%;height:100%;" />
+      </center>
       </div>
     </div>
   </div>

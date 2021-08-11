@@ -8,13 +8,15 @@ $random = Str::random(40);
 </a>
 </div>
 <div id="img_{{ $random }}" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-body">
-        <img src="{{ it()->url($image) }}" style="width:100%;height:500px" />
+      <div class="">
+        <button type="button" class="btn btn-default btn-sm float-left" data-dismiss="modal">x</button>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans("admin.close") }}</button>
+      <div class="modal-body">
+        <center>
+          <img src="{{ it()->url($image) }}" style="width:100%;height:100%;" />
+        </center>
       </div>
     </div>
   </div>
