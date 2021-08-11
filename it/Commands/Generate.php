@@ -54,10 +54,10 @@ class Generate extends Command {
 	public function handle() {
 		\Config::set('filesystems.default', 'it');
 
-		if (!class_exists('ZipArchive')) {
-			$this->error("you should be enable the ZipArchive extension On Your Apache To continue ");
-			return '';
-		}
+		// if (!class_exists('ZipArchive')) {
+		// 	$this->error("you should be enable the ZipArchive extension On Your Apache To continue ");
+		// 	return '';
+		// }
 		$this->warn("attention please: If an event with you (No such file or directory) OR (Connection refused) You should make sure that you have network access validity to ip 127.0.0.1 and default port and access to your mysql check your Apache if you are use MAMP or Xampp Or Wamp Or Lamp ");
 
 		$this->line("Hello Developer thank you for choosing Our Package  \r\n & Welcome to (IT) Super package \r\n Please Answer this questions to auto create your database !!");
