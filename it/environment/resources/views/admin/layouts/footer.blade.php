@@ -86,16 +86,16 @@ $('textarea.ckeditor').ckeditor(options);
 
  //Date range picker
  $('.datepicker').daterangepicker({
-      dateFormat: 'yyyy-mm-dd',
+     // dateFormat: 'yyyy-mm-dd',
       showButtonPanel: true,
-      gotoCurrent: true,
+      gotoCurrent: false,
        locale: {
         format: 'YYYY-MM-DD'
       },
     singleDatePicker: true,
     showDropdowns: true,
-    startDate: '{{ date('Y-m-d') }}',
-    endDate: '{{ date('Y-m-d') }}',
+    //startDate: '{{ date('Y-m-d') }}',
+    //endDate: '{{ date('Y-m-d') }}',
     });
 
   $('.select2').select2({
