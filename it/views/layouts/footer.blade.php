@@ -14,6 +14,7 @@
                 <p>If you want to support me, this is something that will make me more happy because I will continue to develop this thing</p>
                 <p>You can support me with a cup of coffee that does not exceed 50 <span title=" Egyptian pounds">L.E</span> as if you encourage me and this is a message that makes me feel that someone cares about me
             Well this is the phone number to send your support to me <br/> <big>(01010757170 Vodafone Cash)</big></p>
+            <p>or in patreon <a href="https://www.patreon.com/phpanonymous?fan_landing=true" target="_blank">https://www.patreon.com/phpanonymous?fan_landing=true</a></p>
             <p>If you are able to encourage me, do not hesitate and support me immediately </p>
             <p>thank you &#10084;&#65039;</p>
         </div>
