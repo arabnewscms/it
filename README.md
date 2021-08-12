@@ -1,4 +1,4 @@
-# IT Package version 1.6.8 is released now
+# IT Package version 1.6.9 is released now
 
 # now every rules for laravel to use in validation now is available try it now
 Work With Laravel 8.0 & above make sure to use php version 7.4.12 at least 
