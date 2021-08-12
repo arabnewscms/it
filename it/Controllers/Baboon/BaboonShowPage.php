@@ -64,35 +64,28 @@ class BaboonShowPage extends Controller {
 	<div class="card-body">
 		<div class="row">';
 
-		$show .= '
-<div class="col-md-12 col-lg-12 col-xs-12">
-<b>{{trans(\'{lang}.id\')}} :</b> {{${route}->id}}
-</div>
-<div class="clearfix"></div>
-<hr />
-';
+		$show .= '			<div class="col-md-12 col-lg-12 col-xs-12">
+				<b>{{trans(\'{lang}.id\')}} :</b> {{${route}->id}}
+			</div>
+			<div class="clearfix"></div>
+			<hr />' . "\n\r";
 
 		foreach (explode(',', self::get_cols($r)) as $n) {
 			if (!empty($n)) {
 				if ($n == 'admin_id') {
 
-					$show .= '
-@if(!empty(${route}->' . $n . '()->first()))
-<div class="col-md-6 col-lg-6 col-xs-6">
-<b>{{trans(\'{lang}.' . $n . '\')}} :</b>
- {{ ${route}->' . $n . '()->first()->name }}
-</div>
-@endif
-';
+					$show .= '			@if(!empty(${route}->' . $n . '()->first()))
+			<div class="col-md-6 col-lg-6 col-xs-6">
+				<b>{{trans(\'{lang}.' . $n . '\')}} :</b>
+				{{ ${route}->' . $n . '()->first()->name }}
+			</div>
+			@endif' . "\n\r";
 				} else {
 
-					$show .= '
-<div class="col-md-6 col-lg-6 col-xs-6">
-<b>{{trans(\'{lang}.' . $n . '\')}} :</b>
- {!! ${route}->' . $n . ' !!}
-</div>
-
-';
+					$show .= '			<div class="col-md-6 col-lg-6 col-xs-6">
+				<b>{{trans(\'{lang}.' . $n . '\')}} :</b>
+				{!! ${route}->' . $n . ' !!}
+			</div>' . "\n\r";
 
 				}
 			}
@@ -101,19 +94,39 @@ class BaboonShowPage extends Controller {
 		$x = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			if ($r->has('image' . $x)) {
-				$show .= '
-<div class="col-md-6 col-lg-6 col-xs-6">
-<b>{{trans(\'{lang}.' . $conv . '\')}} :</b>
- @include("admin.show_image",["image"=>${route}->' . $conv . '])
-</div>
-';
+				$show .= '			<div class="col-md-6 col-lg-6 col-xs-6">
+				<b>{{trans(\'{lang}.' . $conv . '\')}} :</b>
+				@include("admin.show_image",["image"=>${route}->' . $conv . '])
+			</div>' . "\n\r";
 			} elseif ($r->input('col_type')[$x] == 'file' && !$r->has('image' . $x)) {
-				$show .= '
-<div class="col-md-6 col-lg-6 col-xs-6">
-<b>{{trans(\'{lang}.' . $conv . '\')}} :</b>
-  <a href="{{ it()->url(${route}->' . $conv . ') }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>
-</div>
-';
+				$audio_video = '';
+				if ($r->has('video' . $x) ||
+					$r->has('mp4' . $x) ||
+					$r->has('mpeg' . $x) ||
+					$r->has('mov' . $x) ||
+					$r->has('3gp' . $x) ||
+					$r->has('webm' . $x) ||
+					$r->has('mkv' . $x) ||
+					$r->has('wmv' . $x) ||
+					$r->has('avi' . $x) ||
+					$r->has('vob' . $x)) {
+					$audio_video = '@include("admin.show_video",["video"=>${route}->' . $conv . '])';
+				} elseif ($r->has('mp3' . $x)) {
+					$audio_video = '@include("admin.show_audio",["audio"=>${route}->' . $conv . '])';
+				}
+				$show .= '			<div class="col-md-6 col-lg-6 col-xs-6">
+				<div class="row">
+					<div class="col-md-8 col-lg-4 col-xs-12">
+					  <b>{{trans(\'{lang}.' . $conv . '\')}} :</b>
+					</div>
+					<div class="col-md-2 col-lg-2 col-xs-12">
+						' . $audio_video . '
+					</div>
+					<div class="col-md-2 col-lg-2 col-xs-12">
+						<a href="{{ it()->url(${route}->' . $conv . ') }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>
+					</div>
+				</div>
+			</div>' . "\n\r";
 			} elseif (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
 
 				$pre_name = explode('|', $conv);
@@ -125,32 +138,28 @@ class BaboonShowPage extends Controller {
 					$pluck_name = !empty($pluck_name) && count($pluck_name) > 0 ? explode(',', $pluck_name[1]) : [];
 					$final_pluckName = str_replace("'", "", $pluck_name[0]);
 
-					$show .= '
-<div class="col-md-6 col-lg-6 col-xs-6">
-<b>{{trans(\'{lang}.' . $pre_name[0] . '\')}} :</b>
-@if(!empty(${route}->' . $pre_name[0] . '()->first()))
-   {{ ${route}->' . $pre_name[0] . '()->first()->' . $final_pluckName . ' }}
-@endif
-</div>
-';
+					$show .= '			<div class="col-md-6 col-lg-6 col-xs-6">
+				<b>{{trans(\'{lang}.' . $pre_name[0] . '\')}} :</b>
+				@if(!empty(${route}->' . $pre_name[0] . '()->first()))
+			{{ ${route}->' . $pre_name[0] . '()->first()->' . $final_pluckName . ' }}
+			@endif
+			</div>' . "\n\r";
 
 				} else {
-					$show .= '
-<div class="col-md-6 col-lg-6 col-xs-6">
-<b>{{trans(\'{lang}.' . $pre_name[0] . '\')}} :</b>
-   {{ trans("{lang}.".${route}->' . $pre_name[0] . ') }}
-</div>
-';
+					$show .= '			<div class="col-md-6 col-lg-6 col-xs-6">
+				<b>{{trans(\'{lang}.' . $pre_name[0] . '\')}} :</b>
+				{{ trans("{lang}.".${route}->' . $pre_name[0] . ') }}
+			</div>' . "\n\r";
 				}
 			}
 			$x++;
 		}
-		$show .= '			  <!-- /.row -->
-    </div>
-  </div>
-  <!-- /.card-body -->
-  <div class="card-footer">
-  </div>
+		$show .= '			<!-- /.row -->
+		</div>
+	</div>
+	<!-- /.card-body -->
+	<div class="card-footer">
+	</div>
 </div>
 @endsection';
 
