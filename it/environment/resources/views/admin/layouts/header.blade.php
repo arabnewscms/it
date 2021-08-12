@@ -26,12 +26,6 @@
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ url('assets') }}/plugins/jqvmap/jqvmap.min.css">
     <!-- DataTable Css bootstrap -->
-    {{-- @if(app("l") != 'ar')
-    <link href="{{ url("assets/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css") }}" rel="stylesheet" type="text/css" />
-    @endif
-    @if(app("l") == 'ar')
-    <link href="{{ url("assets/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css") }}" rel="stylesheet" type="text/css" />
-    @endif --}}
     <link href="{{ url("assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css") }}" rel="stylesheet" type="text/css" />
     <link href="{{ url("assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}" rel="stylesheet" type="text/css" />
     <link href="{{ url("assets/plugins/datatables-colreorder/css/colreorder.bootstrap4.min.css") }}" rel="stylesheet" type="text/css" />
@@ -102,7 +96,9 @@
     </style>
     @stack('css')
     <!-- jQuery -->
-<script src="{{url('assets/plugins/jquery/jquery.min.js')}}" type="text/javascript"></script>
+{{-- <script src="{{url('assets/plugins/jquery/jquery.min.js')}}" type="text/javascript"></script> --}}
+<script src="{{url('assets/js/jquery.min.js')}}" type="text/javascript"></script>
+
   </head>
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">

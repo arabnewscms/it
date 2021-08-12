@@ -8,8 +8,10 @@
 <footer class="main-footer">
 <strong>&copy; {{ date('Y') }} {{ setting()->{l('sitename')} }}</strong>
 <div class="float-right d-none d-sm-inline-block">
+@if(function_exists('it_version'))
 <a href="https://github.com/arabnewscms/it" target="_blank"><b>(IT Package)</b> {{ it_version() }} ❤️</a> <br />
 don't forget to remove me
+@endif
 </div>
 </footer>
 <!-- Control Sidebar -->
@@ -25,7 +27,9 @@ don't forget to remove me
 <script src="{{ url('assets') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
+$(document).ready(function(){
 $.widget.bridge('uibutton', $.ui.button);
+});
 </script>
 <!-- DataTables -->
 <script src="{{url("assets/plugins/datatables/jquery.dataTables.min.js")}}"></script>
@@ -62,7 +66,6 @@ $.widget.bridge('uibutton', $.ui.button);
 
 <script src="{{ url('assets') }}/js/demo.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<script src="https://cdn.ckeditor.com/4.10.0/full/ckeditor.js"></script>
 <script>
 var options = {
 filebrowserImageBrowseUrl: '{{ aurl('filemanager?type=Images') }}',
@@ -71,12 +74,13 @@ filebrowserBrowseUrl: '{{ aurl('filemanager?type=Files') }}',
 filebrowserUploadUrl: '{{ aurl('/filemanager/upload?type=Files&_token=') }}'
 };
 </script>
-<script src="{{ url('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') }}"></script>
+<script src="https://cdn.ckeditor.com/4.10.0/full/ckeditor.js"></script>
+<script type="text/javascript" src="{{ url('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') }}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-$('.date-picker').datepicker();
-//$.fn.dataTable.ext.errMode = 'none';
 $('textarea.ckeditor').ckeditor(options);
+$('.date-picker').datepicker();
+$.fn.dataTable.ext.errMode = 'none';
 
 //color picker with addon
  $('.colorpicker').colorpicker();
@@ -100,16 +104,19 @@ $('textarea.ckeditor').ckeditor(options);
 
   $('.select2').select2({
       theme: 'bootstrap4'
-  });
+    });
 
-  //replace the "Choose a file" label
   $('input[type="file"]').on('change',function(){
+      //get the file name
       var fileName = $(this).val();
+      //replace the "Choose a file" label
       $(this).next('.custom-file-label').html(fileName);
   });
 
 });
 </script>
+
+
 <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
 <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
 <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
