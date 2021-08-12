@@ -174,7 +174,7 @@ class BaboonUpdate extends Controller {
 		$destroy .= '
 
                 ${Name}->delete();
-                return backWithSuccess(trans(\'{lang}.deleted\'),{Name});
+                return backWithSuccess(trans(\'{lang}.deleted\'),"{Name}");
 
             }
 
@@ -205,7 +205,7 @@ class BaboonUpdate extends Controller {
 		                ${Name}->delete();
 
                     }
-                    return backWithSuccess(trans(\'{lang}.deleted\'),{Name});
+                    return backWithSuccess(trans(\'{lang}.deleted\'),"{Name}");
                 }else {
                     ${Name} = {ModelName}::find($data);
                     if(is_null(${Name}) || empty(${Name})){
@@ -225,7 +225,7 @@ class BaboonUpdate extends Controller {
 		$destroy .= '                    	it()->delete(\'{Name2}\',$data);' . "\n";
 		$destroy .= '
 	                ${Name}->delete();
-	                return backWithSuccess(trans(\'{lang}.deleted\'),{Name});
+	                return backWithSuccess(trans(\'{lang}.deleted\'),"{Name}");
                 }
             }
             ';
