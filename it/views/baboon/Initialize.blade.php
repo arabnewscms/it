@@ -188,7 +188,7 @@ $(document).ready(function(){
 
 
 });
-$(document).on('keyup',function(){
+$(document).on('keyup','.search_list',function(){
 
  var search_list = $('.search_list').val();
  var p_title = $('.project_title_input').val();

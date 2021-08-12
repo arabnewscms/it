@@ -1,6 +1,6 @@
 `
 <div class="col-md-12">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
       <label for="col_name" class="col-md-12">{{it_trans('it.col_name')}}</label>
       <div class="col-md-12">
@@ -104,14 +104,17 @@
       </div>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-5">
     <div class="form-group">
       <div class="col-md-12">
         <label for="col_name_convention" class="col-md-12">{{it_trans('it.col_name_convention')}}</label>
         <input type="text" name="col_name_convention[]"  to="`+x+`" value="{{old('col_name_convention')}}" class="form-control col_name_convention" placeholder="{{it_trans('it.col_name_convention')}}"  />
-        <small style="color:#c33">Select - active|1,yes/0,no</small><br>
-        <small style="color:#c33">Select - user_id|App\Models\User::pluck('name','id')</small><br>
-        <small style="color:#c33">checkbox or radio - active#1</small><br>
+        <ul>
+          <li><small style="color:#c33">Select - active|1,yes/0,no</small></li>
+          <li><small style="color:#c33">Select - user_id|App\\Models\\User::pluck('name','id')</small></li>
+          <li><small style="color:#c33">checkbox or radio - input1 => active#1  input2 =>active#2 for same name with different values</small></li>
+        </ul>
+
       </div>
     </div>
   </div>
