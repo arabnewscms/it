@@ -70,7 +70,7 @@
 <div class="col-md-4">
   <div class="form-group">
     <label class="mt-checkbox mt-checkbox-outline">
-      <input type="checkbox" value="yes" {{ !empty($module_data)?$module_data->use_collective:'' }} name="use_collective" />
+      <input type="checkbox" value="yes" {{ !empty($module_data)?$module_data->use_collective:'checked' }} name="use_collective" />
       {{it_trans('it.use_collective')}}
     </label>
     <p style="color:#c33"><i class="fa fa-info"></i> - Generate HTML Code to LaravelCollective Package</p>
