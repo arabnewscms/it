@@ -8,10 +8,8 @@
 <footer class="main-footer">
 <strong>&copy; {{ date('Y') }} {{ setting()->{l('sitename')} }}</strong>
 <div class="float-right d-none d-sm-inline-block">
-@if(function_exists('it_version'))
 <a href="https://github.com/arabnewscms/it" target="_blank"><b>(IT Package)</b> {{ it_version() }} ❤️</a> <br />
 don't forget to remove me
-@endif
 </div>
 </footer>
 <!-- Control Sidebar -->
@@ -108,14 +106,13 @@ $.fn.dataTable.ext.errMode = 'none';
 
   $('input[type="file"]').on('change',function(){
       //get the file name
-      var fileName = $(this).val();
+      var fileName = $(this).val().replace(/^C:\\fakepath\\/i, '');
       //replace the "Choose a file" label
       $(this).next('.custom-file-label').html(fileName);
   });
 
 });
 </script>
-
 
 <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
 <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
