@@ -157,7 +157,7 @@ class BaboonUpdate extends Controller {
             {
                ${Name} = {ModelName}::find($id);
                if(is_null(${Name}) || empty(${Name})){
-                return backWithError(trans(\'{lang}.undefinedRecord\'),{Name});
+                return backWithError(trans(\'{lang}.undefinedRecord\'),"{Name}");
                }
                ';
 		$i = 0;
@@ -209,7 +209,7 @@ class BaboonUpdate extends Controller {
                 }else {
                     ${Name} = {ModelName}::find($data);
                     if(is_null(${Name}) || empty(${Name})){
-	                 return backWithError(trans(\'{lang}.undefinedRecord\'),{Name});
+	                 return backWithError(trans(\'{lang}.undefinedRecord\'),"{Name}");
 	                }
                     ' . "\n";
 		$i = 0;
