@@ -31,6 +31,12 @@
 							<li>
 								<a href="{{url('it/baboon-sd')}}">🙈 {{it_trans('it.baboon-sd')}} </a>
 							</li>
+							 <li class="">
+            <a href="#" data-toggle="modal" style="margin-top: 15px;display: inline-block;" data-target="#donate" title="donate">
+            	<i>&#9749;</i>
+            	give me coffee
+            </a>
+          </li>
 						</ul>
 					</li>
 					<li class="col-sm-3">

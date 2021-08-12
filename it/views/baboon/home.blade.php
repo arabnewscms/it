@@ -14,13 +14,7 @@ $('.list_validation'+list).addClass('hidden');
 });
 $(document).ready(function() {
 
-/*
-classSpace
-        funcname
-        forginkey
 
-        schema_name
-*/
 
 $(document).on('change','.relation_type',function(){
  var val = $("option:selected", this).val();
@@ -152,26 +146,10 @@ $('.controller_namespace_list').html('');
              <i class="fa fa-spinner fa-2x fa-spin loading_genereate hidden"></i>
           </li>
           <li class="nav-item">
-<script type="text/javascript">
-let time;
-function heartemotin(){
-   time = setInterval(function(){
-     $('.heartemotin').addClass('fa-spin').css('font-size','15px');
-       setTimeout(function(){
-         $('.heartemotin').removeClass('fa-spin').css('font-size','30px');
-         clearInterval(time);
-         heartemotin();
-       },10000);
-    },5000);
-}
-
-heartemotin();
-
-
-
-</script>
-            <a href="#" data-toggle="modal" style="margin-top: 15px;display: inline-block;" data-target="#donate" title="donate">give me coffee</a>
-            <span style="margin-top: 22px;position: absolute;" class="heartemotin fa">&#10084;&#65039;</span>
+           <a href="#" data-toggle="modal" style="margin-top: 15px;display: inline-block;" data-target="#donate" title="donate">
+              <i>&#9749;</i>
+              give me coffee
+            </a>
           </li>
         </ul>
         <div class="tab-content">

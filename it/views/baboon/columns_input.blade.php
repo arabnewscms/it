@@ -29,14 +29,7 @@
           }
       });
 
-/*
-each_col_name_other_col
-          each_other_col
-          before_after_tomorrow
 
-          each_other_carbon0
-
-*/
       $(document).on('change','.before_after_tomorrow',function(){
         var to = $(this).attr('to');
         var val = $(this).val();
