@@ -121,7 +121,7 @@ $rules = $input->rules;
         <input type="text" name="col_name_convention[]"  to="{{ $x }}" value="{{$input->col_name_convention}}" class="form-control col_name_convention" placeholder="{{it_trans('it.col_name_convention')}}"  />
         <ul>
           <li><small style="color:#c33">Select - active|1,yes/0,no</small></li>
-          <li><small style="color:#c33">Select - user_id|App\\Models\\User::pluck('name','id')</small></li>
+          <li><small style="color:#c33">Select - user_id|App\Models\User::pluck('name','id')</small></li>
           <li><small style="color:#c33">checkbox or radio - input1 => active#1  input2 =>active#2 for same name with different values</small></li>
         </ul>
       </div>
