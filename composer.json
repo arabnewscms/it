@@ -12,7 +12,7 @@
 	}
 	],
 	"require":{
-		"php": ">= 7.14.12",
+		"php": ">= 7.4.12",
 		"laravel/framework": "^8.0"
 	},
 	"autoload":{
