@@ -1,8 +1,25 @@
 @charset "UTF-8";
-
+.dt-buttons{
+  display: block;
+  clear: both;
+}
+div.dataTables_filter{
+  width: 48%;
+  margin-top: 10px;
+  display: inline-block;
+  margin-right: 1em;
+  float: right;
+}
+div.dataTables_length {
+  width: 48%;
+  margin-top: 10px;
+  display: inline-block;
+  margin-left: 1em;
+  float: left;
+}
 table.dataTable thead tr th,
 table.dataTable tbody tr td {    
- padding: 6px;
+ padding: 9px;
  vertical-align: middle;
  font-size: 14px;
  font-weight: bolder;

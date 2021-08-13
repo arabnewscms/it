@@ -32,23 +32,26 @@ $(document).on('click','.checkinput',function(){
 });
 </script>
 @endpush
-<div class="card card-default">
+<div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
 		<div class="btn-group">
-			<button type="button" class="btn btn-default">{{!empty($title)?$title:''}}</button>
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<a>{{!empty($title)?$title:''}}</a>
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			<span class="caret"></span>
 			<span class="sr-only"></span>
-			</button>
+			</a>
 			<div class="dropdown-menu" role="menu">
-				<a href="{{aurl('admingroups')}}" class="dropdown-item">
+				<a href="{{aurl('admingroups')}}" class="dropdown-item" style="color:#343a40">
 				<i class="fas fa-list"></i> {{trans('admin.show_all')}}</a>
-				<a class="dropdown-item" href="{{aurl('admingroups/create')}}">
+				<a class="dropdown-item" style="color:#343a40" href="{{aurl('admingroups/'.$admingroups->id)}}">
+					<i class="fa fa-eye"></i> {{trans('admin.show')}}
+				</a>
+				<a class="dropdown-item" style="color:#343a40" href="{{aurl('admingroups/create')}}">
 					<i class="fa fa-plus"></i> {{trans('admin.create')}}
 				</a>
 				<div class="dropdown-divider"></div>
-				<a data-toggle="modal" data-target="#deleteRecord{{$admingroups->id}}" class="dropdown-item" href="">
+				<a data-toggle="modal" data-target="#deleteRecord{{$admingroups->id}}" class="dropdown-item" style="color:#343a40" href="#">
 					<i class="fa fa-trash"></i> {{trans('admin.delete')}}
 				</a>
 			</div>
@@ -80,7 +83,7 @@ $(document).on('click','.checkinput',function(){
 		@endpush
 		<div class="card-tools">
 			<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-			<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+			<button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
 		</a>
 	</div>
 </div>

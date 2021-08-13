@@ -12,8 +12,8 @@ class AdminGroupsDataTable extends DataTable {
 	public function dataTable(DataTables $dataTables, $query) {
 		return datatables($query)
 			->addColumn('actions', 'admin.admingroups.buttons.actions')
-			->addColumn('checkbox', '<div  class="icheck-danger d-inline ml-2">
-                  <input type="checkbox" class="selected_data" value="" name="selected_data[]" id="selectdata" value="{{ $id }}" >
+			->addColumn('checkbox', '<div  class="icheck-danger">
+                  <input type="checkbox" class="selected_data" name="selected_data[]" id="selectdata" value="{{ $id }}" >
                   <label for="selectdata"></label>
                 </div>')
 			->rawColumns(['checkbox', 'actions']);
@@ -109,7 +109,7 @@ class AdminGroupsDataTable extends DataTable {
 			[
 				'name' => 'checkbox',
 				'data' => 'checkbox',
-				'title' => '<div  class="icheck-danger d-inline ml-2">
+				'title' => '<div  class="icheck-danger">
                   <input type="checkbox" class="select-all" id="select-all"  onclick="select_all()" >
                   <label for="select-all"></label>
                 </div>',
