@@ -9,23 +9,23 @@ class BaboonShowPage extends Controller {
 <div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
-		<div class="btn-group">
-			<button type="button" class="btn btn-default">{{!empty($title)?$title:\'\'}}</button>
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-			<span class="caret"></span>
-			<span class="sr-only"></span>
-			</button>
+		<div class="">
+			<a>{{!empty($title)?$title:\'\'}}</a>
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<span class="caret"></span>
+				<span class="sr-only"></span>
+			</a>
 			<div class="dropdown-menu" role="menu">
-				<a href="{{aurl(\'{route}\')}}" class="dropdown-item">
+				<a href="{{aurl(\'{route}\')}}" class="dropdown-item"  style="color:#343a40">
 				<i class="fas fa-list"></i> {{trans(\'{lang}.show_all\')}}</a>
-				<a class="dropdown-item" href="{{aurl(\'{route}/\'.${route}->id.\'/edit\')}}">
+				<a class="dropdown-item"  style="color:#343a40" href="{{aurl(\'{route}/\'.${route}->id.\'/edit\')}}">
 					<i class="fas fa-edit"></i> {{trans(\'{lang}.edit\')}}
 				</a>
-				<a class="dropdown-item" href="{{aurl(\'{route}/create\')}}">
+				<a class="dropdown-item"  style="color:#343a40" href="{{aurl(\'{route}/create\')}}">
 					<i class="fas fa-plus"></i> {{trans(\'{lang}.create\')}}
 				</a>
 				<div class="dropdown-divider"></div>
-				<a data-toggle="modal" data-target="#deleteRecord{{${route}->id}}" class="dropdown-item" href="">
+				<a data-toggle="modal" data-target="#deleteRecord{{${route}->id}}" class="dropdown-item"  style="color:#343a40" href="#">
 					<i class="fas fa-trash"></i> {{trans(\'{lang}.delete\')}}
 				</a>
 			</div>

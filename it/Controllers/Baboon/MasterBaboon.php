@@ -338,16 +338,16 @@ protected $fillable = [' . "\n";
 <div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
-		<div class="btn-group">
-			<button type="button" class="btn btn-default">
+		<div class="">
+			<a href="#">
 			{{ !empty($title)?$title:\'\' }}
-			</button>
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			</a>
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			<span class="caret"></span>
 			<span class="sr-only"></span>
-			</button>
+			</a>
 			<div class="dropdown-menu" role="menu">
-				<a href="{{ aurl(\'{route2}\') }}" class="dropdown-item">
+				<a href="{{ aurl(\'{route2}\') }}"  style="color:#343a40"  class="dropdown-item">
 				<i class="fas fa-list"></i> {{ trans(\'{lang}.show_all\') }}</a>
 			</div>
 		</div>
@@ -495,22 +495,22 @@ protected $fillable = [' . "\n";
 <div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
-		<div class="btn-group">
-			<button type="button" class="btn btn-default">{{!empty($title)?$title:\'\'}}</button>
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		<div class="">
+			<a>{{!empty($title)?$title:\'\'}}</a>
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			<span class="caret"></span>
 			<span class="sr-only"></span>
-			</button>
+			</a>
 			<div class="dropdown-menu" role="menu">
-				<a href="{{aurl(\'{route2}\')}}" class="dropdown-item">
+				<a href="{{aurl(\'{route2}\')}}" class="dropdown-item" style="color:#343a40">
 				<i class="fas fa-list"></i> {{trans(\'{lang}.show_all\')}} </a>
-				<a href="{{aurl(\'{route2}/\'.${route2}->id)}}" class="dropdown-item">
+				<a href="{{aurl(\'{route2}/\'.${route2}->id)}}" class="dropdown-item" style="color:#343a40">
 				<i class="fa fa-eye"></i> {{trans(\'{lang}.show\')}} </a>
-				<a class="dropdown-item" href="{{aurl(\'{route2}/create\')}}">
+				<a class="dropdown-item" style="color:#343a40" href="{{aurl(\'{route2}/create\')}}">
 					<i class="fa fa-plus"></i> {{trans(\'{lang}.create\')}}
 				</a>
 				<div class="dropdown-divider"></div>
-				<a data-toggle="modal" data-target="#deleteRecord{{${route2}->id}}" class="dropdown-item" href="">
+				<a data-toggle="modal" data-target="#deleteRecord{{${route2}->id}}" class="dropdown-item" style="color:#343a40" href="#">
 					<i class="fa fa-trash"></i> {{trans(\'{lang}.delete\')}}
 				</a>
 			</div>
@@ -815,7 +815,7 @@ return [' . "\n";
 		$index .= '@section(\'content\')';
 		$index .= '
 {!! Form::open(["method" => "post","url" => [aurl(\'/{route}/multi_delete\')]]) !!}
-<div class="card card-default">
+<div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">{{!empty($title)?$title:\'\'}}</h3>
 		<div class="card-tools">
