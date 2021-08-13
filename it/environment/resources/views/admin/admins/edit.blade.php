@@ -12,6 +12,9 @@
 			<div class="dropdown-menu" role="menu">
 				<a href="{{aurl('admins')}}" class="dropdown-item" style="color:#343a40">
 				<i class="fas fa-list"></i> {{trans('admin.show_all')}}</a>
+				<a class="dropdown-item" href="{{aurl('admins/'.$admins->id)}}" style="color:#343a40">
+					<i class="fa fa-eye"></i> {{trans('admin.show')}}
+				</a>
 				<a class="dropdown-item" href="{{aurl('admins/create')}}" style="color:#343a40">
 					<i class="fa fa-plus"></i> {{trans('admin.create')}}
 				</a>

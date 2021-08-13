@@ -33,19 +33,19 @@ $(document).on('click','.checkinput',function(){
 </script>
 @endpush
 
-<div class="card card-default">
+<div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
-		<div class="btn-group">
-			<button type="button" class="btn btn-default">
+		<div class="">
+			<a>
 			{{ !empty($title)?$title:'' }}
-			</button>
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			</a>
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			<span class="caret"></span>
 			<span class="sr-only"></span>
-			</button>
+			</a>
 			<div class="dropdown-menu" role="menu">
-				<a href="{{aurl('admingroups')}}" class="dropdown-item">
+				<a href="{{aurl('admingroups')}}" class="dropdown-item" style="color:#343a40">
 				<i class="fas fa-list"></i> {{trans('admin.show_all')}}</a>
 			</div>
 		</div>
