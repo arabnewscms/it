@@ -406,7 +406,7 @@ class {ClassName}DataTable extends DataTable
 		$ajax .= '   		->addColumn(\'updated_at\', \'{{ date("Y-m-d H:i:s",strtotime($updated_at)) }}\')';
 
 		$ajax .= '            ->addColumn(\'checkbox\', \'<div  class="icheck-danger d-inline ml-2">
-                  <input type="checkbox" class="selected_data" value="" name="selected_data[]" id="selectdata" value="{{ $id }}" >
+                  <input type="checkbox" class="selected_data" name="selected_data[]" id="selectdata" value="{{ $id }}" >
                   <label for="selectdata"></label>
                 </div>\')
             ->rawColumns([\'checkbox\',\'actions\',' . $rowColumnsHtml . ']);

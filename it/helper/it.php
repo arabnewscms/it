@@ -83,7 +83,7 @@ if (!function_exists('it_views')) {
 
 if (!function_exists('it_version_message')) {
 	function it_version_message() {
-		$version = '[It V ' . it_version() . ' | https://it.phpanonymous.com]';
+		$version = '[IT v ' . it_version() . ' | https://it.phpanonymous.com]';
 		app()->singleton('it_version_message', function () use ($version) {
 			return $version;
 		});
