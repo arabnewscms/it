@@ -6,7 +6,7 @@ class BaboonShowPage extends Controller {
 	public static function show($r) {
 		$show = '@extends(\'{path}.index\')
 @section(\'content\')
-<div class="card card-default">
+<div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
 		<div class="btn-group">
@@ -57,7 +57,7 @@ class BaboonShowPage extends Controller {
 		@endpush
 		<div class="card-tools">
 			<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-			<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+			<button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
 		</div>
 	</div>
 	<!-- /.card-header -->

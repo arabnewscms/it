@@ -335,7 +335,7 @@ protected $fillable = [' . "\n";
 		$route = str_replace('controller', '', $route);
 		$input = '@extends(\'' . $blade_path . '.index\')
 @section(\'content\')
-<div class="card card-default">
+<div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
 		<div class="btn-group">
@@ -354,7 +354,7 @@ protected $fillable = [' . "\n";
 		</h3>
 		<div class="card-tools">
 			<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-			<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+			<button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
 		</div>
 	</div>
 	<!-- /.card-header -->
@@ -492,7 +492,7 @@ protected $fillable = [' . "\n";
 		$route = str_replace('controller', '', $route);
 		$input = '@extends(\'' . $blade_path . '.index\')
 @section(\'content\')
-<div class="card card-default">
+<div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
 		<div class="btn-group">
@@ -542,7 +542,7 @@ protected $fillable = [' . "\n";
 		@endpush
 		<div class="card-tools">
 			<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-			<button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+			<button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
 		</div>
 	</div>
 	<!-- /.card-header -->

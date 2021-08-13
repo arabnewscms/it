@@ -1,14 +1,48 @@
 @charset "UTF-8";
+
+table.dataTable thead tr th,
+table.dataTable tbody tr td {    
+ padding: 6px;
+ vertical-align: middle;
+ font-size: 14px;
+ font-weight: bolder;
+ white-space: nowrap;
+}
+table.dataTable tfoot tr th {    
+ padding: 3px;
+ vertical-align: middle;
+ font-size: 14px;
+ font-weight: bolder;
+}
+table.dataTable tfoot tr th input[type="text"],
+table.dataTable tfoot tr th select,
+ {
+ padding: 5px;    
+}
+
+table.dataTable .icheck-danger {
+    min-height: 22px;
+    margin-top: 4px!important;
+    margin-right: 4px!important;
+    margin-left: 4px!important;
+    margin-bottom: 6px!important;
+    padding-left: 0;
+}
+
 table.dataTable {
   clear: both;
-  margin-top: 6px !important;
-  margin-bottom: 6px !important;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
   max-width: none !important;
   border-collapse: separate !important;
   border-spacing: 0;
+  /*font-size: 15px;*/
 }
+
+
 table.dataTable td,
 table.dataTable th {
+   
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
@@ -58,7 +92,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 }
 div.dataTables_wrapper div.dataTables_processing {
   position: absolute;
-  top: 50%;
+  top: 10%;
   left: 50%;
   width: 200px;
   margin-left: -100px;
@@ -208,3 +242,5 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^=col-]:first
 div.table-responsive > div.dataTables_wrapper > div.row > div[class^=col-]:last-child {
   padding-right: 0;
 }
+
+

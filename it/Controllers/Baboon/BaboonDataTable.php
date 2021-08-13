@@ -67,7 +67,7 @@ class {ClassName}DataTable extends DataTable
 	        [
                 \'name\' => \'checkbox\',
                 \'data\' => \'checkbox\',
-                \'title\' => \'<div  class="icheck-danger d-inline ml-2">
+                \'title\' => \'<div  class="icheck-danger">
                   <input type="checkbox" class="select-all" id="select-all"  onclick="select_all()" >
                   <label for="select-all"></label>
                 </div>\',
@@ -405,7 +405,7 @@ class {ClassName}DataTable extends DataTable
 		$ajax .= '   		->addColumn(\'created_at\', \'{{ date("Y-m-d H:i:s",strtotime($created_at)) }}\')';
 		$ajax .= '   		->addColumn(\'updated_at\', \'{{ date("Y-m-d H:i:s",strtotime($updated_at)) }}\')';
 
-		$ajax .= '            ->addColumn(\'checkbox\', \'<div  class="icheck-danger d-inline ml-2">
+		$ajax .= '            ->addColumn(\'checkbox\', \'<div  class="icheck-danger">
                   <input type="checkbox" class="selected_data" name="selected_data[]" id="selectdata" value="{{ $id }}" >
                   <label for="selectdata"></label>
                 </div>\')
