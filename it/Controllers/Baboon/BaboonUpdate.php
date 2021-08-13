@@ -36,7 +36,7 @@ class BaboonUpdate extends Controller {
             {
         		${Name} =  {ModelName}::find($id);' . "\n";
 		$edit .= '        		return is_null(${Name}) || empty(${Name})?
-        		backWithError(trans("{lang}.undefinedRecord")) :
+        		backWithError(trans("{lang}.undefinedRecord"),aurl("{Name}")) :
         		view(\'{path}.{ClassName}.edit\',[
 				  \'title\'=>trans(\'{lang}.edit\'),
 				  \'{Name}\'=>${Name}
@@ -67,7 +67,7 @@ class BaboonUpdate extends Controller {
             {
         		${Name} =  {ModelName}::find($id);' . "\n";
 		$show .= '        		return is_null(${Name}) || empty(${Name})?
-        		backWithError(trans("{lang}.undefinedRecord")) :
+        		backWithError(trans("{lang}.undefinedRecord"),aurl("{Name}")) :
         		view(\'{path}.{ClassName}.show\',[
 				    \'title\'=>trans(\'{lang}.show\'),
 					\'{Name}\'=>${Name}
@@ -110,7 +110,7 @@ class BaboonUpdate extends Controller {
               // Check Record Exists
               ${Name} =  {ModelName}::find($id);
               if(is_null(${Name}) || empty(${Name})){
-              	return backWithError(trans("{lang}.undefinedRecord"));
+              	return backWithError(trans("{lang}.undefinedRecord"),aurl("{Name}"));
               }
               $data = $this->updateFillableColumns(); ' . "\n";
 
@@ -157,7 +157,7 @@ class BaboonUpdate extends Controller {
             {
                ${Name} = {ModelName}::find($id);
                if(is_null(${Name}) || empty(${Name})){
-                return backWithError(trans(\'{lang}.undefinedRecord\'),"{Name}");
+                return backWithSuccess(trans(\'{lang}.undefinedRecord\'),aurl("{Name}"));
                }
                ';
 		$i = 0;
@@ -174,7 +174,7 @@ class BaboonUpdate extends Controller {
 		$destroy .= '
 
                 ${Name}->delete();
-                return backWithSuccess(trans(\'{lang}.deleted\'),"{Name}");
+                return redirectWithSuccess(aurl("{Name}"),trans(\'{lang}.deleted\'));
 
             }
 
@@ -187,7 +187,7 @@ class BaboonUpdate extends Controller {
                     {
                     	${Name} = {ModelName}::find($id);
                     	if(is_null(${Name}) || empty(${Name})){
-		                 return backWithError(trans(\'{lang}.undefinedRecord\'));
+		                 return backWithError(trans(\'{lang}.undefinedRecord\'),aurl("{Name}"));
 		                }
                     	';
 		$i = 0;
@@ -205,11 +205,11 @@ class BaboonUpdate extends Controller {
 		                ${Name}->delete();
 
                     }
-                    return backWithSuccess(trans(\'{lang}.deleted\'),"{Name}");
+                    return backWithSuccess(trans(\'{lang}.deleted\'),aurl("{Name}"));
                 }else {
                     ${Name} = {ModelName}::find($data);
                     if(is_null(${Name}) || empty(${Name})){
-	                 return backWithError(trans(\'{lang}.undefinedRecord\'),"{Name}");
+	                 return backWithError(trans(\'{lang}.undefinedRecord\'),aurl("{Name}"));
 	                }
                     ' . "\n";
 		$i = 0;
@@ -225,7 +225,7 @@ class BaboonUpdate extends Controller {
 		$destroy .= '                    	it()->delete(\'{Name2}\',$data);' . "\n";
 		$destroy .= '
 	                ${Name}->delete();
-	                return backWithSuccess(trans(\'{lang}.deleted\'),"{Name}");
+	                return redirectWithSuccess(aurl("{Name}"),trans(\'{lang}.deleted\'));
                 }
             }
             ';

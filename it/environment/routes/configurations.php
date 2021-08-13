@@ -175,7 +175,7 @@ if (!function_exists('backWithSuccess')) {
 			]);
 		} else {
 			if (!empty($url)) {
-				return redirect(aurl($url));
+				return redirect($url);
 			} else {
 				return back();
 			}
@@ -195,7 +195,7 @@ if (!function_exists('backWithError')) {
 			]);
 		} else {
 			if (!empty($url)) {
-				return redirect(aurl($url));
+				return redirect($url);
 			} else {
 				return back();
 			}
