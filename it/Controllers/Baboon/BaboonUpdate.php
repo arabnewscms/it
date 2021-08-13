@@ -205,7 +205,7 @@ class BaboonUpdate extends Controller {
 		                ${Name}->delete();
 
                     }
-                    return backWithSuccess(trans(\'{lang}.deleted\'),aurl("{Name}"));
+                    return redirectWithSuccess(aurl("{Name}"),trans(\'{lang}.deleted\'));
                 }else {
                     ${Name} = {ModelName}::find($data);
                     if(is_null(${Name}) || empty(${Name})){
