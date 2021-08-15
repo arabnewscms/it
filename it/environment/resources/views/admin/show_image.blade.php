@@ -4,7 +4,8 @@ $random = Str::random(5);
 @endphp
 <div style="margin-top: 5px;display: inline-block;">
 <a href="#" data-toggle="modal" data-target="#img_{{ $random }}">
-  <i class="fa fa-image fa-2x"></i>
+
+  <img src="{{ it()->url($image) }}" style="width: 48px;height: 48px;object-fit: cover;border-radius: 50%;" class="img-thumbnail rounded-circle" alt="Cinque Terre">
 </a>
 </div>
 <div id="img_{{ $random }}" class="modal fade" role="dialog">

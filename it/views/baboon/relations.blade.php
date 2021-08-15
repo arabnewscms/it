@@ -1,7 +1,7 @@
 <div class="input_fields_wrap2">
 	@if(!empty($module_data) && count($module_data->relations) > 0)
 	@php
-	 $x = 0;
+	$x = 0;
 	@endphp
 	@foreach($module_data->relations as $relation)
 	<div class="col-md-12 well">
@@ -30,7 +30,7 @@ $app_model_file = str_replace('/', '\\\\', $app_model_file);
 $app_model_file = str_replace('\\\\', '\\', $app_model_file);
 ?>
 							<option value="App{{ $app_model_file }}"
-{{ $relation->linkatmodel == 'App'.$app_model_file?'selected':'' }}
+								{{ $relation->linkatmodel == 'App'.$app_model_file?'selected':'' }}
 							>App{{ $app_model_file }}</option>
 							@endforeach
 						</optgroup>
@@ -39,7 +39,7 @@ $app_model_file = str_replace('\\\\', '\\', $app_model_file);
 $data_ = explode('/', $model_list);
 $explode_last = $data_[count($data_) - 1];
 ?>
-@if(!in_array($explode_last,['Console','Http','Handlers','DataTables','Exceptions','Mail','Providers']))
+						@if(!in_array($explode_last,['Console','Http','Handlers','DataTables','Exceptions','Mail','Providers']))
 						<optgroup label="{{ $explode_last }}">
 							@foreach(array_filter(glob($model_list.'/*'), 'is_file') as $app_model_file)
 							<?php
@@ -49,8 +49,7 @@ $app_model_file = str_replace('/', '\\', $app_model_file);
 $app_model_file = str_replace('\\\\', '\\', $app_model_file);
 ?>
 							<option value="App{{ $app_model_file }}"
-{{ $relation->linkatmodel == 'App'.$app_model_file?'selected':'' }}
-
+								{{ $relation->linkatmodel == 'App'.$app_model_file?'selected':'' }}
 							>App{{ $app_model_file }}</option>
 							@endforeach
 						</optgroup>
@@ -83,7 +82,7 @@ $app_model_file = str_replace('\\\\', '\\', $app_model_file);
 	$x++;
 	@endphp
 	@endforeach
-@endif
+	@endif
 </div>
 <br>
 <div class="col-offset-left-2">

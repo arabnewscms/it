@@ -115,7 +115,7 @@ if (!function_exists('filterElement')) {
 			$select = "
 			this.api().columns([" . $key . "]).every(function () {
 				var column = this;
-                var select = '<select style=\"width:100%;\" class=\"form-control\"><option selected value=\"\">" . trans('admin.choose') . "</option>";
+                var select = '<select style=\"width:100%;\" class=\"form-control select2\"><option selected value=\"\">" . trans('admin.choose') . "</option>";
 			foreach ($data as $key => $val) {
 				$select .= '<option value=\"' . $key . '\">' . $val . '</option>';
 			}

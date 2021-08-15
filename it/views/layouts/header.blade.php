@@ -1,24 +1,17 @@
 <!DOCTYPE html>
-<html  lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}">
     <head>
         <title>{{!empty($title)?$title:it_trans('it.home')}}</title>
         <meta name="referrer" content="strict-origin" />
         <link href="{{it_des('it/css/bootstrap.min.css')}}" rel="stylesheet" id="bootstrap-css">
-       {{--  <link href="{{it_des('it/css/font-awesome.css')}}" rel="stylesheet" id="bootstrap-css"> --}}
         <link href="{{url('assets/plugins/fontawesome-free/css/all.min.css')}}" rel="stylesheet" id="bootstrap-css">
-
         <link href="{{it_des('it/css/style.css')}}" rel="stylesheet" id="bootstrap-css">
         <!--script src="{{it_des('it/js/jquery-1.11.1.min.js')}}"></script-->
         <script src="{{it_des('it/js/jquery-3.3.1.min.js')}}"></script>
+        {{-- <script src="https://code.jquery.com/ui/1.10.0/jquery-ui.min.js"></script> --}}
         <script src="{{it_des('it/js/bootstrap.min.js')}}"></script>
         <script src="{{it_des('it/js/run_prettify.js')}}"></script>
         <script src="{{it_des('it/js/it.js')}}"></script>
-        <script>
-        $(document).ready(function(){
-        //$("[rel='tooltip']").tooltip();
-        });
-        </script>
-       {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
         <link rel="icon" href="{{it_des('it/img/it48-48.png')}}" type="image/gif" sizes="16x16">
         @yield('header')
     </head>
@@ -28,7 +21,9 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="nav-btn btn-dark btn-lg accordion-toggle pull-left" title="Follow Us" role="tab" id="social-collapse" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></a>
+                <a class="nav-btn btn-dark btn-lg accordion-toggle pull-left" title="Follow Us" role="tab" id="social-collapse" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fa fa fa-globe"></i>
+                </a>
                 <a id="menu-toggle" href="#" class="nav-btn btn-dark btn-lg toggle">
                     <i class="fa fa-bars" style="color:#fff;"></i>
                 </a>
@@ -88,13 +83,13 @@
             <div class="accordion-social">
                 <ul class="panel-collapse collapse {{empty(Request::segment(2))?'in':''}} nav nav-stacked" role="tabpanel" aria-labelledby="social-collapse" id="collapseOne">
                     <li><a href="https://www.facebook.com/groups/anonymouses.developers" target="_blank">
-                    <i class="fa fa-lg fa-facebook"></i></a></li>
-                    <li><a href="https://youtube.com/c/phpanonymous" target="_blank"><i class="fa fa-lg fa-youtube"></i></a></li>
-                    <li><a href="https://github.com/arabnewscms/it" target="_blank"><i class="fa fa-lg fa-github"></i></a></li>
+                    <i class="fab fa-lg fa-facebook"></i></a></li>
+                    <li><a href="https://youtube.com/c/phpanonymous" target="_blank"><i class="fab fa-lg fa-youtube"></i></a></li>
+                    <li><a href="https://github.com/arabnewscms/it" target="_blank"><i class="fab fa-lg fa-github"></i></a></li>
                     <li><a href="https://www.facebook.com/groups/anonymouses.developers" target="_blank">
-                    <i class="fa fa-lg fa-facebook"></i></a></li>
-                    <li><a href="https://phpanonymous.com" target="_blank"><i class="fa fa-lg fa-flag"></i></a></li>
-                    <li><a href="https://www.facebook.com/anonym0us.dev" target="_blank"><i class="fa fa-lg fa-user"></i></a></li>
+                    <i class="fab fa-lg fa-facebook"></i></a></li>
+                    <li><a href="https://phpanonymous.com" target="_blank"><i class="fa fa-lg fa-pager"></i></a></li>
+                    <li><a href="https://www.facebook.com/anonym0us.dev" target="_blank"><i class="fab fa-lg fa-facebook-f"></i></a></li>
                 </ul>
             </div>
         </aside>

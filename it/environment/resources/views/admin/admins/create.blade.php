@@ -61,7 +61,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					{!! Form::label('group_id',trans('admin.group_id'),['class'=>'control-label']) !!}
-					{!! Form::select('group_id',App\Models\AdminGroup::pluck('group_name','id'),old('group_id'),['class'=>'form-control','placeholder'=>trans('admin.choose')]) !!}
+					{!! Form::select('group_id',App\Models\AdminGroup::pluck('group_name','id'),old('group_id'),['class'=>'form-control select2','placeholder'=>trans('admin.choose')]) !!}
 				</div>
 			</div>
 		</div>

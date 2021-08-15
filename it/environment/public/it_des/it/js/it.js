@@ -12,11 +12,9 @@ $(document).ready(function()
 		return false;
 	});
 
-	//Easing Scroll replace Anchor name in URL and Offset Position
-	$(function(){
-		$('a[href*=#]:not([href=#])').click(function()
-		{
-			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+	 //$('a[href*=#]:not([href=#])').click
+	 $(document).on('click','#to-top',function(){
+	 	if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
 
 				var target = $(this.hash);
 				target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
@@ -27,8 +25,7 @@ $(document).ready(function()
 					return false;
 				}
 			}
-		});
-	});
+	 });
 });
 $(document).ready(function(){
     $(".dropdown").hover(            

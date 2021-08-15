@@ -38,8 +38,8 @@
                         </g>
                     </svg>
                     @if(function_exists('it_des'))
-                    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-                    <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+                    <script src="{{it_des('it/js/jquery-3.3.1.min.js')}}"></script>
+                    <script src="https://code.jquery.com/ui/1.10.0/jquery-ui.min.js"></script>
                     <script type="text/javascript">
                     var timer;
                     function padColor(hexString) {

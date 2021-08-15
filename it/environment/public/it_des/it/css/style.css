@@ -28,28 +28,28 @@ a:hover{
 }
 
 .navbar-brand{
-	
+    
 }
 
 .navbar-brand>img{
-	margin: auto 0px auto 15px !important;
-	padding: auto;
+    margin: auto 0px auto 15px !important;
+    padding: auto;
 }
 
 .navbar-header{
-	margin-left:-4%!important;
+    margin-left:-4%!important;
 }
 
 .navbar-left{
-	margin-left:38.7px;
+    margin-left:38.7px;
 }
 
 .navbar-right{
-	margin-right:21px;
+    margin-right:21px;
 }
 
 .navbar-inverse{
-	border:none;
+    border:none;
 }
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
@@ -213,7 +213,7 @@ a:hover{
 .btn {
     border-radius: 0px;
     overflow: hidden;
-	border:none;
+    border:none;
 }
 .btn-success:hover, .btn-success:focus, .btn-success.focus, .btn-success:active, .btn-success.active, .open > .dropdown-toggle.btn-success {
     color: #fff;
@@ -273,39 +273,39 @@ a:hover{
 }
 
 .accordion-toggle{
-	z-index: 801;
+    z-index: 801;
     position: fixed;
     top: 0;
     left: .5%;
 }
 
 .accordion-toggle:hover, .accordion-toggle:focus{
-	cursor:pointer;
+    cursor:pointer;
 }
 
 .nav-btn{
-	display:block;
-	top: 0px;
-	padding-top: 10px;
-	padding-bottom: 15px;
-	text-align:center;
+    display:block;
+    top: 0px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    text-align:center;
 }
 
 .contact-panel{
-	border-radius:0;
-	background-color: #d9534f;
-	border-color: #d43f3a;
-	margin-bottom:0;
-	position:fixed;
-	bottom:0;
-	width:100%;
+    border-radius:0;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    margin-bottom:0;
+    position:fixed;
+    bottom:0;
+    width:100%;
 }
 
 .accordion label{
-	color:#fff;
+    color:#fff;
 }
 .accordion input{
-	border-radius:0;
+    border-radius:0;
 }
 
 .panel-heading,
@@ -314,46 +314,46 @@ a:hover{
 .panel-heading.focus,
 .panel-heading:active,
 .panel-heading.active{
-	cursor:pointer;
-	background-color: #c9302c;
-	border-color: #ac2925;
-	outline:none;
+    cursor:pointer;
+    background-color: #c9302c;
+    border-color: #ac2925;
+    outline:none;
 }
 
 .accordion-toggle{
-	text-align:center;
-	width:2.7%;
-	min-width: 50px;
+    text-align:center;
+    width:2.7%;
+    min-width: 50px;
 }
 
 .accordion-toggle span:after{
     /* symbol for "opening" panels */
-	font-family: 'FontAwesome';
-	/* essential for enabling glyphicon */
-	content:"\f078";
+    font-family: 'FontAwesome';
+    /* essential for enabling glyphicon */
+    content:"\f078";
     position:absolute;
     top:0;
     bottom:0;
     right:5%;
-	color: white;
-	text-align:right;
-	float:right;
-	vertical-align:middle;
-	margin-top:0;
-	font-weight:700;
-	font-size:120%;
-	text-decoration:none;
+    color: white;
+    text-align:right;
+    float:right;
+    vertical-align:middle;
+    margin-top:0;
+    font-weight:700;
+    font-size:120%;
+    text-decoration:none;
 }
 
 .collapsed span:after{
-	/* symbol for "collapsed" panels */
-	content:"\f077";
+    /* symbol for "collapsed" panels */
+    content:"\f077";
 }
 
 .contact-panel{
-	border-radius:0;
-	background-color: #d9534f;
-	border-color: #d43f3a;
+    border-radius:0;
+    background-color: #d9534f;
+    border-color: #d43f3a;
     margin-bottom:0;
     position:fixed;
     bottom:0;
@@ -362,34 +362,34 @@ a:hover{
 }
 
 .btn-dark{
-	border-radius: 0;
-	color: #fff;
-	background-color: rgba(0,0,0,0.4);
+    border-radius: 0;
+    color: #fff;
+    background-color: rgba(0,0,0,0.4);
 }
 
 .btn-dark:hover,
 .btn-dark:focus,
 .btn-dark:active,
 .btn-dark.active{
-	color: #fff;
-	background-color: rgba(0,0,0,0.7);
+    color: #fff;
+    background-color: rgba(0,0,0,0.7);
 }
 
 @media(min-width: 768px){
-	.contact-panel{
-		width:50%;
-	}
+    .contact-panel{
+        width:50%;
+    }
 }
 
 .social {
-	z-index: 801;
-	position: fixed;
-	top: 0%;
-	left: .5%;
-	padding: 0;
-	margin: 0;
-	font-size: 100%;
-	width:2.7%;
+    z-index: 801;
+    position: fixed;
+    top: 0%;
+    left: .5%;
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    width:2.7%;
 }
 .social ul {
     background: #222;
@@ -408,25 +408,37 @@ a:hover{
     background-color: #222;
 }
 */
+.accordion-social ul{
+    width: 100%;
+    min-width: 50px;
+}
+
 .social i {
-	width:100%;
-	min-width: 50px;
-	height: 100%;
-	min-height: 50px;
-	color: #FFF;
-	background-color: #222;
-    font-size: 22px;
+    width: 100%;
+    min-width: 50px;
+    height: 100%;
+    min-height: 50px;
+    color: #FFF;
+    background-color: #222;
+    font-size: 30px;
     text-align: center;
-    padding-top: 12px;
+    padding-top: 21px;
+    padding-bottom: 21px;
     -webkit-transition: all ease 0.3s;
     -moz-transition: all ease 0.3s;
     -ms-transition: all ease 0.3s;
     -o-transition: all ease 0.3s;
     transition: all ease 0.3s;
 }
-.social .fa-facebook:hover {
+
+.social .fa-facebook:hover,.social .fa-facebook-f:hover {
     background: #4060A5;
     border: 1px solid #4060A5;
+}
+
+.social .fa-youtube:hover {
+    background: #FF0000;
+    border: 1px solid #FF0000;
 }
 .social .fa-twitter:hover {
     background: #00ABE3;
@@ -452,7 +464,7 @@ a:hover{
     background: #00C6FF;
     border: 1px solid #00C6FF;
 }
-.social .fa-stack-exchange:hover {
+.social .fa-pager:hover {
     background: #4D86C9;
     border: 1px solid #4D86C9;
 }
@@ -460,16 +472,9 @@ a:hover{
     background: #e88845;
     border: 1px solid #e88845;
 }
-#social-collapse:after {
-    font-family: 'FontAwesome';
-    content: "\f068";
-    float: none;
-    position: relative;
-    color: white;
-}
-#social-collapse.collapsed:after {
-    content: "\f067";
-}
+  
+
+ 
 ol.linenums{
     counter-reset:linenumber;
 }
@@ -477,6 +482,7 @@ ol.linenums li{
     list-style-type:none;
     counter-increment:linenumber;
 }
+
 ol.linenums li:before{
     content: counter(linenumber);
     float:left;
@@ -490,49 +496,50 @@ ol.linenums li:before{
 }
 
 .masthead{
-	display: table;
-	position: relative;
-	min-width: 100%;
-	min-height: 100%;
-	width: 100%;
-	height: 100%;
-	background: transparent url("../img/bg.jpg") no-repeat fixed 0px 0px / cover;
-	z-index: 800;
-	background-color:#000;
+    display: table;
+    position: relative;
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+    background: transparent url("../img/bg.jpg") no-repeat fixed 0px 0px / cover;
+    z-index: 800;
+    background-color:#000;
 }
 
 .text-white{
-	color:#fff;
+    color:#fff;
 }
 
 .text-vertical-center {
-	display: table-cell;
-	text-align: center;
-	vertical-align: middle;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 }
+
 .text-vertical-center h1 {
-	margin: 0;
-	padding: 0;
-	font-size: 4.5em;
-	font-weight: 700;
+    margin: 0;
+    padding: 0;
+    font-size: 4.5em;
+    font-weight: 700;
 }
 section {
-	padding-bottom: 5%;
+    padding-bottom: 5%;
 }
 .bg-inverse {
-	color: #FFF;
-	background-color: #333;
+    color: #FFF;
+    background-color: #333;
 }
 .centered {
-	text-align: center;
+    text-align: center;
 }
 .mt {
-	margin-top: 2%;
+    margin-top: 2%;
 }
 .text-vertical-center {
-	display: table-cell;
-	text-align: center;
-	vertical-align: middle;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 }
 .text-vertical-center h1 {
     margin: 0;
@@ -541,15 +548,15 @@ section {
     font-weight: 700;
 }
 hr.small {
-	max-width: 100px;
+    max-width: 100px;
 }
 
 small{
-	/*color:#eee!important;*/
+    /*color:#eee!important;*/
 }
 
 .page-header{
-	text-align: center;    
+    text-align: center;    
 }
 
 /*page styling*/
@@ -567,17 +574,17 @@ small{
     padding: 20px;
 }
 .bs-right-panel{
-	padding: 10px;
-	width:100%;
-	float:none;
-	text-align:center;
-	margin:0 auto;
+    padding: 10px;
+    width:100%;
+    float:none;
+    text-align:center;
+    margin:0 auto;
 }
 .bs-right-panel img{
-	width:100%;
-	margin:0;
-	padding:0;
-	
+    width:100%;
+    margin:0;
+    padding:0;
+    
 }
 .bs-callout:last-child {
     margin-bottom: 0px;
@@ -602,10 +609,10 @@ small{
     color: #fff;
 }
 .title-thin {
-	font-weight: 300;
+    font-weight: 300;
 }
 .service-item {
-	margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 /* 
@@ -615,9 +622,9 @@ Social Accordion Styling
 */
 .nav-stacked > li > a {
     position: relative;
-	display: block;
-	padding: 0!important;
-	margin: 0!important;
+    display: block;
+    padding: 0!important;
+    margin: 0!important;
 }
  
 
@@ -636,18 +643,18 @@ Social Accordion Styling
 .nocode{
     font-weight:700;
     color:#c7254e;
-	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 pre, .nocode{
-	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .prettyprint  code > .atv,
 .prettyprint code > .atn,
 .prettyprint code > .pun {
-	background:#c7254e!important;
-	color:#fff!important;
+    background:#c7254e!important;
+    color:#fff!important;
 }
 
 blockquote
@@ -668,24 +675,24 @@ blockquote
 }
 
 .updated{
-	display:block;
-	position:relative;
-	width:100%;
-	margin:0;
-	padding:.5%;
-	text-align:center;
-	background:#ededed;
-	color:#222222;
+    display:block;
+    position:relative;
+    width:100%;
+    margin:0;
+    padding:.5%;
+    text-align:center;
+    background:#ededed;
+    color:#222222;
 }
 
 ins{
-	background:#c9302c;
-	border-color:#ac2925;
+    background:#c9302c;
+    border-color:#ac2925;
 }
 
 .addthis_recommended_vertical{
-	background:#c9302c;
-	border-color:#ac2925;
+    background:#c9302c;
+    border-color:#ac2925;
 }
 
 .mega-dropdown {
@@ -890,11 +897,11 @@ footer,.footer {
 .footer-ul i { margin-right:10px;}
 .footer-ul li a:hover {transition: color 0.2s linear 0s, background 0.2s linear 0s; color:#ff670f; }
 
-.social:hover {
+/*.social:hover {
      -webkit-transform: scale(1.1);
      -moz-transform: scale(1.1);
      -o-transform: scale(1.1);
- }
+ }*/
  
  .icon-ul { list-style-type:none !important; margin:0px; padding:0px;}
  .icon-ul li { line-height:75px; width:100%; float:left;}
@@ -927,3 +934,18 @@ footer,.footer {
      margin:0px auto;
      padding:0px;
  }
+
+
+
+ .baboon_monkey{
+    margin-right: 5px;
+    margin-left: 39px;
+ }
+
+ .baboon_monkey i{
+    font-size: 35px;
+    position: absolute;
+    margin-left: -37px;
+ }
+
+
