@@ -75,7 +75,15 @@ $admin_path = 'resources' . explode('resources', $admin_pathes)[1];
     </div>
     <div class="col-md-11">
       <div class="form-group controller_name">
-        <label for="controller_name" class="col-md-12">{{it_trans('it.controller_name')}}</label>
+        <label for="controller_name" class="col-md-12">{{it_trans('it.controller_name')}} -
+          <small>
+            <i class="fa fa-exclamation-triangle" style="width:10px;height:10px;color:orange;"></i>&nbsp; don't write <del style="color:red">ExampleController
+          </del><i class="fa fa-times" style="color:red"></i>
+           write <b style="color:#090">Example
+            <i class="fa fa-check" style="width:10px;height:10px;color:green;"></i>
+          </b>
+          </small>
+          </label>
         <input type="text" name="controller_name" dir="ltr" value="{{!empty($module_data)?$module_data->controller_name:old('controller_name')}}" class="form-control" placeholder="{{it_trans('it.controller_name')}}"  />
         <label for="controller_namespace" class="col-md-12">{{it_trans('it.controller_namespace')}}</label>
         <select name="controller_namespace" size="5" class="form-control controller_namespace">
