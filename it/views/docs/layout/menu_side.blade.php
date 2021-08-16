@@ -18,11 +18,23 @@
             <li><a href="#baboon_4">{{ it_trans('docs.Columns_Inputs') }}</a></li>
             <li><a href="#baboon_5">{{ it_trans('docs.Relation_Models') }}</a></li>
         </ul>
+        <li><a href="#create_crud">{{ it_trans('docs.create_demo_crud') }}</a>
+        <ul class="nav">
+            <li><a href="#create_crud_1">1 - {{ it_trans('docs.create_demo_crud_init') }}</a></li>
+            <li><a href="#create_crud_2">2 - {{ it_trans('docs.create_demo_crud_language_lango') }}</a></li>
+            <li><a href="#create_crud_3">3 - {{ it_trans('docs.create_demo_crud_input_columns') }}</a></li>
+        </ul>
     </li>
+
     {{-- <li><a href="#line9">Files & Sources</a></li>
     <li><a href="#line10">Version History (Changelog)</a></li>
     <li><a href="#line11">Copyright and license</a></li> --}}
 </ul>
+<div>
+    <center>Back To</center>
+    <p><a href="{{ url('it') }}">IT</a>,<a href="{{ url('it/baboon-sd') }}">Baboon Maker</a></p>
+
+</div>
 <div class="col-md-12">
     <p>الوثائق متاحة باللغة العربية حاليا ونعمل على انشاء النسخة الانجليزية قريبا نقدر لك  صبرك - هذه الوثائق تجريبية</p>
     <p>{{ it_trans('docs.package_version') }} {{ it_version() }} <br> {{ it_trans('docs.docs_version') }} {{ it_docs_version() }}</p>

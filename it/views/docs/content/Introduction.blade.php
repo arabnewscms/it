@@ -8,6 +8,7 @@
                         <ul>
                             <li><strong>{{ it_trans('docs.package_name') }} : </strong>IT</li>
                             <li><strong>{{ it_trans('docs.package_version') }} : </strong> v {{ it_version() }}</li>
+                            <li><strong>{{ it_trans('docs.docs_version') }} : </strong> v {{ it_docs_version() }}</li>
                             <li><strong>{{ it_trans('docs.package_author') }}  : </strong> <a href="https://www.facebook.com/anonym0us.dev" target="_blank">Mahmoud Ibrahim</a></li>
                             <li><strong>{{ it_trans('docs.package_laravel') }}  : </strong> <a href="https://laravel.com/docs/8.x" target="_blank">Laravel {{ it_laravelversion() }}</a></li>
                             <li><strong>{{ it_trans('docs.package_repo') }} : </strong> <a href="https://github.com/arabnewscms/it" target="_blank">https://github.com/arabnewscms/it</a></li>

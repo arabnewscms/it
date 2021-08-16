@@ -27,7 +27,7 @@
         <div class="col-md-12" style="min-height:900px">
             <h4 id="baboon_2">{{ it_trans('docs.Initialize_CRUD') }}</h4>
             <p>{!! it_trans('docs.Initialize_CRUD_') !!}</p>
-            <img src="{{ url('it_des/docs/images/upload/Initialize_CRUD.png') }}" style="width:100%" alt="">
+            <img src="{{ url('it_des/docs/images/upload/Initialize_CRUD.png') }}" style="width:100%">
             <hr />
             <p>{!! it_trans('docs.playlist_') !!}</p>
             <div class="intro1">
@@ -47,7 +47,7 @@
         <div class="col-md-12" style="min-height:900px">
             <h4 id="baboon_3">{{ it_trans('docs.Language_Other') }}</h4>
             <p>{!! it_trans('docs.Language_Other_') !!}</p>
-             <img src="{{ url('it_des/docs/images/upload/Language_Other.png') }}" style="width:100%" alt="">
+             <img src="{{ url('it_des/docs/images/upload/Language_Other.png') }}" style="width:100%">
         </div>
         <!-- end col -->
     </div>
@@ -58,7 +58,7 @@
         <div class="col-md-12" style="min-height:900px">
             <h4 id="baboon_4">{{ it_trans('docs.Columns_Inputs') }}</h4>
             <p>{!! it_trans('docs.Columns_Inputs_') !!}</p>
-            <img src="{{ url('it_des/docs/images/upload/Columns_Inputs.png') }}" style="width:100%" alt="">
+            <img src="{{ url('it_des/docs/images/upload/Columns_Inputs.png') }}" style="width:100%">
 
         </div>
         <!-- end col -->
@@ -74,15 +74,17 @@
 
             public function user_id
             (){
-            return $this->hasOne(App\Models\User::class,"id","user_id");
+            return $this->hasOne(\App\Models\User::class,"id","user_id");
             }
             </pre>
-            <img src="{{ url('it_des/docs/images/upload/Relation_Models.png') }}" style="width:100%" alt="">
+            <img src="{{ url('it_des/docs/images/upload/Relation_Models.png') }}" style="width:100%">
         </div>
         <!-- end col -->
     </div>
     <!-- end row -->
 
 
+
 </section>
 <!-- end section -->
+  @include('docs.content.baboon.create_demo_crud')

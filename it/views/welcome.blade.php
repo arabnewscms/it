@@ -1,25 +1,46 @@
 @extends('index')
 @section('it')
-<div class="container-fluid">
-<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-7">
-
-<div class="panel panel-default">
-    <div class="bs-callout bs-callout-danger">
-        <h4>{{it_trans('it.welcome')}}</h4>
-        <p>
-            {{it_trans('it.welcome')}}
-            {{it_version()}}
-            <blockquote>
-                <b>Note: </b>   Choose program in tools dropdown
-            </blockquote>
-        </p>
-        <p>
-            <pre class="prettyprint linenums:1">
-                Test Line<br>
-            </pre>
-        </p>
-        <p> </p>
+<div class="masthead">
+    <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#bs-carousel" data-slide-to="1"></li>
+            <li data-target="#bs-carousel" data-slide-to="2"></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item slides active">
+                <div class="slide-1"></div>
+                <div class="hero">
+                    <hgroup>
+                    <h1>We are creative</h1>
+                    <h3>Get start your next awesome project</h3>
+                    </hgroup>
+                    <button class="btn btn-hero btn-lg hidden" role="button">See all features</button>
+                </div>
+            </div>
+            <div class="item slides">
+                <div class="slide-2"></div>
+                <div class="hero">
+                    <hgroup>
+                    <h1>We are smart</h1>
+                    <h3>Get start your next awesome project</h3>
+                    </hgroup>
+                    <button class="btn btn-hero btn-lg hidden" role="button">See all features</button>
+                </div>
+            </div>
+            <div class="item slides">
+                <div class="slide-3"></div>
+                <div class="hero">
+                    <hgroup>
+                    <h1>We are amazing</h1>
+                    <h3>Get start your next awesome project</h3>
+                    </hgroup>
+                    <button class="btn btn-hero btn-lg hidden" role="button">See all features</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

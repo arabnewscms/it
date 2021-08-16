@@ -93,16 +93,17 @@ if (!function_exists('it_version_message')) {
 
 if (!function_exists('it_version')) {
 	function it_version() {
-		$version = '1.6.10';
+		$version = '1.6.12';
 		app()->singleton('it_version', function () use ($version) {
 			return $version;
 		});
 		return $version;
 	}
 }
+
 if (!function_exists('it_docs_version')) {
 	function it_docs_version() {
-		return '1.0.0';
+		return '1.1';
 	}
 }
 

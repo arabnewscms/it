@@ -162,7 +162,7 @@ $(document).ready(function(){
 
   $(document).on('click','.getfa',function(){
     var getfa = $(this).attr('fa');
-    $('.fa_menulist').html('<i class="'+getfa+' fa-2x"></i>');
+    $('.fa_menulist').html('<i class="'+getfa+' fa-1x"></i>');
     $('.fa_icon').val(getfa);
     return false;
   });

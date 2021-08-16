@@ -168,9 +168,10 @@ $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_p
       <div class="clearfix"></div>
     </div>
     @endif
-    <div class="alert alert-info">
+    <div class="col-md-6">
+      <div class="alert alert-info">
       <center><h3>CRUD Menu List</h3></center>
-      <ul dir="rtl">
+      <ul>
         <li><span class="fa_menulist">
           <i class="{{ !empty($module_data)? $module_data->fa_icon:'' }}"></i>
           </span> <span class="project_title_final">{{ !empty($module_data)? $module_data->module_name:'None Name' }}</span> </li>
@@ -180,12 +181,13 @@ $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_p
                 <span class="fa_menulist">
                   <i class="{{ !empty($module_data)? $module_data->fa_icon:'' }}"></i>
                   </span> <span class="project_title_final">{{ !empty($module_data)? $module_data->module_name:'None Name' }}</span> </li>
-                  <li><i class="fa fa-plus"></i> {{ trans('admin.create') }} </li>
+                  <li><i class="fa fa-plus"></i> Create </li>
                 </ul>
               </li>
             </ul>
             <input type="hidden" name="fa_icon" value="{{ !empty($module_data)? $module_data->fa_icon:old('fa_icon') }}" class="fa_icon">
           </div>
+    </div>
           <div class="clearfix"></div>
           <hr />
           {{--   <div class="alert alert-warning">

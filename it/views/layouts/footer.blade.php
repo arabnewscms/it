@@ -26,9 +26,7 @@
 </div>
 </div>
 <div class="col-md-4 hidden-xs hidden-sm">
-<br>
-<br>
-<br>
+
 <div class="panel panel-default">
     <div class="bs-callout bs-right-panel">
         {{--  <div class="row">

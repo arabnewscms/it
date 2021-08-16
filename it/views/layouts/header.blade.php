@@ -8,11 +8,10 @@
         <link href="{{it_des('it/css/style.css')}}" rel="stylesheet" id="bootstrap-css">
         <!--script src="{{it_des('it/js/jquery-1.11.1.min.js')}}"></script-->
         <script src="{{it_des('it/js/jquery-3.3.1.min.js')}}"></script>
-        {{-- <script src="https://code.jquery.com/ui/1.10.0/jquery-ui.min.js"></script> --}}
         <script src="{{it_des('it/js/bootstrap.min.js')}}"></script>
         <script src="{{it_des('it/js/run_prettify.js')}}"></script>
         <script src="{{it_des('it/js/it.js')}}"></script>
-        <link rel="icon" href="{{it_des('it/img/it48-48.png')}}" type="image/gif" sizes="16x16">
+        <link rel="icon" href="{{it_des('it/img/it48-48.png')}}">
         @yield('header')
     </head>
 </head>
@@ -93,54 +92,6 @@
                 </ul>
             </div>
         </aside>
-        @if(empty(Request::segment(2)))
-        <div class="masthead">
-            <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#bs-carousel" data-slide-to="1"></li>
-                    <li data-target="#bs-carousel" data-slide-to="2"></li>
-                </ol>
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item slides active">
-                        <div class="slide-1"></div>
-                        <div class="hero">
-                            <hgroup>
-                            <h1>We are creative</h1>
-                            <h3>Get start your next awesome project</h3>
-                            </hgroup>
-                            <button class="btn btn-hero btn-lg hidden" role="button">See all features</button>
-                        </div>
-                    </div>
-                    <div class="item slides">
-                        <div class="slide-2"></div>
-                        <div class="hero">
-                            <hgroup>
-                            <h1>We are smart</h1>
-                            <h3>Get start your next awesome project</h3>
-                            </hgroup>
-                            <button class="btn btn-hero btn-lg hidden" role="button">See all features</button>
-                        </div>
-                    </div>
-                    <div class="item slides">
-                        <div class="slide-3"></div>
-                        <div class="hero">
-                            <hgroup>
-                            <h1>We are amazing</h1>
-                            <h3>Get start your next awesome project</h3>
-                            </hgroup>
-                            <button class="btn btn-hero btn-lg hidden" role="button">See all features</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @else
-        <br>
-        <br>
-        <br>
-        @endif
+
     </div>
 </div>

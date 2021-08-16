@@ -2,21 +2,20 @@
 @section('it')
 <link href="{{it_des('it/css/baboon.css')}}" rel="stylesheet" id="bootstrap-css">
 @include('baboon.bundel_js')
-
 @if(session()->has('code'))
 {!! session()->get('code') !!}
 @endif
-<div class="alert alert-danger messages_baboon hidden"></div>
-<div class="alert alert-success success_message hidden"></div>
 <form method="post" id="baboon">
   <input type="hidden" name="_token" value="{{csrf_token()}}" />
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 baboon-tab-container">
+    <div class="alert alert-danger messages_baboon hidden"></div>
+    <div class="alert alert-success success_message hidden"></div>
     <div class="tabbable" id="tabs-114052">
       <ul class="nav nav-tabs">
         <li class="nav-item active">
           <a class="nav-link" href="#panel-info" aria-expanded="true" data-toggle="tab">
             <h4 class="fa fa-cogs "></h4>
-           <b>Init</b> CRUD-info</a>
+          <b>Init</b> CRUD-info</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#panel-language" data-toggle="tab">
@@ -26,7 +25,7 @@
         <li class="nav-item">
           <a class="nav-link " href="#panel-columns" data-toggle="tab">
             <h4 class="fa fa-table"></h4>
-           Inputs & columns</a>
+          Inputs & columns</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#panel-relations" data-toggle="tab">
@@ -40,7 +39,6 @@
           </button>
           <i class="fa fa-spinner  fa-spin loading_genereate hidden"></i>
         </li>
-
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="panel-info">
@@ -73,6 +71,5 @@
       </div>
     </div>
   </div>
-
 </form>
 @endsection
