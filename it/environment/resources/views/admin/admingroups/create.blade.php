@@ -112,68 +112,76 @@ $(document).on('click','.checkinput',function(){
 							<td>
 							</td>
 						</tr>
-						@foreach(require app_path('Http/AdminRouteList.php') as $perm)
+						@foreach(require app_path('Http/AdminRouteList.php') as $key=> $value)
 						<tr>
-							<td>{{trans('admin.'.$perm)}}</td>
+							<td>{{trans('admin.'.$key)}}</td>
 							<td>
+								@if(is_array($value) && in_array('read',$value))
 								<div class="form-group">
 									<div class="custom-control custom-switch">
 										<input
 										type="checkbox"
-										class="custom-control-input checkinput {{ $perm }}_show"
-										permission_name="{{ $perm }}"
-										name="{{ $perm }}_show"
-										{{old($perm.'_show') == 'yes'?'checked':'' }}
+										class="custom-control-input checkinput {{ $key }}_show"
+										permission_name="{{ $key }}"
+										name="{{ $key }}_show"
+										{{old($key.'_show') == 'yes'?'checked':'' }}
 										value="yes"
-										id="{{ $perm }}_show">
-										<label class="custom-control-label" for="{{ $perm }}_show"></label>
+										id="{{ $key }}_show">
+										<label class="custom-control-label" for="{{ $key }}_show"></label>
 									</div>
 								</div>
+								@endif
 							</td>
 							<td>
+								@if(is_array($value) && in_array('create',$value))
 								<div class="form-group">
 									<div class="custom-control custom-switch">
 										<input
 										type="checkbox"
-										class="custom-control-input checkinput {{ $perm }}_add"
-										permission_name="{{ $perm }}"
-										name="{{ $perm }}_add"
-										{{old($perm.'_add') == 'yes'?'checked':'' }}
+										class="custom-control-input checkinput {{ $key }}_add"
+										permission_name="{{ $key }}"
+										name="{{ $key }}_add"
+										{{old($key.'_add') == 'yes'?'checked':'' }}
 										value="yes"
-										id="{{ $perm }}_add">
-										<label class="custom-control-label" for="{{ $perm }}_add"></label>
+										id="{{ $key }}_add">
+										<label class="custom-control-label" for="{{ $key }}_add"></label>
 									</div>
 								</div>
+								@endif
 							</td>
 							<td>
+								@if(is_array($value) && in_array('update',$value))
 								<div class="form-group">
 									<div class="custom-control custom-switch">
 										<input
 										type="checkbox"
-										class="custom-control-input checkinput {{ $perm }}_edit"
-										permission_name="{{ $perm }}"
-										name="{{ $perm }}_edit"
-										{{old($perm.'_edit') == 'yes'?'checked':'' }}
+										class="custom-control-input checkinput {{ $key }}_edit"
+										permission_name="{{ $key }}"
+										name="{{ $key }}_edit"
+										{{old($key.'_edit') == 'yes'?'checked':'' }}
 										value="yes"
-										id="{{ $perm }}_edit">
-										<label class="custom-control-label" for="{{ $perm }}_edit"></label>
+										id="{{ $key }}_edit">
+										<label class="custom-control-label" for="{{ $key }}_edit"></label>
 									</div>
 								</div>
+								@endif
 							</td>
 							<td>
+								@if(is_array($value) && in_array('delete',$value))
 								<div class="form-group">
 									<div class="custom-control custom-switch">
 										<input
 										type="checkbox"
-										class="custom-control-input checkinput {{ $perm }}_delete"
-										permission_name="{{ $perm }}"
-										name="{{ $perm }}_delete"
-										{{old($perm.'_delete') == 'yes'?'checked':'' }}
+										class="custom-control-input checkinput {{ $key }}_delete"
+										permission_name="{{ $key }}"
+										name="{{ $key }}_delete"
+										{{old($key.'_delete') == 'yes'?'checked':'' }}
 										value="yes"
-										id="{{ $perm }}_delete">
-										<label class="custom-control-label" for="{{ $perm }}_delete"></label>
+										id="{{ $key }}_delete">
+										<label class="custom-control-label" for="{{ $key }}_delete"></label>
 									</div>
 								</div>
+								@endif
 							</td>
 						</tr>
 						@endforeach

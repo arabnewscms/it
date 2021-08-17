@@ -666,30 +666,52 @@ protected $fillable = [' . "\n";
 		$checkRoute = app_path('Http/AdminRouteList.php');
 		if (file_exists($checkRoute)) {
 			$baboonRouteListRole = include $checkRoute;
+		} else {
+			$baboonRouteListRole = [];
 		}
-		$the_master_admin_route_list = [];
-
+		$the_master_admin_route_list = $baboonRouteListRole;
 		$routes = '<?php
+/*
+* To implement in admingroups permissions
+* to remove CRUD from Validation remove route name
+* CRUD Role permission (create,read,update,delete)
+*/
 return [' . "\n";
 
-		if (!empty($baboonRouteListRole) && count($baboonRouteListRole) > 0) {
-			for ($x = 0; $x < count($baboonRouteListRole); $x++) {
-				$the_master_admin_route_list[] = $baboonRouteListRole[$x];
-			}
-		}
+		$routeName = str_replace('controller', '', strtolower($r->input('controller_name')));
+		$mastername = [];
+		$mastername[$routeName] = ["create", "update", "read", "delete"];
 
-		$mastername = str_replace('controller', '', strtolower($r->input('controller_name')));
-
-		$the_master_admin_route_list[] = $mastername;
+		$the_master_admin_route_list = array_merge($mastername, $the_master_admin_route_list);
 		// Remove Duplicate Values
-		$the_master_admin_route_list = array_unique($the_master_admin_route_list);
+		//$the_master_admin_route_list = array_unique($the_master_admin_route_list, SORT_STRING);
 		$x2 = 0;
-		foreach ($the_master_admin_route_list as $route) {
-			$routes .= '	"' . $route . '",' . "\n";
+		foreach ($the_master_admin_route_list as $key => $value) {
+			$rules = '';
+
+			if (is_array($value) && in_array('create', $value)) {
+				$rules .= '"create",';
+			}
+
+			if (is_array($value) && in_array('read', $value)) {
+				$rules .= '"read",';
+			}
+
+			if (is_array($value) && in_array('update', $value)) {
+				$rules .= '"update",';
+			}
+
+			if (is_array($value) && in_array('delete', $value)) {
+				$rules .= '"delete",';
+			}
+
+			$rules = rtrim($rules, ",");
+			//dd($rules);
+			$routes .= '	"' . $key . '"=>[' . $rules . '],' . "\n";
 
 			// Add Full Role In TBL to Master Group 1
 			self::insertRoleInTbl([
-				'name' => $route,
+				'name' => $key,
 				'admin_groups_id' => 1,
 				'show' => 'yes',
 				'add' => 'yes',
@@ -698,7 +720,7 @@ return [' . "\n";
 			]);
 		}
 
-		$routes .= "\n" . '];';
+		$routes .= '];';
 
 		return $routes;
 	}
