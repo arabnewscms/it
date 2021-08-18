@@ -76,10 +76,22 @@ class Generate extends Command {
 		$APP_NAME = $this->ask('What is Your APP NAME ?');
 		self::changeEnv('APP_NAME', $APP_NAME);
 
+		// Set Project URL //
+		$NEED_APP_URL = $this->confirm('Enter Full Project URL default is http://localhost');
+
 		// Set CUSTOM PORT //
 		$NEED_PORT = $this->confirm('You Want Add A Custom Port To Your localhost ?');
 		if ($NEED_PORT) {
 			$HAVE_PORT = $this->ask('What is Your Custom Domain Port (Default Port is 80) ?');
+
+		}
+
+		if (!empty($HAVE_PORT) && !empty($NEED_APP_URL)) {
+			self::changeEnv('APP_URL', $NEED_APP_URL . ':' . $HAVE_PORT);
+		} elseif (!empty($NEED_APP_URL)) {
+			self::changeEnv('APP_URL', $NEED_APP_URL);
+		} else {
+			self::changeEnv('APP_URL', 'http://localhost');
 		}
 
 		// Set  CUSTOM PORT //
@@ -148,11 +160,6 @@ class Generate extends Command {
 				}
 			}
 
-			if (!empty($HAVE_PORT)) {
-				self::changeEnv('APP_URL', 'http://localhost:' . $HAVE_PORT);
-			} else {
-				self::changeEnv('APP_URL', 'http://localhost');
-			}
 		}
 		$this->line("we are build your admin panel and downloading default packages this new version is super fast please wait ...");
 		//$phpversion = explode('.', phpversion())[1];

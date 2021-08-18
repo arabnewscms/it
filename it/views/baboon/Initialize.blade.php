@@ -87,9 +87,9 @@ $admin_path = 'resources' . explode('resources', $admin_pathes)[1];
         <input type="text" name="controller_name" dir="ltr" value="{{!empty($module_data)?$module_data->controller_name:old('controller_name')}}" class="form-control" placeholder="{{it_trans('it.controller_name')}}"  />
         <label for="controller_namespace" class="col-md-12">{{it_trans('it.controller_namespace')}}</label>
         <select name="controller_namespace" size="5" class="form-control controller_namespace">
-          <option value="App\Http\Controllers"
+          {{-- <option value="App\Http\Controllers"
             {{ !empty($module_data) && $module_data->controller_namespace == 'App\Http\Controllers'?'selected':'' }}
-          selected="selected">App\Http\Controllers</option>
+          selected="selected">App\Http\Controllers</option> --}}
           @foreach(array_filter(glob(app_path('Http/Controllers').'/*'), 'is_dir') as $namespaces)
           <?php
 // Check if Duplicate name to explode it
