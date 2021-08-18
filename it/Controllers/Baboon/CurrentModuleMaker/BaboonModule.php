@@ -79,6 +79,24 @@ class BaboonModule extends Controller {
 			'relations' => $this->getRelations(),
 			'count_inputs' => count(request('col_name_convention')),
 			'inputs_columns' => $this->prepareInputs(),
+			'datatable' => [
+				'datatable_pdf' => request('datatable_pdf') == 'yes' ? 'yes' : 'no',
+				'datatable_csv' => request('datatable_csv') == 'yes' ? 'yes' : 'no',
+				'datatable_xlxs' => request('datatable_xlxs') == 'yes' ? 'yes' : 'no',
+				'datatable_print' => request('datatable_print') == 'yes' ? 'yes' : 'no',
+				'datatable_reload' => request('datatable_reload') == 'yes' ? 'yes' : 'no',
+				'datatable_delete' => request('datatable_delete') == 'yes' ? 'yes' : 'no',
+				'datatable_add' => request('datatable_add') == 'yes' ? 'yes' : 'no',
+				'datatable_action' => request('datatable_action') == 'yes' ? 'yes' : 'no',
+				'datatable_created_at' => request('datatable_created_at') == 'yes' ? 'yes' : 'no',
+				'datatable_updated_at' => request('datatable_updated_at') == 'yes' ? 'yes' : 'no',
+				'datatable_filter' => request('datatable_filter') == 'yes' ? 'yes' : 'no',
+				'datatable_checkbox' => request('datatable_checkbox') == 'yes' ? 'yes' : 'no',
+				'datatable_record_id' => request('datatable_record_id') == 'yes' ? 'yes' : 'no',
+				'datatable_lengthmenu' => request('datatable_lengthmenu') == 'yes' ? 'yes' : 'no',
+				'datatable_searching' => request('datatable_searching') == 'yes' ? 'yes' : 'no',
+				'datatable_paging' => request('datatable_paging') == 'yes' ? 'yes' : 'no',
+			],
 		];
 
 		return json_encode($main_init, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

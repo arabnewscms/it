@@ -98,24 +98,24 @@
           </tr>
           @foreach(require app_path('Http/AdminRouteList.php') as $key => $value)
           <tr>
-            <td>{{trans('admin.'.$key)}}</td>
+            <td>{{ !is_array($value)?trans('admin.'.$value):trans('admin.'.$key) }}</td>
             <td>
-              @if(is_array($value) && in_array('read',$value))
+              @if(!is_array($value) || is_array($value) && in_array('read',$value))
               <i class="fa {{ checkPermissionGroup($key.'_show',$admingroups)?'fa-check':'fa-times' }}"></i>
               @endif
             </td>
             <td>
-              @if(is_array($value) && in_array('create',$value))
+              @if(!is_array($value) || is_array($value) && in_array('create',$value))
               <i class="fa {{ checkPermissionGroup($key.'_add',$admingroups)?'fa-check':'fa-times' }}"></i>
               @endif
             </td>
             <td>
-              @if(is_array($value) && in_array('update',$value))
+              @if(!is_array($value) || is_array($value) && in_array('update',$value))
               <i class="fa {{ checkPermissionGroup($key.'_edit',$admingroups)?'fa-check':'fa-times' }}"></i>
               @endif
             </td>
             <td>
-              @if(is_array($value) && in_array('delete',$value))
+              @if(!is_array($value) || is_array($value) && in_array('delete',$value))
               <i class="fa {{ checkPermissionGroup($key.'_delete',$admingroups)?'fa-check':'fa-times' }}"></i>
               @endif
             </td>

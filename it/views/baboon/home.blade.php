@@ -2,9 +2,7 @@
 @section('it')
 <link href="{{it_des('it/css/baboon.css')}}" rel="stylesheet" id="bootstrap-css">
 @include('baboon.bundel_js')
-@if(session()->has('code'))
-{!! session()->get('code') !!}
-@endif
+
 <form method="post" id="baboon">
   <input type="hidden" name="_token" value="{{csrf_token()}}" />
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 baboon-tab-container">
@@ -24,13 +22,18 @@
         </li>
         <li class="nav-item">
           <a class="nav-link " href="#panel-columns" data-toggle="tab">
-            <h4 class="fa fa-table"></h4>
+            <h4 class="fa fa-columns"></h4>
           Inputs & columns</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#panel-relations" data-toggle="tab">
             <h4 class="fa fa-database "></h4>
           Relations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#panel-datatable" data-toggle="tab">
+            <h4 class="fa fa-table"></h4>
+          Datatable</a>
         </li>
         <li class="nav-item"><br>
           <button type="button" class="btn btn-success  generate">
@@ -41,20 +44,24 @@
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane active" id="panel-info">
-          {!! it_views('baboon.Initialize') !!}
+        <div class="tab-pane " id="panel-info">
+          @include('baboon.Initialize')
           <div class="clearfix"></div>
         </div>
         <div class="tab-pane" id="panel-language">
-          {!! it_views('baboon.language') !!}
+          @include('baboon.language')
           <div class="clearfix"></div>
         </div>
         <div class="tab-pane" id="panel-columns">
-          {!! it_views('baboon.columns_input') !!}
+          @include('baboon.columns_input')
           <div class="clearfix"></div>
         </div>
         <div class="tab-pane" id="panel-relations">
-          {!! it_views('baboon.relations') !!}
+          @include('baboon.relations')
+          <div class="clearfix"></div>
+        </div>
+        <div class="tab-pane active" id="panel-datatable">
+          @include('baboon.datatable_settings')
           <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>

@@ -85,3 +85,31 @@ div.baboon-tab div.baboon-tab-content:not(.active){
  .getfa{
   margin:3px;
  }
+
+.buttons-print{
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 0;
+    }
+    .buttons-excel,.buttons-csv{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 0;
+    }
+    .buttons-pdf,.deleteBtn{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 0;
+    }
+    .buttons-reload{
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    border-radius: 0;
+    }
+    .table-responsive{
+    min-height: 400px;
+    }

@@ -675,6 +675,7 @@ protected $fillable = [' . "\n";
 * To implement in admingroups permissions
 * to remove CRUD from Validation remove route name
 * CRUD Role permission (create,read,update,delete)
+* ' . it_version_message() . '
 */
 return [' . "\n";
 
@@ -683,8 +684,6 @@ return [' . "\n";
 		$mastername[$routeName] = ["create", "update", "read", "delete"];
 
 		$the_master_admin_route_list = array_merge($mastername, $the_master_admin_route_list);
-		// Remove Duplicate Values
-		//$the_master_admin_route_list = array_unique($the_master_admin_route_list, SORT_STRING);
 		$x2 = 0;
 		foreach ($the_master_admin_route_list as $key => $value) {
 			$rules = '';
@@ -706,7 +705,6 @@ return [' . "\n";
 			}
 
 			$rules = rtrim($rules, ",");
-			//dd($rules);
 			$routes .= '	"' . $key . '"=>[' . $rules . '],' . "\n";
 
 			// Add Full Role In TBL to Master Group 1

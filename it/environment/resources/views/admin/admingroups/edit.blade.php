@@ -146,9 +146,9 @@ $(document).on('click','.checkinput',function(){
 					</tr>
 					@foreach(require app_path('Http/AdminRouteList.php') as $key=>$value)
 					<tr>
-						<td>{{trans('admin.'.$key)}}</td>
+						<td>{{ !is_array($value)?trans('admin.'.$value):trans('admin.'.$key) }}</td>
 						<td>
-							@if(is_array($value) && in_array('read',$value))
+							@if(!is_array($value) || is_array($value) && in_array('read',$value))
 							<div class="form-group">
 								<div class="custom-control custom-switch">
 									<input
@@ -165,7 +165,7 @@ $(document).on('click','.checkinput',function(){
 							@endif
 						</td>
 						<td>
-							@if(is_array($value) && in_array('create',$value))
+							@if(!is_array($value) || is_array($value) && in_array('create',$value))
 							<div class="form-group">
 								<div class="custom-control custom-switch">
 									<input
@@ -182,7 +182,7 @@ $(document).on('click','.checkinput',function(){
 							@endif
 						</td>
 						<td>
-							@if(is_array($value) && in_array('update',$value))
+							@if(!is_array($value) || is_array($value) && in_array('update',$value))
 							<div class="form-group">
 								<div class="custom-control custom-switch">
 									<input
@@ -199,7 +199,7 @@ $(document).on('click','.checkinput',function(){
 							@endif
 						</td>
 						<td>
-							@if(is_array($value) && in_array('delete',$value))
+							@if(!is_array($value) || is_array($value) && in_array('delete',$value))
 							<div class="form-group">
 								<div class="custom-control custom-switch">
 									<input

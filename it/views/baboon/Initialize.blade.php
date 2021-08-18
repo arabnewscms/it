@@ -198,17 +198,9 @@ $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_p
     </div>
           <div class="clearfix"></div>
           <hr />
-          {{--   <div class="alert alert-warning">
-            @if(it_version() === '1.6.10')
-            <center><h1>Urgent Alert </h1></center>
-            if you are using old 1.6.9 version and updated to 1.6.10
-            <hr />
-            You should be make some changes in Your admin.php routes Copy this comment and replace with old comment in your current routes/admin.php
-            ////////AdminRoutes/*End*///////////////
-            <hr />
-            <p>if you are don't change that <b>baboon</b> can't auto add your resources and routes <b>(thank you)</b></p>
-            @endif
-          </div> --}}
+
+
+
         </div>
       </div>
       <div class="clearfix"></div>

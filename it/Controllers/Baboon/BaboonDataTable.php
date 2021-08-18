@@ -64,7 +64,10 @@ class {ClassName}DataTable extends DataTable
 	    protected function getColumns()
 	    {
 	        return [
-	        [
+	       	' . "\n";
+
+		if (request('datatable_checkbox') == 'yes') {
+			$cols .= ' [
                 \'name\' => \'checkbox\',
                 \'data\' => \'checkbox\',
                 \'title\' => \'<div  class="icheck-danger">
@@ -77,13 +80,18 @@ class {ClassName}DataTable extends DataTable
                 \'printable\'      => false,
                 \'width\'          => \'10px\',
                 \'aaSorting\'      => \'none\'
-            ],[
+            ],' . "\n";
+		}
+
+		if (request('datatable_record_id') == 'yes') {
+			$cols .= '[
                 \'name\' => \'id\',
                 \'data\' => \'id\',
                 \'title\' => trans(\'{lang}.record_id\'),
                 \'width\'          => \'10px\',
                 \'aaSorting\'      => \'none\'
             ],' . "\n";
+		}
 		$i2 = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			$cols .= '				[' . "\n";
@@ -133,8 +141,8 @@ class {ClassName}DataTable extends DataTable
 
 			$i2++;
 		}
-
-		$cols .= '            [
+		if (request('datatable_created_at') == 'yes') {
+			$cols .= '            [
 	                \'name\' => \'created_at\',
 	                \'data\' => \'created_at\',
 	                \'title\' => trans(\'admin.created_at\'),
@@ -144,8 +152,9 @@ class {ClassName}DataTable extends DataTable
 	                \'orderable\'  => false,
 	            ],
 	        ';
-
-		$cols .= '            [
+		}
+		if (request('datatable_updated_at') == 'yes') {
+			$cols .= '            [
 	                \'name\' => \'updated_at\',
 	                \'data\' => \'updated_at\',
 	                \'title\' => trans(\'admin.updated_at\'),
@@ -155,8 +164,10 @@ class {ClassName}DataTable extends DataTable
 	                \'orderable\'  => false,
 	            ],
 	        ';
+		}
 
-		$cols .= '            [
+		if (request('datatable_action') == 'yes') {
+			$cols .= '            [
 	                \'name\' => \'actions\',
 	                \'data\' => \'actions\',
 	                \'title\' => trans(\'admin.actions\'),
@@ -164,10 +175,13 @@ class {ClassName}DataTable extends DataTable
 	                \'printable\'  => false,
 	                \'searchable\' => false,
 	                \'orderable\'  => false,
-	            ]
-	        ];
-	    }
+	            ],
+
     	';
+		}
+
+		$cols .= ' ];
+			}';
 		$cols = str_replace('{lang}', $r->input('lang_file'), $cols);
 		return $cols;
 	}
@@ -214,18 +228,21 @@ class {ClassName}DataTable extends DataTable
 					$dropdown = str_replace('{pluck}', '\\' . $new_pluck, $dropdown);
 				}
 
-				$finaldropdown .= '". filterElement(\'' . ($x + 2) . '\', \'select\', ' . $dropdown . ') . "';
+				$finaldropdown .= '". filterElement(\'' . ($x + 2) . '\', \'select\', ' . $dropdown . ') . "' . "\n";
 
 			} elseif ($r->input('col_type')[$x] != 'file') {
-
 				$finalInputsCount .= "1," . ($x + 2) . ",";
-
 			}
 			// select or dropdown static (enum) In Rules End
 			$x++;
 		}
 		if (!empty($finalInputsCount)) {
-			$finalinputs .= '". filterElement(\'' . rtrim($finalInputsCount, ",") . '\', \'input\') . "';
+			$finalinputs .= '". filterElement(\'' . rtrim($finalInputsCount, ",") . '\', \'input\') . "' . "\n";
+		}
+
+		if (request('datatable_filter') != 'yes') {
+			$finalinputs = '';
+			$finaldropdown = '';
 		}
 
 		$html = '
@@ -240,25 +257,15 @@ class {ClassName}DataTable extends DataTable
             ->columns($this->getColumns())
             //->ajax(\'\')
             ->parameters([
+               \'searching\'   => ' . self::enableOptions('datatable_searching') . ',
+               \'paging\'   => ' . self::enableOptions('datatable_paging') . ',
+               \'bLengthChange\'   => ' . self::enableOptions('datatable_lengthmenu') . ',
+               \'bInfo\'   => ' . self::enableOptions('datatable_lengthmenu') . ',
                \'responsive\'   => true,
                 \'dom\' => \'Blfrtip\',
                 "lengthMenu" => [[10, 25, 50,100, -1], [10, 25, 50,100, trans(\'admin.all_records\')]],
                 \'buttons\' => [
-                    [\'extend\' => \'print\', \'className\' => \'btn dark btn-outline\', \'text\' => \'<i class="fa fa-print"></i> \'.trans(\'admin.print\')],
-                    [\'extend\' => \'excel\', \'className\' => \'btn green btn-outline\', \'text\' => \'<i class="fa fa-file-excel"> </i> \'.trans(\'admin.export_excel\')],
-                    [\'extend\' => \'pdf\', \'className\' => \'btn red btn-outline\', \'text\' => \'<i class="fa fa-file-pdf"> </i> \'.trans(\'admin.export_pdf\')],
-                    [\'extend\' => \'csv\', \'className\' => \'btn purple btn-outline\', \'text\' => \'<i class="fa fa-file-excel"> </i> \'.trans(\'admin.export_csv\')],
-                    [\'extend\' => \'reload\', \'className\' => \'btn blue btn-outline\', \'text\' => \'<i class="fa fa-sync-alt"></i> \'.trans(\'admin.reload\')],
-                    [
-                        \'text\' => \'<i class="fa fa-trash"></i> \'.trans(\'admin.delete\'),
-                        \'className\'    => \'btn red btn-outline deleteBtn\',
-                    ], [
-                        \'text\' => \'<i class="fa fa-plus"></i> \'.trans(\'admin.add\'),
-                        \'className\'    => \'btn btn-primary\',
-                        \'action\'    => \'function(){
-                        	window.location.href =  "\'.\URL::current().\'/create";
-                        }\',
-                    ],
+                ' . self::buttons() . '
                 ],
                 \'initComplete\' => "function () {
 
@@ -266,7 +273,7 @@ class {ClassName}DataTable extends DataTable
             ' . $finalinputs . '
             ' . $finaldropdown . '
 
-            }",
+	            }",
                 \'order\' => [[1, \'desc\']],
 
                     \'language\' => [
@@ -420,5 +427,64 @@ class {ClassName}DataTable extends DataTable
 		$ajax = str_replace('{path}', $blade_path, $ajax);
 
 		return $ajax;
+	}
+
+	public static function buttons() {
+		$buttons = '';
+		if (request('datatable_print') == 'yes') {
+			$buttons .= '	[
+					  \'extend\' => \'print\',
+					  \'className\' => \'btn btn-outline\',
+					  \'text\' => \'<i class="fa fa-print"></i> \'.trans(\'admin.print\')
+					 ],';
+		}
+		if (request('datatable_xlxs') == 'yes') {
+			$buttons .= '	[
+					\'extend\' => \'excel\',
+					\'className\' => \'btn btn-outline\',
+					\'text\' => \'<i class="fa fa-file-excel"> </i> \'.trans(\'admin.export_excel\')
+					],';
+		}
+		if (request('datatable_csv') == 'yes') {
+			$buttons .= '	[
+					\'extend\' => \'csv\',
+					\'className\' => \'btn btn-outline\',
+					\'text\' => \'<i class="fa fa-file-excel"> </i> \'.trans(\'admin.export_csv\')
+					],';
+		}
+		if (request('datatable_pdf') == 'yes') {
+			$buttons .= '	[
+					 \'extend\' => \'pdf\',
+					 \'className\' => \'btn btn-outline\',
+					 \'text\' => \'<i class="fa fa-file-pdf"> </i> \'.trans(\'admin.export_pdf\')
+					],';
+		}
+		if (request('datatable_reload') == 'yes') {
+			$buttons .= '	[
+					\'extend\' => \'reload\',
+					\'className\' => \'btn btn-outline\',
+					\'text\' => \'<i class="fa fa-sync-alt"></i> \'.trans(\'admin.reload\')
+					],';
+		}
+		if (request('datatable_delete') == 'yes') {
+			$buttons .= '	[
+						\'text\' => \'<i class="fa fa-trash"></i> \'.trans(\'admin.delete\'),
+						\'className\'    => \'btn btn-outline deleteBtn\',
+                    ], ';
+		}
+		if (request('datatable_add') == 'yes') {
+			$buttons .= '	[
+                        \'text\' => \'<i class="fa fa-plus"></i> \'.trans(\'admin.add\'),
+                        \'className\'    => \'btn btn-primary\',
+                        \'action\'    => \'function(){
+                        	window.location.href =  "\'.\URL::current().\'/create";
+                        }\',
+                    ],';
+		}
+		return $buttons;
+	}
+
+	public static function enableOptions($name) {
+		return request($name) == 'yes' ? 'true' : 'false';
 	}
 }

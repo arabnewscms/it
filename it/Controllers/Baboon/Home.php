@@ -23,7 +23,37 @@ class Home extends Controller {
 			return (new BaboonDeleteModule)->init();
 		}
 
-		return view('baboon.home', ['title' => it_trans('it.baboon-sd')]);
+		$data = [];
+
+		$baboonModule = (new \Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonModule);
+		// Load all Modules
+		$getAllModule = $baboonModule->getAllModules();
+
+		$data['getAllModule'] = $getAllModule;
+		if (!empty(request('module')) && !is_null(request('module'))) {
+			$Modulefile = 'baboon/' . request('module');
+			// Edit Modules
+			$readmodule = $baboonModule->read($Modulefile);
+			if ($readmodule === false) {
+				// redirect if fails load Files
+				header('Location: ' . url('it/baboon-sd'));
+				exit;
+			} else {
+				$data['module_data'] = $readmodule;
+				$data['module_last_modified'] = date('Y-m-d h:i:s A T', $baboonModule->lastModified($Modulefile));
+			}
+		} else {
+			$data['module_data'] = null;
+			$data['module_last_modified'] = null;
+		}
+
+		app()->singleton('module_data', function () use ($data) {
+			return $data['module_data'];
+		});
+
+		$data['title'] = it_trans('it.baboon-sd');
+		//return $data;
+		return view('baboon.home', $data);
 	}
 
 	public static function autoconvSchemaTableName($conv) {
@@ -275,29 +305,4 @@ class Home extends Controller {
 		}
 	}
 
-	public function install_package() {
-		//\Artisan::call('migrate', []);
-		if (request()->ajax()) {
-			if (!empty(request('install_package'))) {
-				if (check_package(request('install_package')) === null) {
-					shell_exec('curl -s https://getcomposer.org/installer | php');
-					$command = 'php composer require ' . request('install_package');
-
-					shell_exec($command);
-					return dd(shell_exec($command));
-				}
-				return response([
-					'status' => true,
-					'package_status' => check_package(request('install_package')),
-					'package_name' => request('install_package'),
-				], 200);
-			} else {
-				return response([
-					'status' => false,
-					'package_status' => check_package(request('install_package')),
-					'package_name' => request('install_package'),
-				], 200);
-			}
-		}
-	}
 }
