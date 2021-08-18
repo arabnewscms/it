@@ -102,7 +102,7 @@ if (isset($ex_controller_path[2]) && !empty($ex_controller_path[2])) {
 }
 $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_prefix);
 ?>
-          @if(!empty($controller_namespace_prefix))
+          @if(!empty($controller_namespace_prefix) && !preg_match('/Api|Auth|Validations/i',$controller_namespace_prefix))
           <option value="{{$controller_namespace_prefix}}"
             {{ !empty($module_data) && $module_data->controller_namespace == $controller_namespace_prefix?'selected':'' }}
           >{{$controller_namespace_prefix}}</option>
