@@ -1,14 +1,31 @@
 <p align="center">
     <a href="https://github.com/arabnewscms/it"><img src="https://raw.githubusercontent.com/arabnewscms/it/master/it.svg" style="width:150px;height:150px;"></a>
+</p>
 
-    # Statistics 
+# Statistics 
+
+<p align="center">
+<a href="https://github.com/arabnewscms/it">
+    <img src="https://img.shields.io/badge/download-2K-green" alt="Github All Releases">
+</a>
+<a href="https://github.com/arabnewscms/it">
+    <img src="https://img.shields.io/github/issues/arabnewscms/it" alt="GitHub issues">
+</a>
+
+<a href="https://github.com/arabnewscms/it">
+    <img src="https://img.shields.io/github/stars/arabnewscms/it" alt="GitHub stars">
+</a>
+
+</p>
+
+
 [![Github All Releases](https://img.shields.io/badge/download-2K-green)]()
 [![GitHub issues](https://img.shields.io/github/issues/arabnewscms/it)]()
 [![GitHub forks](https://img.shields.io/github/forks/arabnewscms/it)]()
 [![GitHub stars](https://img.shields.io/github/stars/arabnewscms/it)]()
 [![GitHub license](https://img.shields.io/github/license/arabnewscms/it)]()
 
-</p>
+
 
 # Package Information 
 
