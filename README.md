@@ -5,8 +5,12 @@
 # Statistics 
 
 <p align="center">
+    
 <a href="https://github.com/arabnewscms/it">
     <img src="https://img.shields.io/badge/download-2K-green" alt="Github All Releases">
+</a>
+<a href="https://github.com/arabnewscms/it">
+    <img src="https://img.shields.io/github/forks/arabnewscms/it" alt="GitHub forks">
 </a>
 <a href="https://github.com/arabnewscms/it">
     <img src="https://img.shields.io/github/issues/arabnewscms/it" alt="GitHub issues">
@@ -14,6 +18,10 @@
 
 <a href="https://github.com/arabnewscms/it">
     <img src="https://img.shields.io/github/stars/arabnewscms/it" alt="GitHub stars">
+</a>
+
+<a href="https://github.com/arabnewscms/it">
+    <img src="https://img.shields.io/github/license/arabnewscms/it" alt="GitHub license">
 </a>
 
 </p>
