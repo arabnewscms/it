@@ -2,7 +2,7 @@
     <a href="https://github.com/arabnewscms/it"><img src="https://raw.githubusercontent.com/arabnewscms/it/master/it.svg" style="width:150px;height:150px;"></a>
 </p>
 
-# Statistics 
+ 
 
 <p align="center">
 
