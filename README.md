@@ -20,6 +20,9 @@
     <img src="https://img.shields.io/github/stars/arabnewscms/it" alt="GitHub stars">
 </a>
 
+<a href="https://packagist.org/packages/phpanonymous/it">
+    <img src="https://img.shields.io/github/packagist/arabnewscms/it" alt="Latest Stable Version" style="max-width:100%;">
+</a>
 <a href="https://github.com/arabnewscms/it">
     <img src="https://img.shields.io/github/license/arabnewscms/it" alt="GitHub license">
 </a>
