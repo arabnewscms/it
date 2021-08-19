@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://github.com/arabnewscms/it"><img src="https://raw.githubusercontent.com/arabnewscms/it/master/it.svg" style="width:150px;height:150px;"></a>
+    <a href="https://github.com/arabnewscms/it"><img src="https://raw.githubusercontent.com/arabnewscms/it/master/it.svg" width="250" height="250" style="width:150px;height:150px;"></a>
 </p>
 
  
