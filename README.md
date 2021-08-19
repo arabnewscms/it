@@ -1,5 +1,13 @@
 <p align="center">
     <a href="https://github.com/arabnewscms/it"><img src="https://raw.githubusercontent.com/arabnewscms/it/master/it.svg" style="width:150px;height:150px;"></a>
+
+    # Statistics 
+[![Github All Releases](https://img.shields.io/badge/download-2K-green)]()
+[![GitHub issues](https://img.shields.io/github/issues/arabnewscms/it)]()
+[![GitHub forks](https://img.shields.io/github/forks/arabnewscms/it)]()
+[![GitHub stars](https://img.shields.io/github/stars/arabnewscms/it)]()
+[![GitHub license](https://img.shields.io/github/license/arabnewscms/it)]()
+
 </p>
 
 # Package Information 
@@ -29,12 +37,7 @@
 It is a package that helps developers to create their work in minutes and it was made to save time and effort and make the developer's focus more at the heart of the project to help him deliver a project free of errors and easy to use without any complications and alleviating the problems he faces during its development
 The package creates an easy-to-use control panel using [Admin LTE](https://adminlte.io) Latest Version
 
-# Statistics 
-[![Github All Releases](https://img.shields.io/badge/download-2K-green)]()
-[![GitHub issues](https://img.shields.io/github/issues/arabnewscms/it)]()
-[![GitHub forks](https://img.shields.io/github/forks/arabnewscms/it)]()
-[![GitHub stars](https://img.shields.io/github/stars/arabnewscms/it)]()
-[![GitHub license](https://img.shields.io/github/license/arabnewscms/it)]()
+
 
 
 # Quick download & Installation
