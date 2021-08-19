@@ -6,7 +6,7 @@
 
 `Offline Docs: 1.1` - [Online Docs](https://it.phpanonymous.com/docs)
 
-`Playlist Videos:` [how to use IT Package](https://www.youtube.com/playlist?list=PLcfD4HARQRF_IgXv2MSFGbSYqdQNFj9Wu)
+`Playlist Videos:` [how to use IT Package 1.6.x](https://www.youtube.com/playlist?list=PLcfD4HARQRF-EYmxednmLTiCfoDyX5-vb)
 
 `Authored By:` [Mahmoud Ibrahim](https://fb.com/anonym0us.dev) 
 
