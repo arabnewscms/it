@@ -244,7 +244,7 @@ class Home extends Controller {
 				$col_name_ajax = count($explode_name_ajax) > 0 ? $explode_name_ajax[0] : $input_ajax;
 				$route3 = 'Route::post(\'' . $link . '/get/' . str_replace('_', '/', $col_name_ajax) . '\',\'' . $namespace_single . '\\' . request('controller_name') . '@get_' . $col_name_ajax . '\'); ' . "\r\n";
 
-				if (!preg_match("/@get_" . $col_name_ajax . "/i", $admin_routes)) {
+				if (!preg_match("/" . request('controller_name') . "@get_" . $col_name_ajax . "/i", $admin_routes)) {
 					$admin_routes = str_replace($end_route, $route3 . "		" . $end_route, $admin_routes);
 					\Storage::put('routes/admin.php', $admin_routes);
 				}
