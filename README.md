@@ -180,6 +180,13 @@ Enjoy :heart:
 
 regards and i can assist you now
 
+# attention please 
+we have add new command for update files please if composer update new package above this version please run this command 
+
+```
+php artisan it:update
+
+```
 
 
 # join Us Our Group On Facebook
