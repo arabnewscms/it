@@ -106,13 +106,21 @@
   <div class="col-md-5">
     <div class="form-group">
       <div class="col-md-12">
-        <label for="col_name_convention" class="col-md-12">{{it_trans('it.col_name_convention')}}</label>
+        <label for="col_name_convention" class="col-md-12">{{it_trans('it.col_name_convention')}}
+        <a href="#" data-toggle="modal" data-target="#column_input_modal_info">
+              <i class="fa fa fa-info-circle" style="color:#090"></i>
+            </a>
+        </label>
         <input type="text" name="col_name_convention[]"  to="0" value="{{old('col_name_convention')}}" class="form-control col_name_convention" placeholder="{{it_trans('it.col_name_convention')}}"  />
-        <ul>
-          <li><small style="color:#c33">Select - active|1,yes/0,no</small></li>
-          <li><small style="color:#c33">Select - user_id|App\Models\User::pluck('name','id')</small></li>
-          <li><small style="color:#c33">checkbox or radio - input1 => active#1  input2 =>active#2 for same name with different values</small></li>
-        </ul>
+         <div class="clearfix"></div>
+          <hr />
+        <div class="col-md-3">
+          <label>
+            {{ it_trans('it.connect_ajax') }}
+            <input type="checkbox" class="link_ajax" to="0" name="link_ajax0" value="yes">
+          </label>
+        </div>
+        <div class="col-md-9 each_ajax_cols0"></div>
       </div>
     </div>
   </div>

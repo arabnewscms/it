@@ -86,5 +86,6 @@ return [
 	'routelist' => 'Routing List',
 	"col_width" => "column bootstrap width",
 	"donate" => "Donate a cup of coffee",
+	"connect_ajax" => "Ajax With",
 
 ];

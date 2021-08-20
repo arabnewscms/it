@@ -3,6 +3,7 @@ namespace Phpanonymous\It;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Phpanonymous\It\Commands\Generate;
+use Phpanonymous\It\Commands\Update;
 
 class ItApplication extends ServiceProvider {
 	/**
@@ -52,12 +53,17 @@ class ItApplication extends ServiceProvider {
 			return new Commands\ItUninstall;
 		});
 
+		$this->app->singleton('command.it.update', function ($app) {
+			return new Commands\Update;
+		});
+
 		$this->commands([
 			Commands\Generate::class,
 			Commands\It::class,
 			Commands\ItComeOut::class,
 			Commands\ItInstaller::class,
 			Commands\ItUninstall::class,
+			Commands\Update::class,
 		]);
 		//
 	}
@@ -69,6 +75,7 @@ class ItApplication extends ServiceProvider {
 			'command.it.install',
 			'command.it.uninstall',
 			'command.it.generate',
+			'command.it.update',
 		];
 	}
 

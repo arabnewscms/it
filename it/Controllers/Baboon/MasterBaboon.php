@@ -260,12 +260,11 @@ protected $fillable = [' . "\n";
 	public static function check_path($path) {
 		$path = explode('\\', $path);
 		$full_path = '';
-		//'baboon/'.request('project_title');
 		$checkpath = '';
-		//'baboon';
 		if (!is_dir(base_path($checkpath))) {
 			mkdir(base_path($checkpath), 0755);
 		}
+
 		foreach ($path as $p) {
 			if ('App' == $p) {
 				$full_path .= strtolower($p) . '/';
@@ -326,12 +325,54 @@ protected $fillable = [' . "\n";
 		}
 	}
 
+	public static function includeAjax($type) {
+		$route = strtolower(request('controller_name'));
+		$i = 0;
+		if ($type == 'create') {
+			foreach (request('col_name_convention') as $input) {
+				if (!empty(request('link_ajax' . $i)) && request('link_ajax' . $i) == 'yes') {
+					$explode_name = explode('|', $input);
+					$col_name = count($explode_name) > 0 ? $explode_name[0] : $input;
+					$explode_connect = explode('|', request('select_ajax_link' . $i));
+					$connect_name = count($explode_connect) > 0 ? $explode_connect[0] : request('select_ajax_link' . $i);
+					return '@include(\'admin.ajax\',[
+	\'typeForm\'=>\'create\',
+	\'selectID\'=>\'' . $connect_name . '\',
+	\'outputClass\'=>\'' . $col_name . '\',
+	\'url\'=>aurl(\'' . $route . '/get/' . str_replace('_', '/', $col_name) . '\'),
+])';
+				}
+				$i++;
+			}
+		} elseif ($type == 'edit') {
+			foreach (request('col_name_convention') as $input) {
+				if (!empty(request('link_ajax' . $i)) && request('link_ajax' . $i) == 'yes') {
+					$explode_name = explode('|', $input);
+					$col_name = count($explode_name) > 0 ? $explode_name[0] : $input;
+					$explode_connect = explode('|', request('select_ajax_link' . $i));
+					$connect_name = count($explode_connect) > 0 ? $explode_connect[0] : request('select_ajax_link' . $i);
+					return '@include(\'admin.ajax\',[
+	\'typeForm\'=>\'edit\',
+	\'selectID\'=>\'' . $connect_name . '\',
+	\'outputClass\'=>\'' . $col_name . '\',
+	\'selectedvalue\'=>$' . $route . '->' . $col_name . ',
+	\'url\'=>aurl(\'' . $route . '/get/' . str_replace('_', '/', $col_name) . '\'),
+])';
+				}
+				$i++;
+			}
+		}
+	}
+
 	public static function inputsCreate($r) {
 		$blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
 		$route = strtolower($r->input('controller_name'));
 		$route = str_replace('controller', '', $route);
 		$input = '@extends(\'' . $blade_path . '.index\')
 @section(\'content\')
+
+' . self::includeAjax('create') . '
+
 <div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
@@ -391,6 +432,7 @@ protected $fillable = [' . "\n";
 					'col_width' => $col_width,
 					'name' => $col_name,
 					'forginkeyto' => $r->input('forginkeyto' . $i) ? 'yes' : 'no',
+					'link_ajax' => $r->input('link_ajax' . $i) ? 'yes' : 'no',
 					'i' => $i,
 					'file_type' => self::fileType($i),
 				];
@@ -431,10 +473,9 @@ protected $fillable = [' . "\n";
 	<!-- /.card-body -->
 	<div class=\"card-footer\">";
 			$input .= BaboonCreate::addbutton($data);
-			$input .= '</div>
-					</div>
-	@endsection
-	' . "\n";
+			$input .= '	</div>
+</div>
+@endsection';
 			return $input;
 		}
 	}
@@ -489,6 +530,7 @@ protected $fillable = [' . "\n";
 		$route = str_replace('controller', '', $route);
 		$input = '@extends(\'' . $blade_path . '.index\')
 @section(\'content\')
+' . self::includeAjax('edit') . '
 <div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
@@ -582,6 +624,7 @@ protected $fillable = [' . "\n";
 					'name' => $col_name,
 					'col_width' => $col_width,
 					'forginkeyto' => $r->input('forginkeyto' . $i) ? 'yes' : 'no',
+					'link_ajax' => $r->input('link_ajax' . $i) ? 'yes' : 'no',
 					'i' => $i,
 					'video' => self::isVideo($i),
 					'audio' => self::isAudio($i),
@@ -628,8 +671,7 @@ protected $fillable = [' . "\n";
 			$input .= BaboonUpdate::updatebutton($data);
 			$input .= '</div>
 </div>
-		@endsection
-		' . "\n";
+@endsection';
 			$input = str_replace('{lang}', $r->input('lang_file'), $input);
 
 			return $input;
@@ -828,7 +870,7 @@ return [' . "\n";
 		$blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
 		$route = strtolower($r->input('controller_name'));
 		$route = str_replace('controller', '', $route);
-		$index = '@extends(\'' . $blade_path . '.index\')';
+		$index = '@extends(\'' . $blade_path . '.index\')' . "\n";
 		$index .= '@section(\'content\')';
 		$index .= '
 {!! Form::open(["method" => "post","url" => [aurl(\'/{route}/multi_delete\')]]) !!}

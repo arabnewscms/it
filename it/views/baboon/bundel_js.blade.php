@@ -2,6 +2,29 @@
 <!-- Home Section Start -->
 <script type="text/javascript">
 $(document).ready(function() {
+
+
+// Linked With Ajax Code //
+$(document).on('click','.link_ajax',function(){
+var to = $(this).attr('to');
+
+if($(this).is(':checked')){
+var select_list_to_ajax = '<select name="select_ajax_link'+to+'" class="form-control">';
+  $('input[name="col_name_convention[]"]').each(function(){
+  var vselect = $(this).val();
+   select_list_to_ajax += '<option value="'+vselect+'">'+vselect+'</option>';
+  });
+   select_list_to_ajax += '</select>';
+  $('.each_ajax_cols'+to).html(select_list_to_ajax);
+ }else{
+  $('.each_ajax_cols'+to).html('');
+ }
+});
+
+// Linked With Ajax Code End //
+
+
+
 $(document).on('click','.col_name_null',function(){
 var list  = $(this).attr('list');
 var check = $(this).val();
@@ -44,6 +67,7 @@ e.preventDefault();
 if(x < i){ //max input box allowed
 	x++; //text box increment
 	$(wrapper).append(@include('baboon.new_input')); //add input box
+
 }
 });
 

@@ -49,6 +49,17 @@ class BaboonModule extends Controller {
 		$this->write($this->initdata());
 	}
 
+	public function link_ajax() {
+		$link_ajax = [];
+		$xi = 0;
+		foreach (request('col_name_convention') as $input_ajax) {
+			if (!empty(request('link_ajax' . $xi)) && request('link_ajax' . $xi) == 'yes') {
+				$link_ajax['link_ajax' . $xi] = request('select_ajax_link' . $xi);
+			}
+			$xi++;
+		}
+		return $link_ajax;
+	}
 	/**
 	 * Made Objects
 	 *
@@ -79,6 +90,7 @@ class BaboonModule extends Controller {
 			'relations' => $this->getRelations(),
 			'count_inputs' => count(request('col_name_convention')),
 			'inputs_columns' => $this->prepareInputs(),
+
 			'datatable' => [
 				'datatable_pdf' => request('datatable_pdf') == 'yes' ? 'yes' : 'no',
 				'datatable_csv' => request('datatable_csv') == 'yes' ? 'yes' : 'no',
@@ -121,6 +133,7 @@ class BaboonModule extends Controller {
 				'col_width_xs' => request('col_width_xs')[$x],
 				'col_name_convention' => request('col_name_convention')[$x],
 				'col_name_null' . $x => request('col_name_null' . $x),
+				'link_ajax' => $this->link_ajax(),
 				'rules' => $this->getRules($x),
 			];
 

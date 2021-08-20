@@ -229,10 +229,30 @@ class Home extends Controller {
 		$route2 = '		Route::post(\'' . $link . '/multi_delete\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '@multi_delete\'); ' . "\r\n";
 
 		$admin_routes = file_get_contents(base_path('routes/admin.php'));
+
 		if (!preg_match("/" . $link . "/i", $admin_routes)) {
 			$admin_routes = str_replace($end_route, $route1 . $route2 . "		" . $end_route, $admin_routes);
 			\Storage::put('routes/admin.php', $admin_routes);
 		}
+
+		// Linked With Ajax Route Start//
+		$route3 = '';
+		$xi = 0;
+		foreach (request('col_name_convention') as $input_ajax) {
+			if (!empty(request('link_ajax' . $xi)) && request('link_ajax' . $xi) == 'yes') {
+				$explode_name_ajax = explode('|', $input_ajax);
+				$col_name_ajax = count($explode_name_ajax) > 0 ? $explode_name_ajax[0] : $input_ajax;
+				$route3 = 'Route::post(\'' . $link . '/get/' . str_replace('_', '/', $col_name_ajax) . '\',\'' . $namespace_single . '\\' . request('controller_name') . '@get_' . $col_name_ajax . '\'); ' . "\r\n";
+
+				if (!preg_match("/@get_" . $col_name_ajax . "/i", $admin_routes)) {
+					$admin_routes = str_replace($end_route, $route3 . "		" . $end_route, $admin_routes);
+					\Storage::put('routes/admin.php', $admin_routes);
+				}
+
+			}
+			$xi++;
+		}
+		// Linked With Ajax Route End//
 
 		//********* Preparing Route ***********/
 

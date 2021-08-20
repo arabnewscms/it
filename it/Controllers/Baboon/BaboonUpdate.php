@@ -153,88 +153,113 @@ class BaboonUpdate extends Controller {
              * @param  $id
              * @return \Illuminate\Http\Response
              */
-            public function destroy($id)
-            {
-               ${Name} = {ModelName}::find($id);
-               if(is_null(${Name}) || empty(${Name})){
-                return backWithSuccess(trans(\'{lang}.undefinedRecord\'),aurl("{Name}"));
-               }
+	public function destroy($id){
+		${Name} = {ModelName}::find($id);
+		if(is_null(${Name}) || empty(${Name})){
+			return backWithSuccess(trans(\'{lang}.undefinedRecord\'),aurl("{Name}"));
+		}
                ';
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
-				$destroy .= '               if(!empty(${Name}->' . $conv . ')){' . "\n";
-				$destroy .= '               it()->delete(${Name}->' . $conv . ');' . "\n";
-				$destroy .= '               }' . "\n";
+				$destroy .= '		if(!empty(${Name}->' . $conv . ')){' . "\n";
+				$destroy .= '			it()->delete(${Name}->' . $conv . ');';
+				$destroy .= '		}' . "\n";
 			}
 			$i++;
 		}
-		$destroy .= '               it()->delete(\'{Name2}\',$id);' . "\n";
+
 		$destroy .= '
+		it()->delete(\'{Name2}\',$id);
+		${Name}->delete();
+		return redirectWithSuccess(aurl("{Name}"),trans(\'{lang}.deleted\'));
+	}
 
-                ${Name}->delete();
-                return redirectWithSuccess(aurl("{Name}"),trans(\'{lang}.deleted\'));
 
-            }
-
-
- 			public function multi_delete()
-            {
-                $data = request(\'selected_data\');
-                if(is_array($data)){
-                    foreach($data as $id)
-                    {
-                    	${Name} = {ModelName}::find($id);
-                    	if(is_null(${Name}) || empty(${Name})){
-		                 return backWithError(trans(\'{lang}.undefinedRecord\'),aurl("{Name}"));
-		                }
+	public function multi_delete(){
+		$data = request(\'selected_data\');
+		if(is_array($data)){
+			foreach($data as $id){
+				${Name} = {ModelName}::find($id);
+				if(is_null(${Name}) || empty(${Name})){
+					return backWithError(trans(\'{lang}.undefinedRecord\'),aurl("{Name}"));
+				}
                     	';
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
-				$destroy .= '                    	if(!empty(${Name}->' . $conv . ')){' . "\n";
-				$destroy .= '                    	it()->delete(${Name}->' . $conv . ');' . "\n";
-				$destroy .= '                    	}' . "\n";
+				$destroy .= '				if(!empty(${Name}->' . $conv . ')){' . "\n";
+				$destroy .= '				  it()->delete(${Name}->' . $conv . ');' . "\n";
+				$destroy .= '				}';
 			}
 			$i++;
 		}
-		$destroy .= '                    	it()->delete(\'{Name2}\',$id);' . "\n";
+
 		$destroy .= '
-
-		                ${Name}->delete();
-
-                    }
-                    return redirectWithSuccess(aurl("{Name}"),trans(\'{lang}.deleted\'));
-                }else {
-                    ${Name} = {ModelName}::find($data);
-                    if(is_null(${Name}) || empty(${Name})){
-	                 return backWithError(trans(\'{lang}.undefinedRecord\'),aurl("{Name}"));
-	                }
+				it()->delete(\'{Name2}\',$id);
+				${Name}->delete();
+			}
+			return redirectWithSuccess(aurl("{Name}"),trans(\'{lang}.deleted\'));
+		}else {
+			${Name} = {ModelName}::find($data);
+			if(is_null(${Name}) || empty(${Name})){
+				return backWithError(trans(\'{lang}.undefinedRecord\'),aurl("{Name}"));
+			}
                     ' . "\n";
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
-				$destroy .= '                    	if(!empty(${Name}->' . $conv . ')){' . "\n";
-				$destroy .= '                    	it()->delete(${Name}->' . $conv . ');' . "\n";
-				$destroy .= '                    	}' . "\n";
+				$destroy .= '			if(!empty(${Name}->' . $conv . ')){' . "\n";
+				$destroy .= '			 it()->delete(${Name}->' . $conv . ');' . "\n";
+				$destroy .= '			}';
 
 			}
 			$i++;
 		}
-		$destroy .= '                    	it()->delete(\'{Name2}\',$data);' . "\n";
+		$destroy .= '			it()->delete(\'{Name2}\',$data);';
 		$destroy .= '
-	                ${Name}->delete();
-	                return redirectWithSuccess(aurl("{Name}"),trans(\'{lang}.deleted\'));
-                }
-            }
+			${Name}->delete();
+			return redirectWithSuccess(aurl("{Name}"),trans(\'{lang}.deleted\'));
+		}
+	}
             ';
+
+		$destroy .= self::addAjaxFunc() . "\n";
+
 		$Name = str_replace('controller', '', strtolower($r->input('controller_name')));
 		$destroy = str_replace('{ModelName}', $r->input('model_name'), $destroy);
 		$destroy = str_replace('{lang}', $r->input('lang_file'), $destroy);
 		$destroy = str_replace('{Name}', $Name, $destroy);
 		$destroy = str_replace('{Name2}', strtolower($r->input('model_name')), $destroy);
 		return $destroy;
+	}
+
+	public static function addAjaxFunc() {
+		$i = 0;
+		foreach (request('col_name_convention') as $input) {
+			if (!empty(request('link_ajax' . $i)) && request('link_ajax' . $i) == 'yes') {
+				$explode_name = explode('|', $input);
+				$col_name = count($explode_name) > 0 ? $explode_name[0] : $input;
+				$explode_connect = explode('|', request('select_ajax_link' . $i));
+				$connect_name = count($explode_connect) > 0 ? $explode_connect[0] : request('select_ajax_link' . $i);
+				$new_pluck = str_replace('::', '::where("' . $connect_name . '",request("' . $connect_name . '"))->', '\\' . $explode_name[1]);
+				return '
+	public function get_' . $col_name . '() {
+		if (request()->ajax()) {
+			if (request("' . $connect_name . '") > 0) {
+				$select = request("select") > 0 ? request("select") : "";
+				return \Form::select("' . $col_name . '",' . $new_pluck . ', $select, ["class" => "form-control select2", "placeholder" => trans("{lang}.choose"), "id" => "' . $col_name . '"]);
+			}
+		} else {
+			return "<select class=\'form-control\'></select>";
+		}
+	}
+';
+			}
+			$i++;
+		}
+
 	}
 
 	public static function text($data) {

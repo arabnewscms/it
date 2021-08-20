@@ -55,28 +55,10 @@ class ItUninstall extends Command {
 	}
 
 	private function yajra() {
-		//shell_exec('composer require yajra/laravel-datatables-oracle:^8.0');
 
 		shell_exec('composer remove yajra/laravel-datatables-oracle');
 
-		/*$app = file_get_contents(base_path('config/app.php'));
-			if (!preg_match('/Yajra/i', $app)) {
-			$final = str_replace($this->providers, $this->providers."\r\n".'		Yajra\DataTables\HtmlServiceProvider::class ,', $app);
-			$this->info('It'.$this->beer.' the provider Yajra\DataTables\HtmlServiceProvider::class auto Pushed in providers array');
-
-			$final = str_replace($this->providers, $this->providers."\r\n".'		Yajra\DataTables\ButtonsServiceProvider::class ,', $app);
-			$this->info('It'.$this->beer.' the provider Yajra\DataTables\ButtonsServiceProvider::class auto Pushed in providers array');
-
-			$final = str_replace($this->providers, $this->providers."\r\n".'		Yajra\DataTables\DataTablesServiceProvider::class ,', $app);
-			$this->info('It'.$this->beer.' the provider Yajra\DataTables\DataTablesServiceProvider::class auto Pushed in providers array');
-
-		*/
-
 		shell_exec('composer remove yajra/laravel-datatables');
-
-		/*shell_exec('php artisan vendor:publish --tag=datatables');
-			shell_exec('php artisan vendor:publish --tag=datatables-buttons');
-		*/
 
 		shell_exec('composer dump-autoload');
 		$this->info('It' . $this->beer . ' Yajra Package Is removed');
