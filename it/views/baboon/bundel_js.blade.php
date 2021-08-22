@@ -60,8 +60,8 @@ $(document).on('keyup','.schema_name',function(){
 var i      = 999; //maximum input boxes allowed
 var wrapper         = $(".input_fields_wrap"); //Fields wrapper
 var add_button      = $(".add_field_button"); //Add button ID
-var x = {{ !empty($data['module_data']) && $data['module_data']->count_inputs > 0?
-($data['module_data']->count_inputs-1):0 }}; //initlal text box count
+var x = {{ !empty($module_data) && $module_data->count_inputs > 0?
+($module_data->count_inputs-1):0 }}; //initlal text box count
 $(add_button).click(function(e){ //on add input button click
 e.preventDefault();
 if(x < i){ //max input box allowed
@@ -79,8 +79,8 @@ $(this).parent('div').remove();
 var i2      = 999; //maximum input boxes allowed
 var wrapper2         = $(".input_fields_wrap2"); //Fields wrapper
 var add_button2      = $(".add_field_button2"); //Add button ID
-var x2 = {{ !empty($data['module_data']) && $data['module_data']->relation_count > 0?
-($data['module_data']->relation_count-1):0 }}; //initlal text box count
+var x2 = {{ !empty($module_data) && $module_data->relation_count > 0?
+($module_data->relation_count-1):0 }}; //initlal text box count
 $(add_button2).click(function(e){ //on add input button click
 	e.preventDefault();
 if(x2 < i2){ //max input box allowed
