@@ -1,4 +1,21 @@
 @push('baboon_js')
+<!-- DarkMode Section Start -->
+<script type="text/javascript">
+  //
+function darkmode() {
+   if($('html').hasClass('dark')){
+    window.localStorage.removeItem('mode');
+    $('html').removeClass('dark');
+   }else{
+    window.localStorage.setItem('mode', 'dark');
+    $('html').addClass('dark');
+   }
+}
+var DarkMode = window.localStorage.getItem('mode');
+$('html').addClass(DarkMode);
+</script>
+<!-- DarkMode Section End -->
+
 <!-- Home Section Start -->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -407,6 +424,36 @@ show_hide_datatable('datatable_record_id');
 show_hide_datatable('datatable_lengthmenu');
 show_hide_datatable('datatable_searching');
 show_hide_datatable('datatable_paging');
+
+
+// loadColumns Start//
+$(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+  $('.datatable_columns').html('');
+ var col_name_datatable = [];
+ var col_convention_datatable = [];
+
+ $('input[name="col_name_convention[]"]').each(function(){
+   col_convention_datatable.push($(this).val());
+ });
+
+ $('input[name="col_name[]"]').each(function(){
+   col_name_datatable.push($(this).val());
+ });
+
+ for(i=0;i < col_name_datatable.length;i++){
+  var conv_col = col_convention_datatable[i].split('|');
+  $('.datatable_columns').prepend(`
+        <th>
+        <label>
+        `+col_name_datatable[i]+`
+        <input type="checkbox" checked name="show_column" value="`+conv_col[0]+`" />
+        </label>
+    </th>
+    `);
+ }
+ });
+
+// loadColumns End//
 
 });
 </script>

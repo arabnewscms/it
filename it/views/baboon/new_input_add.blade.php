@@ -126,7 +126,7 @@
   </div>
   <div class="clearfix"></div>
   <hr />
-  <div class="col-md-12 alert alert-info" style="background-color: #000000">
+  <div class="col-md-12 alert alert-info validation">
     <div class="col-md-12">
       <label class="mt-radio">
         <input type="radio" name="col_name_null0" class="col_name_null" list="0" id="col_name_null" value="null" checked>

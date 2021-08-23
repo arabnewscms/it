@@ -13,6 +13,7 @@
         <script src="{{it_des('it/js/it.js')}}"></script>
         <link rel="icon" href="{{it_des('it/img/it48-48.png')}}">
         @yield('header')
+
     </head>
 </head>
 <body id="page-top" name="page-top" class="active">

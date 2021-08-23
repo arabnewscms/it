@@ -37,7 +37,11 @@
 				<i style="font-size:20px">&#9749;</i>&nbsp; {{ it_trans('it.donate') }}
 			</a>
 		</li>
-
+		<li>
+			<a href="#" onclick="darkmode()">
+				<i class="fa fa-lightbulb"></i>
+			Dark Mode</a>
+		</li>
 
 	</ul>
 	{{-- <ul class="nav navbar-nav navbar-right">

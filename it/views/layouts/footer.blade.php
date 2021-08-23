@@ -1,4 +1,3 @@
-
 <!-- premium partners -->
 <div id="partners" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg" style="margin-top: 65px;">
@@ -34,7 +33,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal -->
 <div id="donate" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg" style="margin-top: 65px;">
@@ -62,13 +60,14 @@
     </div>
 </div>
 </div>
-<div class="col-md-12 hidden-xs hidden-sm">
+<div class="">
 <div class="panel panel-default">
     <div class="bs-callout bs-right-panel">
         {{--  <div class="row">
             <h3 class="text-primary">{{it_trans('it.slug')}}</h3>
         </div> --}}
         <div class="row">
+            <br/>
             <p class="text-center">Copyright Reserved <a href="https://it.phpanonymous.com">it</a> &copy; {{date('Y')}}
             IT Package {{it_trans('it.version')}}{{it_version()}} ,
             <a href="#" data-toggle="modal" data-target="#partners" title="partners">
@@ -78,9 +77,9 @@
     </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 @stack('baboon_js')
-</div>
-</div>
-</div>
 </body>
 </html>

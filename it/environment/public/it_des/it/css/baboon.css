@@ -113,3 +113,146 @@ div.baboon-tab div.baboon-tab-content:not(.active){
     .table-responsive{
     min-height: 400px;
     }
+
+
+
+html.dark body {
+    background: #222222;
+    color: #eee;
+}
+
+html.dark .nav-tabs, 
+html.dark .tab-pane,
+html.dark .well,
+html.dark .tab-content, 
+html.dark .panel, 
+html.dark .modal-content,
+html.dark .tabbable, 
+html.dark .table, 
+html.dark .dataTables_empty,
+html.dark .alert,
+html.dark input,
+html.dark select,
+html.dark .generate
+{
+    background-color: #222;
+    color: #eee;
+}
+
+html.dark code{
+  display: block;
+  word-break: break-all;
+   background-color: #111;
+   padding: 5px;
+}
+
+html.dark .generate:hover{
+    background-color: #9A9A9A;
+    border-color: #ABABAB;
+}
+
+ 
+ 
+
+html.dark .nav-tabs>li.active>a,  
+html.dark .nav-tabs>li.active>a:focus {
+     color: #fff;
+    cursor: default;
+    background-color: #1b1b1ba8;
+    border: none; 
+     border-bottom-color: transparent; 
+}
+html.dark .nav-tabs>li.active>a:hover{
+  background-color: #1b1b1ba8;
+}
+
+html.dark a.btn{
+  background-color: transparent;
+  color: #fff;
+}
+
+html.dark hr {
+  border-color: #111;
+}
+
+html.dark .tab-pane{
+margin-top: 5px;
+}
+
+html.dark .alert{
+  margin-bottom: 0px;
+  border: none;
+}
+
+.tabbable{
+  border: none;
+}
+
+/*html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6 {
+    color: #eee;
+}
+*/
+
+/*
+.dark hr {
+    border-color: #111;
+}
+ */
+
+html.dark .dark-text hr {
+    border-color: #fcfcfc;
+}
+
+html.dark strong {
+    color: #fcfcfc;
+}
+
+html.dark .success,.error,.warning,h4.fa{
+  color: #F16811;
+}
+
+/*html.dark .intro1 {
+    background-color: #0c0c0c;
+}*/
+
+html.dark .intro1 a {
+    color: #F16811 !important;
+}
+
+html.dark a {
+    color: #CC8548;
+}
+
+html.dark a:hover {
+    color: #F16811;
+}
+
+ /*
+
+html.dark .btn-primary {
+    background-color: #F16811;
+    border-color: #DE7844;
+    color: #000;
+}
+
+html.dark .btn-primary:hover {
+    background-color: #DE7844;
+    border-color: #F16811;
+}
+
+html.dark .btn-info {
+    background-color: #ABABAB;
+   /* border-color: #9A9A9A;*/
+    color: #000;
+}
+
+html.dark .btn-info:hover {
+    background-color: #9A9A9A;
+    /*border-color: #ABABAB;*/
+}*/
+ 

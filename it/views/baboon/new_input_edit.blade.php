@@ -148,7 +148,7 @@
     </div>
     <div class="clearfix"></div>
     <hr />
-    <div class="col-md-12 alert alert-info" style="background-color: #000000">
+    <div class="col-md-12 alert alert-info validation">
       <div class="col-md-12">
         <label class="mt-radio">
           <input type="radio" name="col_name_null{{ $x }}" class="col_name_null" list="{{ $x }}" id="col_name_null" value="null" {{ $input->{'col_name_null'.$x} !='has'?'checked':'' }}>
