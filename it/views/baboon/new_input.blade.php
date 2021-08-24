@@ -1,5 +1,5 @@
 `
-<div class="col-md-12">
+<div class="col-md-12 well">
   <div class="col-md-3">
     <div class="form-group">
       <label for="col_name" class="col-md-12">{{it_trans('it.col_name')}}</label>

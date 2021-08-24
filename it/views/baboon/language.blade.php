@@ -1,7 +1,7 @@
 <div class="col-md-5">
   @include('baboon.installed_packages')
 </div>
-<div class="col-md-7">
+<div class="col-md-7 well">
   <div class="col-md-12">
     <div class="form-group lang_file">
       <label for="lang_file" class="col-md-12">{{it_trans('it.lang_file')}}</label>

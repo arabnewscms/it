@@ -244,7 +244,7 @@ html.dark  .input_columns_borad
 {
     background-color: #333;
 }
-
+ 
 html.dark  table, 
 html.dark  tbody, 
 html.dark  tfoot, 

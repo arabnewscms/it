@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-6 well">
   <div class="col-md-12">
     <div class="form-group project_title">
       <label for="project_title" class="col-md-12">{{it_trans('it.project_title')}}</label>
@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-12 form-group model_name">
+  <div class="col-md-12 form-group model_name well">
     <div class="col-md-1" style="text-align: center;">
       <h3>M</h3>
     </div>
@@ -42,7 +42,7 @@ $model_prefix = str_replace('\\\\', '\\', $model_prefix);
       </select>
     </div>
   </div>
-  <div class="col-md-12">
+  <div class="col-md-12 well">
     <div class="col-md-1" style="text-align: center;">
       <h3>V</h3>
     </div>
@@ -69,7 +69,7 @@ $admin_path = 'resources' . explode('resources', $admin_pathes)[1];
       </div>
     </div>
   </div>
-  <div class="col-md-12">
+  <div class="col-md-12 well">
     <div class="col-md-1" style="text-align: center;">
       <h3>C</h3>
     </div>
@@ -132,7 +132,7 @@ $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_p
     });
     });
     </script>
-    <div class="form-group modules alert alert-info">
+    <div class="form-group modules alert alert-info well">
       <label for="modules" class="col-md-12">Edit Module From List</label>
       <div class="col-md-12">
         <select name="module" class="form-control select_module">
@@ -175,8 +175,9 @@ $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_p
       </div>
       <div class="clearfix"></div>
     </div>
+    <br />
     @endif
-    <div class="col-md-6">
+    <div class="col-md-6 well">
       <div class="alert alert-info">
       <center><h3>CRUD Menu List</h3></center>
       <ul>

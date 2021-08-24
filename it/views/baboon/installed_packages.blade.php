@@ -54,7 +54,6 @@ $(document).on('click','.install_package',function(){
   'langnonymous/lang',
   'phpanonymous/c3js',
   'phpanonymous/it',
-
  ];
 @endphp
 @foreach($package_list as $key=> $package)

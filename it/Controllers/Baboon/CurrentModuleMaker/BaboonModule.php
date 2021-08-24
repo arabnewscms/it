@@ -91,27 +91,36 @@ class BaboonModule extends Controller {
 			'count_inputs' => count(request('col_name_convention')),
 			'inputs_columns' => $this->prepareInputs(),
 
-			'datatable' => [
-				'datatable_pdf' => request('datatable_pdf') == 'yes' ? 'yes' : 'no',
-				'datatable_csv' => request('datatable_csv') == 'yes' ? 'yes' : 'no',
-				'datatable_xlxs' => request('datatable_xlxs') == 'yes' ? 'yes' : 'no',
-				'datatable_print' => request('datatable_print') == 'yes' ? 'yes' : 'no',
-				'datatable_reload' => request('datatable_reload') == 'yes' ? 'yes' : 'no',
-				'datatable_delete' => request('datatable_delete') == 'yes' ? 'yes' : 'no',
-				'datatable_add' => request('datatable_add') == 'yes' ? 'yes' : 'no',
-				'datatable_action' => request('datatable_action') == 'yes' ? 'yes' : 'no',
-				'datatable_created_at' => request('datatable_created_at') == 'yes' ? 'yes' : 'no',
-				'datatable_updated_at' => request('datatable_updated_at') == 'yes' ? 'yes' : 'no',
-				'datatable_filter' => request('datatable_filter') == 'yes' ? 'yes' : 'no',
-				'datatable_checkbox' => request('datatable_checkbox') == 'yes' ? 'yes' : 'no',
-				'datatable_record_id' => request('datatable_record_id') == 'yes' ? 'yes' : 'no',
-				'datatable_lengthmenu' => request('datatable_lengthmenu') == 'yes' ? 'yes' : 'no',
-				'datatable_searching' => request('datatable_searching') == 'yes' ? 'yes' : 'no',
-				'datatable_paging' => request('datatable_paging') == 'yes' ? 'yes' : 'no',
-			],
+			'datatable' => $this->getDatatableColumns(),
+		];
+		//dd($this->getDatatableColumns());
+		return json_encode($main_init, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+	}
+
+	public function getDatatableColumns() {
+		$datatable = [
+			'datatable_pdf' => !empty(request('datatable_pdf')) ? 'yes' : 'no',
+			'datatable_csv' => !empty(request('datatable_csv')) ? 'yes' : 'no',
+			'datatable_xlxs' => !empty(request('datatable_xlxs')) ? 'yes' : 'no',
+			'datatable_print' => !empty(request('datatable_print')) ? 'yes' : 'no',
+			'datatable_reload' => !empty(request('datatable_reload')) ? 'yes' : 'no',
+			'datatable_delete' => !empty(request('datatable_delete')) ? 'yes' : 'no',
+			'datatable_add' => !empty(request('datatable_add')) ? 'yes' : 'no',
+			'datatable_action' => !empty(request('datatable_action')) ? 'yes' : 'no',
+			'datatable_created_at' => !empty(request('datatable_created_at')) ? 'yes' : 'no',
+			'datatable_updated_at' => !empty(request('datatable_updated_at')) ? 'yes' : 'no',
+			'datatable_filter' => !empty(request('datatable_filter')) ? 'yes' : 'no',
+			'datatable_checkbox' => !empty(request('datatable_checkbox')) ? 'yes' : 'no',
+			'datatable_record_id' => !empty(request('datatable_record_id')) ? 'yes' : 'no',
+			'datatable_lengthmenu' => !empty(request('datatable_lengthmenu')) ? 'yes' : 'no',
+			'datatable_searching' => !empty(request('datatable_searching')) ? 'yes' : 'no',
+			'datatable_paging' => !empty(request('datatable_paging')) ? 'yes' : 'no',
 		];
 
-		return json_encode($main_init, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+		foreach (request('dt_show_column') as $conv) {
+			$datatable['dt_show_column'][] = $conv;
+		}
+		return $datatable;
 	}
 
 	/**

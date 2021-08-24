@@ -396,39 +396,28 @@ $(document).ready(function(){
 <!-- columns & inputs Tab Section End -->
 <!-- datatable Tab Section start -->
 <script type="text/javascript">
-function show_hide_datatable(name){
-$(document).on('click','input[name="'+name+'"]',function(){
-		if($(this).is(':checked')){
-			$('.'+name).removeClass('hidden');
-		}else{
-			$('.'+name).addClass('hidden');
-		}
-	});
+
+
+function hideOrShowRow(rowname){
+  return $('input[value="'+rowname+'"]').is(':checked')?'':'hidden';
 }
 
 $(document).ready(function(){
 
-show_hide_datatable('datatable_pdf');
-show_hide_datatable('datatable_csv');
-show_hide_datatable('datatable_xlxs');
-show_hide_datatable('datatable_print');
-show_hide_datatable('datatable_reload');
-show_hide_datatable('datatable_delete');
-show_hide_datatable('datatable_add');
-show_hide_datatable('datatable_action');
-show_hide_datatable('datatable_created_at');
-show_hide_datatable('datatable_updated_at');
-show_hide_datatable('datatable_filter');
-show_hide_datatable('datatable_checkbox');
-show_hide_datatable('datatable_record_id');
-show_hide_datatable('datatable_lengthmenu');
-show_hide_datatable('datatable_searching');
-show_hide_datatable('datatable_paging');
+  $(document).on('click','.dt_checkbox',function(){
+   var dt_checkbox = $(this).val();
+    if($(this).is(':checked')){
+      $('.'+dt_checkbox).removeClass('hidden');
+    }else{
+      $('.'+dt_checkbox).addClass('hidden');
+    }
+  });
+
 
 
 // loadColumns Start//
 $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
-  $('.datatable_columns').html('');
+  $('.datatable_columns').html('<center><i class="fa fa-spinner fa-spin"></i></center>');
  var col_name_datatable = [];
  var col_convention_datatable = [];
 
@@ -439,18 +428,105 @@ $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
  $('input[name="col_name[]"]').each(function(){
    col_name_datatable.push($(this).val());
  });
+ $('.dataTables_empty').attr('colspan',col_name_datatable.length+5);
 
+ var table_cols = ' <tr role="row" class="">';
+ var table_cols_footer = '<tr>';
+ var table_checkbox = ' <tr role="row" class="">';
+  // datatable_checkbox //
+ table_cols +=`
+  <th width="10px" class="datatable_checkbox `+hideOrShowRow('datatable_checkbox')+`" style="width: 37px;" >
+        <input type="checkbox" class="select-all" id="select-all">
+    </th>
+ `;
+ table_cols_footer += `<th class="datatable_checkbox `+hideOrShowRow('datatable_checkbox')+`"></th>`;
+  // datatable_checkbox //
+
+ // datatable_record_id //
+ table_cols +=`
+  <th title="Record id" width="10px" class="datatable_record_id `+hideOrShowRow('datatable_record_id')+`" style="width: 24px;" >Record id</th>
+ `;
+ table_cols_footer += `<th class="datatable_record_id `+hideOrShowRow('datatable_record_id')+`">
+                    <input style="width: 100%" class="form-control">
+                </th>`;
+ // datatable_record_id //
+
+// This for to put checkboxes to scan if checked or not //
  for(i=0;i < col_name_datatable.length;i++){
-  var conv_col = col_convention_datatable[i].split('|');
-  $('.datatable_columns').prepend(`
+    var conv_col_checkbox = col_convention_datatable[i].split('|');
+     table_checkbox += `
         <th>
         <label>
         `+col_name_datatable[i]+`
-        <input type="checkbox" checked name="show_column" value="`+conv_col[0]+`" />
+         <input type="checkbox" {{ !empty(request('module'))?'':'checked' }} class="dt_checkbox" name="dt_show_column[]" value="`+conv_col_checkbox[0]+`" />
         </label>
     </th>
-    `);
+    `;
  }
+ $('.datatable_columns_checkboxes').html(table_checkbox);
+ @if(!empty(request('module')) && app('module_data')->datatable && app('module_data')->datatable->dt_show_column)
+ @php
+ $dt_show_columns = app('module_data')->datatable->dt_show_column;
+ @endphp
+  @foreach($dt_show_columns as $dt_show_column)
+   $('input[value="{{ $dt_show_column }}"]').prop('checked', true);
+  @endforeach
+ @endif
+
+setTimeout(function(){
+
+ for(i=0;i < col_name_datatable.length;i++){
+  var conv_col = col_convention_datatable[i].split('|');
+
+   table_cols += `<th class="`+conv_col[0]+` `+hideOrShowRow(conv_col[0])+`">`+col_name_datatable[i]+`</th>`;
+
+    if(conv_col[1] !== '' && conv_col[1] !== undefined){
+    table_cols_footer += `<th class="`+conv_col[0]+` `+hideOrShowRow(conv_col[0])+`">
+                    <select class="form-control">
+                      <option>.........</option>
+                    </select>
+                </th>`;
+    }else{
+    table_cols_footer += `<th class="`+conv_col[0]+` `+hideOrShowRow(conv_col[0])+`">
+                    <input style="width: 100%" class="form-control">
+                </th>`;
+    }
+ }
+
+ // datatable_created_at //
+  table_cols +=`
+    <th class="datatable_created_at `+hideOrShowRow('datatable_created_at')+`" >
+    created at
+    </th>
+ `;
+  table_cols_footer+=`<th class="datatable_created_at `+hideOrShowRow('datatable_created_at')+`"></th>`;
+ // datatable_created_at //
+
+ // datatable_updated_at //
+   table_cols +=`
+    <th class="datatable_updated_at `+hideOrShowRow('datatable_updated_at')+`" >
+    Updated at
+    </th>
+ `;
+  table_cols_footer+=`<th class="datatable_updated_at `+hideOrShowRow('datatable_updated_at')+`"></th>`;
+ // datatable_updated_at //
+
+
+  // datatable_action //
+   table_cols +=`
+    <th class="datatable_action `+hideOrShowRow('datatable_action')+`" >
+    Action
+    </th>
+ `;
+  table_cols_footer+=`<th class="datatable_action `+hideOrShowRow('datatable_action')+`"></th>`;
+  // datatable_action //
+
+ table_cols_footer+=`</tr>`;
+
+
+ $('.datatable_columns').html(table_cols);
+ $('.datatable_footer_rows').html(table_cols_footer);
+ },10);
  });
 
 // loadColumns End//

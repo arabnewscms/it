@@ -66,7 +66,7 @@ class {ClassName}DataTable extends DataTable
 	        return [
 	       	' . "\n";
 
-		if (request('datatable_checkbox') == 'yes') {
+		if (!empty(request('datatable_checkbox'))) {
 			$cols .= ' [
                 \'name\' => \'checkbox\',
                 \'data\' => \'checkbox\',
@@ -83,7 +83,7 @@ class {ClassName}DataTable extends DataTable
             ],' . "\n";
 		}
 
-		if (request('datatable_record_id') == 'yes') {
+		if (!empty(request('datatable_record_id'))) {
 			$cols .= '[
                 \'name\' => \'id\',
                 \'data\' => \'id\',
@@ -94,7 +94,7 @@ class {ClassName}DataTable extends DataTable
 		}
 		$i2 = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
-			$cols .= '				[' . "\n";
+
 			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
 
 				$pre_conv = explode('|', $conv);
@@ -105,12 +105,16 @@ class {ClassName}DataTable extends DataTable
 				} else {
 					$final_pluckName = '';
 				}
-				//return dd(str_replace("'", "", $pluck_name[0]));
-				if (!empty($final_pluckName) && request()->has('forginkeyto' . $i2)) {
+
+				if (!empty($final_pluckName) && request()->has('forginkeyto' . $i2) && in_array($pre_conv[0], request('dt_show_column'))) {
+					$cols .= '				[' . "\n";
 
 					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '.' . $final_pluckName . '' . '\',' . "\n";
 					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '.' . $final_pluckName . '\',' . "\n";
-				} elseif (!request()->has('forginkeyto' . $i2)) {
+					$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
+					$cols .= '		    ],' . "\n";
+				} elseif (!request()->has('forginkeyto' . $i2) && in_array($pre_conv[0], request('dt_show_column'))) {
+					$cols .= '				[' . "\n";
 					$cols .= '                 \'name\'=>\'' . self::convention_name(request('model_name')) . '.' . $pre_conv[0] . '\',' . "\n";
 					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
 					// $cols .= '                 \'exportable\' => false,' . "\n";
@@ -118,30 +122,38 @@ class {ClassName}DataTable extends DataTable
 					// $cols .= '                 \'searchable\' => false,' . "\n";
 					// $cols .= '                 \'orderable\'  => false,' . "\n";
 
-				} else {
-					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
-					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
-				}
-
-				$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
-			} elseif (preg_match('/#/i', $conv)) {
-				$pre_conv = explode('#', $conv);
-				if (!preg_match('/' . $pre_conv[0] . '/', $cols)) {
+					$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
+					$cols .= '		    ],' . "\n";
+				} elseif (in_array($conv, request('dt_show_column'))) {
+					$cols .= '				[' . "\n";
 					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
 					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
 					$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
+					$cols .= '		    ],' . "\n";
 				}
-			} else {
 
+			} elseif (preg_match('/#/i', $conv)) {
+				$pre_conv = explode('#', $conv);
+
+				if (!preg_match('/' . $pre_conv[0] . '/', $cols) && in_array($pre_conv[0], request('dt_show_column'))) {
+					$cols .= '				[' . "\n";
+					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
+					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
+					$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
+					$cols .= '		    ],' . "\n";
+				}
+			} elseif (in_array($conv, request('dt_show_column'))) {
+				$cols .= '				[' . "\n";
 				$cols .= '                 \'name\'=>\'' . $conv . '\',' . "\n";
 				$cols .= '                 \'data\'=>\'' . $conv . '\',' . "\n";
 				$cols .= '                 \'title\'=>trans(\'{lang}.' . $conv . '\'),' . "\n";
+				$cols .= '		    ],' . "\n";
 			}
-			$cols .= '		    ],' . "\n";
 
 			$i2++;
 		}
-		if (request('datatable_created_at') == 'yes') {
+
+		if (!empty(request('datatable_created_at'))) {
 			$cols .= '            [
 	                \'name\' => \'created_at\',
 	                \'data\' => \'created_at\',
@@ -153,7 +165,7 @@ class {ClassName}DataTable extends DataTable
 	            ],
 	        ';
 		}
-		if (request('datatable_updated_at') == 'yes') {
+		if (!empty(request('datatable_updated_at'))) {
 			$cols .= '            [
 	                \'name\' => \'updated_at\',
 	                \'data\' => \'updated_at\',
@@ -165,8 +177,7 @@ class {ClassName}DataTable extends DataTable
 	            ],
 	        ';
 		}
-
-		if (request('datatable_action') == 'yes') {
+		if (!empty(request('datatable_action'))) {
 			$cols .= '            [
 	                \'name\' => \'actions\',
 	                \'data\' => \'actions\',
@@ -176,7 +187,6 @@ class {ClassName}DataTable extends DataTable
 	                \'searchable\' => false,
 	                \'orderable\'  => false,
 	            ],
-
     	';
 		}
 
@@ -197,6 +207,7 @@ class {ClassName}DataTable extends DataTable
 		$finalinputs = '';
 		$finalInputsCount = '';
 		foreach ($r->input('col_name_convention') as $conv) {
+
 			// select or dropdown static (enum) In Rules Start
 			if ($r->input('col_type')[$x] == 'select') {
 				$dropdown = '';
@@ -208,9 +219,9 @@ class {ClassName}DataTable extends DataTable
 						$dropdown .= "[" . "\n";
 						foreach ($options as $op) {
 							$kv = explode(',', $op);
-							$dropdown .= "'" . $kv[0] . "'=>trans('" . $lang . "." . $kv[0] . "')," . "\n";
+							$dropdown .= "            '" . $kv[0] . "'=>trans('" . $lang . "." . $kv[0] . "')," . "\n";
 						}
-						$dropdown .= "]" . "\n";
+						$dropdown .= "            ]";
 					}
 				} elseif (preg_match('/App/i', $ex_select[1]) && $r->has('forginkeyto' . $x)) {
 					// If Pluck Model Do Some Change To get first column to end column
@@ -228,19 +239,42 @@ class {ClassName}DataTable extends DataTable
 					$dropdown = str_replace('{pluck}', '\\' . $new_pluck, $dropdown);
 				}
 
-				$finaldropdown .= '". filterElement(\'' . ($x + 2) . '\', \'select\', ' . $dropdown . ') . "' . "\n";
+				if (in_array($ex_select[0], request('dt_show_column'))) {
 
-			} elseif ($r->input('col_type')[$x] != 'file') {
-				$finalInputsCount .= "1," . ($x + 2) . ",";
+					if (!empty(request('datatable_checkbox')) && !empty(request('datatable_record_id'))) {
+						$select_sort = ($x + 2);
+					} elseif (!empty(request('datatable_checkbox')) || !empty(request('datatable_record_id'))) {
+						$select_sort = ($x);
+					} elseif (empty(request('datatable_checkbox')) && empty(request('datatable_record_id')) && count(request('dt_show_column')) > 1) {
+						$select_sort = ($x - 1);
+					} elseif (empty(request('datatable_checkbox')) && empty(request('datatable_record_id')) && request('dt_show_column') == 1) {
+						$select_sort = ($x - 1);
+					} else {
+						$select_sort = ($x + 2);
+					}
+
+					$finaldropdown .= '            //' . $ex_select[0] . "\n";
+					$finaldropdown .= '            ". filterElement(\'' . $select_sort . '\', \'select\', ' . $dropdown . ') . "' . "\n";
+				}
+
+			} elseif ($r->input('col_type')[$x] != 'file' && in_array($conv, request('dt_show_column'))) {
+				if ($finalInputsCount != 1) {
+					$finalInputsCount .= "1," . ($x + 2) . ",";
+				} else {
+					$finalInputsCount .= ($x + 2) . ",";
+				}
 			}
 			// select or dropdown static (enum) In Rules End
+
 			$x++;
 		}
+
 		if (!empty($finalInputsCount)) {
-			$finalinputs .= '". filterElement(\'' . rtrim($finalInputsCount, ",") . '\', \'input\') . "' . "\n";
+			$finalinputs .= '' . "\n";
+			$finalinputs .= '            ". filterElement(\'' . rtrim($finalInputsCount, ",") . '\', \'input\') . "' . "\n";
 		}
 
-		if (request('datatable_filter') != 'yes') {
+		if (empty(request('datatable_filter'))) {
 			$finalinputs = '';
 			$finaldropdown = '';
 		}
@@ -431,48 +465,48 @@ class {ClassName}DataTable extends DataTable
 
 	public static function buttons() {
 		$buttons = '';
-		if (request('datatable_print') == 'yes') {
+		if (!empty(request('datatable_print'))) {
 			$buttons .= '	[
 					  \'extend\' => \'print\',
 					  \'className\' => \'btn btn-outline\',
 					  \'text\' => \'<i class="fa fa-print"></i> \'.trans(\'admin.print\')
 					 ],';
 		}
-		if (request('datatable_xlxs') == 'yes') {
+		if (!empty(request('datatable_xlxs'))) {
 			$buttons .= '	[
 					\'extend\' => \'excel\',
 					\'className\' => \'btn btn-outline\',
 					\'text\' => \'<i class="fa fa-file-excel"> </i> \'.trans(\'admin.export_excel\')
 					],';
 		}
-		if (request('datatable_csv') == 'yes') {
+		if (!empty(request('datatable_csv'))) {
 			$buttons .= '	[
 					\'extend\' => \'csv\',
 					\'className\' => \'btn btn-outline\',
 					\'text\' => \'<i class="fa fa-file-excel"> </i> \'.trans(\'admin.export_csv\')
 					],';
 		}
-		if (request('datatable_pdf') == 'yes') {
+		if (!empty(request('datatable_pdf'))) {
 			$buttons .= '	[
 					 \'extend\' => \'pdf\',
 					 \'className\' => \'btn btn-outline\',
 					 \'text\' => \'<i class="fa fa-file-pdf"> </i> \'.trans(\'admin.export_pdf\')
 					],';
 		}
-		if (request('datatable_reload') == 'yes') {
+		if (!empty(request('datatable_reload'))) {
 			$buttons .= '	[
 					\'extend\' => \'reload\',
 					\'className\' => \'btn btn-outline\',
 					\'text\' => \'<i class="fa fa-sync-alt"></i> \'.trans(\'admin.reload\')
 					],';
 		}
-		if (request('datatable_delete') == 'yes') {
+		if (!empty(request('datatable_delete'))) {
 			$buttons .= '	[
 						\'text\' => \'<i class="fa fa-trash"></i> \'.trans(\'admin.delete\'),
 						\'className\'    => \'btn btn-outline deleteBtn\',
                     ], ';
 		}
-		if (request('datatable_add') == 'yes') {
+		if (!empty(request('datatable_add'))) {
 			$buttons .= '	[
                         \'text\' => \'<i class="fa fa-plus"></i> \'.trans(\'admin.add\'),
                         \'className\'    => \'btn btn-primary\',
@@ -485,6 +519,6 @@ class {ClassName}DataTable extends DataTable
 	}
 
 	public static function enableOptions($name) {
-		return request($name) == 'yes' ? 'true' : 'false';
+		return !empty(request($name)) ? 'true' : 'false';
 	}
 }
