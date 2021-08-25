@@ -11382,7 +11382,7 @@ body,
 .nav-sidebar .nav-treeview {
   display: none;
   list-style: none;
-  padding: 0;
+  padding: 10px;
 }
 
 .nav-sidebar .nav-treeview > .nav-item > .nav-link > .nav-icon {
