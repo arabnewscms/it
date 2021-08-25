@@ -355,6 +355,7 @@ protected $fillable = [' . "\n";
 					$ajax .= '@include(\'admin.ajax\',[
 	\'typeForm\'=>\'edit\',
 	\'selectID\'=>\'' . $connect_name . '\',
+	\'parentValue\'=>$' . $route . '->' . $connect_name . ',
 	\'outputClass\'=>\'' . $col_name . '\',
 	\'selectedvalue\'=>$' . $route . '->' . $col_name . ',
 	\'url\'=>aurl(\'' . $route . '/get/' . str_replace('_', '/', $col_name) . '\'),

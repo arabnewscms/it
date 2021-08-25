@@ -70,7 +70,7 @@ $(document).ready(function(){
 
 
     @if($selectedvalue > 0)
-    var selectIDValue = $('#'+selectID+' option:selected').val();
+    var selectIDValue = {{ $parentValue }};
     $.ajax({
        url:'{{ $url }}',
        dataType:'html',
@@ -88,4 +88,3 @@ $(document).ready(function(){
 });
 </script>
 @endpush
-
