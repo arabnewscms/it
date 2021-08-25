@@ -17,7 +17,14 @@ class Update extends Command {
 	 * @var string
 	 */
 	protected $description = 'Update New files';
-
+	public function patch_list() {
+		return [
+			__DIR__ . '/../patch_update/resources/views/admin/ajax.baboon' => 'resources/views/admin/ajax.blade.php',
+			__DIR__ . '/../patch_update/public/it_des/it/css/baboon.baboon' => 'public/it_des/it/css/baboon.css',
+			__DIR__ . '/../patch_update/public/assets/css/adminlte-rtl.css' => 'public/assets/css/adminlte-rtl.css',
+			__DIR__ . '/../patch_update/public/assets/css/adminlte.css' => 'public/assets/css/adminlte.css',
+		];
+	}
 	/**
 	 * Execute the console command.
 	 *
@@ -30,27 +37,15 @@ class Update extends Command {
 		$ASK_UPDATE = $this->confirm('do you want apply patch update to publish new files from version ' . it_version() . ' ?');
 
 		if ($ASK_UPDATE) {
-			if (file_exists(__DIR__ . '/../patch_update/resources/views/admin/ajax.baboon')) {
-
-				$original_path = __DIR__ . '/../patch_update/resources/views/admin/ajax.baboon';
-				$new_path = 'resources/views/admin/ajax.blade.php';
-
-				$ajax_baboon = file_get_contents($original_path);
-				if (\Storage::disk('it')->put($new_path, $ajax_baboon)) {
-					$this->info('resources/views/admin/ajax.blade.php File updated successfully');
-				} else {
-					$this->warn('resources/views/admin/ajax.blade.php Update Failed');
-				}
-			}
-
-			if (file_exists(__DIR__ . '/../patch_update/public/it_des/it/css/baboon.baboon')) {
-				$original_path = __DIR__ . '/../patch_update/public/it_des/it/css/baboon.baboon';
-				$new_path = 'public/it_des/it/css/baboon.css';
-				$ajax_baboon = file_get_contents($original_path);
-				if (\Storage::disk('it')->put($new_path, $ajax_baboon)) {
-					$this->info('public/it_des/it/css/baboon.css File updated successfully');
-				} else {
-					$this->warn('public/it_des/it/css/baboon.css Update Failed');
+			// Update Loop File List
+			foreach ($this->patch_list() as $key => $value) {
+				if (file_exists($key)) {
+					$ajax_baboon = file_get_contents($key);
+					if (\Storage::disk('it')->put($value, $ajax_baboon)) {
+						$this->info($value . ' File updated successfully');
+					} else {
+						$this->warn($value . ' Update Failed');
+					}
 				}
 			}
 
