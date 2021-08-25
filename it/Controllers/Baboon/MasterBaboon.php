@@ -327,6 +327,7 @@ protected $fillable = [' . "\n";
 
 	public static function includeAjax($type) {
 		$route = strtolower(request('controller_name'));
+		$ajax = '';
 		$i = 0;
 		if ($type == 'create') {
 			foreach (request('col_name_convention') as $input) {
@@ -335,12 +336,12 @@ protected $fillable = [' . "\n";
 					$col_name = count($explode_name) > 0 ? $explode_name[0] : $input;
 					$explode_connect = explode('|', request('select_ajax_link' . $i));
 					$connect_name = count($explode_connect) > 0 ? $explode_connect[0] : request('select_ajax_link' . $i);
-					return '@include(\'admin.ajax\',[
+					$ajax .= '@include(\'admin.ajax\',[
 	\'typeForm\'=>\'create\',
 	\'selectID\'=>\'' . $connect_name . '\',
 	\'outputClass\'=>\'' . $col_name . '\',
 	\'url\'=>aurl(\'' . $route . '/get/' . str_replace('_', '/', $col_name) . '\'),
-])';
+])' . "\n";
 				}
 				$i++;
 			}
@@ -351,17 +352,18 @@ protected $fillable = [' . "\n";
 					$col_name = count($explode_name) > 0 ? $explode_name[0] : $input;
 					$explode_connect = explode('|', request('select_ajax_link' . $i));
 					$connect_name = count($explode_connect) > 0 ? $explode_connect[0] : request('select_ajax_link' . $i);
-					return '@include(\'admin.ajax\',[
+					$ajax .= '@include(\'admin.ajax\',[
 	\'typeForm\'=>\'edit\',
 	\'selectID\'=>\'' . $connect_name . '\',
 	\'outputClass\'=>\'' . $col_name . '\',
 	\'selectedvalue\'=>$' . $route . '->' . $col_name . ',
 	\'url\'=>aurl(\'' . $route . '/get/' . str_replace('_', '/', $col_name) . '\'),
-])';
+])' . "\n";
 				}
 				$i++;
 			}
 		}
+		return $ajax;
 	}
 
 	public static function inputsCreate($r) {

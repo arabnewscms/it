@@ -236,6 +236,7 @@ class BaboonUpdate extends Controller {
 	}
 
 	public static function addAjaxFunc() {
+		$ajax = '';
 		$i = 0;
 		foreach (request('col_name_convention') as $input) {
 			if (!empty(request('link_ajax' . $i)) && request('link_ajax' . $i) == 'yes') {
@@ -244,7 +245,7 @@ class BaboonUpdate extends Controller {
 				$explode_connect = explode('|', request('select_ajax_link' . $i));
 				$connect_name = count($explode_connect) > 0 ? $explode_connect[0] : request('select_ajax_link' . $i);
 				$new_pluck = str_replace('::', '::where("' . $connect_name . '",request("' . $connect_name . '"))->', '\\' . $explode_name[1]);
-				return '
+				$ajax .= '
 	public function get_' . $col_name . '() {
 		if (request()->ajax()) {
 			if (request("' . $connect_name . '") > 0) {
@@ -255,10 +256,11 @@ class BaboonUpdate extends Controller {
 			return "<select class=\'form-control\'></select>";
 		}
 	}
-';
+' . "\n";
 			}
 			$i++;
 		}
+		return $ajax;
 
 	}
 
