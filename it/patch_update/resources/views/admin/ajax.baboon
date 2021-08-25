@@ -28,7 +28,7 @@ $(document).ready(function(){
     $('#{{ $outputClass }}').select2();
 
     @if(old($outputClass))
-    var selectIDValue = $('#'+selectID+' option:selected').val();
+    var selectIDValue = {{ $OldselectID }};
     $.ajax({
        url:'{{ $url }}',
        dataType:'html',

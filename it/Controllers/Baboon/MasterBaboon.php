@@ -339,6 +339,7 @@ protected $fillable = [' . "\n";
 					$ajax .= '@include(\'admin.ajax\',[
 	\'typeForm\'=>\'create\',
 	\'selectID\'=>\'' . $connect_name . '\',
+	\'OldselectID\'=>\old(\'' . $connect_name . '\'),
 	\'outputClass\'=>\'' . $col_name . '\',
 	\'url\'=>aurl(\'' . $route . '/get/' . str_replace('_', '/', $col_name) . '\'),
 ])' . "\n";
