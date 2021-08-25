@@ -27,7 +27,7 @@ $(document).ready(function(){
     $('.{{ $outputClass }}').html('<select class="form-control" id="{{ $outputClass }}"></select>');
     $('#{{ $outputClass }}').select2();
 
-    @if(old($outputClass))
+    @if(old($outputClass) || $OldselectID)
     var selectIDValue = {{ $OldselectID }};
     $.ajax({
        url:'{{ $url }}',
