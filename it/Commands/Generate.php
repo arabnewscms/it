@@ -168,93 +168,29 @@ class Generate extends Command {
 		// 	$this->info("Downloading mockery Package....");
 		// 	shell_exec('composer require mockery/mockery "1.3.2"');
 		// }
+		
 
-		if (check_package("langnonymous/lang") === null) {
-			$this->info("Downloading Langnonymous Package....");
-			shell_exec('composer require Langnonymous/Lang:dev-master');
-			$this->progress(100);
-		}
-
-		if (check_package("spatie/laravel-honeypot") === null) {
-			$this->info("Downloading spatie/laravel-honeypot Package....");
-			shell_exec('composer require spatie/laravel-honeypot');
-			$this->progress(100);
-		}
-
-		if (check_package("laravel/ui") === null) {
-			$this->info("Downloading laravel/ui Package....");
-			shell_exec('composer require laravel/ui');
-			$this->progress(100);
-		}
-		if (check_package("intervention/image") === null) {
-			$this->info("Downloading intervention Image Package....");
-			shell_exec('composer require intervention/image');
-			$this->progress(100);
-		}
-
-		if (check_package("laravelcollective/html") === null) {
-			$this->info("Downloading laravelcollective Package....");
-			shell_exec('php artisan it:install laravelcollective');
-			$this->progress(100);
-		}
-
-		if (check_package("maatwebsite/excel") === null) {
-			$this->info("Downloading tcpdf....");
-			shell_exec('composer require maatwebsite/excel');
-			$this->progress(100);
-		}
-
-		if (check_package("tecnickcom/tcpdf") === null) {
-			$this->info("Downloading tcpdf....");
-			shell_exec('composer require tecnickcom/tcpdf');
-			$this->progress(100);
-		}
-
-		if (check_package("mpdf/mpdf") === null) {
-			$this->info("Downloading mpdf....");
-			shell_exec('composer require mpdf/mpdf');
-			$this->progress(100);
-		}
-
-		if (check_package("barryvdh/laravel-snappy") === null) {
-			$this->info("Downloading laravel-snappy....");
-			shell_exec('composer require barryvdh/laravel-snappy');
-			$this->progress(100);
-		}
-
-		if (check_package("dompdf/dompdf") === null) {
-			$this->info("Downloading dompdf....");
-			shell_exec('composer require dompdf/dompdf');
-			$this->progress(100);
-		}
-
-		if (check_package("unisharp/laravel-filemanager") === null) {
-			$this->info("Downloading filemanager....");
-			shell_exec('composer require unisharp/laravel-filemanager');
-			$this->progress(100);
-		}
-
-		if (check_package("phpoffice/phpspreadsheet") === null) {
-			$this->info("Downloading Datatable Yajra Package....");
-			shell_exec('composer require phpoffice/phpspreadsheet');
-			$this->progress(100);
+		$pakcages = array_filter([
+		    'langnonymous/lang', 'spatie/laravel-honeypot',
+		    'laravel/ui', 'intervention/image',
+		    'laravelcollective/html', 'maatwebsite/excel',
+		    'tecnickcom/tcpdf', 'mpdf/mpdf',
+		    'barryvdh/laravel-snappy', 'dompdf/dompdf',
+		    'unisharp/laravel-filemanager', 'phpoffice/phpspreadsheet',
+		    'tymon/jwt-auth', 'phpanonymous/c3js',
+		], function ($package) {
+		    return check_package($package) === null;
+		});
+		
+		if(count($packages) > 0)
+		{
+		    $this->info("Downloading Package....");
+		    shell_exec('composer require '. implode(' ', $packages));
 		}
 
 		if (check_package("yajra/laravel-datatables-oracle") === null) {
 			$this->info("Downloading Datatable Yajra Package....");
 			shell_exec('php artisan it:install yajra');
-			$this->progress(100);
-		}
-
-		if (check_package("tymon/jwt-auth") === null) {
-			$this->info("Downloading tymon jwt-auth  Package....");
-			shell_exec('composer require tymon/jwt-auth');
-			$this->progress(100);
-		}
-
-		if (check_package("phpanonymous/c3js") === null) {
-			$this->info("Downloading phpanonymous c3js Chart Package....");
-			shell_exec('composer require phpanonymous/c3js');
 			$this->progress(100);
 		}
 
