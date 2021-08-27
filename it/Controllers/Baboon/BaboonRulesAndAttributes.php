@@ -33,6 +33,8 @@ class BaboonRulesAndAttributes extends Controller {
 
 			if ($r->input('col_name_null' . $i) == 'has') {
 				$r->has('required' . $i) ? $valrule .= 'required|' : '';
+				$r->has('sometimes' . $i) ? $valrule .= 'sometimes|' : '';
+				$r->has('nullable' . $i) ? $valrule .= 'nullable|' : '';
 				$r->has('file' . $i) ? $valrule .= 'file|' : '';
 				$r->has('video' . $i) ? $valrule .= 'video|' : '';
 				$r->has('image' . $i) ? $valrule .= "'.it()->image().'|" : '';
@@ -51,8 +53,6 @@ class BaboonRulesAndAttributes extends Controller {
 				$r->has('numeric' . $i) ? $valrule .= 'numeric|' : '';
 				$r->has('email' . $i) ? $valrule .= 'email|' : '';
 				$r->has('url' . $i) ? $valrule .= 'url|' : '';
-				$r->has('sometimes' . $i) ? $valrule .= 'sometimes|' : '';
-				$r->has('nullable' . $i) ? $valrule .= 'nullable|' : '';
 				$r->has('filled' . $i) ? $valrule .= 'filled|' : '';
 				$r->has('confirmed' . $i) ? $valrule .= 'confirmed|' : '';
 				$r->has('integer' . $i) ? $valrule .= 'integer|' : '';
