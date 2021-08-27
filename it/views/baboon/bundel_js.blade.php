@@ -428,11 +428,12 @@ $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
  $('input[name="col_name[]"]').each(function(){
    col_name_datatable.push($(this).val());
  });
+
  $('.dataTables_empty').attr('colspan',col_name_datatable.length+5);
 
- var table_cols = ' <tr role="row" class="">';
+ var table_cols = ' <tr role="row">';
  var table_cols_footer = '<tr>';
- var table_checkbox = ' <tr role="row" class="">';
+ var table_checkbox = ' <tr role="row">';
   // datatable_checkbox //
  table_cols +=`
   <th width="10px" class="datatable_checkbox `+hideOrShowRow('datatable_checkbox')+`" style="width: 37px;" >
