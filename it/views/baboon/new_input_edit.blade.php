@@ -323,18 +323,92 @@ $col_name_convention = !empty($col_name_convention_ex) && count($col_name_conven
                       <input type="checkbox" value="1" {{ $rules->{'pdf'.$x} }} name="pdf{{ $x }}" />
                     </label>
                   </div>
+                  <div class="clearfix"></div>
+                  <hr />
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> office
+                      <input type="checkbox" value="1" {{ !empty($rules->{'office'.$x})? $rules->{'office'.$x}:'' }} name="office{{ $x }}" />
+                    </label>
+                  </div>
                   <div class="col-md-2" >
                     <label class="form-check-input" dir="rtl"> docx
-                      <input type="checkbox" value="1" {{ $rules->{'docx'.$x} }} name="docx{{ $x }}" />
+                      <input type="checkbox" value="1" {{ !empty($rules->{'docx'.$x})? $rules->{'docx'.$x}:'' }} name="docx{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> xlsx
+                      <input type="checkbox" value="1" {{ !empty($rules->{'xlsx'.$x})? $rules->{'xlsx'.$x}:'' }} name="xlsx{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> xls
+                      <input type="checkbox" value="1" {{ !empty($rules->{'xls'.$x})? $rules->{'xls'.$x}:'' }} name="xls{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> xltx
+                      <input type="checkbox" value="1" {{ !empty($rules->{'xltx'.$x})? $rules->{'xltx'.$x}:'' }} name="xltx{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> ppt
+                      <input type="checkbox" value="1" {{ !empty($rules->{'ppt'.$x})? $rules->{'ppt'.$x}:'' }} name="ppt{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> ppam
+                      <input type="checkbox" value="1" {{ !empty($rules->{'ppam'.$x})? $rules->{'ppam'.$x}:'' }} name="ppam{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> pptm
+                      <input type="checkbox" value="1" {{ !empty($rules->{'pptm'.$x})? $rules->{'pptm'.$x}:'' }} name="pptm{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> ppsm
+                      <input type="checkbox" value="1" {{ !empty($rules->{'ppsm'.$x})? $rules->{'ppsm'.$x}:'' }} name="ppsm{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> potm
+                      <input type="checkbox" value="1" {{ !empty($rules->{'potm'.$x})? $rules->{'potm'.$x}:'' }} name="potm{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> sldm
+                      <input type="checkbox" value="1" {{ !empty($rules->{'sldm'.$x})? $rules->{'sldm'.$x}:'' }} name="sldm{{ $x }}" />
                     </label>
                   </div>
                   <div class="clearfix"></div>
                   <hr />
                   <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> audio
+                      <input type="checkbox" value="1" {{ !empty($rules->{'audio'.$x})? $rules->{'audio'.$x}:'' }} name="audio{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
                     <label class="form-check-input" dir="rtl"> mp3
                       <input type="checkbox" value="1" {{ $rules->{'mp3'.$x} }} name="mp3{{ $x }}" />
                     </label>
                   </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> wav
+                      <input type="checkbox" value="1" {{ !empty($rules->{'wav'.$x})?$rules->{'wav'.$x}:'' }} name="wav{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> xm
+                      <input type="checkbox" value="1" {{ !empty($rules->{'xm'.$x})? $rules->{'xm'.$x}:'' }} name="xm{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="col-md-2" >
+                    <label class="form-check-input" dir="rtl"> ogg
+                      <input type="checkbox" value="1" {{ !empty($rules->{'ogg'.$x})? $rules->{'ogg'.$x}:'' }} name="ogg{{ $x }}" />
+                    </label>
+                  </div>
+                  <div class="clearfix"></div>
+                  <hr />
                   <div class="col-md-2" >
                     <label class="form-check-input" dir="rtl"> video
                       <input type="checkbox" value="1" {{ $rules->{'video'.$x} }} name="video{{ $x }}" />

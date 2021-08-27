@@ -23,6 +23,10 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/public/it_des/it/css/baboon.baboon' => 'public/it_des/it/css/baboon.css',
 			__DIR__ . '/../patch_update/public/assets/css/adminlte-rtl.css' => 'public/assets/css/adminlte-rtl.css',
 			__DIR__ . '/../patch_update/public/assets/css/adminlte.css' => 'public/assets/css/adminlte.css',
+			__DIR__ . '/../patch_update/resources/lang/ar/validation.baboon' => 'resources/lang/ar/validation.php',
+			__DIR__ . '/../patch_update/resources/lang/en/validation.baboon' => 'resources/lang/en/validation.php',
+			__DIR__ . '/../patch_update/resources/lang/fr/validation.baboon' => 'resources/lang/fr/validation.php',
+			__DIR__ . '/../patch_update/app/Providers/ExtraValidations.baboon' => 'app/Providers/ExtraValidations.php',
 		];
 	}
 	/**

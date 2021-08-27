@@ -25,6 +25,7 @@ class ExtraValidations extends ServiceProvider {
 		}, trans('validation.pdf'));
 
 		// Office Validation //
+
 		$this->app['validator']->extend('office', function ($attribute, $value, $parameters) {
 			$office_mimes = ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.spreadsheetml.template', 'application/vnd.ms-powerpoint', 'application/vnd.ms-powerpoint.addin.macroenabled.12', 'application/vnd.ms-powerpoint.presentation.macroenabled.12', 'application/vnd.ms-powerpoint.slide.macroenabled.12', 'application/vnd.ms-powerpoint.slideshow.macroenabled.12', 'application/vnd.ms-powerpoint.template.macroenabled.12'];
 			if (is_array($value) && count($value) > 0) {

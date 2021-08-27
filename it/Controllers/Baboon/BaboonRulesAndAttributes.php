@@ -35,12 +35,36 @@ class BaboonRulesAndAttributes extends Controller {
 				$r->has('required' . $i) ? $valrule .= 'required|' : '';
 				$r->has('sometimes' . $i) ? $valrule .= 'sometimes|' : '';
 				$r->has('nullable' . $i) ? $valrule .= 'nullable|' : '';
+				$r->has('string' . $i) ? $valrule .= 'string|' : '';
+				$r->has('numeric' . $i) ? $valrule .= 'numeric|' : '';
+				$r->has('integer' . $i) ? $valrule .= 'integer|' : '';
+				$r->has('email' . $i) ? $valrule .= 'email|' : '';
 				$r->has('file' . $i) ? $valrule .= 'file|' : '';
 				$r->has('video' . $i) ? $valrule .= 'video|' : '';
-				$r->has('image' . $i) ? $valrule .= "'.it()->image().'|" : '';
+				$r->has('image' . $i) ? $valrule .= "image|" : '';
 				$r->has('pdf' . $i) ? $valrule .= "'pdf|" : '';
+
+				// Office Exts and mimes //
+				$r->has('office' . $i) ? $valrule .= "'office|" : '';
 				$r->has('docx' . $i) ? $valrule .= "'docx|" : '';
+				$r->has('potm' . $i) ? $valrule .= "'potm|" : '';
+				$r->has('ppsm' . $i) ? $valrule .= "'ppsm|" : '';
+				$r->has('sldm' . $i) ? $valrule .= "'sldm|" : '';
+				$r->has('pptm' . $i) ? $valrule .= "'pptm|" : '';
+				$r->has('ppam' . $i) ? $valrule .= "'ppam|" : '';
+				$r->has('ppt' . $i) ? $valrule .= "'ppt|" : '';
+				$r->has('xltx' . $i) ? $valrule .= "'xltx|" : '';
+				$r->has('xlsx' . $i) ? $valrule .= "'xlsx|" : '';
+				$r->has('xls' . $i) ? $valrule .= "'xls|" : '';
+				// Office Exts and mimes //
+
+				$r->has('audio' . $i) ? $valrule .= "audio|" : '';
+				$r->has('wav' . $i) ? $valrule .= "wav|" : '';
 				$r->has('mp3' . $i) ? $valrule .= "mp3|" : '';
+				$r->has('ogg' . $i) ? $valrule .= "ogg|" : '';
+				$r->has('adp' . $i) ? $valrule .= "adp|" : '';
+
+				// Video Rules //
 				$r->has('mp4' . $i) ? $valrule .= "mp4|" : '';
 				$r->has('mpeg' . $i) ? $valrule .= "mpeg|" : '';
 				$r->has('mov' . $i) ? $valrule .= "mov|" : '';
@@ -50,12 +74,10 @@ class BaboonRulesAndAttributes extends Controller {
 				$r->has('wmv' . $i) ? $valrule .= "wmv|" : '';
 				$r->has('avi' . $i) ? $valrule .= "avi|" : '';
 				$r->has('vob' . $i) ? $valrule .= "vob|" : '';
-				$r->has('numeric' . $i) ? $valrule .= 'numeric|' : '';
-				$r->has('email' . $i) ? $valrule .= 'email|' : '';
+				// Video Rules //
 				$r->has('url' . $i) ? $valrule .= 'url|' : '';
 				$r->has('filled' . $i) ? $valrule .= 'filled|' : '';
 				$r->has('confirmed' . $i) ? $valrule .= 'confirmed|' : '';
-				$r->has('integer' . $i) ? $valrule .= 'integer|' : '';
 				$r->has('active_url' . $i) ? $valrule .= 'active_url|' : '';
 				$r->has('accepted' . $i) ? $valrule .= 'accepted|' : '';
 				$r->has('boolean' . $i) ? $valrule .= 'boolean|' : '';
@@ -68,7 +90,6 @@ class BaboonRulesAndAttributes extends Controller {
 				$r->has('ip' . $i) ? $valrule .= 'ip|' : '';
 				$r->has('ipv4' . $i) ? $valrule .= 'ipv4|' : '';
 				$r->has('ipv6' . $i) ? $valrule .= 'ipv6|' : '';
-				$r->has('string' . $i) ? $valrule .= 'string|' : '';
 				$r->has('alpha' . $i) ? $valrule .= 'alpha|' : '';
 				$r->has('alpha-dash' . $i) ? $valrule .= 'alpha-dash|' : '';
 				$r->has('alpha_num' . $i) ? $valrule .= 'alpha_num|' : '';
@@ -147,14 +168,6 @@ class BaboonRulesAndAttributes extends Controller {
 				$r->has('after_before' . $i) ? $valrule .= $r->input('after_before' . $i) . ':' . $radio_after_before . '|' : '';
 				////////// Date Validation Laravel /////////////////////
 
-			} else {
-				// if ($r->has('col_type')[$i] == 'email') {
-				// 	$valrule .= 'email|';
-				// }
-			}
-
-			if ($r->input('col_type')[$i] == 'password') {
-				$valrule .= 'confirmed|';
 			}
 
 			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
@@ -167,12 +180,6 @@ class BaboonRulesAndAttributes extends Controller {
 					$rule .= '             \'' . $pre_conv[0] . '\'=>\'' . rtrim($valrule, '|') . '\',' . "\n";
 				}
 
-			} else {
-				if ($r->has('image' . $i) and $r->has('image' . $i) == 1) {
-					$rule .= '             \'' . $conv . '\'=>\'' . rtrim($valrule, '|"') . '\',' . "\n";
-				} else {
-					$rule .= '             \'' . $conv . '\'=>\'' . rtrim($valrule, '|') . '\',' . "\n";
-				}
 			}
 
 			$i++;
