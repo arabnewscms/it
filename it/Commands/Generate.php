@@ -108,12 +108,8 @@ class Generate extends Command {
 
 		}
 
-		if (!empty($HAVE_PORT) && !empty($NEED_APP_URL)) {
+		if (!empty($HAVE_PORT)) {
 			self::changeEnv('APP_URL', $NEED_APP_URL . ':' . $HAVE_PORT);
-		} elseif (!empty($NEED_APP_URL)) {
-			self::changeEnv('APP_URL', $NEED_APP_URL);
-		} else {
-			self::changeEnv('APP_URL', 'http://localhost');
 		}
 
 		// Set  CUSTOM PORT //
