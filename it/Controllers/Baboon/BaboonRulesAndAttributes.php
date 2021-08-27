@@ -133,7 +133,7 @@ class BaboonRulesAndAttributes extends Controller {
 					}
 				}
 
-				////////// Date Validation Laravel ///////////////////////////////////////////////
+				////////// Date Validation Laravel /////////////////////
 				$r->has('date' . $i) ? $valrule .= 'date|' : '';
 				$r->has('date_format' . $i) ? $valrule .= $r->input('date_format' . $i) != 'NULL' ? $r->input('date_format' . $i) . '|' : '' : '';
 
@@ -145,7 +145,7 @@ class BaboonRulesAndAttributes extends Controller {
 					$radio_after_before = "'.Carbon::now()->addDays(" . $r->input('other_carbon' . $i) . ")->toDateString().'";
 				}
 				$r->has('after_before' . $i) ? $valrule .= $r->input('after_before' . $i) . ':' . $radio_after_before . '|' : '';
-				////////// Date Validation Laravel ///////////////////////////////////////////////
+				////////// Date Validation Laravel /////////////////////
 
 			} else {
 				// if ($r->has('col_type')[$i] == 'email') {
