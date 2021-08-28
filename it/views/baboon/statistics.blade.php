@@ -184,19 +184,19 @@ These statistics are represented in calculating the number of times the items we
 		</p>
 	</div>
 	<div class="col-md-3">
-		<h1>Your Statistics</h1>
+		<h4>Your Statistics</h4>
 		<ol class="you"></ol>
 	</div>
 	<div class="col-md-3">
-		<h1>Global Total</h1>
+		<h4>Global Statistics</h4>
 		<ol class="global"></ol>
 	</div>
 	<div class="col-md-3">
-		<h1>Totel OS</h1>
+		<h4>Totel OS</h4>
 		<ol class="os"></ol>
 	</div>
 	<div class="col-md-3">
-		<h1>Browsers</h1>
+		<h4>Browsers</h4>
 		<ol class="browser"></ol>
 	</div>
 </div>

@@ -1,3 +1,29 @@
+<!-- premium contributors -->
+<div id="contributors" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" style="margin-top: 65px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Contributors List</h4>
+            </div>
+            <div class="modal-body">
+                <center>
+                <p>We appreciate your great efforts, so we are pleased to include your names in this list to let everyone know that there are warriors for this wonderful work, and we can only thank your great efforts in developing this package. Thank you to everyone who</p>
+                <a href="https://github.com/etchfoda">
+                    <img src="https://avatars.githubusercontent.com/u/15731469?v=4"
+                    class="img-thumbnail rounded-circle partners"
+                    title="Hesham Fouda"
+                    />
+                </a>
+
+                <p>Thanks, gratitude and appreciation for their contribution and their desire to continue developing this package</p>
+
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- premium partners -->
 <div id="partners" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg" style="margin-top: 65px;">
@@ -72,6 +98,9 @@
             IT Package {{it_trans('it.version')}}{{it_version()}} ,
             <a href="#" data-toggle="modal" data-target="#partners" title="partners">
                 <i class="fa fa-users"></i> {{ it_trans('it.partners') }}
+            </a> ,
+            <a href="#" data-toggle="modal" data-target="#contributors" title="contributors">
+                <i class="fa fa-users"></i> contributors
             </a>
         </p>
     </div>
