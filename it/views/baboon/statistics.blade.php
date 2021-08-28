@@ -96,8 +96,9 @@ function realName(key){
 }
 
 var form = new FormData();
+//&date={{ date('Y-m-d') }}
 var settings = {
-  "url": "https://bstatic.dev:8890/api/v1/load/statistics?project_id=base64:LCMN5npgQ7UA2LIXwmV1aM2hHTd1fYNuMFcdpE1e/zo=&date=2021-08-27",
+  "url": "https://baboonstatistics.tagatsoft.com/api/v1/load/statistics?project_id={{ env('APP_KEY') }}",
   "method": "GET",
   "timeout": 0,
   "headers": {
@@ -112,7 +113,6 @@ var settings = {
 $.ajax(settings).done(function (response) {
 	var statistics = JSON.parse(response);
 	if(statistics.status){
- 		 console.log(statistics.data);
  		 if(statistics.data.browser){
  		 	$.each(statistics.data.browser, function(key, value) {
 			      $('.browser').append('<li>'+key+' : <span class="counter">'+nk(value)+'</span></li>');
@@ -138,6 +138,7 @@ $.ajax(settings).done(function (response) {
  		 		}
 			});
  		 }
+
 
 
  		 if(statistics.data.you){
@@ -176,6 +177,11 @@ $.ajax(settings).done(function (response) {
 			<input type="checkbox" name="collect" checked class="collect" value="no">
 			 Collect My Counters
 		</label>
+		<hr />
+		<p>
+<p>What do these stats mean?</p>
+These statistics are represented in calculating the number of times the items were generated through Baboon Maker, which is generally or specifically according to your project, so you can see the number of generation operations that you have done with seeing all other operations in general for all users from all over the world
+		</p>
 	</div>
 	<div class="col-md-3">
 		<h1>Your Statistics</h1>

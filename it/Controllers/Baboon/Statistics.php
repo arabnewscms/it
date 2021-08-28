@@ -3,7 +3,7 @@ namespace Phpanonymous\It\Controllers\Baboon;
 use App\Http\Controllers\Controller;
 
 class Statistics extends Controller {
-	protected $domain = 'http://localhost:8888/baboonstatic/public';
+	protected $domain = 'https://baboonstatistics.tagatsoft.com';
 
 	public function url_exists() {
 		return curl_init($this->domain) !== false;
