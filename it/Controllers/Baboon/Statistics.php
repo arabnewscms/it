@@ -119,21 +119,23 @@ class Statistics extends Controller {
 		$belongsTo = 0;
 		$morphMap = 0;
 		$morphMany = 0;
-		foreach (request('relation_type') as $relation_type) {
-			if ($relation_type == 'hasOne') {
-				$hasOne++;
-			} elseif ($relation_type == 'hasMany') {
-				$hasMany++;
-			} elseif ($relation_type == 'belongsToMany') {
-				$belongsToMany++;
-			} elseif ($relation_type == 'hasManyThrough') {
-				$hasManyThrough++;
-			} elseif ($relation_type == 'belongsTo') {
-				$belongsTo++;
-			} elseif ($relation_type == 'morphMap') {
-				$morphMap++;
-			} elseif ($relation_type == 'morphMany') {
-				$morphMany++;
+		if (!empty(request('relation_type'))) {
+			foreach (request('relation_type') as $relation_type) {
+				if ($relation_type == 'hasOne') {
+					$hasOne++;
+				} elseif ($relation_type == 'hasMany') {
+					$hasMany++;
+				} elseif ($relation_type == 'belongsToMany') {
+					$belongsToMany++;
+				} elseif ($relation_type == 'hasManyThrough') {
+					$hasManyThrough++;
+				} elseif ($relation_type == 'belongsTo') {
+					$belongsTo++;
+				} elseif ($relation_type == 'morphMap') {
+					$morphMap++;
+				} elseif ($relation_type == 'morphMany') {
+					$morphMany++;
+				}
 			}
 		}
 		return [
