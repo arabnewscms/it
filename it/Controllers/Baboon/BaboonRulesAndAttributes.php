@@ -33,8 +33,10 @@ class BaboonRulesAndAttributes extends Controller {
 
 			if ($r->input('col_name_null' . $i) == 'has') {
 				$r->has('required' . $i) ? $valrule .= 'required|' : '';
+
 				$r->has('sometimes' . $i) ? $valrule .= 'sometimes|' : '';
 				$r->has('nullable' . $i) ? $valrule .= 'nullable|' : '';
+
 				$r->has('string' . $i) ? $valrule .= 'string|' : '';
 				$r->has('numeric' . $i) ? $valrule .= 'numeric|' : '';
 				$r->has('integer' . $i) ? $valrule .= 'integer|' : '';
@@ -180,6 +182,12 @@ class BaboonRulesAndAttributes extends Controller {
 					$rule .= '             \'' . $pre_conv[0] . '\'=>\'' . rtrim($valrule, '|') . '\',' . "\n";
 				}
 
+			} else {
+				if ($r->has('image' . $i) and $r->has('image' . $i) == 1) {
+					$rule .= '             \'' . $conv . '\'=>\'' . rtrim($valrule, '|"') . '\',' . "\n";
+				} else {
+					$rule .= '             \'' . $conv . '\'=>\'' . rtrim($valrule, '|') . '\',' . "\n";
+				}
 			}
 
 			$i++;
