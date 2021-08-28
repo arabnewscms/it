@@ -16,6 +16,14 @@ $ext =  !is_null(explode('.',$video)) && count(explode('.',$video)) > 0?explode(
         <button type="button" class="btn btn-default btn-sm float-left" data-dismiss="modal">x</button>
       </div>
       <div class="modal-body">
+@php
+/*
+style class change vjs-theme-fantasy to
+vjs-theme-sea or
+vjs-theme-forest or
+vjs-theme-city
+*/
+@endphp
         <video class="vjs-theme-fantasy video-js hidden" id="video{{ $random }}" data-setup='{"controls": true, "autoplay": false, "preload": "auto"}' width="762px" height="450px" >
           <source src="{{ it()->url($video) }}" type="video/{{ $ext }}"  >
         </video>
