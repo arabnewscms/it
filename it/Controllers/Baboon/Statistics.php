@@ -34,7 +34,7 @@ class Statistics extends Controller {
 			'model' => !empty(request('make_model')) ? 1 : 0,
 			'auto_migrate' => !empty(request('auto_migrate')) ? 1 : 0,
 			'laravelcollective' => !empty(request('use_collective')) ? 1 : 0,
-			'linkatmodel' => count(request('linkatmodel')),
+			'linkatmodel' => !empty(request('linkatmodel')) && count(request('linkatmodel')),
 		];
 	}
 
