@@ -106,14 +106,14 @@ class {ClassName}DataTable extends DataTable
 					$final_pluckName = '';
 				}
 
-				if (!empty($final_pluckName) && request()->has('forginkeyto' . $i2) && in_array($pre_conv[0], request('dt_show_column'))) {
+				if (!empty($final_pluckName) && request()->has('forginkeyto' . $i2) && !empty(request('dt_show_column')) && in_array($pre_conv[0], request('dt_show_column'))) {
 					$cols .= '				[' . "\n";
 
 					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '.' . $final_pluckName . '' . '\',' . "\n";
 					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '.' . $final_pluckName . '\',' . "\n";
 					$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
 					$cols .= '		    ],' . "\n";
-				} elseif (!request()->has('forginkeyto' . $i2) && in_array($pre_conv[0], request('dt_show_column'))) {
+				} elseif (!request()->has('forginkeyto' . $i2) && !empty(request('dt_show_column')) && in_array($pre_conv[0], request('dt_show_column'))) {
 					$cols .= '				[' . "\n";
 					$cols .= '                 \'name\'=>\'' . self::convention_name(request('model_name')) . '.' . $pre_conv[0] . '\',' . "\n";
 					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
@@ -124,7 +124,7 @@ class {ClassName}DataTable extends DataTable
 
 					$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
 					$cols .= '		    ],' . "\n";
-				} elseif (in_array($conv, request('dt_show_column'))) {
+				} elseif (!empty(request('dt_show_column')) && in_array($conv, request('dt_show_column'))) {
 					$cols .= '				[' . "\n";
 					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
 					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
@@ -135,14 +135,14 @@ class {ClassName}DataTable extends DataTable
 			} elseif (preg_match('/#/i', $conv)) {
 				$pre_conv = explode('#', $conv);
 
-				if (!preg_match('/' . $pre_conv[0] . '/', $cols) && in_array($pre_conv[0], request('dt_show_column'))) {
+				if (!preg_match('/' . $pre_conv[0] . '/', $cols) && !empty(request('dt_show_column')) && in_array($pre_conv[0], request('dt_show_column'))) {
 					$cols .= '				[' . "\n";
 					$cols .= '                 \'name\'=>\'' . $pre_conv[0] . '\',' . "\n";
 					$cols .= '                 \'data\'=>\'' . $pre_conv[0] . '\',' . "\n";
 					$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
 					$cols .= '		    ],' . "\n";
 				}
-			} elseif (in_array($conv, request('dt_show_column'))) {
+			} elseif (!empty(request('dt_show_column')) && in_array($conv, request('dt_show_column'))) {
 				$cols .= '				[' . "\n";
 				$cols .= '                 \'name\'=>\'' . $conv . '\',' . "\n";
 				$cols .= '                 \'data\'=>\'' . $conv . '\',' . "\n";
@@ -239,7 +239,7 @@ class {ClassName}DataTable extends DataTable
 					$dropdown = str_replace('{pluck}', '\\' . $new_pluck, $dropdown);
 				}
 
-				if (in_array($ex_select[0], request('dt_show_column'))) {
+				if (!empty(request('dt_show_column')) && in_array($ex_select[0], request('dt_show_column'))) {
 
 					if (!empty(request('datatable_checkbox')) && !empty(request('datatable_record_id'))) {
 						$select_sort = ($x + 2);
@@ -257,7 +257,7 @@ class {ClassName}DataTable extends DataTable
 					$finaldropdown .= '            ". filterElement(\'' . $select_sort . '\', \'select\', ' . $dropdown . ') . "' . "\n";
 				}
 
-			} elseif ($r->input('col_type')[$x] != 'file' && in_array($conv, request('dt_show_column'))) {
+			} elseif ($r->input('col_type')[$x] != 'file' && !empty(request('dt_show_column')) && in_array($conv, request('dt_show_column'))) {
 				if ($finalInputsCount != 1) {
 					$finalInputsCount .= "1," . ($x + 2) . ",";
 				} else {

@@ -35,6 +35,11 @@
             <h4 class="fa fa-table"></h4>
           Datatable</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#panel-statistics" data-toggle="tab">
+            <h4 class="fa fa-chart-bar"></h4>
+          Statistics</a>
+        </li>
         <li class="nav-item"><br>
           <button type="button" class="btn btn-success  generate">
           <i class="fa fa-plus-circle"></i>
@@ -62,6 +67,10 @@
         </div>
         <div class="tab-pane" id="panel-datatable">
           @include('baboon.datatable_settings')
+          <div class="clearfix"></div>
+        </div>
+        <div class="tab-pane activee" id="panel-statistics">
+          @include('baboon.statistics')
           <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>

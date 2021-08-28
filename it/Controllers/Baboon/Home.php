@@ -8,6 +8,7 @@ use Phpanonymous\It\Controllers\Baboon\BaboonShowPage;
 use Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonDeleteModule;
 use Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonModule;
 use Phpanonymous\It\Controllers\Baboon\MasterBaboon as Baboon;
+use Phpanonymous\It\Controllers\Baboon\Statistics;
 
 class Home extends Controller {
 	/**
@@ -312,8 +313,11 @@ class Home extends Controller {
 
 		//********* Preparing Menu List ***********/
 		//session()->flash('code', $data_code);
+		if (!empty(request('collect'))) {
+			(new Statistics)->init();
+		}
 
-		return response(['status' => true, 'message' => 'CRUD Created Successfully']);
+		return response(['status' => true, 'message' => 'Module - CRUD Generated'], 200);
 	}
 
 	public function makeNamespace($type) {

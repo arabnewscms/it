@@ -147,7 +147,8 @@ $(document).on('click','.generate',function(){
 		$('.loading_genereate').addClass('hidden');
 	},error: function(xhr)
 	{
-		if(xhr.responseJSON.errors)
+    if(xhr.responseJSON){
+		if(xhr.responseJSON.errors !== 'undefined')
 		{
 		  var errors = '<ul>';
 		  $.each(xhr.responseJSON.errors,function(k,v){
@@ -163,6 +164,7 @@ $(document).on('click','.generate',function(){
 	  $('.generate').removeClass('hidden');
 	  $('.loading_genereate').addClass('hidden');
 	  $('html,body').animate({ scrollTop: 0 }, 1000);
+    }
 	}
   });
 });
@@ -465,7 +467,7 @@ $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
     `;
  }
  $('.datatable_columns_checkboxes').html(table_checkbox);
- @if(!empty(request('module')) && app('module_data')->datatable && app('module_data')->datatable->dt_show_column)
+ @if(!empty(request('module')) && !empty(app('module_data')->datatable) && !empty(app('module_data')->datatable->dt_show_column))
  @php
  $dt_show_columns = app('module_data')->datatable->dt_show_column;
  @endphp

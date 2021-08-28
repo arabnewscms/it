@@ -117,8 +117,10 @@ class BaboonModule extends Controller {
 			'datatable_paging' => !empty(request('datatable_paging')) ? 'yes' : 'no',
 		];
 
-		foreach (request('dt_show_column') as $conv) {
-			$datatable['dt_show_column'][] = $conv;
+		if (!empty(request('dt_show_column'))) {
+			foreach (request('dt_show_column') as $conv) {
+				$datatable['dt_show_column'][] = $conv;
+			}
 		}
 		return $datatable;
 	}
@@ -255,8 +257,8 @@ class BaboonModule extends Controller {
 		$rules['forginkeyto' . $i] = request()->has('forginkeyto' . $i) ? [
 			'checked',
 			[
-				'references' . $i => request('references' . $i),
-				'forgin_table_name' . $i => request('forgin_table_name' . $i),
+				'references' . $i => !empty(request('references' . $i)) ? request('references' . $i) : '',
+				'forgin_table_name' . $i => !empty(request('forgin_table_name' . $i)) ? request('forgin_table_name' . $i) : '',
 				'schema_onDelete' . $i => request()->has('schema_onDelete' . $i) ? 'checked' : '',
 				'schema_onUpdate' . $i => request()->has('schema_onUpdate' . $i) ? 'checked' : '',
 				'schema_nullable' . $i => request()->has('schema_nullable' . $i) ? 'checked' : '',

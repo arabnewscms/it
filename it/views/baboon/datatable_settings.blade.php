@@ -20,10 +20,12 @@ return ['checked',''];
 
   <div class="col-md-12 input_columns_borad">
     <center>Show / Hide your Columns </center>
+    <div style="max-height: 143px;overflow-x: auto;">
     <table class="table table-bordered table-striped table-hover" dir="rtl">
       <thead class="datatable_columns_checkboxes">
       </thead>
     </table>
+    </div>
     <div class="clearfix"></div>
      <div class="col-md-2">
     <label>
