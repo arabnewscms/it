@@ -22,6 +22,7 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/resources/views/admin/ajax.baboon' => 'resources/views/admin/ajax.blade.php',
 			__DIR__ . '/../patch_update/public/it_des/it/css/baboon.baboon' => 'public/it_des/it/css/baboon.css',
 			__DIR__ . '/../patch_update/public/assets/css/adminlte-rtl.css' => 'public/assets/css/adminlte-rtl.css',
+			__DIR__ . '/../patch_update/public/assets/css/custom.css' => 'public/assets/css/custom.css',
 			__DIR__ . '/../patch_update/public/assets/css/adminlte.css' => 'public/assets/css/adminlte.css',
 			__DIR__ . '/../patch_update/resources/lang/ar/validation.baboon' => 'resources/lang/ar/validation.php',
 			__DIR__ . '/../patch_update/resources/lang/en/validation.baboon' => 'resources/lang/en/validation.php',
