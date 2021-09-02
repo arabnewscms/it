@@ -10,8 +10,8 @@ if ($data['audio']['status']) {
 	$audio = '';
 }
 
-if (!empty($data['file_type']) && is_array($data['file_type'])) {
-	$accept = implode('|', $data['file_type']);
+if (!empty($data['file_type'])) {
+	$accept = $data['file_type'];
 } else {
 	$accept = '';
 }
