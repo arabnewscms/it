@@ -15,7 +15,6 @@ $temp_id = !empty(request('temp_id'))?request('temp_id'):(time()*rand(0000,9999)
 @endphp
 
 
-
 <input type="hidden" name="dz_path" value="{{ $path }}">
 <input type="hidden" name="dz_type" value="{{ $type }}">
 <input type="hidden" name="dz_id" value="{{ $id }}">
