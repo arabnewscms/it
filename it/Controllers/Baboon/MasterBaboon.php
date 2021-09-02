@@ -291,42 +291,38 @@ protected $fillable = [' . "\n";
 		return $conv;
 	}
 
-	public static function fileType() {
-		$file_type = [];
-		$i = 0;
-		foreach (request('col_type') as $col) {
-			if (!empty(request('pdf' . $i))) {
-				$file_type[] = 'pdf';
-			} elseif (!empty(request('docx' . $i))) {
-				$file_type[] = 'docx';
-			} elseif (!empty(request('mp4' . $i))) {
-				$file_type[] = 'mp4';
-			} elseif (!empty(request('mpeg' . $i))) {
-				$file_type[] = 'mpeg';
-			} elseif (!empty(request('mov' . $i))) {
-				$file_type[] = 'mov';
-			} elseif (!empty(request('3gp' . $i))) {
-				$file_type[] = '3gp';
-			} elseif (!empty(request('webm' . $i))) {
-				$file_type[] = 'webm';
-			} elseif (!empty(request('mkv' . $i))) {
-				$file_type[] = 'mkv';
-			} elseif (!empty(request('wmv' . $i))) {
-				$file_type[] = 'wmv';
-			} elseif (!empty(request('avi' . $i))) {
-				$file_type[] = 'avi';
-			} elseif (!empty(request('vob' . $i))) {
-				$file_type[] = 'vob';
-			} elseif (!empty(request('video' . $i))) {
-				$file_type[] = 'video';
-			} elseif (!empty(request('image' . $i))) {
-				$file_type[] = 'image';
-			} elseif (!empty(request('mp3' . $i))) {
-				$file_type[] = 'mp3';
-			}
-			$i++;
+	public static function fileType($i) {
+		if (!empty(request('pdf' . $i))) {
+			return 'pdf';
+		} elseif (!empty(request('docx' . $i))) {
+			return 'docx';
+		} elseif (!empty(request('mp4' . $i))) {
+			return 'mp4';
+		} elseif (!empty(request('mpeg' . $i))) {
+			return 'mpeg';
+		} elseif (!empty(request('mov' . $i))) {
+			return 'mov';
+		} elseif (!empty(request('3gp' . $i))) {
+			return '3gp';
+		} elseif (!empty(request('webm' . $i))) {
+			return 'webm';
+		} elseif (!empty(request('mkv' . $i))) {
+			return 'mkv';
+		} elseif (!empty(request('wmv' . $i))) {
+			return 'wmv';
+		} elseif (!empty(request('avi' . $i))) {
+			return 'avi';
+		} elseif (!empty(request('vob' . $i))) {
+			return 'vob';
+		} elseif (!empty(request('video' . $i))) {
+			return 'video';
+		} elseif (!empty(request('image' . $i))) {
+			return 'image';
+		} elseif (!empty(request('mp3' . $i))) {
+			return 'mp3';
+		} else {
+			return '';
 		}
-		return $file_type;
 	}
 
 	public static function includeAjax($type) {
@@ -442,7 +438,7 @@ protected $fillable = [' . "\n";
 					'forginkeyto' => $r->input('forginkeyto' . $i) ? 'yes' : 'no',
 					'link_ajax' => $r->input('link_ajax' . $i) ? 'yes' : 'no',
 					'i' => $i,
-					'file_type' => self::fileType(),
+					'file_type' => self::fileType($i),
 				];
 
 				if (!empty($r->input('col_type')[$i]) and 'text' == $r->input('col_type')[$i]) {
@@ -639,7 +635,7 @@ protected $fillable = [' . "\n";
 					'i' => $i,
 					'video' => self::isVideo($i),
 					'audio' => self::isAudio($i),
-					'file_type' => self::fileType(),
+					'file_type' => self::fileType($i),
 				];
 
 				if (!empty($r->input('col_type')[$i]) and 'text' == $r->input('col_type')[$i]) {

@@ -300,9 +300,61 @@
                     <input type="checkbox" value="1" name="pdf`+x+`" />
                   </label>
                 </div>
+                 <div class="clearfix"></div>
+                <hr />
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> office
+                    <input type="checkbox" value="1" name="office0" />
+                  </label>
+                </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> docx
-                    <input type="checkbox" value="1" name="docx`+x+`" />
+                    <input type="checkbox" value="1" name="docx0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> xlsx
+                    <input type="checkbox" value="1" name="xlsx0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> xls
+                    <input type="checkbox" value="1" name="xls0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> xltx
+                    <input type="checkbox" value="1" name="xltx0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> ppt
+                    <input type="checkbox" value="1" name="ppt0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> ppam
+                    <input type="checkbox" value="1" name="ppam0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> pptm
+                    <input type="checkbox" value="1" name="pptm0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> ppsm
+                    <input type="checkbox" value="1" name="ppsm0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> potm
+                    <input type="checkbox" value="1" name="potm0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> sldm
+                    <input type="checkbox" value="1" name="sldm0" />
                   </label>
                 </div>
                 <div class="clearfix"></div>

@@ -13,18 +13,118 @@ $time = time();
   $id = $time;
  }
 @endphp
+
+
+
+<input type="hidden" name="dz_path" value="{{ $path }}">
+<input type="hidden" name="dz_type" value="{{ $type }}">
+<input type="hidden" name="dz_id" value="{{ $id }}">
+
+<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" id="drop_{{ $dz_param }}">
+  <div class="card card-default">
+    <div class="card-header">
+      <h3 class="card-title float-left"> {{ trans('admin.'.$dz_param) }} <small>({{ trans('admin.multi_upload') }})</small></h3>
+    </div>
+    <div class="card-body">
+      <div id="actions_{{ $dz_param }}" class="row">
+        <div class="col-lg-6">
+          <div class="btn-group w-100">
+            <span class="btn btn-success col fileinput-button_{{ $dz_param }} dz-clickable">
+              <i class="fas fa-plus"></i>
+              <span>{{ trans('admin.add_files') }}</span>
+            </span>
+            <a href="javascript: void(0)" class="btn btn-primary col start_{{ $dz_param }} hidden">
+            <i class="fas fa-upload"></i>
+            <span>{{ trans('admin.start_upload') }}</span>
+            </a>
+            <button type="reset" class="btn btn-warning col cancel_{{ $dz_param }} hidden">
+            <i class="fas fa-times-circle"></i>
+            <span>{{ trans('admin.cancel_upload') }}</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-6 d-flex align-items-center">
+          <div class="row">
+          <div><center>{{ trans('admin.drag_drop_files_here') }}</center></div>
+          <div class="fileupload-process w-100">
+            <div id="{{ $dz_param }}-total-progress" class="progress hidden progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress=""></div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <!--start Previews Template-->
+      <div class="table table-striped files" id="previews_{{ $dz_param }}">
+        <div id="multi_upload_dropzone_{{ $dz_param }}" class="file-row">
+          <!-- This is used as the file preview template -->
+          <div>
+            <div class="col-md-12">
+              <small class="error text-danger" data-dz-errormessage></small>
+            </div>
+            <div class="col-md-12">
+              <div class="row align-items-center h-100">
+              <div class="col-md-6">
+                  <div class="row align-items-center h-100">
+                  <div class="col-md-4">
+                    <span class="preview_{{ $dz_param }}">
+                    <img data-dz-thumbnail style="width:{{ !empty($thumbnailWidth)?$thumbnailWidth:80 }}px;height: {{ !empty($thumbnailHeight)?$thumbnailHeight:80 }}px;cursor: pointer;" />
+                    </span>
+                  </div>
+                  <div class="col-md-8">
+                  <p class="name" data-dz-name></p>
+                  <p class="size" data-dz-size></p>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                    <a href="javascript: void(0)" class="btn btn-primary start_{{ $dz_param }}">
+                      <i class="fa fa-upload"></i>
+                      <span>{{ trans('admin.start') }}</span>
+                    </a>
+                    <a href="javascript: void(0)" data-dz-remove class="btn btn-warning cancel_{{ $dz_param }}">
+                      <i class="fa fa-ban"></i>
+                      <span>{{ trans('admin.cancel') }}</span>
+                    </a>
+                    <a href="javascript: void(0)" data-dz-remove class="btn btn-danger delete_{{ $dz_param }}">
+                      <i class="fa fa-trash"></i>
+                      <span>{{ trans('admin.delete') }}</span>
+                    </a>
+                    <hr />
+
+                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                  <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                  </div>
+              </div>
+              </div>
+              <hr />
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!--End Previews Template-->
+    </div>
+  </div>
+</div>
+
+
+
 @push('js')
 <script type="text/javascript">
   // DropzoneJS Demo Code Start
   Dropzone.autoDiscover = false
 
   // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-  var previewNode = document.querySelector("#multi_upload_dropzone")
-  previewNode.id = ""
-  var previewTemplate = previewNode.parentNode.innerHTML
-  previewNode.parentNode.removeChild(previewNode)
+  var previewNode{{$dz_param}} = document.querySelector("#multi_upload_dropzone_{{ $dz_param }}")
+  previewNode{{$dz_param}}.id = ""
+  var previewTemplate = previewNode{{$dz_param}}.parentNode.innerHTML
+  previewNode{{$dz_param}}.parentNode.removeChild(previewNode{{$dz_param}})
 
-  var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+  var myDropzone{{$dz_param}} = new Dropzone(
+    "#drop_{{ $dz_param }}",
+     { // Make the whole body a dropzone
     url: "{{ aurl($route.'/upload/multi') }}", // Set the url
     paramName:"{{ $dz_param }}",
     thumbnailWidth: '{{ !empty($thumbnailWidth)?$thumbnailWidth:80 }}',
@@ -35,8 +135,8 @@ $time = time();
     //addRemoveLinks: true,
     previewTemplate: previewTemplate,
     autoQueue: {{ !empty($autoQueue)?$autoQueue:'false' }} , // Make sure the files aren't queued until manually added
-    previewsContainer: "#previews", // Define the container to display the previews
-    clickable: ".fileinput-button", // Define the element that should be used as click trigger to select files.
+    previewsContainer: "#previews_{{ $dz_param }}", // Define the container to display the previews
+    clickable: ".fileinput-button_{{ $dz_param }}", // Define the element that should be used as click trigger to select files.
 
     @if(!empty($acceptedMimeTypes))
     acceptedMimeTypes:"{{ $acceptedMimeTypes }}",
@@ -44,8 +144,8 @@ $time = time();
   });
 
   function resetProgress(){
-    document.querySelector("#total-progress .progress-bar").style.width = "0%";
-    document.querySelector("#total-progress").style.opacity = "0";
+    document.querySelector("#{{ $dz_param }}-total-progress .progress-bar").style.width = "0%";
+    document.querySelector("#{{ $dz_param }}-total-progress").style.opacity = "0";
   }
 
 
@@ -71,7 +171,6 @@ $time = time();
       }
   }
 
-
 // Generate Random Id String//
 function makeid(length) {
     var result           = '';
@@ -83,54 +182,52 @@ function makeid(length) {
    return result;
 }
 
-  function dzViewModal(){
-      $(document).on('click','.preview',function(){
-
-      $('.dz_viewer').html('');
-      var mimtype = $(this).attr('mimtype');
+      $(document).on('click','.preview_{{ $dz_param }}',function(){
+      $('.dz_viewer_{{ $dz_param }}').html('');
+      var mimtype_{{ $dz_param }} = $(this).attr('mimtype');
       var url = $(this).attr('url');
       // Image
-        if(mimtype.match('image.*')){
+        if(mimtype_{{ $dz_param }}.match('image.*')){
           var image = `<center>
                         <img src="`+url+`" style="width:100%;height:100%;" />
                        </center>`;
-           $('.dz_viewer').html(image);
-           $("#dz_viewer").modal('show');
-        }else if(mimtype.match('video.*')){
-         var random_video = makeid(10);
+           $('.dz_viewer_{{ $dz_param }}').html(image);
+           $("#dz_viewer_{{ $dz_param }}").modal('show');
+        }else if(mimtype_{{ $dz_param }}.match('video.*')){
+         var random_video{{ $dz_param }} = makeid(10);
          var video = `
-            <video class="vjs-theme-fantasy video-js" id="dz_video_viewer`+random_video+`" data-setup='{"controls": true, "autoplay": false, "preload": "auto"}' width="762px" height="450px" >
+            <video class="vjs-theme-fantasy video-js" id="dz_video_viewer`+random_video{{ $dz_param }}+`" data-setup='{"controls": true, "autoplay": false, "preload": "auto"}' width="762px" height="450px" >
               <source src="`+url+`"   >
             </video>`;
-           $('.dz_viewer').html(video);
-           $("#dz_viewer").modal('show');
+           $('.dz_viewer_{{ $dz_param }}').html(video);
+           $("#dz_viewer_{{ $dz_param }}").modal('show');
            // Video Player Code //
 
-            var mplayer = videojs('#dz_video_viewer'+random_video, {
+            var mplayer{{ $dz_param }} = videojs('#dz_video_viewer'+random_video{{ $dz_param }}, {
                 controls: true,
                 autoplay: false,
                 preload: 'auto'
                });
-            $("#dz_viewer").on('hidden.bs.modal', function() {
-             mplayer.pause();
+            $("#dz_viewer_{{ $dz_param }}").on('hidden.bs.modal', function() {
+             mplayer{{ $dz_param }}.pause();
             });
            // Video Player Code //
-        }else if(mimtype.match('audio.*')){
-          var audio = `
+        }else if(mimtype_{{ $dz_param }}.match('audio.*')){
+          var audio_{{ $dz_param }} = `
           <audio controls style="width:100%">
             <source src="`+url+`">
           </audio>`;
-           $('.dz_viewer').html(audio);
-           $("#dz_viewer").modal('show');
+           $('.dz_viewer_{{ $dz_param }}').html(audio_{{ $dz_param }});
+           $("#dz_viewer_{{ $dz_param }}").modal('show');
            // Audio Player Code //
-           $("#dz_viewer").on('hidden.bs.modal', function() {
+           $("#dz_viewer_{{ $dz_param }}").on('hidden.bs.modal', function() {
              $('audio')[0].pause();
            });
            // Audio Player Code //
         }else{
-          var win = window.open(url, '_blank');
-          if (win) {
-              win.focus();
+          var win_{{ $dz_param }} = window.open(url, '_blank');
+          if (win_{{ $dz_param }}) {
+              win_{{ $dz_param }}.focus();
           } else {
               alert('Please allow popups for this website');
           }
@@ -140,10 +237,6 @@ function makeid(length) {
 
 
 
-  }
-  dzViewModal();
-
-
     //Add existing files into dropzone
     @if($type == 'edit')
 @php
@@ -151,8 +244,7 @@ $dz_files = \App\Models\Files::orderBy('id','asc');
     if(!empty($acceptedMimeTypes)){
        foreach(explode(',',$acceptedMimeTypes) as $mime){
           $extract_name = explode('/',$mime)[0];
-          $dz_files->where('mimtype','LIKE','%'.$extract_name.'%')
-          ->orWhere('mimtype','LIKE','%'.$mime.'%');
+          $dz_files->where('mimtype','LIKE','%'.$extract_name.'%');
         }
     }
 $get_dz_files = $dz_files->where('type_id',$id)
@@ -168,23 +260,23 @@ $get_dz_files = $dz_files->where('type_id',$id)
           accepted: true
         }; // use actual id server uses to identify the file (e.g. DB unique identifier)
 
-        myDropzone.emit("addedfile", mockFile);
+        myDropzone{{$dz_param}}.emit("addedfile", mockFile);
         @if(preg_match('/image/i',$file->mimtype))
-         myDropzone.emit('thumbnail', mockFile, '{{ it()->url($file->full_path) }}');
+         myDropzone{{$dz_param}}.emit('thumbnail', mockFile, '{{ it()->url($file->full_path) }}');
 
         @else
-         myDropzone.emit('thumbnail', mockFile, findMimeTypeImage('{{ $file->mimtype }}'));
+         myDropzone{{$dz_param}}.emit('thumbnail', mockFile, findMimeTypeImage('{{ $file->mimtype }}'));
         @endif
-        myDropzone.emit("success", mockFile);
-        myDropzone.emit("complete", mockFile);
-        myDropzone.files.push(mockFile);
+        myDropzone{{$dz_param}}.emit("success", mockFile);
+        myDropzone{{$dz_param}}.emit("complete", mockFile);
+        myDropzone{{$dz_param}}.files.push(mockFile);
 
 
 
-        $('.start,.cancel,.progress').addClass('hidden');
+        $('.start_{{ $dz_param }},.cancel_{{ $dz_param }},.progress').addClass('hidden');
 
         // Put File Information To Delete it
-        $(myDropzone.files[i].previewTemplate).find('.preview')
+        $(myDropzone{{$dz_param}}.files[i].previewTemplate).find('.preview_{{ $dz_param }}')
         .attr("fid",'{{ $file->id }}')
         .attr("type_id",'{{ $file->type_id }}')
         .attr("mimtype",'{{ $file->mimtype }}')
@@ -193,29 +285,29 @@ $get_dz_files = $dz_files->where('type_id',$id)
 
         i++;
         @endforeach
-        //console.log(myDropzone.files);
+        //console.log(myDropzone{{$dz_param}}.files);
 
      @endif
 
-  myDropzone.on("addedfile", function(file) {
+  myDropzone{{$dz_param}}.on("addedfile", function(file) {
     // Hookup the start button
-    $('.start,.cancel').removeClass('hidden');
-    file.previewElement.querySelector(".start").onclick = function() {
-      myDropzone.enqueueFile(file);
+    $('.start_{{ $dz_param }},.cancel_{{ $dz_param }}').removeClass('hidden');
+    file.previewElement.querySelector(".start_{{ $dz_param }}").onclick = function() {
+      myDropzone{{$dz_param}}.enqueueFile(file);
     }
   });
 
 
 
   // Update the total progress bar
-  myDropzone.on("totaluploadprogress", function(progress) {
-    document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+  myDropzone{{$dz_param}}.on("totaluploadprogress", function(progress) {
+    document.querySelector("#{{ $dz_param }}-total-progress .progress-bar").style.width = progress + "%";
   })
 
-  myDropzone.on("sending", function(file, xhr, formData) {
+  myDropzone{{$dz_param}}.on("sending", function(file, xhr, formData) {
     @if(!empty($maxFileSize) && is_numeric($maxFileSize))
     if (file.size > {{ $maxFileSize }}*1024*1024) {
-      myDropzone.removeFile(file);
+      myDropzone{{$dz_param}}.removeFile(file);
       const SweetDZ = Swal.mixin({
         toast: true,
         position: 'top',
@@ -235,7 +327,7 @@ $get_dz_files = $dz_files->where('type_id',$id)
     @endif
 
     // if(!file.type.match('image.*')) {
-    //     myDropzone.removeFile(file);
+    //     myDropzone{{$dz_param}}.removeFile(file);
     //     alert('Not an image')
     //     return false;
     // }
@@ -245,7 +337,7 @@ $get_dz_files = $dz_files->where('type_id',$id)
     formData.append("dz_id", "{{ $id }}");
     formData.append("_token", "{{ csrf_token() }}");
     // Show the total progress bar when upload starts
-    document.querySelector("#total-progress").style.opacity = "1";
+    document.querySelector("#{{ $dz_param }}-total-progress").style.opacity = "1";
     $('.progress').removeClass('hidden');
     // And hidden the start button
     $(file.previewElement).find('.start').addClass('hidden');
@@ -253,20 +345,20 @@ $get_dz_files = $dz_files->where('type_id',$id)
   });
 
   // Hide the total progress bar when nothing's uploading anymore
-  myDropzone.on("queuecomplete", function(progress) {
-    document.querySelector("#total-progress").style.opacity = "0";
-    $('.start,.cancel').addClass('hidden');
+  myDropzone{{$dz_param}}.on("queuecomplete", function(progress) {
+    document.querySelector("#{{ $dz_param }}-total-progress").style.opacity = "0";
+    $('.start_{{ $dz_param }},.cancel_{{ $dz_param }}').addClass('hidden');
   });
 
   // On Delete File must be remove from server also
-   myDropzone.on("removedfile", function(file) {
+   myDropzone{{$dz_param}}.on("removedfile", function(file) {
     resetProgress();
 
     // Delete From Server by type file and type id if temp or real id
 
-      var file_id = $(file.previewElement).find('.preview').attr("fid");
-      var type_id = $(file.previewElement).find('.preview').attr("type_id");
-      var type_file = $(file.previewElement).find('.preview').attr("type_file");
+      var file_id = $(file.previewElement).find('.preview_{{ $dz_param }}').attr("fid");
+      var type_id = $(file.previewElement).find('.preview_{{ $dz_param }}').attr("type_id");
+      var type_file = $(file.previewElement).find('.preview_{{ $dz_param }}').attr("type_file");
 
     if(file_id !== undefined && type_id !== undefined && type_file !== undefined){
       //Ajax Delete Request
@@ -279,12 +371,12 @@ $get_dz_files = $dz_files->where('type_id',$id)
     }
   });
 
-  // myDropzone.on("complete", function(file, response) {
+  // myDropzone{{$dz_param}}.on("complete", function(file, response) {
   //   //maxFiles
 
   // });
 
-  myDropzone.on("error", function(file, response) {
+  myDropzone{{$dz_param}}.on("error", function(file, response) {
     if(response && response.errors){
       var msg = response.errors.{{ $dz_param }}[0];
       //console.log(file.previewElement);
@@ -293,10 +385,10 @@ $get_dz_files = $dz_files->where('type_id',$id)
   });
 
   // on success and uploaded files set ids
-  myDropzone.on("success", function(file, response) {
+  myDropzone{{$dz_param}}.on("success", function(file, response) {
      resetProgress();
      if(response && response.status == true){
-      $(file.previewTemplate).find('.preview')
+      $(file.previewTemplate).find('.preview_{{ $dz_param }}')
       .attr("fid",response.file.id)
       .attr("type_id",response.file.type_id)
       .attr("mimtype",response.file.mimtype)
@@ -305,7 +397,7 @@ $get_dz_files = $dz_files->where('type_id',$id)
      }
 
 
-     $(file.previewElement).find('.cancel').addClass('hidden');
+     $(file.previewElement).find('.cancel_{{ $dz_param }}').addClass('hidden');
     if(!file.type.match('image.*')){
     file.previewElement.querySelector("img").src = findMimeTypeImage(file.type);
     }
@@ -315,14 +407,14 @@ $get_dz_files = $dz_files->where('type_id',$id)
   // Setup the buttons for all transfers
   // The "add files" button doesn't need to be setup because the config
   // `clickable` has already been specified.
-  document.querySelector("#actions .start").onclick = function() {
-    myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+  document.querySelector("#actions_{{ $dz_param }} .start_{{ $dz_param }}").onclick = function() {
+    myDropzone{{$dz_param}}.enqueueFiles(myDropzone{{$dz_param}}.getFilesWithStatus(Dropzone.ADDED));
   }
 
-  document.querySelector("#actions .cancel").onclick = function() {
-     $('.start,.cancel').addClass('hidden');
-    document.querySelector("#total-progress").style.opacity = "0";
-    myDropzone.removeAllFiles(true);
+  document.querySelector("#actions_{{ $dz_param }} .cancel_{{ $dz_param }}").onclick = function() {
+     $('.start_{{ $dz_param }},.cancel_{{ $dz_param }}').addClass('hidden');
+    document.querySelector("#{{ $dz_param }}-total-progress").style.opacity = "0";
+    myDropzone{{$dz_param}}.removeAllFiles(true);
     return false;
   }
 
@@ -331,14 +423,14 @@ $get_dz_files = $dz_files->where('type_id',$id)
 </script>
 
 <!--View Image Modal -->
-<div id="dz_viewer" class="modal fade" role="dialog">
+<div id="dz_viewer_{{ $dz_param }}" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="">
         <button type="button" class="btn btn-default btn-sm float-left" data-dismiss="modal">x</button>
       </div>
       <div class="modal-body">
-        <span class="dz_viewer">
+        <span class="dz_viewer_{{ $dz_param }}">
 
         </span>
       </div>
@@ -348,97 +440,3 @@ $get_dz_files = $dz_files->where('type_id',$id)
 <!--View Image Modal End-->
 
 @endpush
-
-
-<input type="hidden" name="dz_path" value="{{ $path }}">
-<input type="hidden" name="dz_type" value="{{ $type }}">
-<input type="hidden" name="dz_id" value="{{ $id }}">
-
-<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-  <div class="card card-default">
-    <div class="card-header">
-      <h3 class="card-title float-left"> {{ trans('admin.'.$dz_param) }} <small>({{ trans('admin.multi_upload') }})</small></h3>
-    </div>
-    <div class="card-body">
-      <div id="actions" class="row">
-        <div class="col-lg-6">
-          <div class="btn-group w-100">
-            <span class="btn btn-success col fileinput-button dz-clickable">
-              <i class="fas fa-plus"></i>
-              <span>{{ trans('admin.add_files') }}</span>
-            </span>
-            <a href="javascript: void(0)" class="btn btn-primary col start hidden">
-            <i class="fas fa-upload"></i>
-            <span>{{ trans('admin.start_upload') }}</span>
-            </a>
-            <button type="reset" class="btn btn-warning col cancel hidden">
-            <i class="fas fa-times-circle"></i>
-            <span>{{ trans('admin.cancel_upload') }}</span>
-            </button>
-          </div>
-        </div>
-        <div class="col-lg-6 d-flex align-items-center">
-          <div class="row">
-          <div><center>{{ trans('admin.drag_drop_files_here') }}</center></div>
-          <div class="fileupload-process w-100">
-            <div id="total-progress" class="progress hidden progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-              <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress=""></div>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <!--start Previews Template-->
-      <div class="table table-striped files" id="previews">
-        <div id="multi_upload_dropzone" class="file-row">
-          <!-- This is used as the file preview template -->
-          <div>
-            <div class="col-md-12">
-              <small class="error text-danger" data-dz-errormessage></small>
-            </div>
-            <div class="col-md-12">
-              <div class="row align-items-center h-100">
-              <div class="col-md-6">
-                  <div class="row align-items-center h-100">
-                  <div class="col-md-4">
-                    <span class="preview">
-                    <img data-dz-thumbnail style="width:{{ !empty($thumbnailWidth)?$thumbnailWidth:80 }}px;height: {{ !empty($thumbnailHeight)?$thumbnailHeight:80 }}px;" />
-                    </span>
-                  </div>
-                  <div class="col-md-8">
-                  <p class="name" data-dz-name></p>
-                  <p class="size" data-dz-size></p>
-                  </div>
-                  </div>
-              </div>
-              <div class="col-md-6">
-                    <a href="javascript: void(0)" class="btn btn-primary start">
-                      <i class="fa fa-upload"></i>
-                      <span>{{ trans('admin.start') }}</span>
-                    </a>
-                    <a href="javascript: void(0)" data-dz-remove class="btn btn-warning cancel">
-                      <i class="fa fa-ban"></i>
-                      <span>{{ trans('admin.cancel') }}</span>
-                    </a>
-                    <a href="javascript: void(0)" data-dz-remove class="btn btn-danger delete">
-                      <i class="fa fa-trash"></i>
-                      <span>{{ trans('admin.delete') }}</span>
-                    </a>
-                    <hr />
-
-                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                  <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
-                  </div>
-              </div>
-              </div>
-              <hr />
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <!--End Previews Template-->
-    </div>
-  </div>
-</div>
