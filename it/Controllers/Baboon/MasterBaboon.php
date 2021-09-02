@@ -294,6 +294,26 @@ protected $fillable = [' . "\n";
 	public static function fileType($i) {
 		if (!empty(request('pdf' . $i))) {
 			return 'pdf';
+		} elseif (!empty(request('office' . $i))) {
+			return 'office';
+		} elseif (!empty(request('xls' . $i))) {
+			return 'xls';
+		} elseif (!empty(request('xlsx' . $i))) {
+			return 'xlsx';
+		} elseif (!empty(request('xltx' . $i))) {
+			return 'xltx';
+		} elseif (!empty(request('ppt' . $i))) {
+			return 'ppt';
+		} elseif (!empty(request('ppam' . $i))) {
+			return 'ppam';
+		} elseif (!empty(request('pptm' . $i))) {
+			return 'pptm';
+		} elseif (!empty(request('sldm' . $i))) {
+			return 'sldm';
+		} elseif (!empty(request('ppsm' . $i))) {
+			return 'ppsm';
+		} elseif (!empty(request('potm' . $i))) {
+			return 'potm';
 		} elseif (!empty(request('docx' . $i))) {
 			return 'docx';
 		} elseif (!empty(request('mp4' . $i))) {
@@ -316,10 +336,20 @@ protected $fillable = [' . "\n";
 			return 'vob';
 		} elseif (!empty(request('video' . $i))) {
 			return 'video';
-		} elseif (!empty(request('image' . $i))) {
-			return 'image';
+		} elseif (!empty(request('audio' . $i))) {
+			return 'audio';
 		} elseif (!empty(request('mp3' . $i))) {
 			return 'mp3';
+		} elseif (!empty(request('wav' . $i))) {
+			return 'wav';
+		} elseif (!empty(request('xm' . $i))) {
+			return 'xm';
+		} elseif (!empty(request('ogg' . $i))) {
+			return 'ogg';
+		} elseif (!empty(request('adp' . $i))) {
+			return 'adp';
+		} elseif (!empty(request('image' . $i))) {
+			return 'image';
 		} else {
 			return '';
 		}
@@ -437,8 +467,8 @@ protected $fillable = [' . "\n";
 					'route' => $route,
 					'forginkeyto' => $r->input('forginkeyto' . $i) ? 'yes' : 'no',
 					'link_ajax' => $r->input('link_ajax' . $i) ? 'yes' : 'no',
-					'i' => $i,
 					'file_type' => self::fileType($i),
+					'i' => $i,
 				];
 
 				if (!empty($r->input('col_type')[$i]) and 'text' == $r->input('col_type')[$i]) {

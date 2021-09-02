@@ -1,9 +1,4 @@
 <?php
-if (!empty($data['file_type']) && is_array($data['file_type'])) {
-	$accept = implode('|', $data['file_type']);
-} else {
-	$accept = '';
-}
 
 $text = '
 <div class="' . $data['col_width'] . '">
@@ -13,7 +8,7 @@ $text = '
     "parallelUploads"=>"20",
     "maxFiles"=>"30",
     "maxFileSize"=>"",
-    "acceptedMimeTypes"=>it()->acceptedMimeTypes("' . $accept . '"),
+    "acceptedMimeTypes"=>it()->acceptedMimeTypes("' . $data['file_type'] . '"),
     "autoQueue"=>true,
     "dz_param"=>"{Convention}",
     "type"=>"edit",

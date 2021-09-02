@@ -1,10 +1,4 @@
 <?php
-if (!empty($data['file_type'])) {
-	$accept = $data['file_type'];
-} else {
-	$accept = '';
-}
-
 if ($data['use_collective'] == 'yes') {
 	$text = '
 <div class="' . $data['col_width'] . '">
@@ -14,7 +8,7 @@ if ($data['use_collective'] == 'yes') {
                 <label for="\'{Convention}\'">{{ trans(\'{lang}.{Convention}\') }}</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        {!! Form::file(\'{Convention}\',[\'class\'=>\'custom-file-input\',\'placeholder\'=>trans(\'{lang}.{Convention}\'),"accept"=>it()->acceptedMimeTypes("' . $accept . '")]) !!}
+                        {!! Form::file(\'{Convention}\',[\'class\'=>\'custom-file-input\',\'placeholder\'=>trans(\'{lang}.{Convention}\'),"accept"=>it()->acceptedMimeTypes("' . $data['file_type'] . '")]) !!}
                         {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\'),[\'class\'=>\'custom-file-label\']) !!}
                     </div>
                     <div class="input-group-append">
@@ -38,7 +32,7 @@ if ($data['use_collective'] == 'yes') {
                 <label for="{Convention}">{{trans(\'{lang}.{Convention}\')}}</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" id="{Convention}" name="{Convention}" class="custom-file-input" placeholder="{{trans(\'{lang}.{Convention}\')}}" accept="{{ it()->acceptedMimeTypes("' . $accept . '") }}" />
+                        <input type="file" id="{Convention}" name="{Convention}" class="custom-file-input" placeholder="{{trans(\'{lang}.{Convention}\')}}" accept="{{ it()->acceptedMimeTypes("' . $data['file_type'] . '") }}" />
                     </div>
                     <div class="input-group-append">
                         <span class="input-group-text" id="">{{ trans(\'admin.upload\') }}</span>
