@@ -142,7 +142,7 @@ class {ClassName}DataTable extends DataTable
 					$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
 					$cols .= '		    ],' . "\n";
 				}
-			} elseif (!empty(request('dt_show_column')) && $r->input('col_type')[$i2] == 'dropzone' && in_array($conv, request('dt_show_column'))) {
+			} elseif (!empty(request('dt_show_column')) && in_array($conv, request('dt_show_column'))) {
 				$cols .= '				[' . "\n";
 				$cols .= '                 \'name\'=>\'' . $conv . '\',' . "\n";
 				$cols .= '                 \'data\'=>\'' . $conv . '\',' . "\n";
