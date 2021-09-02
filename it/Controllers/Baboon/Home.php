@@ -236,6 +236,7 @@ class Home extends Controller {
 				$route3 .= '		Route::post(\'' . $link . '/delete/file\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '@delete_file\'); ' . "\r\n";
 			}
 		}
+
 		// Dropzone Route End//
 
 		$admin_routes = file_get_contents(base_path('routes/admin.php'));

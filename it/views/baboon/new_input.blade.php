@@ -357,13 +357,37 @@
                     <input type="checkbox" value="1" name="sldm0" />
                   </label>
                 </div>
-                <div class="clearfix"></div>
+                 <div class="clearfix"></div>
                 <hr />
+
                 <div class="col-md-2" >
-                  <label class="form-check-input" dir="rtl"> mp3
-                    <input type="checkbox" value="1" name="mp3`+x+`" />
+                  <label class="form-check-input" dir="rtl"> audio
+                    <input type="checkbox" value="1" name="audio0" />
                   </label>
                 </div>
+
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> mp3
+                    <input type="checkbox" value="1" name="mp30" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> wav
+                    <input type="checkbox" value="1" name="wav0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> xm
+                    <input type="checkbox" value="1" name="xm0" />
+                  </label>
+                </div>
+                <div class="col-md-2" >
+                  <label class="form-check-input" dir="rtl"> ogg
+                    <input type="checkbox" value="1" name="ogg0" />
+                  </label>
+                </div>
+                 <div class="clearfix"></div>
+                <hr />
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> video
                     <input type="checkbox" value="1" name="video`+x+`" />

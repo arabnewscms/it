@@ -27,6 +27,19 @@ class BaboonCreate extends Controller {
 	}
 
 	public static function createMethod($r) {
+		$temp_id_dropzone = '';
+		foreach ($r->input('col_type') as $col_type) {
+			if ($col_type == 'dropzone') {
+				//(time()*rand(0000,9999))
+				// Add Temp Link for dropzone
+				$temp_id_dropzone = '
+            $temp_id = (time()*rand(0000,9999));
+            if(empty(request("temp_id")) || !request()->has("temp_id")){
+					return redirect(aurl("{ClassName}/create?temp_id=".$temp_id));
+				}' . "\n";
+			}
+		}
+
 		$create = '
             /**
              * Baboon Script By ' . it_version_message() . '
@@ -35,6 +48,7 @@ class BaboonCreate extends Controller {
              */
             public function create()
             {
+            	' . $temp_id_dropzone . '
                return view(\'{path}.{ClassName}.create\',[\'title\'=>trans(\'{lang}.create\')]);
             }';
 

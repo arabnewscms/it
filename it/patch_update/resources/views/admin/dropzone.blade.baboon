@@ -1,16 +1,16 @@
 @php
 // Time to temp id
-$time = time();
+$temp_id = !empty(request('temp_id'))?request('temp_id'):(time()*rand(0000,9999));
 
 // Prepare temp path and id to rename it in store function
  if(!empty($type) && $type == 'create'){
-  $path = $path.'/tempfile_'.$time;
-  $id = $time;
+  $path = $path.'/tempfile_'.$temp_id;
+  $id = $temp_id;
  }elseif(!empty($type) && $type == 'edit'){
-    $id = !empty($id)?$id:$time;
+    $id = !empty($id)?$id:$temp_id;
  }else{
-  $path = $path.'/tempfile_'.$time;
-  $id = $time;
+  $path = $path.'/tempfile_'.$temp_id;
+  $id = $temp_id;
  }
 @endphp
 
@@ -238,17 +238,16 @@ function makeid(length) {
 
 
     //Add existing files into dropzone
-    @if($type == 'edit')
 @php
 $dz_files = \App\Models\Files::orderBy('id','asc');
-    if(!empty($acceptedMimeTypes)){
+    if(!empty($acceptedMimeTypes) && count(explode(',',$acceptedMimeTypes)) > 0){
        foreach(explode(',',$acceptedMimeTypes) as $mime){
           $extract_name = explode('/',$mime)[0];
           $dz_files->where('mimtype','LIKE','%'.$extract_name.'%');
         }
     }
-$get_dz_files = $dz_files->where('type_id',$id)
-                  ->where('type_file',$route)->get();
+$get_dz_files = $dz_files->where('type_file',$route)->where('type_id',$id)->get();
+
 @endphp
     var i=0;
         @foreach($get_dz_files as $file)
@@ -287,7 +286,7 @@ $get_dz_files = $dz_files->where('type_id',$id)
         @endforeach
         //console.log(myDropzone{{$dz_param}}.files);
 
-     @endif
+
 
   myDropzone{{$dz_param}}.on("addedfile", function(file) {
     // Hookup the start button
