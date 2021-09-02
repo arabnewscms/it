@@ -304,57 +304,57 @@
                 <hr />
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> office
-                    <input type="checkbox" value="1" name="office0" />
+                    <input type="checkbox" value="1" name="office`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> docx
-                    <input type="checkbox" value="1" name="docx0" />
+                    <input type="checkbox" value="1" name="docx`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> xlsx
-                    <input type="checkbox" value="1" name="xlsx0" />
+                    <input type="checkbox" value="1" name="xlsx`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> xls
-                    <input type="checkbox" value="1" name="xls0" />
+                    <input type="checkbox" value="1" name="xls`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> xltx
-                    <input type="checkbox" value="1" name="xltx0" />
+                    <input type="checkbox" value="1" name="xltx`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> ppt
-                    <input type="checkbox" value="1" name="ppt0" />
+                    <input type="checkbox" value="1" name="ppt`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> ppam
-                    <input type="checkbox" value="1" name="ppam0" />
+                    <input type="checkbox" value="1" name="ppam`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> pptm
-                    <input type="checkbox" value="1" name="pptm0" />
+                    <input type="checkbox" value="1" name="pptm`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> ppsm
-                    <input type="checkbox" value="1" name="ppsm0" />
+                    <input type="checkbox" value="1" name="ppsm`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> potm
-                    <input type="checkbox" value="1" name="potm0" />
+                    <input type="checkbox" value="1" name="potm`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> sldm
-                    <input type="checkbox" value="1" name="sldm0" />
+                    <input type="checkbox" value="1" name="sldm`+x+`" />
                   </label>
                 </div>
                  <div class="clearfix"></div>
@@ -362,28 +362,28 @@
 
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> audio
-                    <input type="checkbox" value="1" name="audio0" />
+                    <input type="checkbox" value="1" name="audio`+x+`" />
                   </label>
                 </div>
 
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> mp3
-                    <input type="checkbox" value="1" name="mp30" />
+                    <input type="checkbox" value="1" name="mp3`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> wav
-                    <input type="checkbox" value="1" name="wav0" />
+                    <input type="checkbox" value="1" name="wav`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> xm
-                    <input type="checkbox" value="1" name="xm0" />
+                    <input type="checkbox" value="1" name="xm`+x+`" />
                   </label>
                 </div>
                 <div class="col-md-2" >
                   <label class="form-check-input" dir="rtl"> ogg
-                    <input type="checkbox" value="1" name="ogg0" />
+                    <input type="checkbox" value="1" name="ogg`+x+`" />
                   </label>
                 </div>
                  <div class="clearfix"></div>

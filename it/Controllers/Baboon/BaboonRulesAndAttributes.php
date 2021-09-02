@@ -38,12 +38,10 @@ class BaboonRulesAndAttributes extends Controller {
 				$pre_conv = explode('|', $conv);
 				$rule .= '             \'' . $pre_conv[0] . '\'=>\'' . rtrim($valrule, '|') . '\',' . "\n";
 			} elseif (preg_match('/#/i', $conv)) {
-
 				$pre_conv = explode('#', $conv);
 				if (!preg_match('/' . $pre_conv[0] . '/i', $rule)) {
 					$rule .= '             \'' . $pre_conv[0] . '\'=>\'' . rtrim($valrule, '|') . '\',' . "\n";
 				}
-
 			} elseif ($r->has('image' . $i) and $r->has('image' . $i) == 1) {
 				if ($r->input('col_type')[$i] != 'dropzone') {
 					$rule .= '             \'' . $conv . '\'=>\'' . rtrim($valrule, '|"') . '\',' . "\n";

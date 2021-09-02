@@ -33,12 +33,14 @@ class FileUploader extends Controller {
 
 	public function rename($type_file, $type_id, $new_id) {
 		$files = Files::where('type_file', $type_file)->where('type_id', $type_id)->get();
+		$old_path = '';
 		foreach ($files as $file) {
 			// New Full path
 			if (Storage::disk(self::default())->has($file->path)) {
 				$full_path = $type_file . '/' . $new_id . '/' . $file->file;
 				Storage::disk(self::default())->move($file->full_path, $full_path);
-				Storage::disk(self::default())->deleteDirectory($file->path);
+				$old_path = $file->path;
+
 				// Update Information
 				$file->full_path = $full_path;
 				$file->path = $type_file . '/' . $new_id;
@@ -48,6 +50,9 @@ class FileUploader extends Controller {
 			} else {
 				$file->delete();
 			}
+		}
+		if (Storage::disk(self::default())->has($old_path)) {
+			Storage::disk(self::default())->deleteDirectory($old_path);
 		}
 	}
 
