@@ -3,7 +3,7 @@
 $random = Str::random(5);
 $ext =  !is_null(explode('.',$video)) && count(explode('.',$video)) > 0?explode('.',$video)[1]:'mp4';
 @endphp
-
+@if(!empty($ext))
 <div style="margin-top: 5px;display: inline-block;">
   <a href="#" data-toggle="modal" data-target="#video_{{ $random }}">
     <i class="fa fa-photo-video fa-2x"></i>
@@ -49,4 +49,5 @@ mplayer.pause();
 });
 });
 </script>
+@endif
 @endif

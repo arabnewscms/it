@@ -142,7 +142,7 @@ class {ClassName}DataTable extends DataTable
 					$cols .= '                 \'title\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
 					$cols .= '		    ],' . "\n";
 				}
-			} elseif (!empty(request('dt_show_column')) && in_array($conv, request('dt_show_column'))) {
+			} elseif (!empty(request('dt_show_column')) && $r->input('col_type')[$i2] == 'dropzone' && in_array($conv, request('dt_show_column'))) {
 				$cols .= '				[' . "\n";
 				$cols .= '                 \'name\'=>\'' . $conv . '\',' . "\n";
 				$cols .= '                 \'data\'=>\'' . $conv . '\',' . "\n";
@@ -407,30 +407,32 @@ class {ClassName}DataTable extends DataTable
 		$rowColumnsHtml = '';
 		foreach ($r->input('col_name_convention') as $conv) {
 
-			if (
-				$r->has('video' . $i) ||
-				$r->has('mp4' . $i) ||
-				$r->has('mpeg' . $i) ||
-				$r->has('mov' . $i) ||
-				$r->has('3gp' . $i) ||
-				$r->has('webm' . $i) ||
-				$r->has('mkv' . $i) ||
-				$r->has('wmv' . $i) ||
-				$r->has('avi' . $i) ||
-				$r->has('vob' . $i)) {
-				$ajax .= '            ->addColumn(\'' . $conv . '\', \'{!! view("admin.show_video",["video"=>$' . $conv . '])->render() !!}\')' . "\n\r";
-				$rowColumnsHtml .= '"' . $conv . '"' . ',';
-			} elseif ($r->has('mp3' . $i)) {
-				$ajax .= '            ->addColumn(\'' . $conv . '\', \'{!! view("admin.show_audio",["audio"=>$' . $conv . '])->render() !!}\')' . "\n\r";
-				$rowColumnsHtml .= '"' . $conv . '"' . ',';
-			} elseif ($r->has('image' . $i)) {
-				$ajax .= '            ->addColumn(\'' . $conv . '\', \'{!! view("admin.show_image",["image"=>$' . $conv . '])->render() !!}\')' . "\n\r";
-				$rowColumnsHtml .= '"' . $conv . '"' . ',';
-			} elseif ($r->input('col_type')[$i] == 'file' && !$r->has('image' . $i)) {
-				$ajax .= '            ->addColumn(\'' . $conv . '\', \'<a href="{{ it()->url($' . $conv . ') }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>\')' . "\n\r";
-				$rowColumnsHtml .= '"' . $conv . '"' . ',';
-			}
+			if ($r->input('col_type')[$i] != 'dropzone') {
 
+				if (
+					$r->has('video' . $i) ||
+					$r->has('mp4' . $i) ||
+					$r->has('mpeg' . $i) ||
+					$r->has('mov' . $i) ||
+					$r->has('3gp' . $i) ||
+					$r->has('webm' . $i) ||
+					$r->has('mkv' . $i) ||
+					$r->has('wmv' . $i) ||
+					$r->has('avi' . $i) ||
+					$r->has('vob' . $i)) {
+					$ajax .= '            ->addColumn(\'' . $conv . '\', \'{!! view("admin.show_video",["video"=>$' . $conv . '])->render() !!}\')' . "\n\r";
+					$rowColumnsHtml .= '"' . $conv . '"' . ',';
+				} elseif ($r->has('mp3' . $i)) {
+					$ajax .= '            ->addColumn(\'' . $conv . '\', \'{!! view("admin.show_audio",["audio"=>$' . $conv . '])->render() !!}\')' . "\n\r";
+					$rowColumnsHtml .= '"' . $conv . '"' . ',';
+				} elseif ($r->has('image' . $i)) {
+					$ajax .= '            ->addColumn(\'' . $conv . '\', \'{!! view("admin.show_image",["image"=>$' . $conv . '])->render() !!}\')' . "\n\r";
+					$rowColumnsHtml .= '"' . $conv . '"' . ',';
+				} elseif ($r->input('col_type')[$i] == 'file' && !$r->has('image' . $i)) {
+					$ajax .= '            ->addColumn(\'' . $conv . '\', \'<a href="{{ it()->url($' . $conv . ') }}" target="_blank"><i class="fa fa-download fa-2x"></i></a>\')' . "\n\r";
+					$rowColumnsHtml .= '"' . $conv . '"' . ',';
+				}
+			}
 			// Here Add Column To Enum Values Start //
 			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
 				$pre_conv = explode('|', $conv);

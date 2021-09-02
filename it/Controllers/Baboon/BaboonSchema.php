@@ -197,15 +197,16 @@ class Create{ClassName}Table extends Migration
 					$col .= '            $table->timestamp(\'' . $name . '\'';
 				} elseif ($r->has('date' . $i)) {
 					$col .= '            $table->date(\'' . $name . '\'';
-				} else {
+				} elseif ($r->input('col_type')[$i] != 'dropzone') {
 					$col .= '            $table->string(\'' . $name . '\'';
 				}
 			}
-
-			if ($r->has('required' . $i)) {
-				$col .= ');' . "\n";
-			} else {
-				$col .= ')->nullable();' . "\n";
+			if ($r->input('col_type')[$i] != 'dropzone') {
+				if ($r->has('required' . $i)) {
+					$col .= ');' . "\n";
+				} else {
+					$col .= ')->nullable();' . "\n";
+				}
 			}
 		} else {
 
@@ -223,11 +224,13 @@ class Create{ClassName}Table extends Migration
 				$col .= '            $table->timestamp(\'' . $name . '\'';
 			} elseif ($r->has('date' . $i)) {
 				$col .= '            $table->date(\'' . $name . '\'';
-			} else {
+			} elseif ($r->input('col_type')[$i] != 'dropzone') {
 				$col .= '            $table->string(\'' . $name . '\'';
 			}
 
-			$col .= ')->nullable();' . "\n";
+			if ($r->input('col_type')[$i] != 'dropzone') {
+				$col .= ')->nullable();' . "\n";
+			}
 		}
 
 		return $col;

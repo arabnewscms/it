@@ -53,6 +53,8 @@ class Statistics extends Controller {
 		$time = 0;
 		$timestamp = 0;
 		$color = 0;
+		$dropzone = 0;
+		$file = 0;
 		$link_ajax = 0;
 		$i = 0;
 		foreach (request('col_type') as $col) {
@@ -86,6 +88,8 @@ class Statistics extends Controller {
 				$timestamp++;
 			} elseif ($col == 'color') {
 				$color++;
+			} elseif ($col == 'dropzone') {
+				$dropzone++;
 			} elseif (!empty(request('link_ajax' . $i))) {
 				$link_ajax++;
 			}
@@ -100,6 +104,7 @@ class Statistics extends Controller {
 			'textarea_ckeditor' => $textarea_ckeditor,
 			'select' => $select,
 			'file' => $file,
+			'dropzone' => $dropzone,
 			'password' => $password,
 			'radio' => $radio,
 			'date' => $date,

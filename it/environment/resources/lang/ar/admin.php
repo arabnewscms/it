@@ -122,5 +122,12 @@ return [
 	"lock_screen" => "اقفل الشاشة",
 	"password_retrieve_session" => "أدخل كلمة المرور الخاصة بك لاسترداد الجلسة الخاصة بك",
 	"or_sign_different_user" => "أو قم بتسجيل الدخول كمستخدم مختلف",
+	"start" => "ابداء",
+	"drag_drop_files_here" => "قم بسحب وافلات الملفات هنا او قم باختيار ملفات",
+	"add_files" => "إضافة ملفات",
+	"start_upload" => "ابداء رفع الكل",
+	"cancel_upload" => "إلغاء رفع الكل",
+	"multi_upload" => "تحميل متعدد",
+	"file_too_big" => "حجم الملف كبير جدا يجب ان لا يتعدي :size م.ج",
 
 ];

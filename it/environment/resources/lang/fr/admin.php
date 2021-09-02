@@ -114,4 +114,12 @@ return [
 	"lock_screen" => "Écran verrouillé",
 	"password_retrieve_session" => "Entrez votre mot de passe pour récupérer votre session",
 	"or_sign_different_user" => "Ou connectez-vous en tant qu'utilisateur différent",
+	"start" => "Début",
+	"drag_drop_files_here" => "Glissez et déposez des fichiers ici ou choisissez des fichiers",
+	"add_files" => "choisir des fichiers",
+	"start_upload" => "télécharger tout",
+	"cancel_upload" => "annuler tout télécharger",
+	"multi_upload" => "Téléchargement multiple",
+	"file_too_big" => "La taille du fichier est très grande, elle ne doit pas dépasser :size MB",
+
 ];

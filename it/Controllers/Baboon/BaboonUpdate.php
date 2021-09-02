@@ -1,6 +1,7 @@
 <?php
 namespace Phpanonymous\It\Controllers\Baboon;
 use App\Http\Controllers\Controller;
+use Phpanonymous\It\Controllers\Baboon\BaboonRulesAndAttributes as BaboonAttr;
 
 class BaboonUpdate extends Controller {
 
@@ -225,6 +226,64 @@ class BaboonUpdate extends Controller {
 	}
             ';
 
+		$x = 0;
+		$dz_rules = '';
+		$dz_attribute = '';
+		$dz_uploads = '';
+		$dz_exisit = false;
+		foreach ($r->input('col_type') as $col_type) {
+			if ($col_type == 'dropzone') {
+				$dz_exisit = true;
+				$valrule = rtrim(BaboonAttr::ruleList($r, $x), '|"');
+
+				$dropzone_name = request('col_name_convention')[$x];
+				$dz_rules .= 'if(request()->hasFile("' . $dropzone_name . '")){
+				$rules["' . $dropzone_name . '"] = "' . $valrule . '";
+			}' . "\n";
+				$dz_attribute .= '"' . $dropzone_name . '" => trans("{lang}.' . $dropzone_name . '"),' . "\n";
+
+				$dz_uploads .= 'if(request()->hasFile("' . $dropzone_name . '")){
+				it()->upload("' . $dropzone_name . '", request("dz_path"), "{Name}", request("dz_id"));
+			}' . "\n";
+			}
+			$x++;
+		}
+
+		if ($dz_exisit) {
+			$destroy .= '
+	// Delete Files From Dropzone Library
+	public function delete_file() {
+		if (request("type_file") && request("type_id")) {
+			if (it()->getFile(request("type_file"), request("type_id"))) {
+				it()->delete(null, null, request("id"));
+				return response([
+					"status" => true,
+				], 200);
+			}
+		}
+	}
+
+	// Multi upload with dropzone
+	public function multi_upload() {
+		if (request()->ajax()) {
+			$rules = [];
+			' . $dz_rules . '
+
+			$this->validate(request(), $rules, [], [
+				 ' . $dz_attribute . '
+			]);
+
+			' . $dz_uploads . '
+			return response([
+				"status" => true,
+				"type" => request("dz_type"),
+				"file" => it()->getFile("{Name}", request("dz_id")),
+			], 200);
+		}
+
+	}';
+		}
+
 		$destroy .= self::addAjaxFunc() . "\n";
 
 		$Name = str_replace('controller', '', strtolower($r->input('controller_name')));
@@ -266,6 +325,10 @@ class BaboonUpdate extends Controller {
 
 	public static function text($data) {
 		return view('baboon.elements.update.text', ['data' => $data]);
+	}
+
+	public static function dropzone($data) {
+		return view('baboon.elements.update.dropzone', ['data' => $data]);
 	}
 
 	public static function email($data) {

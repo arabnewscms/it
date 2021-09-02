@@ -83,17 +83,32 @@ class BaboonCreate extends Controller {
             {
                 $data = $request->except("_token", "_method");
             	';
+		// Dropzone Checks start //
+		$dropzone_checks = false;
+		$d = 0;
+		foreach ($r->input('col_type') as $col) {
+			if ($col == 'dropzone') {
+				$dropzone_checks = true;
+
+			}
+			$d++;
+		}
+		if ($dropzone_checks) {
+			$store .= '
+		// Unset or Remove Dropzone request
+		$dz_path = request("dz_path");
+		$dz_type = request("dz_type");
+		$dz_id = request("dz_id");
+		unset($data["dz_id"], $data["dz_type"], $data["dz_type"]);
+		' . "\n";
+		}
+		// Dropzone Checks end //
+
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			$objectlist = [];
 			if ($r->input('col_type')[$i] == 'file') {
-				$store .= '               if(request()->hasFile(\'' . $conv . '\')){' . "\n";
-				$folder = str_replace('controller', '', strtolower($r->input('controller_name')));
-
-				$store .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
-				$store .= '              }else{' . "\n";
 				$store .= '              $data[\'' . $conv . '\'] = "";' . "\n";
-				$store .= '              }' . "\n";
 			}
 			$i++;
 		}
@@ -102,7 +117,32 @@ class BaboonCreate extends Controller {
 			$store .= '$data[\'admin_id\'] = admin()->id(); ' . "\n";
 		}
 
-		$store .= '                {ModelName}::create($data); ' . "\n";
+		$store .= '                ${Name} = {ModelName}::create($data); ' . "\n";
+
+		// Standard File Checks Start//
+		$i = 0;
+		foreach ($r->input('col_name_convention') as $conv) {
+			$objectlist = [];
+			if ($r->input('col_type')[$i] == 'file') {
+				$store .= '               if(request()->hasFile(\'' . $conv . '\')){' . "\n";
+				$folder = str_replace('controller', '', strtolower($r->input('controller_name')));
+
+				$store .= '              ${Name}->' . $conv . ' = it()->upload(\'' . $conv . '\',\'' . $folder . '/\'.${Name}->id);' . "\n";
+				$store .= '              ${Name}->save();' . "\n";
+				$store .= '              }' . "\n";
+			}
+			$i++;
+		}
+		// Standard File Checks End//
+
+		if ($dropzone_checks) {
+			$store .= '
+		// rename or move files from tempfile Folder after Add record
+		if ($dz_type == "create") {
+			it()->rename("{Name}", $dz_id, ${Name}->id);
+		}
+		' . "\n";
+		}
 		$store .= '                $redirect = isset($request["add_back"])?"/create":"";';
 		$store .= '
                 return redirectWithSuccess(aurl(\'{Name}\'.$redirect), trans(\'{lang}.added\'));
@@ -116,6 +156,10 @@ class BaboonCreate extends Controller {
 
 	public static function text($data) {
 		return view('baboon.elements.create.text', ['data' => $data]);
+	}
+
+	public static function dropzone($data) {
+		return view('baboon.elements.create.dropzone', ['data' => $data]);
 	}
 
 	public static function email($data) {

@@ -31,6 +31,7 @@
             <option {{ $input->col_type == 'textarea_ckeditor'?'selected':'' }} value="textarea_ckeditor">{{it_trans('it.textarea_ckeditor')}}</option>
             <option {{ $input->col_type == 'select'?'selected':'' }} value="select">{{it_trans('it.select')}}</option>
             <option {{ $input->col_type == 'file'?'selected':'' }} value="file">{{it_trans('it.file')}}</option>
+            <option {{ $input->col_type == 'dropzone'?'selected':'' }} value="dropzone">{{it_trans('it.dropzone')}}</option>
             <option {{ $input->col_type == 'password'?'selected':'' }} value="password">{{it_trans('it.password')}}</option>
             <option {{ $input->col_type == 'checkbox'?'selected':'' }} value="checkbox">{{it_trans('it.checkbox')}}</option>
             <option {{ $input->col_type == 'radio'?'selected':'' }} value="radio">{{it_trans('it.radio')}}</option>

@@ -88,5 +88,6 @@ return [
 	"donate" => "Donate a cup of coffee",
 	"connect_ajax" => "Ajax With",
 	"partners" => "Premium Partners",
+	"dropzone" => "Dropzone Multi-Upload",
 
 ];

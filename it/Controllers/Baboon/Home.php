@@ -228,11 +228,20 @@ class Home extends Controller {
 		$namespace_single = explode('App\Http\Controllers\\', $r->input('controller_namespace'))[1];
 		$route1 = 'Route::resource(\'' . $link . '\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '\'); ' . "\r\n";
 		$route2 = '		Route::post(\'' . $link . '/multi_delete\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '@multi_delete\'); ' . "\r\n";
+		// Dropzone Route Start//
+		$route3 = '';
+		foreach ($r->input('col_type') as $col_type) {
+			if ($col_type == 'dropzone') {
+				$route3 .= '		Route::post(\'' . $link . '/upload/multi\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '@multi_upload\'); ' . "\r\n";
+				$route3 .= '		Route::post(\'' . $link . '/delete/file\',\'' . $namespace_single . '\\' . $r->input('controller_name') . '@delete_file\'); ' . "\r\n";
+			}
+		}
+		// Dropzone Route End//
 
 		$admin_routes = file_get_contents(base_path('routes/admin.php'));
 
 		if (!preg_match("/" . $link . "/i", $admin_routes)) {
-			$admin_routes = str_replace($end_route, $route1 . $route2 . "		" . $end_route, $admin_routes);
+			$admin_routes = str_replace($end_route, $route1 . $route2 . $route3 . "		" . $end_route, $admin_routes);
 			\Storage::put('routes/admin.php', $admin_routes);
 		}
 

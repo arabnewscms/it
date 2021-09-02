@@ -135,6 +135,8 @@ $.fn.dataTable.ext.errMode = 'none';
 <script src="{{ url('assets') }}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <script src="{{ url('assets') }}/js/pages/dashboard.js"></script>
 @endif
+
+<script src="{{url('assets/plugins/dropzone/min/dropzone.min.js')}}" type="text/javascript"></script>
 @stack('js')
 </body>
 </html>

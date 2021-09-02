@@ -21,6 +21,7 @@
           <option value="textarea_ckeditor">{{it_trans('it.textarea_ckeditor')}}</option>
           <option value="select">{{it_trans('it.select')}}</option>
           <option value="file">{{it_trans('it.file')}}</option>
+          <option value="dropzone">{{it_trans('it.dropzone')}}</option>
           <option value="password">{{it_trans('it.password')}}</option>
           <option value="checkbox">{{it_trans('it.checkbox')}}</option>
           <option value="radio">{{it_trans('it.radio')}}</option>

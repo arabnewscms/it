@@ -120,4 +120,12 @@ return [
 	"password_retrieve_session" => "Enter your password to retrieve your session",
 	"or_sign_different_user" => "Or sign in as a different user",
 
+	"start" => "Start",
+	"drag_drop_files_here" => "Drag and drop files here or choose files",
+	"add_files" => "choose files",
+	"start_upload" => "upload all",
+	"cancel_upload" => "cancel upload all",
+	"multi_upload" => "Multiple upload",
+	"file_too_big" => "The file size is very large, it should not exceed :size MB",
+
 ];

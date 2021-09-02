@@ -104,3 +104,14 @@
     max-width: 130px;
     min-width: 130px;
 }
+
+.hidden{
+    display: none;
+}
+
+.preview img{
+    cursor: pointer;
+}
+.video-js *{
+    direction: ltr !important;
+}
