@@ -32,7 +32,7 @@ class BaboonRulesAndAttributes extends Controller {
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
 			$valrule = '';
-			$valrule .= self::ruleList($r, $i);
+			$valrule .= self::ruleList($r, $i, $conv);
 
 			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
 				$pre_conv = explode('|', $conv);
@@ -56,7 +56,7 @@ class BaboonRulesAndAttributes extends Controller {
 		return $rule;
 	}
 
-	public static function ruleList($r, $i) {
+	public static function ruleList($r, $i, $conv = null) {
 		$valrule = '';
 		if ($r->input('col_name_null' . $i) == 'has') {
 			$r->has('sometimes' . $i) ? $valrule .= 'sometimes|' : '';
