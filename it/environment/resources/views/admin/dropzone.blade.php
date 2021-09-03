@@ -242,15 +242,19 @@ function makeid(length) {
 $dz_files = \App\Models\Files::orderBy('id','asc');
     if(!empty($acceptedMimeTypes) && count(explode(',',$acceptedMimeTypes)) > 0){
        foreach(explode(',',$acceptedMimeTypes) as $mime){
-          $extract_name = explode('/',$mime)[0];
-          $dz_files->where('mimtype','LIKE','%'.$extract_name.'%');
+          if(preg_match('/^image/i',$acceptedMimeTypes)){
+            $extract_name = explode('/',$mime);
+              $dz_files->where('mimtype','LIKE','%'.$extract_name[0].'%');
+          }
         }
     }
 $get_dz_files = $dz_files->where('type_file',$route)->where('type_id',$id)->get();
+$mimetypes = array_filter(explode(',',$acceptedMimeTypes));
 
 @endphp
     var i=0;
         @foreach($get_dz_files as $file)
+        @if(in_array($file->mimtype,$mimetypes) || preg_match('/^image/i',$acceptedMimeTypes))
         var mockFile = {
           name: '{{ $file->name }}',
           size: '{{ $file->size_bytes }}',
@@ -283,6 +287,7 @@ $get_dz_files = $dz_files->where('type_file',$route)->where('type_id',$id)->get(
         .attr("type_file",'{{ $file->type_file }}');
 
         i++;
+        @endif
         @endforeach
         //console.log(myDropzone{{$dz_param}}.files);
 
