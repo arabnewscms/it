@@ -49,7 +49,7 @@
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane active" id="panel-info">
+        <div class="tab-pane activee" id="panel-info">
           @include('baboon.Initialize')
           <div class="clearfix"></div>
         </div>
@@ -69,7 +69,7 @@
           @include('baboon.datatable_settings')
           <div class="clearfix"></div>
         </div>
-        <div class="tab-pane activee" id="panel-statistics">
+        <div class="tab-pane active" id="panel-statistics">
           @include('baboon.statistics')
           <div class="clearfix"></div>
         </div>

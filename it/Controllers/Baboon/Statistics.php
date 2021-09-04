@@ -42,6 +42,7 @@ class Statistics extends Controller {
 		$number = 0;
 		$email = 0;
 		$url = 0;
+		$text = 0;
 		$textarea = 0;
 		$textarea_ckeditor = 0;
 		$select = 0;
@@ -64,6 +65,8 @@ class Statistics extends Controller {
 				$email++;
 			} elseif ($col == 'url') {
 				$url++;
+			} elseif ($col == 'text') {
+				$text++;
 			} elseif ($col == 'textarea') {
 				$textarea++;
 			} elseif ($col == 'textarea_ckeditor') {
@@ -100,6 +103,7 @@ class Statistics extends Controller {
 			'number' => $number,
 			'email' => $email,
 			'url' => $url,
+			'text' => $text,
 			'textarea' => $textarea,
 			'textarea_ckeditor' => $textarea_ckeditor,
 			'select' => $select,
@@ -170,6 +174,7 @@ class Statistics extends Controller {
 			if (!empty(request('func_nullable' . $i))) {
 				$func_nullable++;
 			}
+
 			if (!empty(request('onDelete' . $i))) {
 				$onDelete++;
 			}

@@ -113,13 +113,16 @@ var settings = {
 $.ajax(settings).done(function (response) {
 	var statistics = JSON.parse(response);
 	if(statistics.status){
- 		 if(statistics.data.browser){
- 		 	$.each(statistics.data.browser, function(key, value) {
-			      $('.browser').append('<li>'+key+' : <span class="counter">'+nk(value)+'</span></li>');
-			});
- 		 }
 
 
+
+var public_info = '';
+var releations = '';
+var elements = '';
+var global_info = '';
+var releations_array = ['linkatmodel','link_ajax','forginkeyto','on_delete','on_update','belongsto','belongstomany','hasmany','hasmanythrough','hasone','morphmany','morphmap'];
+
+var elements_array = ['text','file','dropzone','color','date','date_time','email','number','password','radio','select','textarea','textarea_ckeditor','time','timestamp','url','select_','col_name_null','col_name_has'];
  		 if(statistics.data.total){
  		 	$('.global').append('<li>Total OS: '+Object.keys(statistics.data.os).length+'</span></li>');
  		 	$('.global').append('<li>Total Browser: '+Object.keys(statistics.data.os).length+'</span></li>');
@@ -128,45 +131,112 @@ $.ajax(settings).done(function (response) {
  		 			if(key != 'project_id' && key != 'created_at' && key != 'updated_at' ){
  		 				if(key == 'os'){
  		 					var val = value == 'Darwin'?'Mac OSX':value;
+ 		 					global_info += '<li>'+realName(key)+' : <span class="counter">'+val+'</span></li>';
  		 				}else{
- 		 					var val = value;
+ 		 					if(elements_array.includes(key)){
+ 		 					elements += '<li>'+realName(key)+' : <span class="counter">'+value+'</span></li>';
+ 		 					}else if(releations_array.includes(key)){
+ 		 					releations += '<li>'+realName(key)+' : <span class="counter">'+value+'</span></li>';
+ 		 					}else{
+
+ 		 					public_info += '<li>'+realName(key)+' : <span class="counter">'+value+'</span></li>';
+ 		 					}
+
+ 		 					//var val = value;
  		 				}
-			      		$('.global').append('<li>'+realName(key)+' : <span class="counter">'+val+'</span></li>');
+
  		 			}
  		 		}else{
-			      $('.global').append('<li>'+realName(key)+' : <span class="counter">'+nk(value)+'</span></li>');
+ 		 			if(elements_array.includes(key)){
+ 		 					elements += '<li>'+realName(key)+' : <span class="counter">'+nk(value)+'</span></li>';
+ 		 			}else if(releations_array.includes(key)){
+ 		 					releations += '<li>'+realName(key)+' : <span class="counter">'+value+'</span></li>';
+ 		 			}else{
+ 		 					public_info += '<li>'+realName(key)+' : <span class="counter">'+nk(value)+'</span></li>';
+ 		 			}
+
+ 		 		}
+			});
+
+ 		 }
+
+ 		 	 if(statistics.data.os){
+ 		 	$.each(statistics.data.os, function(key, value) {
+ 		 		if(key == 'Darwin'){
+ 		 			global_info += '<li>Mac OSX : <span class="counter">'+nk(value)+'</span></li>';
+
+ 		 		}else{
+ 		 			global_info += '<li>'+key+' : <span class="counter">'+nk(value)+'</span></li>';
  		 		}
 			});
  		 }
 
+ 		  if(statistics.data.browser){
+ 		 	$.each(statistics.data.browser, function(key, value) {
+ 		 		global_info += '<li>'+key+' : <span class="counter">'+nk(value)+'</span></li>';
+			});
+ 		 }
 
+ 		 			 $('.global').append(global_info);
+			     $('.releations').append(releations);
+			     $('.elements').append(elements);
+			     $('.public_info').append(public_info);
+
+
+var you_releations = '';
+var you_elements = '';
+var you_public_info = '';
+var you_global = '';
 
  		 if(statistics.data.you){
  		 	$.each(statistics.data.you, function(key, value) {
  		 		if(key == 'project_id' || key == 'id' || key == 'os' || key == 'browser' || key == 'created_at' || key == 'updated_at'){
  		 			if(key != 'project_id' && key != 'created_at' && key != 'updated_at' && key != 'id'){
- 		 				if(key == 'os'){
- 		 					var val = value == 'Darwin'?'Mac OSX':value;
+
+
+
+
+			    if(elements_array.includes(key)){
+ 		 					you_elements += '<li>'+realName(key)+' : <span class="counter">'+nk(value)+'</span></li>';
+ 		 			}else if(releations_array.includes(key)){
+ 		 					you_releations += '<li>'+realName(key)+' : <span class="counter">'+value+'</span></li>';
+ 		 			}else if(key == 'os' || key == 'browser'){
+
+	 		 					if(key == 'os'){
+	 		 					 var val = value == 'Darwin'?'Mac OSX':value;
+		 		 				}else{
+		 		 					var val = value;
+		 		 				}
+
+ 		 					you_global += '<li>'+realName(key)+' : <span class="counter">'+val+'</span></li>';
  		 				}else{
- 		 					var val = value;
+ 		 					you_public_info += '<li>'+realName(key)+' : <span class="counter">'+val+'</span></li>';
+
  		 				}
-			      		$('.you').append('<li>'+realName(key)+' : <span class="counter">'+val+'</span></li>');
  		 			}
  		 		}else{
-			      $('.you').append('<li>'+realName(key)+' : <span class="counter">'+nk(value)+'</span></li>');
+
+ 		 			 if(elements_array.includes(key)){
+ 		 					you_elements += '<li>'+realName(key)+' : <span class="counter">'+nk(value)+'</span></li>';
+ 		 			}else if(releations_array.includes(key)){
+ 		 					you_releations += '<li>'+realName(key)+' : <span class="counter">'+value+'</span></li>';
+ 		 			}else{
+ 		 					you_public_info += '<li>'+realName(key)+' : <span class="counter">'+nk(value)+'</span></li>';
+ 		 			}
+
+
+			     // $('.you').append('<li>'+realName(key)+' : <span class="counter">'+nk(value)+'</span></li>');
  		 		}
 			});
  		 }
 
- 		 if(statistics.data.os){
- 		 	$.each(statistics.data.os, function(key, value) {
- 		 		if(key == 'Darwin'){
-			      $('.os').append('<li>Mac OSX : <span class="counter">'+nk(value)+'</span></li>');
- 		 		}else{
-			      $('.os').append('<li>'+key+' : <span class="counter">'+nk(value)+'</span></li>');
- 		 		}
-			});
- 		 }
+ 		  $('.you_global').append(you_global);
+ 		  $('.you_releations').append(you_releations);
+ 		  $('.you_elements').append(you_elements);
+ 		  $('.you_public_info').append(you_public_info);
+
+
+
 	}
 });
 </script>
@@ -183,20 +253,70 @@ $.ajax(settings).done(function (response) {
 These statistics are represented in calculating the number of times the items were generated through Baboon Maker, which is generally or specifically according to your project, so you can see the number of generation operations that you have done with seeing all other operations in general for all users from all over the world
 		</p>
 	</div>
-	<div class="col-md-3">
-		<h4>Your Statistics</h4>
-		<ol class="you"></ol>
+
+
+		<div class="col-md-12">
+		<center><h4>Your Statistics</h4></center>
+		<hr />
+		<div class="col-md-3">
+			<p><h4>Public Os & Browsers</h4>
+			<hr />
+			<ol class="you_global"></ol>
+			</p>
+		</div>
+		<div class="col-md-3">
+			<p><h4>Public Info</h4>
+			<hr />
+			<ol class="you_public_info"></ol>
+			</p>
+		</div>
+		<div class="col-md-3">
+			<p><h4>Public Releations</h4>
+			<hr />
+			<ol class="you_releations"></ol>
+			</p>
+		</div>
+		<div class="col-md-3">
+			<p><h4>Elements</h4>
+			<hr />
+			<ol class="you_elements"></ol>
+			</p>
+		</div>
+	</div>
+
+
+	<div class="col-md-12">
+		<center><h4>Global Statistics</h4></center>
+		<hr />
+		<div class="col-md-3">
+			<p><h4>Public Os & Browsers</h4>
+			<hr />
+			<ol class="global"></ol>
+			</p>
+		</div>
+		<div class="col-md-3">
+			<p><h4>Public Info</h4>
+			<hr />
+			<ol class="public_info"></ol>
+			</p>
+		</div>
+		<div class="col-md-3">
+			<p><h4>Public Releations</h4>
+			<hr />
+			<ol class="releations"></ol>
+			</p>
+		</div>
+		<div class="col-md-3">
+			<p><h4>Elements</h4>
+			<hr />
+			<ol class="elements"></ol>
+			</p>
+		</div>
 	</div>
 	<div class="col-md-3">
-		<h4>Global Statistics</h4>
-		<ol class="global"></ol>
+
+
 	</div>
-	<div class="col-md-3">
-		<h4>Totel OS</h4>
-		<ol class="os"></ol>
-	</div>
-	<div class="col-md-3">
-		<h4>Browsers</h4>
-		<ol class="browser"></ol>
-	</div>
+
+
 </div>
