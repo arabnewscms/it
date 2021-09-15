@@ -25,6 +25,9 @@ class BaboonDeleteModule extends Controller {
 
 			if ($read = $this->read($this->path . $module_name)) {
 
+				// delete From Menu
+				$this->deleteMenuList($read);
+
 				// delete Model
 				$this->deleteModel($read);
 
@@ -60,49 +63,19 @@ class BaboonDeleteModule extends Controller {
 	}
 
 // this function will be available in next version 1.6.11
-	// public function deleteMenuList($read) {
-	// 	//********* Preparing Menu List ***********/
-	// 	$admin_menu = file_get_contents(base_path('resources/views/admin/layouts/menu.blade.php'));
-	// 	$fa_icon = !empty($read->fa_icon) ? $read->fa_icon : 'fa fa-icons';
-	// 	if (!preg_match("/" . $link . "/i", $admin_menu)) {
-	// 		$link2 = '{{active_link(\'' . $link . '\',\'menu-open\')}} ';
-	// 		$link3 = '{{active_link(\'\',\'active\')}}';
-	// 		$link4 = '{{active_link(\'' . $link . '\',\'active\')}}';
-	// 		$link5 = '{{trans(\'' . $read->lang_file . '.' . $link . '\')}} ';
-	// 		$urlurl = '{{aurl(\'' . $link . '\')}}';
-	// 		$title = '{{trans(\'' . $read->lang_file . '.' . $link . '\')}} ';
-	// 		$create = '{{trans(\'' . $read->lang_file . '.create\')}} ';
-
-	// 		$newmenu = '@if(admin()->user()->role("' . $link . '_show"))';
-	// 		$newmenu .= '<li class="nav-item ' . $link2 . '">';
-	// 		$newmenu .= '  <a href="#" class="nav-link ' . $link4 . '">';
-	// 		$newmenu .= '    <i class="nav-icon ' . $fa_icon . '"></i>';
-	// 		$newmenu .= '    <p>';
-	// 		$newmenu .= '      ' . $title . '';
-	// 		$newmenu .= '      <i class="right fas fa-angle-left"></i>';
-	// 		$newmenu .= '    </p>';
-	// 		$newmenu .= '  </a>';
-	// 		$newmenu .= '  <ul class="nav nav-treeview">';
-	// 		$newmenu .= '    <li class="nav-item">';
-	// 		$newmenu .= '      <a href="' . $urlurl . '" class="nav-link  ' . $link4 . '">';
-	// 		$newmenu .= '        <i class="' . $fa_icon . ' nav-icon"></i>';
-	// 		$newmenu .= '        <p>' . $title . '</p>';
-	// 		$newmenu .= '      </a>';
-	// 		$newmenu .= '    </li>';
-	// 		$newmenu .= '    <li class="nav-item">';
-	// 		$newmenu .= '      <a href="{{ aurl(\'' . $link . '/create\') }}" class="nav-link">';
-	// 		$newmenu .= '        <i class="fas fa-plus nav-icon"></i>';
-	// 		$newmenu .= '        <p>' . $create . '</p>';
-	// 		$newmenu .= '      </a>';
-	// 		$newmenu .= '    </li>';
-	// 		$newmenu .= '  </ul>';
-	// 		$newmenu .= '</li>';
-	// 		$newmenu .= '@endif';
-	// 		\Storage::put('resources/views/admin/layouts/menu.blade.php', $admin_menu . "\r\n" . $newmenu);
-	// 	}
-
-	// 	//********* Preparing Menu List ***********/
-	// }
+	public function deleteMenuList($read) {
+		$link = strtolower(preg_replace('/Controller|controller/i', '', $read->controller_name));
+		//********* Preparing Menu List ***********/
+		$admin_menu = file_get_contents(base_path('resources/views/admin/layouts/menu.blade.php'));
+		$fa_icon = !empty($read->fa_icon) ? $read->fa_icon : 'fa fa-icons';
+		if (preg_match("/" . $link . "/i", $admin_menu)) {
+			$startPoint = '<!--' . $link . '_start_route-->';
+			$endPoint = '<!--' . $link . '_end_route-->';
+			$result = preg_replace('#(' . preg_quote($startPoint) . ')(.*)(' . preg_quote($endPoint) . ')#siU', '', $admin_menu);
+			\Storage::disk('it')->put('resources/views/admin/layouts/menu.blade.php', $result);
+		}
+		//********* Preparing Menu List ***********/
+	}
 
 	public function deleteAdminRoute($read) {
 		$link = strtolower(preg_replace('/Controller|controller/i', '', $read->controller_name));
@@ -112,12 +85,16 @@ class BaboonDeleteModule extends Controller {
 		$route1 = str_replace(' ', '', 'Route::resource(\'' . $link . '\',\'' . $namespace_single . '\\' . $read->controller_name . '\');');
 
 		$route2 = str_replace(' ', '', 'Route::post(\'' . $link . '/multi_delete\',\'' . $namespace_single . '\\' . $read->controller_name . '@multi_delete\');');
+		$route3 = str_replace(' ', '', 'Route::post(\'' . $link . '/upload/multi\',\'' . $namespace_single . '\\' . $read->controller_name . '@multi_upload\');');
+		$route4 = str_replace(' ', '', 'Route::post(\'' . $link . '/delete/file\',\'' . $namespace_single . '\\' . $read->controller_name . '@delete_file\');');
 
 		$admin_routes = file_get_contents(base_path('routes/admin.php'));
 		$admin_routes = str_replace(' ', '', $admin_routes);
 		$admin_routes = str_replace('useIlluminate\Support\Facades\Route;', 'use Illuminate\Support\Facades\Route;', $admin_routes);
 		$admin_routes = str_replace($route1, "", $admin_routes);
 		$admin_routes = str_replace($route2, '', $admin_routes);
+		$admin_routes = str_replace($route3, '', $admin_routes);
+		$admin_routes = str_replace($route4, '', $admin_routes);
 		if (!preg_match("/" . $link . "/i", $admin_routes)) {
 			Storage::disk('it')->put('routes/admin.php', $admin_routes);
 			//dd($admin_routes);

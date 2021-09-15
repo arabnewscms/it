@@ -150,7 +150,8 @@ class Home extends Controller {
 			$title = '{{trans(\'' . request('lang_file') . '.' . $link . '\')}} ';
 			$create = '{{trans(\'' . request('lang_file') . '.create\')}} ';
 
-			$newmenu = '@if(admin()->user()->role("' . $link . '_show"))' . "\r\n";
+			$newmenu = '<!--' . $link . '_start_route-->' . "\r\n";
+			$newmenu .= '@if(admin()->user()->role("' . $link . '_show"))' . "\r\n";
 			$newmenu .= '<li class="nav-item ' . $link2 . '">' . "\r\n";
 			$newmenu .= '  <a href="#" class="nav-link ' . $link4 . '">' . "\r\n";
 			$newmenu .= '    <i class="nav-icon ' . $fa_icon . '"></i>' . "\r\n";
@@ -175,6 +176,7 @@ class Home extends Controller {
 			$newmenu .= '  </ul>' . "\r\n";
 			$newmenu .= '</li>' . "\r\n";
 			$newmenu .= '@endif' . "\r\n";
+			$newmenu .= '<!--' . $link . '_end_route-->' . "\r\n";
 			\Storage::put('resources/views/admin/layouts/menu.blade.php', $admin_menu . "\r\n" . $newmenu);
 		}
 		//********* Preparing Menu List ***********/
@@ -187,16 +189,29 @@ class Home extends Controller {
 		$namespace_single = explode('App\Http\Controllers\\', request('controller_namespace'))[1];
 		$route1 = 'Route::resource(\'' . $link . '\',\'' . $namespace_single . '\\' . request('controller_name') . '\'); ' . "\r\n";
 		$route2 = '		Route::post(\'' . $link . '/multi_delete\',\'' . $namespace_single . '\\' . request('controller_name') . '@multi_delete\'); ' . "\r\n";
+		$admin_routes = file_get_contents(base_path('routes/admin.php'));
+
 		// Dropzone Route Start//
+
 		$route3 = '';
 		foreach (request('col_type') as $col_type) {
 			if ($col_type == 'dropzone') {
-				$route3 .= '		Route::post(\'' . $link . '/upload/multi\',\'' . $namespace_single . '\\' . request('controller_name') . '@multi_upload\'); ' . "\r\n";
-				$route3 .= '		Route::post(\'' . $link . '/delete/file\',\'' . $namespace_single . '\\' . request('controller_name') . '@delete_file\'); ' . "\r\n";
+
+				$first = preg_quote($link . '/upload/multi', '/');
+				$after = preg_quote('', '/');
+
+				if (!preg_match("/$first(.*)$after/s", $route3, $result)) {
+					$route3 .= '		Route::post(\'' . $link . '/upload/multi\',\'' . $namespace_single . '\\' . request('controller_name') . '@multi_upload\'); ' . "\r\n";
+				}
+
+				$first1 = preg_quote($link . '/delete/file', '/');
+				$after1 = preg_quote('', '/');
+				if (!preg_match("/$first1(.*)$after/s", $route3, $result)) {
+					$route3 .= '		Route::post(\'' . $link . '/delete/file\',\'' . $namespace_single . '\\' . request('controller_name') . '@delete_file\'); ' . "\r\n";
+				}
 			}
 		}
 		// Dropzone Route End//
-		$admin_routes = file_get_contents(base_path('routes/admin.php'));
 
 		if (!preg_match("/" . $link . "/i", $admin_routes)) {
 			$admin_routes = str_replace($end_route, $route1 . $route2 . $route3 . "		" . $end_route, $admin_routes);

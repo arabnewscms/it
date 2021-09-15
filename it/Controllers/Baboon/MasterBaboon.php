@@ -846,6 +846,7 @@ return [' . "\n";
 			}
 		}
 
+		// Prepeare Update Names
 		foreach (array_reverse($the_master_lang) as $k => $v) {
 			$lang .= '		"' . $k . '"	=>		"' . $v . '"';
 			$lang .= ',' . "\n";
