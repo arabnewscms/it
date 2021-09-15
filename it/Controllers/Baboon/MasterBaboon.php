@@ -812,20 +812,9 @@ return [' . "\n";
 		$the_master_lang = [];
 		$lang = '<?php
 		return [' . "\n";
-		if (!empty($baboonLang)) {
-			foreach ($baboonLang as $k => $v) {
-				$the_master_lang += [$k => $v];
-			}
-		}
+
 		$mastername = str_replace('controller', '', strtolower($r->input('controller_name')));
-		/*$the_master_lang += ['create'  => 'إضافة جديدة'];
-			$the_master_lang += ['add'     => 'إضافة'];
-			$the_master_lang += ['edit'    => 'تعديل'];
-			$the_master_lang += ['delete'  => 'حذف'];
-			$the_master_lang += ['show'    => 'عرض'];
-			$the_master_lang += ['added'   => 'تمت الإضافة بنجاح'];
-			$the_master_lang += ['updated' => 'تم التحديث بنجاح'];
-		*/
+
 		$the_master_lang += [$mastername => $r->input('project_title')];
 		$i = 0;
 		foreach ($r->input('col_name_convention') as $name) {
@@ -851,7 +840,13 @@ return [' . "\n";
 			$i++;
 		}
 
-		foreach ($the_master_lang as $k => $v) {
+		if (!empty($baboonLang)) {
+			foreach ($baboonLang as $k => $v) {
+				$the_master_lang += [$k => $v];
+			}
+		}
+
+		foreach (array_reverse($the_master_lang) as $k => $v) {
 			$lang .= '		"' . $k . '"	=>		"' . $v . '"';
 			$lang .= ',' . "\n";
 		}

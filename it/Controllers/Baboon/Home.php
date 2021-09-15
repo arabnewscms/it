@@ -57,7 +57,7 @@ class Home extends Controller {
 		return view('baboon.home', $data);
 	}
 
-	public function index_post(Request $r) {
+	public function index_post() {
 		$this->validate(request(), [
 			'project_title' => 'required',
 			'controller_name' => 'required',
@@ -239,6 +239,7 @@ class Home extends Controller {
 
 		////////////////// Language Files ////////////////////
 		$lang_ar = Baboon::Makelang(request());
+		//dd($lang_ar);
 		Baboon::write($lang_ar, request('lang_file'), 'resources\\lang\\ar\\');
 
 		if (is_dir(base_path('resources/lang/en'))) {

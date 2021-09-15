@@ -18,6 +18,16 @@ class BaboonModule extends Controller {
 		return Baboon::convention_name(request('model_name'));
 	}
 
+	public function init() {
+		// Set Module Name
+		$this->module = 'BMaker_' . strtolower(request('controller_name')) . '_module';
+
+		// Set Module Path
+		$this->file = $this->path . $this->module . $this->ext;
+
+		$this->write($this->initdata());
+	}
+
 	public function getmodule_data() {
 		return $this->read($this->path . $this->module . $this->ext);
 	}
@@ -38,15 +48,6 @@ class BaboonModule extends Controller {
 		} else {
 			return $newname;
 		}
-	}
-	public function init() {
-		// Set Module Name
-		$this->module = 'BMaker_' . strtolower(request('controller_name')) . '_module';
-
-		// Set Module Path
-		$this->file = $this->path . $this->module . $this->ext;
-
-		$this->write($this->initdata());
 	}
 
 	public function link_ajax() {
