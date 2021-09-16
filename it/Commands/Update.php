@@ -42,6 +42,8 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/public/assets/img/text.png' => 'public/assets/img/text.png',
 			__DIR__ . '/../patch_update/public/assets/img/video.png' => 'public/assets/img/video.png',
 			__DIR__ . '/../patch_update/app/Http/Controllers/FileUploader.baboon' => 'app/Http/Controllers/FileUploader.php',
+			__DIR__ . '/../patch_update/resources/views/admin/layouts/statistics/module_counters.baboon' => 'resources/views/admin/layouts/statistics/module_counters.blade.php',
+			__DIR__ . '/../patch_update/resources/views/admin/home.baboon' => 'resources/views/admin/home.blade.php',
 		];
 	}
 

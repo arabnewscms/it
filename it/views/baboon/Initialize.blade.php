@@ -177,9 +177,11 @@ $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_p
     </div>
     <br />
     @endif
+
     <div class="col-md-6 well">
-      <div class="alert alert-info">
-      <center><h3>CRUD Menu List</h3></center>
+      <div class="alert alert-info" style="height: 177px;">
+      <h4>CRUD Menu List</h4>
+      <br/>
       <ul>
         <li><span class="fa_menulist">
           <i class="{{ !empty($module_data)? $module_data->fa_icon:'' }}"></i>
@@ -197,11 +199,51 @@ $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_p
             <input type="hidden" name="fa_icon" value="{{ !empty($module_data)? $module_data->fa_icon:old('fa_icon') }}" class="fa_icon">
           </div>
     </div>
-          <div class="clearfix"></div>
-          <hr />
 
+        <div class="col-md-6 well">
+      <div class="alert alert-info">
+      <h4>{{ it_trans('it.statistics_cube') }}</h4>
 
+<div class="col-md-12">
+  <div class="form-group">
+    <label for="col_type" class="col-md-12">{{it_trans('it.statistics_theme')}}</label>
+    <div class="col-md-12">
+      <select name="statistics_theme[]" class="form-control">
+        <option {{ !empty($module_data->statistics_theme) && $module_data->statistics_theme == 'small-box'?'selected':'' }} value="small-box">small-box</option>
+        <option {{ !empty($module_data->statistics_theme) && $module_data->statistics_theme == 'info-box'?'selected':'' }} value="info-box">info-box</option>
+        <option {{ !empty($module_data->statistics_theme) && $module_data->statistics_theme == 'progress-box'?'selected':'' }} value="progress-box">progress-box</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="form-group">
+    <label for="col_type" class="col-md-12">{{it_trans('it.statistics_bgcolor')}}</label>
+    <div class="col-md-12">
+      <select name="statistics_bgcolor[]" class="form-control">
+        <optgroup label="Normal">
+          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-primary'?'selected':'' }} value="bg-primary">bg-primary</option>
+          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-info'?'selected':'' }} value="bg-info">bg-info</option>
+          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-success'?'selected':'' }} value="bg-success">bg-success</option>
+          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-danger'?'selected':'' }} value="bg-danger">bg-danger</option>
+        </optgroup>
+        <optgroup label="Gradient">
+          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-gradient-primary'?'selected':'' }} value="bg-gradient-primary">bg-gradient-primary</option>
+          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-gradient-info'?'selected':'' }} value="bg-gradient-info">bg-gradient-info</option>
+          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-gradient-success'?'selected':'' }} value="bg-gradient-success">bg-gradient-success</option>
+          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-gradient-danger'?'selected':'' }} value="bg-gradient-danger">bg-gradient-danger</option>
+        </optgroup>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
 
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <hr />
         </div>
       </div>
       <div class="clearfix"></div>

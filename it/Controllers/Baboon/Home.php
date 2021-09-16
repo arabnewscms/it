@@ -116,6 +116,9 @@ class Home extends Controller {
 		// Make Menu
 		$this->makeMenu();
 
+		// Make Statistics
+		$this->makeStatistics();
+
 		if (!empty(request('collect'))) {
 			(new Statistics)->init();
 		}
@@ -136,10 +139,52 @@ class Home extends Controller {
 		return $conv;
 	}
 
+	public function makeStatistics() {
+		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name')));
+
+		$file = 'resources/views/admin/layouts/statistics/module_counters.blade.php';
+		$module_counter = file_get_contents(base_path($file));
+		$fa_icon = !empty(request('fa_icon')) ? request('fa_icon') : 'fa fa-icons';
+		/*
+				bg-gradient-info
+				bg-gradient-danger
+				bg-gradient-success
+				bg-success
+				bg-danger
+				bg-info
+			*/
+		$default_bgcolor = !empty(request('statistics_bgcolor')) ? request('statistics_bgcolor') : 'bg-gradient-success';
+		/*
+				small-box
+				info-box
+				progress-box
+			*/
+		$default_theme = !empty(request('statistics_theme')) ? request('statistics_theme') : 'progress-box';
+
+		$data = view('baboon.elements.statistics.make_counter', [
+			'data' => request()->all(),
+			'fa_icon' => $fa_icon,
+			'link' => $link,
+			'default_bgcolor' => $default_bgcolor,
+			'default_theme' => $default_theme,
+		]);
+
+		if (!preg_match("/" . $link . "/i", $module_counter)) {
+			\Storage::put($file, $module_counter . "\r\n" . $data);
+		} elseif (preg_match("/" . $link . "/i", $module_counter)) {
+			$startPoint = '<!--' . $link . '_start-->';
+			$endPoint = '<!--' . $link . '_end-->';
+			$result = preg_replace('#(' . preg_quote($startPoint) . ')(.*)(' . preg_quote($endPoint) . ')#siU', $data, $module_counter);
+			\Storage::disk('it')->put($file, $result);
+		}
+
+	}
+
 	public function makeMenu() {
 		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name')));
 		//********* Preparing Menu List ***********/
-		$admin_menu = file_get_contents(base_path('resources/views/admin/layouts/menu.blade.php'));
+		$file = 'resources/views/admin/layouts/menu.blade.php';
+		$admin_menu = file_get_contents(base_path($file));
 		$fa_icon = !empty(request('fa_icon')) ? request('fa_icon') : 'fa fa-icons';
 		if (!preg_match("/" . $link . "/i", $admin_menu)) {
 			$link2 = '{{active_link(\'' . $link . '\',\'menu-open\')}} ';
@@ -177,7 +222,7 @@ class Home extends Controller {
 			$newmenu .= '</li>' . "\r\n";
 			$newmenu .= '@endif' . "\r\n";
 			$newmenu .= '<!--' . $link . '_end_route-->' . "\r\n";
-			\Storage::put('resources/views/admin/layouts/menu.blade.php', $admin_menu . "\r\n" . $newmenu);
+			\Storage::put($file, $admin_menu . "\r\n" . $newmenu);
 		}
 		//********* Preparing Menu List ***********/
 	}

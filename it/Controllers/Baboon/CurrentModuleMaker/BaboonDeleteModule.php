@@ -25,6 +25,9 @@ class BaboonDeleteModule extends Controller {
 
 			if ($read = $this->read($this->path . $module_name)) {
 
+				// delete From Module Counter
+				$this->deleteStatistics($read);
+
 				// delete From Menu
 				$this->deleteMenuList($read);
 
@@ -62,19 +65,30 @@ class BaboonDeleteModule extends Controller {
 		return redirect(url('it/baboon-sd'));
 	}
 
-// this function will be available in next version 1.6.11
+	public function deleteStatistics($read) {
+		$link = strtolower(preg_replace('/Controller|controller/i', '', $read->controller_name));
+		$file = 'resources/views/admin/layouts/statistics/module_counters.blade.php';
+		$statistics = file_get_contents(base_path($file));
+
+		if (preg_match("/" . $link . "/i", $statistics)) {
+			$startPoint = '<!--' . $link . '_start-->';
+			$endPoint = '<!--' . $link . '_end-->';
+			$result = preg_replace('#(' . preg_quote($startPoint) . ')(.*)(' . preg_quote($endPoint) . ')#siU', '', $statistics);
+			\Storage::disk('it')->put($file, $result);
+		}
+	}
+
 	public function deleteMenuList($read) {
 		$link = strtolower(preg_replace('/Controller|controller/i', '', $read->controller_name));
-		//********* Preparing Menu List ***********/
-		$admin_menu = file_get_contents(base_path('resources/views/admin/layouts/menu.blade.php'));
-		$fa_icon = !empty($read->fa_icon) ? $read->fa_icon : 'fa fa-icons';
+		$file = 'resources/views/admin/layouts/menu.blade.php';
+		$admin_menu = file_get_contents(base_path($file));
+
 		if (preg_match("/" . $link . "/i", $admin_menu)) {
 			$startPoint = '<!--' . $link . '_start_route-->';
 			$endPoint = '<!--' . $link . '_end_route-->';
 			$result = preg_replace('#(' . preg_quote($startPoint) . ')(.*)(' . preg_quote($endPoint) . ')#siU', '', $admin_menu);
-			\Storage::disk('it')->put('resources/views/admin/layouts/menu.blade.php', $result);
+			\Storage::disk('it')->put($file, $result);
 		}
-		//********* Preparing Menu List ***********/
 	}
 
 	public function deleteAdminRoute($read) {
