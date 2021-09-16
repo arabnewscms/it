@@ -74,6 +74,8 @@ class BaboonModule extends Controller {
 			'admin_folder_path' => request('admin_folder_path'),
 			'model_namespace' => request('model_namespace'),
 			'model_name' => request('model_name'),
+			'statistics_theme' => request('statistics_theme'),
+			'statistics_bgcolor' => request('statistics_bgcolor'),
 			'controller_name' => request('controller_name'),
 			'controller_namespace' => request('controller_namespace'),
 			'fa_icon' => request('fa_icon'),
