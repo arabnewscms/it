@@ -46,9 +46,10 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/app/Http/Controllers/FileUploader.baboon' => 'app/Http/Controllers/FileUploader.php',
 			__DIR__ . '/../patch_update/resources/views/admin/layouts/statistics/module_counters.baboon' => 'resources/views/admin/layouts/statistics/module_counters.blade.php',
 			__DIR__ . '/../patch_update/resources/views/admin/home.baboon' => 'resources/views/admin/home.blade.php',
-			__DIR__ . '/../patch_update/database/migrations/2021_02_19_985759_create_settings_table.php' => 'database/migrations/2021_02_19_985759_create_settings_table.php',
-			__DIR__ . '/../patch_update/app/Models/Setting.php' => 'app/Models/Setting.php',
-			__DIR__ . '/../patch_update/routes/configurations.php' => 'routes/configurations.php',
+			__DIR__ . '/../patch_update/database/migrations/2021_02_19_985759_create_settings_table.baboon' => 'database/migrations/2021_02_19_985759_create_settings_table.php',
+			__DIR__ . '/../patch_update/app/Models/Setting.baboon' => 'app/Models/Setting.php',
+			__DIR__ . '/../patch_update/routes/configurations.baboon' => 'routes/configurations.php',
+			__DIR__ . '/../patch_update/app/Http/Controllers/Admin/Dashboard.baboon' => 'app/Http/Controllers/Admin/Dashboard.php',
 		];
 	}
 
