@@ -1,7 +1,11 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand
- {{ !empty(setting()->theme_setting)?setting()->theme_setting->navbar:'navbar-dark' }}
-{{ !empty(setting()->theme_setting)?setting()->theme_setting->main_header:'' }}
+ {{ !empty(setting()->theme_setting) &&
+    !empty(setting()->theme_setting->navbar)?
+    setting()->theme_setting->navbar:'navbar-dark' }}
+{{ !empty(setting()->theme_setting) &&
+   !empty(setting()->theme_setting->main_header)?
+    setting()->theme_setting->main_header:'' }}
     ">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -144,9 +148,9 @@
   <!-- /.navbar -->
 <!-- /.navbar -->
 <!-- Main Sidebar Menu Container -->
-<aside class="main-sidebar {{ !empty(setting()->theme_setting)?setting()->theme_setting->sidebar_class:'sidebar-dark-primary' }} elevation-4">
+<aside class="main-sidebar {{ !empty(setting()->theme_setting) && !empty(setting()->theme_setting->sidebar_class)?setting()->theme_setting->sidebar_class:'sidebar-dark-primary' }} elevation-4">
   <!-- Brand Logo -->
-  <a href="{{ aurl('/') }}" class="brand-link {{ !empty(setting()->theme_setting)?setting()->theme_setting->brand_color:'' }}">
+  <a href="{{ aurl('/') }}" class="brand-link {{ !empty(setting()->theme_setting) && !empty(setting()->theme_setting->brand_color)?setting()->theme_setting->brand_color:'' }}">
     @if(!empty(setting()->logo))
     <img src="{{ it()->url(setting()->logo) }}" alt="{{ setting()->{l('sitename')} }}" class="brand-image img-circle elevation-3" style="opacity: .8">
     @endif
