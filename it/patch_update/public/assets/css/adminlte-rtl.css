@@ -1,7 +1,7 @@
 /*!
  *   AdminLTE v3.0.0-rc.1
  *   Author: Colorlib
- *	 Website: AdminLTE.io <http://adminlte.io>
+ *   Website: AdminLTE.io <http://adminlte.io>
  *   License: Open source - MIT <http://opensource.org/licenses/MIT>
  */
 /*!
@@ -12082,9 +12082,9 @@ html.control-sidebar-animate {
 .control-sidebar, .control-sidebar::before {
   bottom: calc(3.5rem + 1px);
   display: none;
-  right: -250px;
+  left: -250px;
   width: 250px;
-  transition: right 0.3s ease-in-out, display 0.3s ease-in-out;
+  transition: left 0.3s ease-in-out, display 0.3s ease-in-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -12118,7 +12118,7 @@ html.control-sidebar-animate {
     display: block;
   }
   .control-sidebar-open .control-sidebar, .control-sidebar-open .control-sidebar::before {
-    right: 0;
+    left: 0;
   }
   .control-sidebar-open.control-sidebar-push .content-wrapper,
   .control-sidebar-open.control-sidebar-push .main-footer, .control-sidebar-open.control-sidebar-push-slide .content-wrapper,
@@ -12129,7 +12129,7 @@ html.control-sidebar-animate {
 
 @media (max-width: 991.98px) {
   .control-sidebar-open .control-sidebar, .control-sidebar-open .control-sidebar::before {
-    right: 0;
+    left: 0;
   }
 }
 
@@ -12138,7 +12138,7 @@ html.control-sidebar-animate {
 }
 
 .control-sidebar-slide-open .control-sidebar, .control-sidebar-slide-open .control-sidebar::before {
-  right: 0;
+  left: 0;
   transition: right 0.3s ease-in-out, display 0.3s ease-in-out;
 }
 

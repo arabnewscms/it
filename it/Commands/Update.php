@@ -24,6 +24,7 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/resources/views/admin/dropzone.blade.baboon' => 'resources/views/admin/dropzone.blade.php',
 			__DIR__ . '/../patch_update/resources/views/admin/layouts/footer.baboon' => 'resources/views/admin/layouts/footer.blade.php',
 			__DIR__ . '/../patch_update/resources/views/admin/layouts/header.baboon' => 'resources/views/admin/layouts/header.blade.php',
+			__DIR__ . '/../patch_update/resources/views/admin/layouts/navbar.baboon' => 'resources/views/admin/layouts/navbar.blade.php',
 			__DIR__ . '/../patch_update/public/it_des/it/css/baboon.baboon' => 'public/it_des/it/css/baboon.css',
 			__DIR__ . '/../patch_update/public/assets/css/adminlte-rtl.css' => 'public/assets/css/adminlte-rtl.css',
 			__DIR__ . '/../patch_update/public/assets/css/custom.css' => 'public/assets/css/custom.css',
@@ -41,9 +42,13 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/public/assets/img/power_point.png' => 'public/assets/img/power_point.png',
 			__DIR__ . '/../patch_update/public/assets/img/text.png' => 'public/assets/img/text.png',
 			__DIR__ . '/../patch_update/public/assets/img/video.png' => 'public/assets/img/video.png',
+			__DIR__ . '/../patch_update/public/assets/js/demo.js' => 'public/assets/js/demo.js',
 			__DIR__ . '/../patch_update/app/Http/Controllers/FileUploader.baboon' => 'app/Http/Controllers/FileUploader.php',
 			__DIR__ . '/../patch_update/resources/views/admin/layouts/statistics/module_counters.baboon' => 'resources/views/admin/layouts/statistics/module_counters.blade.php',
 			__DIR__ . '/../patch_update/resources/views/admin/home.baboon' => 'resources/views/admin/home.blade.php',
+			__DIR__ . '/../patch_update/database/migrations/2021_02_19_985759_create_settings_table.php' => 'database/migrations/2021_02_19_985759_create_settings_table.php',
+			__DIR__ . '/../patch_update/app/Models/Setting.php' => 'app/Models/Setting.php',
+			__DIR__ . '/../patch_update/routes/configurations.php' => 'routes/configurations.php',
 		];
 	}
 

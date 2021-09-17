@@ -200,51 +200,7 @@ $controller_namespace_prefix = str_replace('\\\\', '\\', $controller_namespace_p
           </div>
     </div>
 
-        <div class="col-md-6 well">
-      <div class="alert alert-info">
-      <h4>{{ it_trans('it.statistics_cube') }}</h4>
-
-<div class="col-md-12">
-  <div class="form-group">
-    <label for="col_type" class="col-md-12">{{it_trans('it.statistics_theme')}}</label>
-    <div class="col-md-12">
-      <select name="statistics_theme" class="form-control">
-        <option {{ !empty($module_data->statistics_theme) && $module_data->statistics_theme == 'small-box'?'selected':'' }} value="small-box">small-box</option>
-        <option {{ !empty($module_data->statistics_theme) && $module_data->statistics_theme == 'info-box'?'selected':'' }} value="info-box">info-box</option>
-        <option {{ !empty($module_data->statistics_theme) && $module_data->statistics_theme == 'progress-box'?'selected':'' }} value="progress-box">progress-box</option>
-      </select>
-    </div>
-  </div>
-</div>
-<div class="col-md-12">
-  <div class="form-group">
-    <label for="col_type" class="col-md-12">{{it_trans('it.statistics_bgcolor')}}</label>
-    <div class="col-md-12">
-      <select name="statistics_bgcolor" class="form-control">
-        <optgroup label="Normal">
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-primary'?'selected':'' }} value="bg-primary">bg-primary</option>
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-info'?'selected':'' }} value="bg-info">bg-info</option>
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-success'?'selected':'' }} value="bg-success">bg-success</option>
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-danger'?'selected':'' }} value="bg-danger">bg-danger</option>
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-dark'?'selected':'' }} value="bg-dark">bg-dark</option>
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-default'?'selected':'' }} value="bg-default">bg-default</option>
-        </optgroup>
-        <optgroup label="Gradient">
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-gradient-primary'?'selected':'' }} value="bg-gradient-primary">bg-gradient-primary</option>
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-gradient-info'?'selected':'' }} value="bg-gradient-info">bg-gradient-info</option>
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-gradient-success'?'selected':'' }} value="bg-gradient-success">bg-gradient-success</option>
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-gradient-danger'?'selected':'' }} value="bg-gradient-danger">bg-gradient-danger</option>
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-gradient-dark'?'selected':'' }} value="bg-gradient-dark">bg-gradient-dark</option>
-          <option {{ !empty($module_data->statistics_bgcolor) && $module_data->statistics_bgcolor == 'bg-gradient-default'?'selected':'' }} value="bg-gradient-default">bg-gradient-default</option>
-        </optgroup>
-      </select>
-    </div>
-  </div>
-</div>
-<div class="clearfix"></div>
-
-      </div>
-    </div>
+ @include('baboon.cube_counter')
 
     <div class="clearfix"></div>
     <hr />

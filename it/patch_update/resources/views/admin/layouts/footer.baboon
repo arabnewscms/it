@@ -5,6 +5,12 @@
 <!-- /.content-wrapper -->
 </div>
 <!-- /.content-wrapper -->
+ <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
 <footer class="main-footer">
 <strong>&copy; {{ date('Y') }} {{ setting()->{l('sitename')} }}</strong>
 <div class="float-right d-none d-sm-inline-block">
@@ -63,7 +69,13 @@ $.widget.bridge('uibutton', $.ui.button);
 <!-- AdminLTE App -->
 <script src="{{ url('assets') }}/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
-
+<script type="text/javascript">
+var config = {
+  url:'{{ aurl('/') }}',
+  token:'{{ csrf_token() }}',
+  custome_title:'Custom Theme Color'
+};
+</script>
 <script src="{{ url('assets') }}/js/demo.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script>
