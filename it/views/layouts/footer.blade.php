@@ -31,7 +31,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Premium Partners (+5) (3) unknown</h4>
+                <h4 class="modal-title">Premium Partners (+6) (3) unknown</h4>
             </div>
             <div class="modal-body">
                 <center>
@@ -44,6 +44,12 @@
                 </a>
                 <a href="https://www.patreon.com/user/creators?u=59936261">
                     <img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/59936261/28446d31df904011b9f9606f8e7bd570/1.jpeg?token-time=2145916800&token-hash=H5ef3LHy1Cnj8kD_eLpyYKajKvFTaVor976wsOkU8sk%3D"
+                    class="img-thumbnail rounded-circle partners"
+                    title="محمد حسن"
+                    />
+                </a>
+                <a href="https://www.patreon.com/user/creators?u=61073716">
+                    <img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/61073716/b56c494c8afb43bc962e4a02a5819bc6/1.jpeg?token-time=2145916800&token-hash=prKhkP0lGQW1hgqW66x3CXU3H5IkXzOHqMGHJyYrzBE%3D"
                     class="img-thumbnail rounded-circle partners"
                     title="محمد حسن"
                     />
