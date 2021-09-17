@@ -77,7 +77,12 @@ var config = {
 };
 // Change Card theme color
 @if(!empty(!empty(setting()->theme_setting)) && !empty(setting()->theme_setting->navbar))
-$('.card').removeClass('card-dark').addClass('{{ trim(str_replace('card-dark','',str_replace('navbar','card',setting()->theme_setting->navbar))) }}');
+@php
+$card = trim(str_replace('card-dark','',str_replace('navbar','card',setting()->theme_setting->navbar)));
+@endphp
+@if(!empty($card) && $card != 'card-dark')
+$('.card').removeClass('card-dark').addClass('{{ $card }}');
+@endif
 @endif
 </script>
 <script src="{{ url('assets') }}/js/demo.js"></script>
