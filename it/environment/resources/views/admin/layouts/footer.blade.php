@@ -82,6 +82,8 @@ $card = trim(str_replace('card-dark','',str_replace('navbar','card',setting()->t
 @endphp
 @if(!empty($card) && $card != 'card-dark')
 $('.card').removeClass('card-dark').addClass('{{ $card }}');
+@else
+$('.card').addClass('card-dark');
 @endif
 @endif
 </script>
