@@ -63,6 +63,11 @@
     }
 
     themeChange('navbar',navbar+' '+color);
+     navbar_all_colors.map(function (color) {
+       $('.card').removeClass(color.replace('navbar','card'))
+    })
+    $('.card').removeClass('card-dark').addClass(color.replace('navbar','card'));
+
     $main_header.addClass(color)
   })
 

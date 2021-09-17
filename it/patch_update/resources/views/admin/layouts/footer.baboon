@@ -75,6 +75,10 @@ var config = {
   token:'{{ csrf_token() }}',
   custome_title:'Custom Theme Color'
 };
+// Change Card theme color
+@if(!empty(!empty(setting()->theme_setting)) && !empty(setting()->theme_setting->navbar))
+$('.card').removeClass('card-dark').addClass('{{ trim(str_replace('card-dark','',str_replace('navbar','card',setting()->theme_setting->navbar))) }}');
+@endif
 </script>
 <script src="{{ url('assets') }}/js/demo.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
@@ -124,6 +128,7 @@ $.fn.dataTable.ext.errMode = 'none';
       //replace the "Choose a file" label
       $(this).next('.custom-file-label').html(fileName);
   });
+
 
 });
 </script>

@@ -89,5 +89,8 @@ return [
 	"connect_ajax" => "Ajax With",
 	"partners" => "Premium Partners",
 	"dropzone" => "Dropzone Multi-Upload",
+	"statistics_cube" => "Cube Counter ",
+	"statistics_bgcolor" => "Background Color",
+	"statistics_theme" => "Trangle Theme",
 
 ];

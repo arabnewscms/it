@@ -145,20 +145,7 @@ class Home extends Controller {
 		$file = 'resources/views/admin/layouts/statistics/module_counters.blade.php';
 		$module_counter = file_get_contents(base_path($file));
 		$fa_icon = !empty(request('fa_icon')) ? request('fa_icon') : 'fa fa-icons';
-		/*
-				bg-gradient-info
-				bg-gradient-danger
-				bg-gradient-success
-				bg-success
-				bg-danger
-				bg-info
-			*/
 		$default_bgcolor = !empty(request('statistics_bgcolor')) ? request('statistics_bgcolor') : 'bg-gradient-success';
-		/*
-				small-box
-				info-box
-				progress-box
-			*/
 		$default_theme = !empty(request('statistics_theme')) ? request('statistics_theme') : 'progress-box';
 
 		$data = view('baboon.elements.statistics.make_counter', [
