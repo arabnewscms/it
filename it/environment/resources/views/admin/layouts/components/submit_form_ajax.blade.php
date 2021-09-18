@@ -73,7 +73,12 @@ $(document).ready(function(){
 	        scrollTo(form_id+' #'+Object.keys(errors)[0]);
 	         $.each(errors,function(key,value){
 	            $(form_id+' #'+key).addClass('is-invalid');
+	            if($(form_id+' #'+key).attr('type') == 'file'){
+	            $(form_id+' .'+key).append(`<div class="invalid-feedback">`+value[0]+`</div>`);
+	            $('.invalid-feedback').show();
+	            }else{
 	            $(form_id+' #'+key).parent('div').append(`<div class="invalid-feedback">`+value[0]+`</div>`);
+	            }
 	         });
 	       }
 	    }

@@ -1,12 +1,12 @@
 <?php
 if ($data['use_collective'] == 'yes') {
 	$text = '
-<div class="' . $data['col_width'] . '">
+<div class="' . $data['col_width'] . ' {Convention}">
     <div class="form-group">
         <label for="\'{Convention}\'">{{ trans(\'{lang}.{Convention}\') }}</label>
         <div class="input-group">
             <div class="custom-file">
-                {!! Form::file(\'{Convention}\',[\'class\'=>\'custom-file-input\',\'placeholder\'=>trans(\'{lang}.{Convention}\'),"accept"=>it()->acceptedMimeTypes("' . $data['file_type'] . '")]) !!}
+                {!! Form::file(\'{Convention}\',[\'class\'=>\'custom-file-input\',\'placeholder\'=>trans(\'{lang}.{Convention}\'),"accept"=>it()->acceptedMimeTypes("' . $data['file_type'] . '"),"id"=>"{Convention}"]) !!}
                 {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\'),[\'class\'=>\'custom-file-label\']) !!}
             </div>
             <div class="input-group-append">
@@ -18,7 +18,7 @@ if ($data['use_collective'] == 'yes') {
 ';
 } else {
 	$text = '
-<div class="' . $data['col_width'] . '">
+<div class="' . $data['col_width'] . ' {Convention}">
     <div class="form-group">
         <label for="{Convention}">{{trans(\'{lang}.{Convention}\')}}</label>
         <div class="input-group">
