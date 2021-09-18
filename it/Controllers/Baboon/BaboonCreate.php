@@ -122,7 +122,7 @@ class BaboonCreate extends Controller {
 		foreach ($r->input('col_name_convention') as $conv) {
 			$objectlist = [];
 			if ($r->input('col_type')[$i] == 'file') {
-				$store .= '              $data[\'' . $conv . '\'] = "";' . "\n";
+				$store .= '$data[\'' . $conv . '\'] = "";' . "\n";
 			}
 			$i++;
 		}
@@ -131,7 +131,7 @@ class BaboonCreate extends Controller {
 			$store .= '$data[\'admin_id\'] = admin()->id(); ' . "\n";
 		}
 
-		$store .= '${Name} = {ModelName}::create($data); ' . "\n";
+		$store .= '		  		${Name} = {ModelName}::create($data); ' . "\n";
 
 		// Standard File Checks Start//
 		$i = 0;
