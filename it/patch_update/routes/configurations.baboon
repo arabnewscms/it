@@ -32,7 +32,7 @@ if (!function_exists('aurl')) {
 if (!function_exists('setting')) {
 	function setting() {
 		$setting = \App\Models\Setting::orderBy('id', 'desc')->first();
-		if (!empty($setting->theme_setting)) {
+		if (!empty($setting) && !empty($setting->theme_setting)) {
 			$setting->theme_setting = json_decode($setting->theme_setting);
 		}
 		if (empty($setting)) {
