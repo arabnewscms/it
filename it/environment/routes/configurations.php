@@ -36,7 +36,7 @@ if (!function_exists('setting')) {
 			$setting->theme_setting = json_decode($setting->theme_setting);
 		}
 		if (empty($setting)) {
-			return \App\Models\Setting::create(['sitename_ar' => '', 'sitename_en' => '', 'sitename_fr' => '']);
+			return \App\Models\Setting::create(['theme_setting' => '{}', 'sitename_ar' => '', 'sitename_en' => '', 'sitename_fr' => '']);
 		} else {
 			return $setting;
 		}
