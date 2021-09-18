@@ -32,7 +32,9 @@ if (!function_exists('aurl')) {
 if (!function_exists('setting')) {
 	function setting() {
 		$setting = \App\Models\Setting::orderBy('id', 'desc')->first();
-		$setting->theme_setting = json_decode($setting->theme_setting);
+		if (!empty($setting->theme_setting)) {
+			$setting->theme_setting = json_decode($setting->theme_setting);
+		}
 		if (empty($setting)) {
 			return \App\Models\Setting::create(['sitename_ar' => '', 'sitename_en' => '', 'sitename_fr' => '']);
 		} else {
