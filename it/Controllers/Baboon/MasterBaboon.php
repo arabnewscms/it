@@ -401,11 +401,18 @@ protected $fillable = [' . "\n";
 		$blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
 		$route = strtolower($r->input('controller_name'));
 		$route = str_replace('controller', '', $route);
+
+		// Ajax Request Form
+		if (!empty(request('ajax_request')) && request('ajax_request') == 'yes') {
+			$ajax_request_component = '@include("' . $blade_path . '.layouts.components.submit_form_ajax",["form"=>"#{route2}"])';
+		} else {
+			$ajax_request_component = '';
+		}
+
 		$input = '@extends(\'' . $blade_path . '.index\')
 @section(\'content\')
-
 ' . self::includeAjax('create') . '
-
+' . $ajax_request_component . '
 <div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">
@@ -564,9 +571,18 @@ protected $fillable = [' . "\n";
 		$blade_path = str_replace('resources.views.', '', str_replace('/', '.', $r->input('admin_folder_path')));
 		$route = strtolower($r->input('controller_name'));
 		$route = str_replace('controller', '', $route);
+
+		// Ajax Request Form
+		if (!empty(request('ajax_request')) && request('ajax_request') == 'yes') {
+			$ajax_request_component = '@include("' . $blade_path . '.layouts.components.submit_form_ajax",["form"=>"#{route2}"])';
+		} else {
+			$ajax_request_component = '';
+		}
+
 		$input = '@extends(\'' . $blade_path . '.index\')
 @section(\'content\')
 ' . self::includeAjax('edit') . '
+' . $ajax_request_component . '
 <div class="card card-dark">
 	<div class="card-header">
 		<h3 class="card-title">

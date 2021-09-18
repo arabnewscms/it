@@ -81,6 +81,7 @@ class BaboonModule extends Controller {
 			'fa_icon' => request('fa_icon'),
 			'lang_file' => request('lang_file'),
 			'use_collective' => !empty(request('use_collective')) ? 'checked' : '',
+			'ajax_request' => !empty(request('ajax_request')) ? 'checked' : '',
 			'auto_migrate' => !empty(request('auto_migrate')) ? 'checked' : '',
 			'make_model' => !empty(request('make_model')) ? 'checked' : '',
 			'make_controller' => !empty(request('make_controller')) ? 'checked' : '',

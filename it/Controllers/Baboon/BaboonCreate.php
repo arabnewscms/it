@@ -131,7 +131,7 @@ class BaboonCreate extends Controller {
 			$store .= '$data[\'admin_id\'] = admin()->id(); ' . "\n";
 		}
 
-		$store .= '                ${Name} = {ModelName}::create($data); ' . "\n";
+		$store .= '${Name} = {ModelName}::create($data); ' . "\n";
 
 		// Standard File Checks Start//
 		$i = 0;
@@ -157,10 +157,20 @@ class BaboonCreate extends Controller {
 		}
 		' . "\n";
 		}
-		$store .= '                $redirect = isset($request["add_back"])?"/create":"";';
-		$store .= '
-                return redirectWithSuccess(aurl(\'{Name}\'.$redirect), trans(\'{lang}.added\'));
-            }';
+		if (!empty(request('ajax_request')) && request('ajax_request') == 'yes') {
+			$store .= '
+			return successResponseJson([
+				"message" => trans("{lang}.added"),
+				"data" => ${Name},
+			]);
+			';
+		} else {
+			$store .= '                $redirect = isset($request["add_back"])?"/create":"";';
+			$store .= '
+                return redirectWithSuccess(aurl(\'{Name}\'.$redirect), trans(\'{lang}.added\'));';
+		}
+
+		$store .= ' }';
 		$Name = str_replace('controller', '', strtolower($r->input('controller_name')));
 		$store = str_replace('{ModelName}', $r->input('model_name'), $store);
 		$store = str_replace('{lang}', $r->input('lang_file'), $store);

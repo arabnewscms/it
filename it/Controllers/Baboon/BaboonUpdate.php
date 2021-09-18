@@ -134,10 +134,21 @@ class BaboonUpdate extends Controller {
 		}
 
 		$update .= '              {ModelName}::where(\'id\',$id)->update($data);' . "\n";
-		$update .= '              $redirect = isset($request["save_back"])?"/".$id."/edit":"";';
-		$update .= '
+		if (!empty(request('ajax_request')) && request('ajax_request') == 'yes') {
+			$update .= '
+              ${Name} = {ModelName}::find($id);
+              return successResponseJson([
+               "message" => trans("{lang}.updated"),
+               "data" => ${Name},
+              ]);
+			';
+		} else {
+			$update .= '              $redirect = isset($request["save_back"])?"/".$id."/edit":"";';
+			$update .= '
               return redirectWithSuccess(aurl(\'{Name}\'.$redirect), trans(\'{lang}.updated\'));
-            }';
+            ';
+		}
+		$update .= '}';
 		$Name = str_replace('controller', '', strtolower($r->input('controller_name')));
 		$update = str_replace('{ModelName}', $r->input('model_name'), $update);
 		$update = str_replace('{lang}', $r->input('lang_file'), $update);

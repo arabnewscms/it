@@ -28,6 +28,16 @@
   <div class="col-md-6">
     <div class="form-group">
       <label class="mt-checkbox mt-checkbox-outline">
+        <input type="checkbox" value="yes"
+        {{ !empty($module_data) && !empty($module_data->ajax_request)?$module_data->ajax_request:'' }} name="ajax_request" />
+        {{it_trans('it.ajax_request')}}
+      </label>
+      <p style="color:#c33"><i class="fa fa-info"></i> - Send Request Form By Ajax </p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="mt-checkbox mt-checkbox-outline">
         <input type="checkbox" value="1" {{ !empty($module_data)?$module_data->auto_migrate:'' }} name="auto_migrate" />
         {{it_trans('it.auto_migrate')}}
       </label>

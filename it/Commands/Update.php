@@ -50,6 +50,7 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/app/Models/Setting.baboon' => 'app/Models/Setting.php',
 			__DIR__ . '/../patch_update/routes/configurations.baboon' => 'routes/configurations.php',
 			__DIR__ . '/../patch_update/app/Http/Controllers/Admin/Dashboard.baboon' => 'app/Http/Controllers/Admin/Dashboard.php',
+			__DIR__ . '/../patch_update/resources/views/admin/layouts/components/submit_form_ajax.blade.baboon' => 'resources/views/admin/layouts/components/submit_form_ajax.blade.php',
 		];
 	}
 

@@ -92,5 +92,6 @@ return [
 	"statistics_cube" => "Cube Counter ",
 	"statistics_bgcolor" => "Background Color",
 	"statistics_theme" => "Trangle Theme",
+	"ajax_request" => "Ajax Form",
 
 ];
