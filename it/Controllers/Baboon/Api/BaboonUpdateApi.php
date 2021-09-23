@@ -28,8 +28,8 @@ class BaboonUpdateApi extends Controller {
               ],200);  ;
             }' . "\n";
 
-		$show = str_replace('{lang}', $r->input('lang_file'), $show);
-		$show = str_replace('{ModelName}', $r->input('model_name'), $show);
+		$show = str_replace('{lang}', request('lang_file'), $show);
+		$show = str_replace('{ModelName}', request('model_name'), $show);
 
 		return $show;
 	}
@@ -45,7 +45,7 @@ class BaboonUpdateApi extends Controller {
              */
             public function updateFillableColumns() {
 				       $fillableCols = [];
-				       foreach (array_keys((new ' . $r->input('controller_name') . 'Request)->attributes()) as $fillableUpdate) {
+				       foreach (array_keys((new ' . request('controller_name') . 'Request)->attributes()) as $fillableUpdate) {
   				        if (!is_null(request($fillableUpdate))) {
 						  $fillableCols[$fillableUpdate] = request($fillableUpdate);
 						}
@@ -53,7 +53,7 @@ class BaboonUpdateApi extends Controller {
   				     return $fillableCols;
   	     		}
 
-            public function update(' . $r->input('controller_name') . 'Request $request,$id)
+            public function update(' . request('controller_name') . 'Request $request,$id)
             {
             	${ModelName} = {ModelName}::find($id);
             	if(is_null(${ModelName}) || empty(${ModelName})){
@@ -67,11 +67,11 @@ class BaboonUpdateApi extends Controller {
 			$update .= '              $data[\'user_id\'] = auth()->id(); ' . "\n";
 		}
 		$i = 0;
-		foreach ($r->input('col_name_convention') as $conv) {
+		foreach (request('col_name_convention') as $conv) {
 			$objectlist = [];
-			if ($r->input('col_type')[$i] == 'file') {
+			if (request('col_type')[$i] == 'file') {
 				$update .= '               if(request()->hasFile(\'' . $conv . '\')){' . "\n";
-				$folder = str_replace('controller', '', strtolower($r->input('controller_name')));
+				$folder = str_replace('controller', '', strtolower(request('controller_name')));
 				$update .= '              it()->delete(${ModelName}->' . $conv . ');' . "\n";
 				$update .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
 				$update .= '               }' . "\n";
@@ -89,8 +89,8 @@ class BaboonUpdateApi extends Controller {
                ],200);
             }';
 
-		$update = str_replace('{ModelName}', $r->input('model_name'), $update);
-		$update = str_replace('{lang}', $r->input('lang_file'), $update);
+		$update = str_replace('{ModelName}', request('model_name'), $update);
+		$update = str_replace('{lang}', request('lang_file'), $update);
 
 		return $update;
 	}
@@ -113,9 +113,9 @@ class BaboonUpdateApi extends Controller {
 
 ' . "\n";
 		$i = 0;
-		foreach ($r->input('col_name_convention') as $conv) {
+		foreach (request('col_name_convention') as $conv) {
 
-			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
+			if (!empty(request('col_type')[$i]) and request('col_type')[$i] == 'file') {
 				$destroy .= '              if(!empty(${Name}->' . $conv . ')){' . "\n";
 				$destroy .= '               it()->delete(${Name}->' . $conv . ');' . "\n";
 				$destroy .= '              }' . "\n";
@@ -143,8 +143,8 @@ class BaboonUpdateApi extends Controller {
 ' . "\n";
 
 		$i = 0;
-		foreach ($r->input('col_name_convention') as $conv) {
-			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
+		foreach (request('col_name_convention') as $conv) {
+			if (!empty(request('col_type')[$i]) and request('col_type')[$i] == 'file') {
 				$destroy .= '                    	if(!empty(${Name}->' . $conv . ')){' . "\n";
 				$destroy .= '                    	it()->delete(${Name}->' . $conv . ');' . "\n";
 				$destroy .= '                    	}' . "\n";
@@ -163,8 +163,8 @@ class BaboonUpdateApi extends Controller {
 	            	}
  ' . "\n";
 		$i = 0;
-		foreach ($r->input('col_name_convention') as $conv) {
-			if (!empty($r->input('col_type')[$i]) and $r->input('col_type')[$i] == 'file') {
+		foreach (request('col_name_convention') as $conv) {
+			if (!empty(request('col_type')[$i]) and request('col_type')[$i] == 'file') {
 				$destroy .= '                    	if(!empty(${Name}->' . $conv . ')){' . "\n";
 				$destroy .= '                    	it()->delete(${Name}->' . $conv . ');' . "\n";
 				$destroy .= '                    	}' . "\n";
@@ -180,11 +180,11 @@ class BaboonUpdateApi extends Controller {
             }
 
             ';
-		$Name = str_replace('controller', '', strtolower($r->input('controller_name')));
-		$destroy = str_replace('{ModelName}', $r->input('model_name'), $destroy);
-		$destroy = str_replace('{lang}', $r->input('lang_file'), $destroy);
+		$Name = str_replace('controller', '', strtolower(request('controller_name')));
+		$destroy = str_replace('{ModelName}', request('model_name'), $destroy);
+		$destroy = str_replace('{lang}', request('lang_file'), $destroy);
 		$destroy = str_replace('{Name}', $Name, $destroy);
-		$destroy = str_replace('{Name2}', strtolower($r->input('model_name')), $destroy);
+		$destroy = str_replace('{Name2}', strtolower(request('model_name')), $destroy);
 		return $destroy;
 	}
 

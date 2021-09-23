@@ -58,17 +58,25 @@ class Home extends Controller {
 	}
 
 	public function index_post() {
-		$this->validate(request(), [
+		$rules = [
 			'project_title' => 'required',
 			'controller_name' => 'required',
 			'controller_namespace' => 'required',
 			'model_name' => 'required',
 			'model_namespace' => 'required',
 			'lang_file' => 'required',
-			'col_name' => 'required',
-			'col_type' => 'required',
-			'col_name_convention' => 'required',
-		], [], [
+			'col_name' => 'array',
+			'col_name.*' => 'required|string',
+			'col_type' => 'required|array',
+			'col_type.*' => 'string',
+			'col_name_convention' => 'array',
+			'col_name_convention.*' => ['required', 'string', function ($attribute, $value, $fail) {
+
+				it_rule_convention($attribute, $value, $fail);
+
+			}],
+		];
+		$attributes = [
 			'model_name' => it_trans('it.model_name'),
 			'project_title' => it_trans('it.project_title'),
 			'controller_name' => it_trans('it.controller_name'),
@@ -79,7 +87,14 @@ class Home extends Controller {
 			'controller_namespace' => it_trans('it.controller_namespace'),
 			'model_namespace' => it_trans('it.model_namespace'),
 			'model_name' => it_trans('it.model_name'),
-		]);
+		];
+		$i = 0;
+		foreach (request('col_name') as $col_name) {
+			$attributes['col_name.' . $i] = it_trans('it.col_name');
+			$attributes['col_name_convention.' . $i] = it_trans('it.col_name_convention');
+			$i++;
+		}
+		$this->validate(request(), $rules, [], $attributes);
 
 		// Create .baboon Text CRUD
 		$prepare_module = new BaboonModule();

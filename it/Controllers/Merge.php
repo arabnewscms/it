@@ -1,11 +1,11 @@
 <?php
 namespace Phpanonymous\It\Controllers;
 use App\Http\Controllers\Controller;
-
 use Barryvdh\Elfinder\Session\LaravelSession;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Request;
+
 //use League\Flysystem\Cached\CachedAdapter;
 //use League\Flysystem\Cached\Storage\Memory;
 //use League\Flysystem\Filesystem;
@@ -32,40 +32,40 @@ class Merge extends Controller {
 	public function showIndex() {
 		return view('merge.vendor.elfinder.elfinder')->with($this->getViewVars());
 		return $this->app['view']
-		            ->make($this->package.'::elfinder')
+			->make($this->package . '::elfinder')
 			->with($this->getViewVars());
 	}
 
 	public function showTinyMCE() {
 		return $this->app['view']
-		            ->make($this->package.'::tinymce')
+			->make($this->package . '::tinymce')
 			->with($this->getViewVars());
 	}
 
 	public function showTinyMCE4() {
 		return $this->app['view']
-		            ->make($this->package.'::tinymce4')
+			->make($this->package . '::tinymce4')
 			->with($this->getViewVars());
 	}
 
 	public function showCKeditor4() {
 		return $this->app['view']
-		            ->make($this->package.'::ckeditor4')
+			->make($this->package . '::ckeditor4')
 			->with($this->getViewVars());
 	}
 
 	public function showPopup($input_id) {
 		return $this->app['view']
-		            ->make($this->package.'::standalonepopup')
+			->make($this->package . '::standalonepopup')
 			->with($this->getViewVars())
 			->with(compact('input_id'));
 	}
 
 	public function showFilePicker($input_id) {
-		$type      = Request::input('type');
-		$mimeTypes = implode(',', array_map(function ($t) {return "'".$t."'";}, explode(',', $type)));
+		$type = request('type');
+		$mimeTypes = implode(',', array_map(function ($t) {return "'" . $t . "'";}, explode(',', $type)));
 		return $this->app['view']
-		            ->make($this->package.'::filepicker')
+			->make($this->package . '::filepicker')
 			->with($this->getViewVars())
 			->with(compact('input_id', 'type', 'mimeTypes'));
 	}
@@ -76,25 +76,25 @@ class Merge extends Controller {
 			$dirs = (array) $this->app['config']->get('elfinder.dir', []);
 			foreach ($dirs as $dir) {
 				$roots[] = [
-					'driver'        => 'LocalFileSystem', // driver for accessing file system (REQUIRED)
-					'path'          => base_path(''), // path to files (REQUIRED)
-					'URL'           => url($dir), // URL to files (REQUIRED)
-					'accessControl' => $this->app->config->get('elfinder.access')// filter callback (OPTIONAL)
+					'driver' => 'LocalFileSystem', // driver for accessing file system (REQUIRED)
+					'path' => base_path(''), // path to files (REQUIRED)
+					'URL' => url($dir), // URL to files (REQUIRED)
+					'accessControl' => $this->app->config->get('elfinder.access'), // filter callback (OPTIONAL)
 				];
 			}
 
 			$disks = (array) $this->app['config']->get('elfinder.disks', []);
 			foreach ($disks as $key => $root) {
 				if (is_string($root)) {
-					$key  = $root;
+					$key = $root;
 					$root = [];
 				}
 				$disk = app('filesystem')->disk($key);
 				if ($disk instanceof FilesystemAdapter) {
 					$defaults = [
-						'driver'     => 'Flysystem',
+						'driver' => 'Flysystem',
 						'filesystem' => $disk->getDriver(),
-						'alias'      => $key,
+						'alias' => $key,
 					];
 					$roots[] = array_merge($defaults, $root);
 				}
@@ -103,7 +103,7 @@ class Merge extends Controller {
 
 		if (app()->bound('session.store')) {
 			$sessionStore = app('session.store');
-			$session      = new LaravelSession($sessionStore);
+			$session = new LaravelSession($sessionStore);
 		} else {
 			$session = null;
 		}
@@ -123,9 +123,9 @@ class Merge extends Controller {
 	}
 
 	protected function getViewVars() {
-		$dir    = 'packages/barryvdh/'.$this->package;
+		$dir = 'packages/barryvdh/' . $this->package;
 		$locale = str_replace("-", "_", $this->app->config->get('app.locale'));
-		if (!file_exists($this->app['path.public']."/$dir/js/i18n/elfinder.$locale.js")) {
+		if (!file_exists($this->app['path.public'] . "/$dir/js/i18n/elfinder.$locale.js")) {
 			$locale = false;
 		}
 		$csrf = true;

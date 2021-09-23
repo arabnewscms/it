@@ -45,6 +45,7 @@ class Statistics extends Controller {
 		$text = 0;
 		$textarea = 0;
 		$textarea_ckeditor = 0;
+		$checkbox = 0;
 		$select = 0;
 		$file = 0;
 		$password = 0;
@@ -117,6 +118,7 @@ class Statistics extends Controller {
 			'timestamp' => $timestamp,
 			'color' => $color,
 			'link_ajax' => $link_ajax,
+			'checkbox' => $checkbox,
 		];
 	}
 

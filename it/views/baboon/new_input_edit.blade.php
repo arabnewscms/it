@@ -4,10 +4,7 @@
   @endphp
   @foreach($module_data->inputs_columns as $input)
   @php
-  //dd($values->col_name)
-  // $input = $values->{'value_'.$x}; $input->col_name
   $rules = $input->rules;
-  //return dd($rules->{'email'.$x});
   @endphp
   <div class="col-md-12 well">
     <div class="col-md-3">

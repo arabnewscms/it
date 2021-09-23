@@ -72,7 +72,7 @@ if (!function_exists('it_version_message')) {
 
 if (!function_exists('it_version')) {
 	function it_version() {
-		$version = '1.6.28';
+		$version = '1.6.29';
 		app()->singleton('it_version', function () use ($version) {
 			return $version;
 		});
@@ -156,5 +156,25 @@ if (!function_exists('it_permissions')) {
 			(($perms & 0x0200) ? 'T' : '-'));
 
 		return $info;
+	}
+}
+
+//  Signeture Rules
+if (!function_exists('it_rule_convention')) {
+	function it_rule_convention($attribute, $value, $fail) {
+		$i = explode('.', $attribute)[1];
+		$name = '(<b style="color:#ffa306">' . request('col_name')[$i] . ' - ' . request(explode('.', $attribute)[0])[$i] . '</b>)';
+
+		if (in_array(request('col_type')[$i], ['text', 'number', 'email', 'url', 'textarea', 'textarea_ckeditor', 'file', 'dropzone', 'password', 'date', 'date_time', 'time', 'timestamp', 'color'])) {
+			preg_match("/[^A-Za-z0-9'_' ']/", $value) ?
+			$fail($name . 'There should not be any signs such as (!@#$%^&*()|><) only numbers and letters')
+			: '';
+		} elseif (in_array(request('col_type')[$i], ['checkbox', 'radio'])) {
+			$secound_value = explode('#', $value);
+
+			!preg_match("/#/i", $value) || empty($secound_value[1]) ?
+			$fail($name . ' There should have signs such as (column_name#value) only numbers and letters')
+			: '';
+		}
 	}
 }

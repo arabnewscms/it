@@ -22,7 +22,7 @@ class BaboonCreateApi extends Controller {
                ],200);
             }' . "\n";
 
-		return str_replace('{ModelName}', $r->input('model_name'), $index);
+		return str_replace('{ModelName}', request('model_name'), $index);
 	}
 
 	public static function storeMethod($r) {
@@ -34,7 +34,7 @@ class BaboonCreateApi extends Controller {
              * @param  \Illuminate\Http\Request  $r
              * @return \Illuminate\Http\Response
              */
-    public function store(' . $r->input('controller_name') . 'Request $request)
+    public function store(' . request('controller_name') . 'Request $request)
     {
     	$data = $request->except("_token");
     	' . "\n";
@@ -44,11 +44,11 @@ class BaboonCreateApi extends Controller {
 		}
 
 		$i = 0;
-		foreach ($r->input('col_name_convention') as $conv) {
+		foreach (request('col_name_convention') as $conv) {
 			$objectlist = [];
-			if ($r->input('col_type')[$i] == 'file') {
+			if (request('col_type')[$i] == 'file') {
 				$store .= '               if(request()->hasFile(\'' . $conv . '\')){' . "\n";
-				$folder = str_replace('controller', '', strtolower($r->input('controller_name')));
+				$folder = str_replace('controller', '', strtolower(request('controller_name')));
 
 				$store .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
 				$store .= '              }else{' . "\n";
@@ -67,8 +67,8 @@ class BaboonCreateApi extends Controller {
             "data"=>${ModelName}
         ],200);
     }';
-		$store = str_replace('{ModelName}', $r->input('model_name'), $store);
-		$store = str_replace('{lang}', $r->input('lang_file'), $store);
+		$store = str_replace('{ModelName}', request('model_name'), $store);
+		$store = str_replace('{lang}', request('lang_file'), $store);
 
 		return $store;
 	}
