@@ -71,9 +71,7 @@ class Home extends Controller {
 			'col_type.*' => 'string',
 			'col_name_convention' => 'array',
 			'col_name_convention.*' => ['required', 'string', function ($attribute, $value, $fail) {
-
 				it_rule_convention($attribute, $value, $fail);
-
 			}],
 		];
 		$attributes = [

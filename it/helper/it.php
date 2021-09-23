@@ -163,6 +163,7 @@ if (!function_exists('it_permissions')) {
 if (!function_exists('it_rule_convention')) {
 	function it_rule_convention($attribute, $value, $fail) {
 		$i = explode('.', $attribute)[1];
+		// Name Column
 		$name = '(<b style="color:#ffa306">' . request('col_name')[$i] . ' - ' . request(explode('.', $attribute)[0])[$i] . '</b>)';
 
 		if (in_array(request('col_type')[$i], ['text', 'number', 'email', 'url', 'textarea', 'textarea_ckeditor', 'file', 'dropzone', 'password', 'date', 'date_time', 'time', 'timestamp', 'color'])) {
@@ -173,7 +174,12 @@ if (!function_exists('it_rule_convention')) {
 			$secound_value = explode('#', $value);
 
 			!preg_match("/#/i", $value) || empty($secound_value[1]) ?
-			$fail($name . ' There should have signs such as (column_name#value) only numbers and letters')
+			$fail($name . ' There should have signs such as (column_name#value)')
+			: '';
+		} elseif (in_array(request('col_type')[$i], ['select'])) {
+			$secound_value = explode('#', $value);
+			!preg_match('/(\d+)\+(\d+)|,/i', $value) || empty($secound_value[1]) ?
+			$fail($name . ' There should have signs such as (status|accept,Accept/pending,Pending) or ( user_id|App\Models\User::pluck("name","id") )')
 			: '';
 		}
 	}
