@@ -177,10 +177,21 @@ if (!function_exists('it_rule_convention')) {
 			$fail($name . ' There should have signs such as (column_name#value)')
 			: '';
 		} elseif (in_array(request('col_type')[$i], ['select'])) {
-			$secound_value = explode('#', $value);
+			$secound_value = explode('|', $value);
 			!preg_match('/(\d+)\+(\d+)|,/i', $value) || empty($secound_value[1]) ?
 			$fail($name . ' There should have signs such as (status|accept,Accept/pending,Pending) or ( user_id|App\Models\User::pluck("name","id") )')
 			: '';
+
+			// Scan if have forgin key and exisit pluck model
+			if (preg_match('/App\\\\/i', request(explode('.', $attribute)[0])[$i])) {
+				if (empty(request('references' . $i)) || empty(request('forgin_table_name' . $i))) {
+					$fail($name . ' Should be complete Schema Relation add References and Table Name');
+				} elseif (empty(request('schema_name')) || !in_array($secound_value[0], request('schema_name'))) {
+					$fail($name . ' click releations tab and add new relation key ' . $secound_value[0] . ' and choose model from dropdown ');
+				}
+
+			}
 		}
+
 	}
 }
