@@ -849,7 +849,12 @@ return [' . "\n";
 				}
 			} elseif (preg_match('/#/', $name)) {
 				$pre_name = explode('#', $name);
-				$the_master_lang += [$pre_name[0] => $r->input('col_name')[$i]];
+				if ($r->input('col_type')[$i] == 'radio') {
+
+					$the_master_lang += [$pre_name[1] => $r->input('col_name')[$i]];
+				} else {
+					$the_master_lang += [$pre_name[0] => $r->input('col_name')[$i]];
+				}
 			} else {
 				$the_master_lang += [$name => $r->input('col_name')[$i]];
 			}

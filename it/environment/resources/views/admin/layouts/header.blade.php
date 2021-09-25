@@ -22,7 +22,7 @@
     <!-- daterangepicker Bootstrap 4 -->
     <link rel="stylesheet" href="{{ url('assets') }}/plugins/daterangepicker/daterangepicker.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="{{ url('assets') }}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url('assets') }}/plugins/icheck-bootstrap/icheck-bootstrap.min{{ app('l') == 'ar'?'-rtl':'' }}.css">
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ url('assets') }}/plugins/jqvmap/jqvmap.min.css">
     <!-- DataTable Css bootstrap -->

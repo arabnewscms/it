@@ -9,6 +9,7 @@
     margin-top: 6px !important;
     margin-bottom: 6px !important;
     padding-left: 0px;
+    direction: ltr;
 }
 
 .icheck-inline {

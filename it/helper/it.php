@@ -189,7 +189,6 @@ if (!function_exists('it_rule_convention')) {
 				} elseif (empty(request('schema_name')) || !in_array($secound_value[0], request('schema_name'))) {
 					$fail($name . ' click releations tab and add new relation key ' . $secound_value[0] . ' and choose model from dropdown ');
 				}
-
 			}
 		}
 

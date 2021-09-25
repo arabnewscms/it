@@ -3,8 +3,8 @@ if ($data['use_collective'] == 'yes') {
 	$text = '
 <div class="' . $data['col_width'] . '">
     <div class="icheck-success d-inline">
-        {!! Form::radio(\'{Convention}\', {Convention2} ,\'{val}\') !!}
-        {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\')) !!}
+        {!! Form::radio("{Convention}","{val}",{Convention2} == "{val}"?true:false,["id"=>"{val}"]) !!}
+        {!! Form::label("{val}",trans("{lang}.{val}")) !!}
     </div>
 </div>
 ';
@@ -12,8 +12,8 @@ if ($data['use_collective'] == 'yes') {
 	$text = '
 <div class="' . $data['col_width'] . '">
     <div class="icheck-success d-inline">
-        <input type="radio" {{ {Convention2} == \'{val}\'?"checked":"" }} name="{Convention}" value="{val}" id="{Convention}">
-        <label for="{Convention}">{{trans(\'{lang}.{Convention}\')}}</label>
+        <input type="radio" {{ {Convention2} == \'{val}\'?"checked":"" }} name="{Convention}" value="{val}" id="{val}">
+        <label for="{val}">{{trans(\'{lang}.{val}\')}}</label>
     </div>
 </div>
 ';

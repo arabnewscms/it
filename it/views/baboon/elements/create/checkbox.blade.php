@@ -4,8 +4,8 @@ if ($data['use_collective'] == 'yes') {
 <div class="' . $data['col_width'] . '">
     <div class="form-group">
         <div class="custom-control custom-switch">
-            {!! Form::checkbox("{Convention}",old("{Convention}"),"{val}",["class"=>"custom-control-input","placeholder"=>trans("{lang}.{Convention}")]) !!}
-            {!! Form::label("{Convention}",trans("{lang}.{Convention}"),["class"=>"custom-control-label"]) !!}
+            {!! Form::checkbox("{Convention}","{val}",old("{Convention}"),["class"=>"custom-control-input","placeholder"=>trans("{lang}.{val}"),"id"=>"{Convention}"]) !!}
+            {!! Form::label("{Convention}",trans("{lang}.{val}"),["class"=>"custom-control-label"]) !!}
         </div>
     </div>
 </div>
@@ -20,7 +20,7 @@ if ($data['use_collective'] == 'yes') {
             name="{Convention}"
             value="{val}"
             class="custom-control-input" id="{Convention}">
-            <label class="custom-control-label" for="{Convention}">{{trans(\'{lang}.{Convention}\')}}</label>
+            <label class="custom-control-label" for="{Convention}">{{trans(\'{lang}.{val}\')}}</label>
         </div>
     </div>
 </div>

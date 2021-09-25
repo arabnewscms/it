@@ -51,6 +51,7 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/routes/configurations.baboon' => 'routes/configurations.php',
 			__DIR__ . '/../patch_update/app/Http/Controllers/Admin/Dashboard.baboon' => 'app/Http/Controllers/Admin/Dashboard.php',
 			__DIR__ . '/../patch_update/resources/views/admin/layouts/components/submit_form_ajax.blade.baboon' => 'resources/views/admin/layouts/components/submit_form_ajax.blade.php',
+			__DIR__ . '/../patch_update/public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css' => 'public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css',
 		];
 	}
 

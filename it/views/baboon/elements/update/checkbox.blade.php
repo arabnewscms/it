@@ -4,7 +4,7 @@ if ($data['use_collective'] == 'yes') {
 <div class="' . $data['col_width'] . '">
     <div class="form-group">
         <div class="custom-control custom-switch">
-            {!! Form::checkbox(\'{Convention}\', {Convention2} ,\'{val}\',[\'class\'=>\'custom-control-input\',\'placeholder\'=>trans(\'{lang}.{Convention}\')]) !!}
+            {!! Form::checkbox(\'{Convention}\', \'{val}\',{Convention2} == "{val}"?true:false ,[\'class\'=>\'custom-control-input\',\'placeholder\'=>trans(\'{lang}.{Convention}\'),"id"=>"{Convention}"]) !!}
             {!! Form::label(\'{Convention}\',trans(\'{lang}.{Convention}\'),[\'class\'=>\'custom-control-label\']) !!}
         </div>
     </div>
