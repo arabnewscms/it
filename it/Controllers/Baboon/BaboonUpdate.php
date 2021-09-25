@@ -129,6 +129,9 @@ class BaboonUpdate extends Controller {
 				$update .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
 				$update .= '               } ' . "\n";
 
+			} elseif ($r->input('col_type')[$i] == 'checkbox') {
+				$pre_name = explode('#', $conv);
+				$update .= '              $data["' . $pre_name[0] . '"] = !empty(request("' . $pre_name[0] . '"))?request("' . $pre_name[0] . '"):null;' . "\n";
 			}
 			$i++;
 		}
