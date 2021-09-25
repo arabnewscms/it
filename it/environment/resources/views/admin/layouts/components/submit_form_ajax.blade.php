@@ -76,6 +76,9 @@ $(document).ready(function(){
 	            if($(form_id+' #'+key).attr('type') == 'file'){
 	            $(form_id+' .'+key).append(`<div class="invalid-feedback">`+value[0]+`</div>`);
 	            $('.invalid-feedback').show();
+	            }else if($(form_id+' #'+key+':has(select)')){
+	            $(form_id+' .'+key).append(`<div class="invalid-feedback">`+value[0]+`</div>`);
+	            $('.invalid-feedback').show();
 	            }else{
 	            $(form_id+' #'+key).parent('div').append(`<div class="invalid-feedback">`+value[0]+`</div>`);
 	            }
