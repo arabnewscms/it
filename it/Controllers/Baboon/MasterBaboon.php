@@ -417,9 +417,9 @@ protected $fillable = [' . "\n";
 	<div class="card-header">
 		<h3 class="card-title">
 		<div class="">
-			<a href="#">
+			<span>
 			{{ !empty($title)?$title:\'\' }}
-			</a>
+			</span>
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			<span class="caret"></span>
 			<span class="sr-only"></span>
@@ -587,7 +587,7 @@ protected $fillable = [' . "\n";
 	<div class="card-header">
 		<h3 class="card-title">
 		<div class="">
-			<a>{{!empty($title)?$title:\'\'}}</a>
+			<span>{{!empty($title)?$title:\'\'}}</span>
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			<span class="caret"></span>
 			<span class="sr-only"></span>
