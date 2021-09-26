@@ -123,6 +123,10 @@ class BaboonCreate extends Controller {
 			$objectlist = [];
 			if ($r->input('col_type')[$i] == 'file') {
 				$store .= '$data[\'' . $conv . '\'] = "";' . "\n";
+			} elseif ($r->input('col_type')[$i] == 'time') {
+				$store .= '$data[\'' . $conv . '\'] = date(\'h:i:s\', strtotime(request(\'' . $conv . '\')));' . "\n";
+			} elseif ($r->input('col_type')[$i] == 'date_time') {
+				$store .= '              $data[\'' . $conv . '\'] = date(\'Y-m-d h:i:s\', strtotime(request(\'' . $conv . '\')));' . "\n";
 			}
 			$i++;
 		}
@@ -228,6 +232,10 @@ class BaboonCreate extends Controller {
 
 	public static function date($data) {
 		return view('baboon.elements.create.date', ['data' => $data]);
+	}
+
+	public static function date_time($data) {
+		return view('baboon.elements.create.date_time', ['data' => $data]);
 	}
 
 	public static function time($data) {

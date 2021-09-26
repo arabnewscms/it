@@ -50,20 +50,21 @@ $.widget.bridge('uibutton', $.ui.button);
 <script src="{{url("assets/plugins/datatables-buttons/js/buttons.server-side.js")}}"></script>
 
 
-<!-- daterangepicker -->
+<!-- moment -->
 <script src="{{ url('assets') }}/plugins/moment/moment.min.js"></script>
-<script src="{{ url('assets') }}/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Summernote -->
-<script src="{{ url('assets') }}/plugins/summernote/summernote-bs4.min.js"></script>
+{{--   Summernote
+<script src="{{ url('assets') }}/plugins/summernote/summernote-bs4.min.js"></script> --}}
 <!-- overlayScrollbars -->
 <script src="{{ url('assets') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ url('assets') }}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- sweetalert2 App -->
 <script src="{{ url('assets') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- date-range-picker -->
 <script src="{{ url('assets') }}/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap-colorpicker App -->
 <script src="{{ url('assets') }}/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+
 <!-- Select2 -->
 <script src="{{ url('assets') }}/plugins/select2/js/select2.full.min.js"></script>
 <!-- AdminLTE App -->
@@ -99,6 +100,27 @@ filebrowserUploadUrl: '{{ aurl('/filemanager/upload?type=Files&_token=') }}'
 </script>
 <script src="https://cdn.ckeditor.com/4.10.0/full/ckeditor.js"></script>
 <script type="text/javascript" src="{{ url('vendor/unisharp/laravel-ckeditor/adapters/jquery.js') }}"></script>
+
+<script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
+<!-- END THEME LAYOUT SCRIPTS -->
+@if(empty(request()->segment(2)))
+<!-- ChartJS -->
+<script src="{{ url('assets') }}/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="{{ url('assets') }}/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="{{ url('assets') }}/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="{{ url('assets') }}/plugins/jqvmap/maps/jquery.vmap.world.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="{{ url('assets') }}/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
+<script src="{{ url('assets') }}/js/pages/dashboard.js"></script>
+@endif
+
+<script src="{{url('assets/plugins/dropzone/min/dropzone.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 $('textarea.ckeditor').ckeditor(options);
@@ -125,6 +147,27 @@ $.fn.dataTable.ext.errMode = 'none';
     //endDate: '{{ date('Y-m-d') }}',
     });
 
+//date_time_picker
+ $('.date_time_picker').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      showButtonPanel: true,
+      gotoCurrent: false,
+       locale: {
+        format: 'YYYY-MM-DD hh:mm A'
+      },
+    singleDatePicker: true,
+    showDropdowns: true,
+    });
+
+
+  //Timepicker
+    $('.timepicker').datetimepicker({
+      format: 'LT',
+      ignoreReadonly:true
+    });
+    $('.timepicker').prop('readonly', true);
+
   $('.select2').select2({
       theme: 'bootstrap4'
     });
@@ -139,28 +182,6 @@ $.fn.dataTable.ext.errMode = 'none';
 
 });
 </script>
-
-<script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
-<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-<!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
-<!-- END THEME LAYOUT SCRIPTS -->
-@if(empty(request()->segment(2)))
-<!-- ChartJS -->
-<script src="{{ url('assets') }}/plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="{{ url('assets') }}/plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="{{ url('assets') }}/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="{{ url('assets') }}/plugins/jqvmap/maps/jquery.vmap.world.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ url('assets') }}/plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ url('assets') }}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<script src="{{ url('assets') }}/js/pages/dashboard.js"></script>
-@endif
-
-<script src="{{url('assets/plugins/dropzone/min/dropzone.min.js')}}" type="text/javascript"></script>
 
 @stack('js')
 </body>

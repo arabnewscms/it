@@ -496,6 +496,8 @@ protected $fillable = [' . "\n";
 					$input .= BaboonCreate::textarea_ckeditor($data);
 				} elseif (!empty($r->input('col_type')[$i]) and 'date' == $r->input('col_type')[$i]) {
 					$input .= BaboonCreate::date($data);
+				} elseif (!empty($r->input('col_type')[$i]) and 'date_time' == $r->input('col_type')[$i]) {
+					$input .= BaboonCreate::date_time($data);
 				} elseif (!empty($r->input('col_type')[$i]) and 'checkbox' == $r->input('col_type')[$i]) {
 					$input .= BaboonCreate::checkbox($data);
 				} elseif (!empty($r->input('col_type')[$i]) and 'radio' == $r->input('col_type')[$i]) {
@@ -702,6 +704,8 @@ protected $fillable = [' . "\n";
 					$input .= BaboonUpdate::textarea_ckeditor($data);
 				} elseif (!empty($r->input('col_type')[$i]) and 'date' == $r->input('col_type')[$i]) {
 					$input .= BaboonUpdate::date($data);
+				} elseif (!empty($r->input('col_type')[$i]) and 'date_time' == $r->input('col_type')[$i]) {
+					$input .= BaboonUpdate::date_time($data);
 				} elseif (!empty($r->input('col_type')[$i]) and 'checkbox' == $r->input('col_type')[$i]) {
 					$input .= BaboonUpdate::checkbox($data);
 				} elseif (!empty($r->input('col_type')[$i]) and 'radio' == $r->input('col_type')[$i]) {

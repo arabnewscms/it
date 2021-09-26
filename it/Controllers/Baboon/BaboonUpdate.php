@@ -129,6 +129,10 @@ class BaboonUpdate extends Controller {
 				$update .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
 				$update .= '               } ' . "\n";
 
+			} elseif ($r->input('col_type')[$i] == 'time') {
+				$update .= '              $data[\'' . $conv . '\'] = date(\'h:i:s\', strtotime(request(\'' . $conv . '\')));' . "\n";
+			} elseif ($r->input('col_type')[$i] == 'date_time') {
+				$update .= '              $data[\'' . $conv . '\'] = date(\'Y-m-d h:i:s\', strtotime(request(\'' . $conv . '\')));' . "\n";
 			} elseif ($r->input('col_type')[$i] == 'checkbox') {
 				$pre_name = explode('#', $conv);
 				$update .= '              $data["' . $pre_name[0] . '"] = !empty(request("' . $pre_name[0] . '"))?request("' . $pre_name[0] . '"):null;' . "\n";
@@ -391,6 +395,10 @@ class BaboonUpdate extends Controller {
 
 	public static function date($data) {
 		return view('baboon.elements.update.date', ['data' => $data]);
+	}
+
+	public static function date_time($data) {
+		return view('baboon.elements.update.date_time', ['data' => $data]);
 	}
 
 	public static function time($data) {
