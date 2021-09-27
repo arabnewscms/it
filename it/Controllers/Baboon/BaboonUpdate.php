@@ -130,9 +130,9 @@ class BaboonUpdate extends Controller {
 				$update .= '               } ' . "\n";
 
 			} elseif ($r->input('col_type')[$i] == 'time') {
-				$update .= '              $data[\'' . $conv . '\'] = date(\'h:i:s\', strtotime(request(\'' . $conv . '\')));' . "\n";
+				$update .= '              $data[\'' . $conv . '\'] = date(\'H:i\', strtotime(request(\'' . $conv . '\')));' . "\n";
 			} elseif ($r->input('col_type')[$i] == 'date_time') {
-				$update .= '              $data[\'' . $conv . '\'] = date(\'Y-m-d h:i:s\', strtotime(request(\'' . $conv . '\')));' . "\n";
+				$update .= '              $data[\'' . $conv . '\'] = date(\'Y-m-d H:i\', strtotime(request(\'' . $conv . '\')));' . "\n";
 			} elseif ($r->input('col_type')[$i] == 'checkbox') {
 				$pre_name = explode('#', $conv);
 				$update .= '              $data["' . $pre_name[0] . '"] = !empty(request("' . $pre_name[0] . '"))?request("' . $pre_name[0] . '"):null;' . "\n";
