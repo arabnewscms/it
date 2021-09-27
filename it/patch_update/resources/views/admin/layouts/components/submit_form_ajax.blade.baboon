@@ -56,7 +56,7 @@ $(document).ready(function(){
 	       buttons.addClass('hidden');
 	       $(buttons).parent('div').append('<i class="fa fa-spinner fa-spin"></i>');
 	       $('div.invalid-feedback').remove();
-	       $('input.is-invalid,select.is-invalid,textarea.is-invalid').removeClass('is-invalid');
+	       $('input.is-invalid,select.is-invalid,textarea.is-invalid,.form-control.is-invalid').removeClass('is-invalid');
 	    },success: function (data, status){
 	       scrollTo(form_id);
 	       $('.fa-spin').remove();

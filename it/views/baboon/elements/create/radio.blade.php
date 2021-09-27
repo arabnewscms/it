@@ -2,7 +2,7 @@
 if ($data['use_collective'] == 'yes') {
 	$text = '
 <div class="' . $data['col_width'] . '">
-    <div class="icheck-success d-inline">
+    <div class="icheck-success d-inline form-control" id="{Convention}">
         {!! Form::radio("{Convention}","{val}",old("{Convention}") == "{val}"?true:false,["id"=>"{val}"]) !!}
         {!! Form::label("{val}",trans("{lang}.{val}")) !!}
     </div>
@@ -11,7 +11,7 @@ if ($data['use_collective'] == 'yes') {
 } else {
 	$text = '
 <div class="' . $data['col_width'] . '">
-    <div class="icheck-success d-inline">
+    <div class="icheck-success d-inline form-control" id="{Convention}">
         <input type="radio" {{ old(\'{Convention}\') == \'{val}\'?"checked":"" }} name="{Convention}" value="{val}" id="{val}">
         <label for="{val}">{{trans(\'{lang}.{val}\')}}</label>
     </div>
