@@ -124,7 +124,7 @@ class BaboonCreate extends Controller {
 			if ($r->input('col_type')[$i] == 'file') {
 				$store .= '$data[\'' . $conv . '\'] = "";' . "\n";
 			} elseif ($r->input('col_type')[$i] == 'time') {
-				$store .= '$data[\'' . $conv . '\'] = date(\'H:i\', strtotime(request(\'' . $conv . '\')));' . "\n";
+				$store .= '              $data[\'' . $conv . '\'] = date(\'H:i\', strtotime(request(\'' . $conv . '\')));' . "\n";
 			} elseif ($r->input('col_type')[$i] == 'date_time') {
 				$store .= '              $data[\'' . $conv . '\'] = date(\'Y-m-d H:i\', strtotime(request(\'' . $conv . '\')));' . "\n";
 			}
