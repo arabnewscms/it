@@ -7,7 +7,7 @@
 <p align="center">
 
 <a href="https://github.com/arabnewscms/it">
-    <img src="https://img.shields.io/badge/download-2K-green" alt="Github All Releases">
+    <img src="https://img.shields.io/badge/download-2.5K-green" alt="Github All Releases">
 </a>
 <a href="https://github.com/arabnewscms/it">
     <img src="https://img.shields.io/github/forks/arabnewscms/it" alt="GitHub forks">
@@ -35,7 +35,7 @@
 
 `Package Name: IT`
 
-`Version: 1.6.29`
+`Version: 1.6.30`
 
 `Offline Docs: 1.1` - [Online Docs](https://it.phpanonymous.com/docs)
 
@@ -69,7 +69,11 @@ download a new project of laravel version 8
 
  :cool:** ** go to your project cd project-name and run this command to download package 
 
-`composer require phpanonymous/it`
+`composer require phpanonymous/it` 
+
+or if you want use dev-master 
+
+`composer require phpanonymous/it dev-master` 
 
 after downloaded package and to prepare dashboard use this artisan command
 

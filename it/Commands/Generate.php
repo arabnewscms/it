@@ -22,17 +22,16 @@ class Generate extends Command {
 		'langnonymous/lang',
 		'phpanonymous/c3js',
 		'mpdf/mpdf',
-		'tecnickcom/tcpdf',
 		'dompdf/dompdf',
+		'maatwebsite/excel',
 		'phpoffice/phpspreadsheet',
 		'spatie/laravel-honeypot',
-		'laravel/ui',
 		'intervention/image',
 		'laravelcollective/html',
-		'maatwebsite/excel',
 		'barryvdh/laravel-snappy',
-		'unisharp/laravel-filemanager',
 		'tymon/jwt-auth',
+		'unisharp/laravel-filemanager',
+		'laravel/ui',
 	];
 	/**
 	 * Create a new command instance.
@@ -235,6 +234,7 @@ class Generate extends Command {
 
 		$this->info("Enjoy <3");
 		$this->info("regards and i can assist you now");
+		$this->info("Unleash your imagination and be creative");
 		if (date('m') == 1) {
 			$this->info("Happy New Year " . date('Y'));
 		}
