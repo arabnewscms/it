@@ -122,7 +122,7 @@ Welcome message 🍻
 > What is your DATABASE Password ❓ root or empty value
 
 
-> do you want me to create a database in your engine or you have already created database with name it169?  (yes/no) [no] ❓  if for sure your apache is ready to connect by this information and enabled to allow accept connections enter yes or y (If you suspect that enter n or no)
+> do you want me to create a database in your engine or you have already created database with name it 1.6.30?  (yes/no) [no] ❓  if for sure your apache is ready to connect by this information and enabled to allow accept connections enter yes or y (If you suspect that enter n or no)
 
 
 > :fire: **Nice!**: Have some patience to install the necessary packages automatically (This message begins to appear, then the packets begin to descend)
