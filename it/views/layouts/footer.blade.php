@@ -48,12 +48,7 @@
                     title="محمد حسن"
                     />
                 </a>
-                <a href="https://www.patreon.com/user/creators?u=61073716">
-                    <img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/61073716/b56c494c8afb43bc962e4a02a5819bc6/1.jpeg?token-time=2145916800&token-hash=prKhkP0lGQW1hgqW66x3CXU3H5IkXzOHqMGHJyYrzBE%3D"
-                    class="img-thumbnail rounded-circle partners"
-                    title="محمد حسن"
-                    />
-                </a>
+
                 <p>Thanks, gratitude and appreciation for their contribution and their desire to continue developing this package</p>
                 <p>Do you want to be with Premium Partners List?
                     <a href="#" data-toggle="modal" data-target="#donate" title="donate">
