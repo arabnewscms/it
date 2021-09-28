@@ -1,18 +1,28 @@
 @extends('admin.index')
 @section('content')
-
-
 <div class="row">
-  @include('admin.layouts.statistics.module_counters')
+  <section class="col-lg-12 connectedSortable">
+    <div class="card" item_name="statistics">
+      <div class="card-header d-flex p-0">
+        <h3 class="card-title p-3">
+        <i class="fas fa-calculator mr-1"></i>
+        Statistics
+        </h3>
+        </div><!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+          @include('admin.layouts.statistics.module_counters')
+        </div>
+          </div><!-- /.card-body -->
+        </div>
+  </section>
 </div>
-
-
 <!-- Main row -->
 <div class="row">
   <!-- Left col -->
-  <section class="col-lg-7 connectedSortable">
+  <section class="col-lg-6 connectedSortable">
     <!-- Custom tabs (Charts with tabs)-->
-    <div class="card">
+    <div class="card" item_name="sales">
       <div class="card-header d-flex p-0">
         <h3 class="card-title p-3">
         <i class="fas fa-chart-pie mr-1"></i>
@@ -42,7 +52,7 @@
         </div>
         <!-- /.card -->
         <!-- DIRECT CHAT -->
-        <div class="card direct-chat direct-chat-primary">
+        <div class="card direct-chat direct-chat-primary" item_name="chat">
           <div class="card-header">
             <h3 class="card-title">Direct Chat</h3>
             <div class="card-tools">
@@ -231,7 +241,7 @@
         </div>
         <!--/.direct-chat -->
         <!-- TO DO List -->
-        <div class="card">
+        <div class="card" item_name="to_do_list">
           <div class="card-header">
             <h3 class="card-title">
             <i class="ion ion-clipboard mr-1"></i>
@@ -362,9 +372,9 @@
       </section>
       <!-- /.Left col -->
       <!-- right col (We are only adding the ID to make the widgets sortable)-->
-      <section class="col-lg-5 connectedSortable">
+      <section class="col-lg-6 connectedSortable">
         <!-- Map card -->
-        <div class="card bg-gradient-primary">
+        <div class="card bg-gradient-primary" item_name="visitors">
           <div class="card-header border-0">
             <h3 class="card-title">
             <i class="fas fa-map-marker-alt mr-1"></i>
@@ -415,7 +425,7 @@
         </div>
         <!-- /.card -->
         <!-- solid sales graph -->
-        <div class="card bg-gradient-info">
+        <div class="card bg-gradient-info" item_name="sales_graph">
           <div class="card-header border-0">
             <h3 class="card-title">
             <i class="fas fa-th mr-1"></i>
@@ -461,7 +471,7 @@
         </div>
         <!-- /.card -->
         <!-- Calendar -->
-        <div class="card bg-gradient-success">
+        <div class="card bg-gradient-success" item_name="calendar">
           <div class="card-header border-0">
             <h3 class="card-title">
             <i class="far fa-calendar-alt"></i>

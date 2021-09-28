@@ -52,8 +52,8 @@ $.widget.bridge('uibutton', $.ui.button);
 
 <!-- moment -->
 <script src="{{ url('assets') }}/plugins/moment/moment.min.js"></script>
-{{--   Summernote
-<script src="{{ url('assets') }}/plugins/summernote/summernote-bs4.min.js"></script> --}}
+<!-- Summernote -->
+<script src="{{ url('assets') }}/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{ url('assets') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
@@ -115,8 +115,8 @@ filebrowserUploadUrl: '{{ aurl('/filemanager/upload?type=Files&_token=') }}'
 <script src="{{ url('assets') }}/plugins/jqvmap/maps/jquery.vmap.world.js"></script>
 <!-- jQuery Knob Chart -->
 <script src="{{ url('assets') }}/plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('assets') }}/js/pages/dashboard.js"></script>
 @endif
 
@@ -129,9 +129,10 @@ $.fn.dataTable.ext.errMode = 'none';
 
 //color picker with addon
  $('.colorpicker').colorpicker();
+
  $('.colorpicker').on('colorpickerChange', function(event) {
       $('.colorpicker .fa-square').css('color', event.color.toString());
-    });
+  });
 
  //Date range picker
  $('.datepicker').daterangepicker({
