@@ -3,12 +3,14 @@ namespace Phpanonymous\It\Controllers\Baboon;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Phpanonymous\It\Controllers\Baboon\Api\BaboonPostmanApi;
 use Phpanonymous\It\Controllers\Baboon\BaboonDataTable;
 use Phpanonymous\It\Controllers\Baboon\BaboonShowPage;
 use Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonDeleteModule;
 use Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonModule;
 use Phpanonymous\It\Controllers\Baboon\MasterBaboon as Baboon;
 use Phpanonymous\It\Controllers\Baboon\Statistics;
+use Storage;
 
 class Home extends Controller {
 	/**
@@ -119,6 +121,9 @@ class Home extends Controller {
 			// Make Language Files And Migrate Files
 			$this->makeLangAndMigrate($module);
 
+			// make postman json code
+			$this->makePostman();
+
 		}
 
 		\Config::set('filesystems.default', 'it');
@@ -137,6 +142,13 @@ class Home extends Controller {
 		}
 
 		return response(['status' => true, 'message' => 'Module - CRUD Generated'], 200);
+	}
+
+	public function makePostman() {
+
+		$module_name = str_replace('controller', '', strtolower(request('controller_name')));
+		$collection = (new BaboonPostmanApi)->generate_collection($module_name);
+		Storage::disk('it')->put('storage/collections/' . env('APP_NAME') . '_' . $module_name . '_postman_collection.json', $collection);
 	}
 
 /* Posts Method From index_post Start */

@@ -14,12 +14,8 @@ class BaboonCreateApi extends Controller {
              */
             public function index()
             {
-            	${ModelName} = {ModelName}::orderBy(\'id\',\'desc\')->paginate(15);
-               return response([
-               "status"=>true,
-               "statusCode"=>200,
-               "data"=>${ModelName}
-               ],200);
+            	${ModelName} = {ModelName}::orderBy("id","desc")->paginate(15);
+               return successResponseJson(["data"=>${ModelName}]);
             }' . "\n";
 
 		return str_replace('{ModelName}', request('model_name'), $index);
@@ -31,7 +27,6 @@ class BaboonCreateApi extends Controller {
             /**
              * Baboon Script By ' . it_version_message() . '
              * Store a newly created resource in storage. Api
-             * @param  \Illuminate\Http\Request  $r
              * @return \Illuminate\Http\Response
              */
     public function store(' . request('controller_name') . 'Request $request)
@@ -40,32 +35,39 @@ class BaboonCreateApi extends Controller {
     	' . "\n";
 
 		if ($r->has('has_user_id')) {
-			$store .= '              $data[\'user_id\'] = auth()->id(); ' . "\n";
+			$store .= '              $data["user_id"] = auth()->id(); ' . "\n";
 		}
 
 		$i = 0;
 		foreach (request('col_name_convention') as $conv) {
 			$objectlist = [];
 			if (request('col_type')[$i] == 'file') {
-				$store .= '               if(request()->hasFile(\'' . $conv . '\')){' . "\n";
-				$folder = str_replace('controller', '', strtolower(request('controller_name')));
-
-				$store .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
-				$store .= '              }else{' . "\n";
-				$store .= '                $data[\'' . $conv . '\'] = "";' . "\n";
-				$store .= '              }' . "\n";
+				$store .= '                $data["' . $conv . '"] = "";' . "\n";
 			}
 			$i++;
 		}
 
 		$store .= '        ${ModelName} = {ModelName}::create($data); ' . "\n";
+
+		$x = 0;
+		foreach (request('col_name_convention') as $conv) {
+			$objectlist = [];
+			if (request('col_type')[$x] == 'file') {
+				$store .= '               if(request()->hasFile("' . $conv . '")){' . "\n";
+				$folder = str_replace('controller', '', strtolower(request('controller_name')));
+
+				$store .= '              ${ModelName}->' . $conv . ' = it()->upload("' . $conv . '","' . $folder . '/".${ModelName}->id);' . "\n";
+				$store .= '              ${ModelName}->save();' . "\n";
+				$store .= '              }' . "\n";
+			}
+			$x++;
+		}
+
 		$store .= '
-        return response([
-            "status"=>true,
-            "statusCode"=>200,
-            "message"=>trans(\'{lang}.added\'),
+        return successResponseJson([
+            "message"=>trans("{lang}.added"),
             "data"=>${ModelName}
-        ],200);
+        ]);
     }';
 		$store = str_replace('{ModelName}', request('model_name'), $store);
 		$store = str_replace('{lang}', request('lang_file'), $store);

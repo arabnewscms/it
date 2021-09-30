@@ -17,15 +17,15 @@ class BaboonUpdateApi extends Controller {
             {
                 ${ModelName} = {ModelName}::find($id);
             	if(is_null(${ModelName}) || empty(${ModelName})){
-            	 return errorResponseJson([]);
+            	 return errorResponseJson([
+            	  "message"=>trans("{lang}.undefinedRecord")
+            	 ]);
             	}
 
 ';
-		$show .= '                 return response([
-              "status"=>true,
-              "statusCode"=>200,
+		$show .= '                 return successResponseJson([
               "data"=> ${ModelName}
-              ],200);  ;
+              ]);  ;
             }' . "\n";
 
 		$show = str_replace('{lang}', request('lang_file'), $show);
@@ -57,36 +57,37 @@ class BaboonUpdateApi extends Controller {
             {
             	${ModelName} = {ModelName}::find($id);
             	if(is_null(${ModelName}) || empty(${ModelName})){
-            	 return errorResponseJson([]);
+            	 return errorResponseJson([
+            	  "message"=>trans("{lang}.undefinedRecord")
+            	 ]);
   			       }
 
             	$data = $this->updateFillableColumns();
                  ' . "\n";
 
 		if ($r->has('has_user_id')) {
-			$update .= '              $data[\'user_id\'] = auth()->id(); ' . "\n";
+			$update .= '              $data["user_id"] = auth()->id(); ' . "\n";
 		}
 		$i = 0;
 		foreach (request('col_name_convention') as $conv) {
 			$objectlist = [];
 			if (request('col_type')[$i] == 'file') {
-				$update .= '               if(request()->hasFile(\'' . $conv . '\')){' . "\n";
+				$update .= '               if(request()->hasFile("' . $conv . '")){' . "\n";
 				$folder = str_replace('controller', '', strtolower(request('controller_name')));
 				$update .= '              it()->delete(${ModelName}->' . $conv . ');' . "\n";
-				$update .= '              $data[\'' . $conv . '\'] = it()->upload(\'' . $conv . '\',\'' . $folder . '\');' . "\n";
+				$update .= '              $data["' . $conv . '"] = it()->upload("' . $conv . '","' . $folder . '/".${ModelName}->id);' . "\n";
 				$update .= '               }' . "\n";
 			}
 			$i++;
 		}
 
-		$update .= '              {ModelName}::where(\'id\',$id)->update($data);' . "\n";
+		$update .= '              {ModelName}::where("id",$id)->update($data);' . "\n";
 		$update .= '
-              return response([
-               "status"=>true,
-               "statusCode"=>200,
-               "message"=>trans(\'{lang}.updated\'),
+              ${ModelName} = {ModelName}::find($id);
+              return successResponseJson([
+               "message"=>trans("{lang}.updated"),
                "data"=> ${ModelName}
-               ],200);
+               ]);
             }';
 
 		$update = str_replace('{ModelName}', request('model_name'), $update);
@@ -108,7 +109,9 @@ class BaboonUpdateApi extends Controller {
             {
                ${Name} = {ModelName}::find($id);
             	if(is_null(${Name}) || empty(${Name})){
-            	 return errorResponseJson([]);
+            	 return errorResponseJson([
+            	  "message"=>trans("{lang}.undefinedRecord")
+            	 ]);
             	}
 
 ' . "\n";
@@ -122,23 +125,26 @@ class BaboonUpdateApi extends Controller {
 			}
 			$i++;
 		}
-		$destroy .= '               it()->delete(\'{Name2}\',$id);' . "\n";
+		$destroy .= '               it()->delete("{Name2}",$id);' . "\n";
 		$destroy .= '
                ${Name}->delete();
-               return response(["status"=>true,"statusCode"=>200,"message"=>trans(\'{lang}.deleted\')],200);
+               return successResponseJson([
+                "message"=>trans("{lang}.deleted")
+               ]);
             }
 
 
 
  			public function multi_delete()
             {
-                $data = request(\'selected_data\');
+                $data = request("selected_data");
                 if(is_array($data)){
-                    foreach($data as $id)
-                    {
+                    foreach($data as $id){
                     ${Name} = {ModelName}::find($id);
 	            	if(is_null(${Name}) || empty(${Name})){
-	            	 return errorResponseJson([]);
+	            	 return errorResponseJson([
+	            	  "message"=>trans("{lang}.undefinedRecord")
+	            	 ]);
 	            	}
 ' . "\n";
 
@@ -152,14 +158,18 @@ class BaboonUpdateApi extends Controller {
 			}
 			$i++;
 		}
-		$destroy .= '                    	it()->delete(\'{Name2}\',$id);' . "\n";
-		$destroy .= '                    	@${Name}->delete();
+		$destroy .= '                    	it()->delete("{Name2}",$id);' . "\n";
+		$destroy .= '                    	${Name}->delete();
                     }
-                    return response(["status"=>true,"statusCode"=>200,"message"=>trans(\'{lang}.deleted\')]);
+                    return successResponseJson([
+                     "message"=>trans("{lang}.deleted")
+                    ]);
                 }else {
                     ${Name} = {ModelName}::find($id);
 	            	if(is_null(${Name}) || empty(${Name})){
-	            	 return errorResponseJson([]);
+	            	 return errorResponseJson([
+	            	  "message"=>trans("{lang}.undefinedRecord")
+	            	 ]);
 	            	}
  ' . "\n";
 		$i = 0;
@@ -172,10 +182,12 @@ class BaboonUpdateApi extends Controller {
 			}
 			$i++;
 		}
-		$destroy .= '                    	it()->delete(\'{Name2}\',$data);' . "\n";
+		$destroy .= '                    	it()->delete("{Name2}",$data);' . "\n";
 		$destroy .= '
                     ${Name}->delete();
-                    return response(["status"=>true,"statusCode"=>200,"message"=>trans(\'{lang}.deleted\')],200);
+                    return successResponseJson([
+                     "message"=>trans("{lang}.deleted")
+                    ]);
                 }
             }
 
