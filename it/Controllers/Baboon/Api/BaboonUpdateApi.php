@@ -2,6 +2,7 @@
 namespace Phpanonymous\It\Controllers\Baboon\Api;
 
 use App\Http\Controllers\Controller;
+use Phpanonymous\It\Controllers\Baboon\BaboonRulesAndAttributes as BaboonAttr;
 
 class BaboonUpdateApi extends Controller {
 
@@ -165,7 +166,7 @@ class BaboonUpdateApi extends Controller {
                      "message"=>trans("{lang}.deleted")
                     ]);
                 }else {
-                    ${Name} = {ModelName}::find($id);
+                    ${Name} = {ModelName}::find($data);
 	            	if(is_null(${Name}) || empty(${Name})){
 	            	 return errorResponseJson([
 	            	  "message"=>trans("{lang}.undefinedRecord")
@@ -192,6 +193,60 @@ class BaboonUpdateApi extends Controller {
             }
 
             ';
+// Dropzone Upload Start//
+		$x = 0;
+		$dz_rules = '';
+		$dz_attribute = '';
+		$dz_uploads = '';
+		$dz_exisit = false;
+		foreach ($r->input('col_type') as $col_type) {
+			if ($col_type == 'dropzone') {
+				$dz_exisit = true;
+				$valrule = rtrim(BaboonAttr::ruleList($r, $x), '|"');
+
+				$dropzone_name = request('col_name_convention')[$x];
+				$dz_rules .= 'if(request()->hasFile("' . $dropzone_name . '")){
+				$rules["' . $dropzone_name . '"] = "' . $valrule . '";
+			}' . "\n";
+				$dz_attribute .= '"' . $dropzone_name . '" => trans("{lang}.' . $dropzone_name . '"),' . "\n";
+
+				$dz_uploads .= 'if(request()->hasFile("' . $dropzone_name . '")){
+				it()->upload("' . $dropzone_name . '", request("dz_path"), "{Name}", request("dz_id"));
+			}' . "\n";
+			}
+			$x++;
+		}
+
+		if ($dz_exisit) {
+			$destroy .= '
+	// Delete Files From Dropzone Library
+	public function delete_file() {
+		if (request("type_file") && request("type_id")) {
+			if (it()->getFile(request("type_file"), request("type_id"))) {
+				it()->delete(null, null, request("id"));
+				return successResponseJson([]);
+			}
+		}
+	}
+
+	// Multi upload with dropzone
+	public function multi_upload() {
+			$rules = [];
+			' . $dz_rules . '
+
+			$this->validate(request(), $rules, [], [
+				 ' . $dz_attribute . '
+			]);
+
+			' . $dz_uploads . '
+			return successResponseJson([
+				"type" => request("dz_type"),
+				"file" => it()->getFile("{Name}", request("dz_id")),
+			]);
+	}';
+		}
+// Dropzone Upload End//
+
 		$Name = str_replace('controller', '', strtolower(request('controller_name')));
 		$destroy = str_replace('{ModelName}', request('model_name'), $destroy);
 		$destroy = str_replace('{lang}', request('lang_file'), $destroy);

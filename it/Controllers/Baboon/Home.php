@@ -249,29 +249,28 @@ class Home extends Controller {
 		$admin_routes = file_get_contents(base_path('routes/admin.php'));
 
 		// Dropzone Route Start//
-
-		$route3 = '';
+		$dz_web = '';
 		foreach (request('col_type') as $col_type) {
 			if ($col_type == 'dropzone') {
 
 				$first = preg_quote($link . '/upload/multi', '/');
 				$after = preg_quote('', '/');
 
-				if (!preg_match("/$first(.*)$after/s", $route3, $result)) {
-					$route3 .= '		Route::post(\'' . $link . '/upload/multi\',\'' . $namespace_single . '\\' . request('controller_name') . '@multi_upload\'); ' . "\r\n";
+				if (!preg_match("/$first(.*)$after/s", $dz_web, $result)) {
+					$dz_web .= '		Route::post(\'' . $link . '/upload/multi\',\'' . $namespace_single . '\\' . request('controller_name') . '@multi_upload\'); ' . "\r\n";
 				}
 
 				$first1 = preg_quote($link . '/delete/file', '/');
 				$after1 = preg_quote('', '/');
-				if (!preg_match("/$first1(.*)$after/s", $route3, $result)) {
-					$route3 .= '		Route::post(\'' . $link . '/delete/file\',\'' . $namespace_single . '\\' . request('controller_name') . '@delete_file\'); ' . "\r\n";
+				if (!preg_match("/$first1(.*)$after/s", $dz_web, $result)) {
+					$dz_web .= '		Route::post(\'' . $link . '/delete/file\',\'' . $namespace_single . '\\' . request('controller_name') . '@delete_file\'); ' . "\r\n";
 				}
 			}
 		}
 		// Dropzone Route End//
 
 		if (!preg_match("/" . $link . "/i", $admin_routes)) {
-			$admin_routes = str_replace($end_route, $route1 . $route2 . $route3 . "		" . $end_route, $admin_routes);
+			$admin_routes = str_replace($end_route, $route1 . $route2 . $dz_web . "		" . $end_route, $admin_routes);
 			\Storage::put('routes/admin.php', $admin_routes);
 		}
 		// Linked With Ajax Route Start//
@@ -291,19 +290,42 @@ class Home extends Controller {
 		}
 		// Linked With Ajax Route End//
 		//********* Preparing Route ***********/
-		//********* Preparing Route Api ***********/
-		$linkapi = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name'))) . 'Api';
-		$end_routeapi = '//////// Api Routes /* End */ //////////////';
-		$namespace_singleapi = 'Api';
-		$route1 = 'Route::resource(\'' . $linkapi . '\',\'' . $namespace_singleapi . '\\' . request('controller_name') . '\'); ' . "\r\n";
-		$routeapi = 'Route::post(\'' . $linkapi . '/multi_delete\',\'' . $namespace_singleapi . '\\' . request('controller_name') . '@multi_delete\'); ' . "\r\n";
 
+		//********* Preparing Route Api ***********/
+		$linkapi = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name')));
+		$controllerApiName = request('controller_name') . 'Api';
+		$end_routeapi = '//Auth-Api-End//';
+		$namespace_singleapi = '';
+		$route1 = 'Route::resource("' . $linkapi . '","' . $controllerApiName . '"); ' . "\r\n";
+		$route2 = '			Route::post("' . $linkapi . '/multi_delete","' . $controllerApiName . '@multi_delete"); ' . "\r\n";
 		$api_routes = file_get_contents(base_path('routes/api.php'));
+
+		// Dropzone Route Start//
+		$dz_api = '';
+		foreach (request('col_type') as $col_type) {
+			if ($col_type == 'dropzone') {
+				$first = preg_quote($link . '/upload/multi', '/');
+				$after = preg_quote('', '/');
+				if (!preg_match("/$first(.*)$after/s", $dz_api, $result)) {
+					$dz_api .= '			Route::post(\'' . $link . '/upload/multi\',\'' . $controllerApiName . '@multi_upload\'); ' . "\r\n";
+				}
+
+				$first1 = preg_quote($link . '/delete/file', '/');
+				$after1 = preg_quote('', '/');
+				if (!preg_match("/$first1(.*)$after/s", $dz_api, $result)) {
+					$dz_api .= '			Route::post(\'' . $link . '/delete/file\',\'' . $controllerApiName . '@delete_file\'); ' . "\r\n";
+				}
+			}
+		}
+		// Dropzone Route End//
+
 		if (!preg_match("/" . $link . "/i", $api_routes)) {
-			$api_routes = str_replace($end_routeapi, $route1 . $routeapi . "		" . $end_routeapi, $api_routes);
+			$api_routes = str_replace($end_routeapi, $route1 . $route2 . $dz_api . "		" . "			" . $end_routeapi, $api_routes);
 			\Storage::put('routes/api.php', $api_routes);
 		}
+
 		//********* Preparing Route End Api ***********/
+
 	}
 
 	public function makeLangAndMigrate($module) {

@@ -49,6 +49,7 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/database/migrations/2021_02_19_985759_create_settings_table.baboon' => 'database/migrations/2021_02_19_985759_create_settings_table.php',
 			__DIR__ . '/../patch_update/app/Models/Setting.baboon' => 'app/Models/Setting.php',
 			__DIR__ . '/../patch_update/routes/configurations.baboon' => 'routes/configurations.php',
+			__DIR__ . '/../patch_update/routes/api.baboon' => 'routes/api.php',
 			__DIR__ . '/../patch_update/app/Http/Controllers/Admin/Dashboard.baboon' => 'app/Http/Controllers/Admin/Dashboard.php',
 			__DIR__ . '/../patch_update/resources/views/admin/layouts/components/submit_form_ajax.blade.baboon' => 'resources/views/admin/layouts/components/submit_form_ajax.blade.php',
 			__DIR__ . '/../patch_update/public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css' => 'public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css',
