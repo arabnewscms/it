@@ -83,8 +83,9 @@ class Generate extends Command {
 		}
 
 		// auto add jwt options
+		self::changeEnv('JWT_TTL', '');
 		self::changeEnv('JWT_TTL', 'null');
-		self::changeEnv('JWT_SECRET', Str::random(72));
+		self::changeEnv('JWT_SECRET', 'yfid2jJSp5bqwu7WDcUsn4zjcclhyXJ4ZdrKOaJ4DRVCKFes9XZxJnaXCbasrbDm');
 
 		// App Name Question
 		$APP_NAME = $this->ask('What is Your APP NAME ?');

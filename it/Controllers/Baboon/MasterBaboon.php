@@ -65,14 +65,14 @@ class {ClassName} extends Controller
 
 	public static function makeControllerApi($r, $namespace, $model, $classname) {
 		$controller = '<?php
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use {Model};
 use Validator;
-use App\Http\Controllers\Validations\{ClassName}Request;
+use App\Http\Controllers\ValidationsApi\V1\{ClassName}Request;
 // Auto Controller Maker By Baboon Script
 // Baboon Maker has been Created And Developed By  ' . it_version_message() . '
 // Copyright Reserved  ' . it_version_message() . '

@@ -2,13 +2,15 @@
 namespace Phpanonymous\It\Controllers\Baboon\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class BaboonPostmanApi extends Controller {
 
 	public function postman() {
+		$post_mane_id = (string) Str::uuid();
 		$data = [];
 		$data['info'] = [
-			"_postman_id" => "80ddb3b6-b2ae-4a93-96c0-ca4ec0d9f74c-" . env('APP_NAME'),
+			"_postman_id" => $post_mane_id,
 			"name" => env("APP_NAME"),
 			"schema" => "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		];
@@ -55,16 +57,19 @@ class BaboonPostmanApi extends Controller {
 		// MULTI_DELETE Record BY ID
 		$items[] = $this->Item("MULTI_DELETE", $module_data, "Multi Delete Record By IDs " . $module_name, $module_name . '/multi_delete');
 		$i = 0;
+		$dz_name = '';
 		foreach (request('col_type') as $col_type) {
 			if ($col_type == 'dropzone') {
-				$dz_name = request('col_name_convention')[$i];
-				// Dropzone Upload
-				$items[] = $this->Item("DZ_POST", $module_data, " Multi Upload " . $module_name, $module_name . '/upload/multi', $dz_name);
-
-				// Dropzone Delete File
-				$items[] = $this->Item("DZ_DELETE", $module_data, " Delete Multi Upload " . $module_name, $module_name . '/delete/file');
+				$dz_name .= request('col_name_convention')[$i] . ',';
 			}
 			$i++;
+		}
+		if (!empty($dz_name)) {
+			// Dropzone Upload
+			$items[] = $this->Item("DZ_POST", $module_data, " Multi Upload " . $module_name, $module_name . '/upload/multi', rtrim($dz_name, ','));
+
+			// Dropzone Delete File
+			$items[] = $this->Item("DZ_DELETE", $module_data, " Delete Multi Upload " . $module_name, $module_name . '/delete/file');
 		}
 
 		$postman['item'] = [
@@ -112,45 +117,48 @@ class BaboonPostmanApi extends Controller {
 						$values = 'releation with model ' . $pre_name[1];
 					}
 
-					$key = $pre_name[0];
-					$value = count(explode(',', $values)) > 0 ? explode(',', $values)[0] : 1;
-					$type = 'text';
-					$description = 'Dropdown data (' . $values . ')';
+					$body_formdata[] = [
+						"key" => $pre_name[0],
+						"value" => count(explode(',', $values)) > 0 ? explode(',', $values)[0] : 1,
+						"type" => 'text',
+						"description" => 'Dropdown data (' . $values . ')',
+					];
+
 				} elseif (preg_match('/#/i', $conv)) {
 					$pre_conv = explode('#', $conv);
 					if (!preg_match('/' . $pre_conv[0] . '/i', $cols)) {
 						$name = explode('#', $name);
 						$cols .= $name[0] . "\n";
-
-						$key = $name[0];
-						$value = '';
-						$type = 'text';
-						$description = 'checkbox or radio data (' . $pre_name[1] . ' or other-data)';
-
+						$body_formdata[] = [
+							"key" => $name[0],
+							"value" => null,
+							"type" => 'text',
+							"description" => 'checkbox or radio data (' . $pre_name[1] . ' or other-data)',
+						];
 					}
 				} elseif (request('col_type')[$i] == 'file') {
-					$key = $conv;
-					$value = null;
-					$type = 'file';
-					$description = 'Upload File Input';
+					$body_formdata[] = [
+						"key" => $conv,
+						"value" => null,
+						"type" => 'file',
+						"description" => 'Upload File Input',
+					];
 				} elseif (request('col_type')[$i] == 'email') {
-					$key = $conv;
-					$value = 'email@example.com';
-					$type = 'file';
-					$description = 'email Input';
-				} elseif (request('col_type')[$i] != 'dropzone') {
-					$key = $conv;
-					$value = 'some string';
-					$type = 'text';
-					$description = 'normal input text';
-				}
+					$body_formdata[] = [
+						"key" => $conv,
+						"value" => 'email@example.com',
+						"type" => 'text',
+						"description" => 'email Input',
+					];
 
-				$body_formdata[] = [
-					"key" => $key,
-					"value" => $value,
-					"type" => $type,
-					"description" => $description,
-				];
+				} elseif (request('col_type')[$i] != 'dropzone') {
+					$body_formdata[] = [
+						"key" => $conv,
+						"value" => 'some string',
+						"type" => 'text',
+						"description" => 'normal input text',
+					];
+				}
 
 				$i++;
 			}
@@ -172,12 +180,14 @@ class BaboonPostmanApi extends Controller {
 			];
 		} elseif ($method_type == 'DZ_POST') {
 			$method_type = 'POST';
-			$body_formdata[] = [
-				"key" => $param,
-				"value" => null,
-				"type" => 'file',
-				"description" => 'Choose File to Upload',
-			];
+			foreach (explode(',', $param) as $paramname) {
+				$body_formdata[] = [
+					"key" => $paramname,
+					"value" => null,
+					"type" => 'file',
+					"description" => 'Choose File to Upload',
+				];
+			}
 		} elseif ($method_type == 'DZ_DELETE') {
 			$method_type = 'POST';
 

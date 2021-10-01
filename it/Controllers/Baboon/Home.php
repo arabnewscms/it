@@ -320,7 +320,7 @@ class Home extends Controller {
 		// Dropzone Route End//
 
 		if (!preg_match("/" . $link . "/i", $api_routes)) {
-			$api_routes = str_replace($end_routeapi, $route1 . $route2 . $dz_api . "		" . "			" . $end_routeapi, $api_routes);
+			$api_routes = str_replace($end_routeapi, $route1 . $route2 . $dz_api . "		" . "	" . $end_routeapi, $api_routes);
 			\Storage::put('routes/api.php', $api_routes);
 		}
 
@@ -390,7 +390,7 @@ class Home extends Controller {
 			request('model_namespace') . '\\' . request('model_name'),
 			request('controller_name'));
 
-		Baboon::write($controllerApi, request('controller_name') . 'Api', 'App\Http\Controllers/Api');
+		Baboon::write($controllerApi, request('controller_name') . 'Api', 'App\Http\Controllers/Api/V1');
 
 		// }
 	}
@@ -400,8 +400,12 @@ class Home extends Controller {
 		if (request()->has('make_datatable')) {
 			Baboon::write(BaboonDataTable::dbclass(request()), $folder2 . 'DataTable', 'app\\DataTables\\');
 		}
-
+		// Make Validation Form Request To Admin
 		Baboon::write(BaboonValidations::validationClass(request()), $folder2 . 'Request', 'app\\Http\\Controllers\\Validations\\');
+
+		// Make Validation Form Request To Api
+		Baboon::write(BaboonValidations::validationApiClass(request()), $folder2 . 'Request', 'app\\Http\\Controllers\\ValidationsApi\\V1\\');
+
 		// Admin Route List Roles Start//
 		$routes = Baboon::RouteListRoles(request());
 		Baboon::write($routes, 'AdminRouteList', 'app\\Http\\');
@@ -448,11 +452,15 @@ class Home extends Controller {
 		$database_path = Baboon::check_path('database\\migrations');
 		// Make database folder
 
+		// Api Paths
+		Baboon::check_path('app\\Http\\Controllers\\ValidationsApi\\V1');
+		Baboon::check_path('app\\Http\\Controllers\\Api/V1');
+
 		Baboon::check_path('app\\Http\\Controllers\\Validations');
 		// Make Validations folder
 		Baboon::check_path('app\\DataTables'); // Make DataTables folder
 		Baboon::check_path(request('admin_folder_path')); // Make views folder
-		Baboon::check_path('app\\Http\\Controllers\\Api'); // Make assets folder
+
 		return [
 			'model_path' => $model_path,
 			'controller_path' => $controller_path,

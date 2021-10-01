@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +14,7 @@ class AuthApiLoggedIn extends Controller {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->middleware('auth:api', ['except' => ['login']]);
+		$this->middleware('jwt.auth', ['except' => ['login']]);
 	}
 
 	/**
@@ -27,22 +27,9 @@ class AuthApiLoggedIn extends Controller {
 	protected function respondWithToken($token) {
 		return [
 			'access_token' => $token,
-			'token_type'   => 'bearer',
-			'expires_in'   => auth()->factory()->getTTL()*60,
+			'token_type' => 'bearer',
+			'expires_in' => auth()->factory()->getTTL() * 60,
 		];
-	}
-
-	/**
-	 * Get a JWT via given credentials.
-	 *
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function login() {
-		$credentials = request(['email', 'password']);
-		if (!$token = auth()->attempt($credentials)) {
-			return errorResponseJson(['error' => 'Unauthorized'], 401);
-		}
-		return successResponseJson(['data' => $this->respondWithToken($token)]);
 	}
 
 	/**
@@ -71,6 +58,30 @@ class AuthApiLoggedIn extends Controller {
 	 */
 	public function refresh() {
 		return successResponseJson(['data' => $this->respondWithToken(auth()->refresh())]);
+	}
+
+	public function account() {
+		return successResponseJson(['data' => auth()->user()]);
+	}
+
+	/**
+	 * Get a JWT via given credentials.
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function login() {
+		$this->validate(request(), [
+			'email' => 'required|email',
+			'password' => 'required',
+		], [], [
+			'email' => trans('admin.email'),
+			'password' => trans('admin.password'),
+		]);
+		$credentials = request(['email', 'password']);
+		if (!$token = auth()->attempt($credentials)) {
+			return errorResponseJson(['error' => 'Unauthorized', 'message' => trans('auth.failed')], 401);
+		}
+		return successResponseJson(['data' => $this->respondWithToken($token)]);
 	}
 
 }

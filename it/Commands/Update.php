@@ -18,6 +18,12 @@ class Update extends Command {
 	 * @var string
 	 */
 	protected $description = 'Update New files';
+	public function delete_list() {
+		return [
+			'app/Http/Controllers/Api/AuthApiLoggedIn.php',
+		];
+	}
+
 	public function patch_list() {
 		return [
 			__DIR__ . '/../patch_update/resources/views/admin/ajax.baboon' => 'resources/views/admin/ajax.blade.php',
@@ -50,6 +56,8 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/app/Models/Setting.baboon' => 'app/Models/Setting.php',
 			__DIR__ . '/../patch_update/routes/configurations.baboon' => 'routes/configurations.php',
 			__DIR__ . '/../patch_update/routes/api.baboon' => 'routes/api.php',
+			__DIR__ . '/../patch_update/app/Http/Controllers/Api/V1/AuthApiLoggedIn.baboon' => 'app/Http/Controllers/Api/V1/AuthApiLoggedIn.php',
+			__DIR__ . '/../patch_update/storage/collections/itde_login_postman_collection.json' => 'storage/collections/itde_login_postman_collection.json',
 			__DIR__ . '/../patch_update/app/Http/Controllers/Admin/Dashboard.baboon' => 'app/Http/Controllers/Admin/Dashboard.php',
 			__DIR__ . '/../patch_update/resources/views/admin/layouts/components/submit_form_ajax.blade.baboon' => 'resources/views/admin/layouts/components/submit_form_ajax.blade.php',
 			__DIR__ . '/../patch_update/public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css' => 'public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css',
@@ -137,6 +145,7 @@ class Update extends Command {
 		$ASK_UPDATE = $this->confirm('do you want apply patch update to publish new files from version ' . it_version() . ' ?');
 
 		if ($ASK_UPDATE) {
+
 			// Update Loop File List
 			foreach ($this->patch_list() as $key => $value) {
 				if (file_exists($key)) {
@@ -150,6 +159,14 @@ class Update extends Command {
 			}
 			// Update Lang Files
 			$this->updateLanguage();
+
+			// Delete Loop File List
+			foreach ($this->delete_list() as $delete_list) {
+				if (file_exists(base_path($delete_list))) {
+					\Storage::disk('it')->delete($delete_list);
+					$this->warn($delete_list . ' File Deleted successfully');
+				}
+			}
 
 		} else {
 			$this->warn('The Update is Canceled');
