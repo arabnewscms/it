@@ -16,7 +16,7 @@ class BaboonUpdateApi extends Controller {
              */
             public function show($id)
             {
-                ${ModelName} = {ModelName}::select($this->$fillableColumns)->find($id);
+                ${ModelName} = {ModelName}::find($id,$this->selectColumns);
             	if(is_null(${ModelName}) || empty(${ModelName})){
             	 return errorResponseJson([
             	  "message"=>trans("{lang}.undefinedRecord")
@@ -83,7 +83,7 @@ class BaboonUpdateApi extends Controller {
 
 		$update .= '              {ModelName}::where("id",$id)->update($data);' . "\n";
 		$update .= '
-              ${ModelName} = {ModelName}::select($this->$fillableColumns)->find($id);
+              ${ModelName} = {ModelName}::find($id,$this->selectColumns);
               return successResponseJson([
                "message"=>trans("{lang}.updated"),
                "data"=> ${ModelName}

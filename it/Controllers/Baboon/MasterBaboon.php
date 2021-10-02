@@ -77,7 +77,7 @@ use App\Http\Controllers\ValidationsApi\V1\{ClassName}Request;
 // Baboon Maker has been Created And Developed By  ' . it_version_message() . '
 // Copyright Reserved  ' . it_version_message() . '
 class {ClassName}Api extends Controller{' . "\n";
-		$controller .= '	protected $fillableColumns = [' . "\n";
+		$controller .= '	protected $selectColumns = [' . "\n";
 		$selectColumns = '		"id",' . "\n";
 		$i = 0;
 		foreach (request('col_name_convention') as $conv) {
