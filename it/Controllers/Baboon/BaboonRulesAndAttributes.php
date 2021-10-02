@@ -56,6 +56,70 @@ class BaboonRulesAndAttributes extends Controller {
 		return $rule;
 	}
 
+	public static function CustomSetAttributeNames($r) {
+		$SetAttributeNames = '';
+		$i = 0;
+		foreach ($r->input('col_name_convention') as $conv) {
+			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
+				$pre_conv = explode('|', $conv);
+				if (checkIfExisitValue('api_show_column', $pre_conv[0])) {
+					$SetAttributeNames .= '             \'' . $pre_conv[0] . '\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
+				}
+			} elseif (preg_match('/#/i', $conv)) {
+				$pre_conv = explode('#', $conv);
+				if (!preg_match('/' . $pre_conv[0] . '/', $SetAttributeNames)) {
+					if (checkIfExisitValue('api_show_column', $pre_conv[0])) {
+						$SetAttributeNames .= '             \'' . $pre_conv[0] . '\'=>trans(\'{lang}.' . $pre_conv[0] . '\'),' . "\n";
+					}
+				}
+			} elseif ($r->input('col_type')[$i] != 'dropzone') {
+				if (checkIfExisitValue('api_show_column', $conv)) {
+					$SetAttributeNames .= '             \'' . $conv . '\'=>trans(\'{lang}.' . $conv . '\'),' . "\n";
+				}
+			}
+			$i++;
+		}
+		$SetAttributeNames = str_replace('{lang}', $r->input('lang_file'), $SetAttributeNames);
+		return $SetAttributeNames;
+	}
+
+	public static function customRules($r) {
+		$rule = '';
+		$i = 0;
+		foreach ($r->input('col_name_convention') as $conv) {
+			$valrule = '';
+			$valrule .= self::ruleList($r, $i, $conv);
+
+			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
+				$pre_conv = explode('|', $conv);
+				if (checkIfExisitValue('api_show_column', $pre_conv[0])) {
+					$rule .= '             \'' . $pre_conv[0] . '\'=>\'' . rtrim($valrule, '|') . '\',' . "\n";
+				}
+			} elseif (preg_match('/#/i', $conv)) {
+				$pre_conv = explode('#', $conv);
+				if (!preg_match('/' . $pre_conv[0] . '/i', $rule)) {
+					if (checkIfExisitValue('api_show_column', $pre_conv[0])) {
+						$rule .= '             \'' . $pre_conv[0] . '\'=>\'' . rtrim($valrule, '|') . '\',' . "\n";
+					}
+				}
+			} elseif ($r->has('image' . $i) and $r->has('image' . $i) == 1) {
+				if ($r->input('col_type')[$i] != 'dropzone') {
+					if (checkIfExisitValue('api_show_column', $conv)) {
+						$rule .= '             \'' . $conv . '\'=>\'' . rtrim($valrule, '|"') . '\',' . "\n";
+					}
+				}
+			} else {
+				if ($r->input('col_type')[$i] != 'dropzone') {
+					if (checkIfExisitValue('api_show_column', $conv)) {
+						$rule .= '             \'' . $conv . '\'=>\'' . rtrim($valrule, '|') . '\',' . "\n";
+					}
+				}
+			}
+			$i++;
+		}
+		return $rule;
+	}
+
 	public static function ruleList($r, $i, $conv = null) {
 		$valrule = '';
 		if ($r->input('col_name_null' . $i) == 'has') {

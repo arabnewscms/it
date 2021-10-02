@@ -195,6 +195,11 @@ if (!function_exists('it_rule_convention')) {
 	}
 }
 
+if (!function_exists('checkIfExisitValue')) {
+	function checkIfExisitValue($request_name, $value) {
+		return !empty(request($request_name)) && in_array($value, request($request_name)) ? true : false;
+	}
+}
 if (!function_exists('api_check')) {
 	function api_check($name) {
 		$module_data = app('module_data');

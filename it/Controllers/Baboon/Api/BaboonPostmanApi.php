@@ -38,32 +38,32 @@ class BaboonPostmanApi extends Controller {
 		$postman = $this->postman();
 		$items = [];
 
-		if ($this->checkIfExisitValue('api_url', 'api_index')) {
+		if (checkIfExisitValue('api_url', 'api_index')) {
 			// GET index
 			$items[] = $this->Item("GET", "get all " . $module_name, $module_name);
 		}
 
-		if ($this->checkIfExisitValue('api_url', 'api_show')) {
+		if (checkIfExisitValue('api_url', 'api_show')) {
 			// GET SHOW
 			$items[] = $this->Item("GET", "show by id " . $module_name, $module_name . '/{PUT_YOUR_ID}');
 		}
 
-		if ($this->checkIfExisitValue('api_url', 'api_create')) {
+		if (checkIfExisitValue('api_url', 'api_create')) {
 			// POST ADD New Record
 			$items[] = $this->Item("POST", "Add Record " . $module_name, $module_name);
 		}
 
-		if ($this->checkIfExisitValue('api_url', 'api_update')) {
+		if (checkIfExisitValue('api_url', 'api_update')) {
 			// PUT OR PATCH Record By ID
 			$items[] = $this->Item("PUT", "Update Record By ID " . $module_name, $module_name . '/{PUT_YOUR_ID}');
 		}
 
-		if ($this->checkIfExisitValue('api_url', 'api_delete')) {
+		if (checkIfExisitValue('api_url', 'api_delete')) {
 			// DELETE Record BY ID
 			$items[] = $this->Item("DELETE", "DELETE Record By ID " . $module_name, $module_name . '/{PUT_YOUR_ID}');
 		}
 
-		if ($this->checkIfExisitValue('api_url', 'api_multi_delete')) {
+		if (checkIfExisitValue('api_url', 'api_multi_delete')) {
 			// MULTI_DELETE Record BY ID
 			$items[] = $this->Item("MULTI_DELETE", "Multi Delete Record By IDs " . $module_name, $module_name . '/multi_delete');
 		}
@@ -92,10 +92,6 @@ class BaboonPostmanApi extends Controller {
 		];
 
 		return json_encode($postman, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-	}
-
-	public function checkIfExisitValue($request_name, $value) {
-		return !empty(request($request_name)) && in_array($value, request($request_name)) ? true : false;
 	}
 
 	public function Item($method_type, $module_label, $segments, $param = null) {
@@ -135,7 +131,7 @@ api_show_column
 						$values = 'releation with model ' . $pre_name[1];
 					}
 
-					if ($this->checkIfExisitValue('api_show_column', $pre_name[0])) {
+					if (checkIfExisitValue('api_show_column', $pre_name[0])) {
 						$body_formdata[] = [
 							"key" => $pre_name[0],
 							"value" => count(explode(',', $values)) > 0 ? explode(',', $values)[0] : 1,
@@ -150,7 +146,7 @@ api_show_column
 						$name = explode('#', $name);
 						$cols .= $name[0] . "\n";
 
-						if ($this->checkIfExisitValue('api_show_column', $name[0])) {
+						if (checkIfExisitValue('api_show_column', $name[0])) {
 							$body_formdata[] = [
 								"key" => $name[0],
 								"value" => null,
@@ -159,7 +155,7 @@ api_show_column
 							];
 						}
 					}
-				} elseif (request('col_type')[$i] == 'file' && $this->checkIfExisitValue('api_show_column', $conv)) {
+				} elseif (request('col_type')[$i] == 'file' && checkIfExisitValue('api_show_column', $conv)) {
 
 					$body_formdata[] = [
 						"key" => $conv,
@@ -168,7 +164,7 @@ api_show_column
 						"description" => 'Upload File Input',
 					];
 
-				} elseif (request('col_type')[$i] == 'email' && $this->checkIfExisitValue('api_show_column', $conv)) {
+				} elseif (request('col_type')[$i] == 'email' && checkIfExisitValue('api_show_column', $conv)) {
 
 					$body_formdata[] = [
 						"key" => $conv,
@@ -177,7 +173,7 @@ api_show_column
 						"description" => 'email Input',
 					];
 
-				} elseif (request('col_type')[$i] != 'dropzone' && $this->checkIfExisitValue('api_show_column', $conv)) {
+				} elseif (request('col_type')[$i] != 'dropzone' && checkIfExisitValue('api_show_column', $conv)) {
 					$body_formdata[] = [
 						"key" => $conv,
 						"value" => 'some string',

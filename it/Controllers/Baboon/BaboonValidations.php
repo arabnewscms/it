@@ -113,13 +113,14 @@ class ' . $r->input('controller_name') . 'Request extends FormRequest {
 	 */
 	protected function onCreate() {
 		return [' . "\n";
-		$validation .= '' . RulesAndAttributes::rules($r);
+		$validation .= '' . RulesAndAttributes::customRules($r);
 		$validation .= '		];
 	}
 
+
 	protected function onUpdate() {
 		return [' . "\n";
-		$validation .= '' . RulesAndAttributes::rules($r);
+		$validation .= '' . RulesAndAttributes::customRules($r);
 		$validation .= '		];
 	}
 
@@ -137,7 +138,7 @@ class ' . $r->input('controller_name') . 'Request extends FormRequest {
 	 */
 	public function attributes() {
 		return [' . "\n";
-		$validation .= '' . RulesAndAttributes::SetAttributeNames($r);
+		$validation .= '' . RulesAndAttributes::CustomSetAttributeNames($r);
 		$validation .= '		];
 	}
 

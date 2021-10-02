@@ -76,8 +76,39 @@ use App\Http\Controllers\ValidationsApi\V1\{ClassName}Request;
 // Auto Controller Maker By Baboon Script
 // Baboon Maker has been Created And Developed By  ' . it_version_message() . '
 // Copyright Reserved  ' . it_version_message() . '
-class {ClassName}Api extends Controller
-{' . "\n";
+class {ClassName}Api extends Controller{' . "\n";
+		$controller .= '	protected $fillableColumns = [' . "\n";
+		$selectColumns = '		"id",' . "\n";
+		$i = 0;
+		foreach (request('col_name_convention') as $conv) {
+			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
+				$pre_conv = explode('|', $conv);
+				if (checkIfExisitValue('api_show_column', $pre_conv[0])) {
+					$selectColumns .= '		"' . $pre_conv[0] . '",' . "\n";
+				}
+			} elseif (preg_match('/#/i', $conv)) {
+				$pre_conv = explode('#', $conv);
+				if (!preg_match('/' . $pre_conv[0] . '/i', $selectColumns)) {
+					if (checkIfExisitValue('api_show_column', $pre_conv[0])) {
+						$selectColumns .= '		"' . $pre_conv[0] . '",' . "\n";
+					}
+				}
+			} elseif (request('image' . $i) and request('image' . $i) == 1) {
+				if (request('col_type')[$i] != 'dropzone') {
+					if (checkIfExisitValue('api_show_column', $conv)) {
+						$selectColumns .= '		"' . $conv . '",' . "\n";
+					}
+				}
+			} else {
+				if (request('col_type')[$i] != 'dropzone') {
+					if (checkIfExisitValue('api_show_column', $conv)) {
+						$selectColumns .= '		"' . $conv . '",' . "\n";
+					}
+				}
+			}
+			$i++;
+		}
+		$controller .= "" . $selectColumns . "	];" . "\n";
 		$controller .= BaboonCreateApi::indexMethod($r) . "\n";
 		$controller .= BaboonCreateApi::storeMethod($r) . "\n";
 		$controller .= BaboonUpdateApi::showMethod($r) . "\n";
