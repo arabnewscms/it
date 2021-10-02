@@ -8,7 +8,7 @@ class BaboonCreateApi extends Controller {
 	public static function indexMethod($r) {
 		$index = '
             /**
-             * Baboon Script By ' . it_version_message() . '
+             * Baboon Api Script By ' . it_version_message() . '
              * Display a listing of the resource. Api
              * @return \Illuminate\Http\Response
              */
@@ -25,7 +25,7 @@ class BaboonCreateApi extends Controller {
 		$objectlist = [];
 		$store = '
             /**
-             * Baboon Script By ' . it_version_message() . '
+             * Baboon Api Script By ' . it_version_message() . '
              * Store a newly created resource in storage. Api
              * @return \Illuminate\Http\Response
              */
