@@ -37,25 +37,36 @@ class BaboonPostmanApi extends Controller {
 	public function generate_collection($module_name) {
 		$postman = $this->postman();
 		$items = [];
-		$module_data = '';
 
-		// GET index
-		$items[] = $this->Item("GET", $module_data, "get all " . $module_name, $module_name);
+		if ($this->checkIfExisitValue('api_url', 'api_index')) {
+			// GET index
+			$items[] = $this->Item("GET", "get all " . $module_name, $module_name);
+		}
 
-		// GET SHOW
-		$items[] = $this->Item("GET", $module_data, "show by id " . $module_name, $module_name . '/{PUT_YOUR_ID}');
+		if ($this->checkIfExisitValue('api_url', 'api_show')) {
+			// GET SHOW
+			$items[] = $this->Item("GET", "show by id " . $module_name, $module_name . '/{PUT_YOUR_ID}');
+		}
 
-		// POST ADD New Record
-		$items[] = $this->Item("POST", $module_data, "Add Record " . $module_name, $module_name);
+		if ($this->checkIfExisitValue('api_url', 'api_create')) {
+			// POST ADD New Record
+			$items[] = $this->Item("POST", "Add Record " . $module_name, $module_name);
+		}
 
-		// PUT OR PATCH Record By ID
-		$items[] = $this->Item("PUT", $module_data, "Update Record By ID " . $module_name, $module_name . '/{PUT_YOUR_ID}');
+		if ($this->checkIfExisitValue('api_url', 'api_update')) {
+			// PUT OR PATCH Record By ID
+			$items[] = $this->Item("PUT", "Update Record By ID " . $module_name, $module_name . '/{PUT_YOUR_ID}');
+		}
 
-		// DELETE Record BY ID
-		$items[] = $this->Item("DELETE", $module_data, "DELETE Record By ID " . $module_name, $module_name . '/{PUT_YOUR_ID}');
+		if ($this->checkIfExisitValue('api_url', 'api_delete')) {
+			// DELETE Record BY ID
+			$items[] = $this->Item("DELETE", "DELETE Record By ID " . $module_name, $module_name . '/{PUT_YOUR_ID}');
+		}
 
-		// MULTI_DELETE Record BY ID
-		$items[] = $this->Item("MULTI_DELETE", $module_data, "Multi Delete Record By IDs " . $module_name, $module_name . '/multi_delete');
+		if ($this->checkIfExisitValue('api_url', 'api_multi_delete')) {
+			// MULTI_DELETE Record BY ID
+			$items[] = $this->Item("MULTI_DELETE", "Multi Delete Record By IDs " . $module_name, $module_name . '/multi_delete');
+		}
 		$i = 0;
 		$dz_name = '';
 		foreach (request('col_type') as $col_type) {
@@ -66,10 +77,10 @@ class BaboonPostmanApi extends Controller {
 		}
 		if (!empty($dz_name)) {
 			// Dropzone Upload
-			$items[] = $this->Item("DZ_POST", $module_data, " Multi Upload " . $module_name, $module_name . '/upload/multi', rtrim($dz_name, ','));
+			$items[] = $this->Item("DZ_POST", " Multi Upload " . $module_name, $module_name . '/upload/multi', rtrim($dz_name, ','));
 
 			// Dropzone Delete File
-			$items[] = $this->Item("DZ_DELETE", $module_data, " Delete Multi Upload " . $module_name, $module_name . '/delete/file');
+			$items[] = $this->Item("DZ_DELETE", " Delete Multi Upload " . $module_name, $module_name . '/delete/file');
 		}
 
 		$postman['item'] = [
@@ -83,7 +94,11 @@ class BaboonPostmanApi extends Controller {
 		return json_encode($postman, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	}
 
-	public function Item($method_type, $module_data, $module_label, $segments, $param = null) {
+	public function checkIfExisitValue($request_name, $value) {
+		return !empty(request($request_name)) && in_array($value, request($request_name)) ? true : false;
+	}
+
+	public function Item($method_type, $module_label, $segments, $param = null) {
 		// Columns And Parameters
 		$body_formdata = [];
 
@@ -101,6 +116,9 @@ class BaboonPostmanApi extends Controller {
 		}
 
 		if (in_array($method_type, ['POST', 'PUT', 'PATCH'])) {
+/*
+api_show_column
+ */
 			$i = 0;
 			$cols = '';
 			foreach (request('col_name_convention') as $conv) {
@@ -117,33 +135,41 @@ class BaboonPostmanApi extends Controller {
 						$values = 'releation with model ' . $pre_name[1];
 					}
 
-					$body_formdata[] = [
-						"key" => $pre_name[0],
-						"value" => count(explode(',', $values)) > 0 ? explode(',', $values)[0] : 1,
-						"type" => 'text',
-						"description" => 'Dropdown data (' . $values . ')',
-					];
+					if ($this->checkIfExisitValue('api_show_column', $pre_name[0])) {
+						$body_formdata[] = [
+							"key" => $pre_name[0],
+							"value" => count(explode(',', $values)) > 0 ? explode(',', $values)[0] : 1,
+							"type" => 'text',
+							"description" => 'Dropdown data (' . $values . ')',
+						];
+					}
 
 				} elseif (preg_match('/#/i', $conv)) {
 					$pre_conv = explode('#', $conv);
 					if (!preg_match('/' . $pre_conv[0] . '/i', $cols)) {
 						$name = explode('#', $name);
 						$cols .= $name[0] . "\n";
-						$body_formdata[] = [
-							"key" => $name[0],
-							"value" => null,
-							"type" => 'text',
-							"description" => 'checkbox or radio data (' . $pre_name[1] . ' or other-data)',
-						];
+
+						if ($this->checkIfExisitValue('api_show_column', $name[0])) {
+							$body_formdata[] = [
+								"key" => $name[0],
+								"value" => null,
+								"type" => 'text',
+								"description" => 'checkbox or radio data (' . $pre_name[1] . ' or other-data)',
+							];
+						}
 					}
-				} elseif (request('col_type')[$i] == 'file') {
+				} elseif (request('col_type')[$i] == 'file' && $this->checkIfExisitValue('api_show_column', $conv)) {
+
 					$body_formdata[] = [
 						"key" => $conv,
 						"value" => null,
 						"type" => 'file',
 						"description" => 'Upload File Input',
 					];
-				} elseif (request('col_type')[$i] == 'email') {
+
+				} elseif (request('col_type')[$i] == 'email' && $this->checkIfExisitValue('api_show_column', $conv)) {
+
 					$body_formdata[] = [
 						"key" => $conv,
 						"value" => 'email@example.com',
@@ -151,7 +177,7 @@ class BaboonPostmanApi extends Controller {
 						"description" => 'email Input',
 					];
 
-				} elseif (request('col_type')[$i] != 'dropzone') {
+				} elseif (request('col_type')[$i] != 'dropzone' && $this->checkIfExisitValue('api_show_column', $conv)) {
 					$body_formdata[] = [
 						"key" => $conv,
 						"value" => 'some string',

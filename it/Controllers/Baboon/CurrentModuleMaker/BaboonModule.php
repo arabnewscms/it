@@ -105,27 +105,27 @@ class BaboonModule extends Controller {
 	public function getApiColumns() {
 		$api_url = [];
 
-		if (in_array('api_multi_delete', request('api_url'))) {
+		if (!empty(request('api_url')) && in_array('api_multi_delete', request('api_url'))) {
 			$api_url[] = 'api_multi_delete';
 		}
 
-		if (in_array('api_delete', request('api_url'))) {
+		if (!empty(request('api_url')) && in_array('api_delete', request('api_url'))) {
 			$api_url[] = 'api_delete';
 		}
 
-		if (in_array('api_update', request('api_url'))) {
+		if (!empty(request('api_url')) && in_array('api_update', request('api_url'))) {
 			$api_url[] = 'api_update';
 		}
 
-		if (in_array('api_create', request('api_url'))) {
+		if (!empty(request('api_url')) && in_array('api_create', request('api_url'))) {
 			$api_url[] = 'api_create';
 		}
 
-		if (in_array('api_show', request('api_url'))) {
+		if (!empty(request('api_url')) && in_array('api_show', request('api_url'))) {
 			$api_url[] = 'api_show';
 		}
 
-		if (in_array('api_index', request('api_url'))) {
+		if (!empty(request('api_url')) && in_array('api_index', request('api_url'))) {
 			$api_url[] = 'api_index';
 		}
 
