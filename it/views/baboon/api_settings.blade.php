@@ -62,8 +62,6 @@ var controller_name = $('input[name="controller_name"]').val().toLowerCase();
 
 </script>
 @endpush
-
-
 <div class="col-md-12 col-lg-12 col-xs-12">
 	<center><h1>{{ it_trans('it.api_settings') }}</h1></center>
 	<div class="col-md-4">
@@ -71,9 +69,7 @@ var controller_name = $('input[name="controller_name"]').val().toLowerCase();
 	</div>
 	<div class="col-md-6">
 		<h4>API URL show in postman json</h4>
-		<ol class="api_uri_list">
-
-		</ol>
+		<ol class="api_uri_list"></ol>
 	</div>
 	<div class="col-md-2">
 		<h4>Choose API URL</h4>

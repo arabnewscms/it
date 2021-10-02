@@ -12,7 +12,7 @@
       <ul class="nav nav-tabs">
         <li class="nav-item active">
           <a class="nav-link" href="#panel-info" aria-expanded="true" data-toggle="tab">
-            <h4 class="fa fa-cogs "></h4>
+            <h4 class="fa fa-layer-group"></h4>
           <b>Init</b> CRUD-info</a>
         </li>
         <li class="nav-item">
@@ -22,7 +22,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link " href="#panel-columns" data-toggle="tab">
-            <h4 class="fa fa-columns"></h4>
+            <h4 class="fa fa-border-all"></h4>
           Inputs & columns</a>
         </li>
         <li class="nav-item">
@@ -32,8 +32,8 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#panel-datatable" data-toggle="tab">
-            <h4 class="fa fa-table"></h4>
-          Datatable</a>
+            <h4 class="fa fa-network-wired"></h4>
+          Datatable & APIs</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#panel-statistics" data-toggle="tab">

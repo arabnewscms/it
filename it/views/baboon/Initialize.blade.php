@@ -1,5 +1,5 @@
 <div class="col-md-6 well">
-  <div class="col-md-12">
+  <div class="col-md-12 well">
     <div class="form-group project_title">
       <label for="project_title" class="col-md-12">{{it_trans('it.project_title')}}</label>
       <div class="col-md-10">
@@ -7,7 +7,7 @@
         value="{{ !empty($module_data)? $module_data->module_name:old('project_title') }}" placeholder="{{it_trans('it.project_title')}}"  />
       </div>
       <div class="col-md-2">
-        <a href="#" data-toggle="modal" data-target="#falist"><i class="fa fa-brush fa-2x"></i></a>
+        <a href="#" data-toggle="modal" data-target="#falist"><i class="fa fa-icons fa-2x"></i></a>
       </div>
     </div>
   </div>
