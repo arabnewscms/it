@@ -66,6 +66,9 @@ var controller_name = $('input[name="controller_name"]').val().toLowerCase();
 	<center><h1>{{ it_trans('it.api_settings') }}</h1></center>
 	<div class="col-md-4">
 		<h4>Show Columns</h4>
+		<div style="overflow: auto;height:150px">
+			<ol class="api_columns_list"></ol>
+		</div>
 	</div>
 	<div class="col-md-6">
 		<h4>API URL show in postman json</h4>

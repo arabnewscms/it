@@ -129,8 +129,10 @@ class BaboonModule extends Controller {
 			$api_url[] = 'api_index';
 		}
 
+		$api_show_column = request('api_show_column');
 		return [
 			'api_url' => $api_url,
+			'api_show_column' => $api_show_column,
 		];
 	}
 

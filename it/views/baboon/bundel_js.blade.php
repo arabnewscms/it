@@ -422,6 +422,7 @@ $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
   $('.datatable_columns').html('<center><i class="fa fa-spinner fa-spin"></i></center>');
  var col_name_datatable = [];
  var col_convention_datatable = [];
+ var col_type_datatable = [];
 
  $('input[name="col_name_convention[]"]').each(function(){
    col_convention_datatable.push($(this).val());
@@ -429,6 +430,10 @@ $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
 
  $('input[name="col_name[]"]').each(function(){
    col_name_datatable.push($(this).val());
+ });
+
+  $('select[name="col_type[]"]').each(function(){
+   col_type_datatable.push($(this).val());
  });
 
  $('.dataTables_empty').attr('colspan',col_name_datatable.length+5);
@@ -457,6 +462,7 @@ $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
 // This for to put checkboxes to scan if checked or not //
  for(i=0;i < col_name_datatable.length;i++){
     var conv_col_checkbox = col_convention_datatable[i].split('|');
+    if(col_type_datatable[i] != 'dropzone'){
      table_checkbox += `
         <th>
         <label>
@@ -465,6 +471,7 @@ $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
         </label>
     </th>
     `;
+    }
  }
  $('.datatable_columns_checkboxes').html(table_checkbox);
  @if(!empty(request('module')) && !empty(app('module_data')->datatable) && !empty(app('module_data')->datatable->dt_show_column))
@@ -480,8 +487,9 @@ setTimeout(function(){
 
  for(i=0;i < col_name_datatable.length;i++){
   var conv_col = col_convention_datatable[i].split('|');
-
+  if(col_type_datatable[i] != 'dropzone'){
    table_cols += `<th class="`+conv_col[0]+` `+hideOrShowRow(conv_col[0])+`">`+col_name_datatable[i]+`</th>`;
+   }
 
     if(conv_col[1] !== '' && conv_col[1] !== undefined){
     table_cols_footer += `<th class="`+conv_col[0]+` `+hideOrShowRow(conv_col[0])+`">
@@ -489,11 +497,12 @@ setTimeout(function(){
                       <option>.........</option>
                     </select>
                 </th>`;
-    }else{
+    }else if(col_type_datatable[i] != 'dropzone'){
     table_cols_footer += `<th class="`+conv_col[0]+` `+hideOrShowRow(conv_col[0])+`">
                     <input style="width: 100%" class="form-control">
                 </th>`;
     }
+
  }
 
  // datatable_created_at //
@@ -530,6 +539,52 @@ setTimeout(function(){
  $('.datatable_columns').html(table_cols);
  $('.datatable_footer_rows').html(table_cols_footer);
  },10);
+
+/////////////////////////////////////////////////////////////////////////////
+// Api Section Start
+ var col_name_api = [];
+ var col_convention_api = [];
+ var col_type_api = [];
+
+ $('input[name="col_name_convention[]"]').each(function(){
+   col_convention_api.push($(this).val());
+ });
+
+ $('input[name="col_name[]"]').each(function(){
+   col_name_api.push($(this).val());
+ });
+
+ $('select[name="col_type[]"]').each(function(){
+   col_type_api.push($(this).val());
+ });
+
+var api_columns = '';
+   for(i=0;i < col_name_api.length;i++){
+    var conv_col_checkbox = col_convention_api[i].split('|');
+    if(col_type_api[i] != 'dropzone'){
+     api_columns += `
+        <li>
+        <label>
+         <input type="checkbox" {{ !empty(request('module'))?'':'checked' }}  name="api_show_column[]" value="`+conv_col_checkbox[0]+`" />
+        `+col_name_api[i]+`
+        </label>
+        </li>
+    `;
+    }
+ }
+
+  $('.api_columns_list').html(api_columns);
+   @if(!empty(request('module')) && !empty(app('module_data')->api) && !empty(app('module_data')->api->api_show_column))
+ @php
+ $api_show_columns = app('module_data')->api->api_show_column;
+ @endphp
+  @foreach($api_show_columns as $api_show_column)
+   $('input[value="{{ $api_show_column }}"]').prop('checked', true);
+  @endforeach
+ @endif
+// Api Section End
+
+
  });
 
 // loadColumns End//
