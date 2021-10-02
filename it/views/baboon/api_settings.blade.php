@@ -4,7 +4,7 @@
 function showLink(checkbox_val,type,method,controller_name,url=''){
 	var url_data = "{{url('api/v1')}}/"+controller_name+url;
    	if(checkbox_val == type){
-    if($('.api_uri_list').find('li.'+checkbox_val).length !== 0){
+    if($('.api_url_list').find('li.'+checkbox_val).length !== 0){
      $('.'+checkbox_val).remove();
     }else{
      if(method == 'GET'){
@@ -19,7 +19,7 @@ function showLink(checkbox_val,type,method,controller_name,url=''){
      	var color = '';
      }
      var method = '<b style="color:'+color+'">'+method+'</b>';
-   	 $('.api_uri_list').append('<li style="margin-top:8px" class="'+checkbox_val+'"> '+method+' : '+url_data+'</li>');
+   	 $('.api_url_list').append('<li style="margin-top:8px" class="'+checkbox_val+'"> '+method+' : '+url_data+'</li>');
     }
    	}
 }
@@ -65,11 +65,11 @@ var controller_name = $('input[name="controller_name"]').val().toLowerCase();
 <div class="col-md-12 col-lg-12 col-xs-12">
 	<center><h1>{{ it_trans('it.api_settings') }}</h1></center>
 	<div class="col-md-4">
-		show columns
+		<h4>Show Columns</h4>
 	</div>
 	<div class="col-md-6">
 		<h4>API URL show in postman json</h4>
-		<ol class="api_uri_list"></ol>
+		<ol class="api_url_list"></ol>
 	</div>
 	<div class="col-md-2">
 		<h4>Choose API URL</h4>
