@@ -93,4 +93,5 @@ return [
 	"statistics_bgcolor" => "Background Color",
 	"statistics_theme" => "Trangle Theme",
 	"ajax_request" => "Ajax Form",
+	"api_settings" => "Api Settings",
 ];

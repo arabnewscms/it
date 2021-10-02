@@ -49,7 +49,7 @@
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane active" id="panel-info">
+        <div class="tab-pane " id="panel-info">
           @include('baboon.Initialize')
           <div class="clearfix"></div>
         </div>
@@ -65,8 +65,11 @@
           @include('baboon.relations')
           <div class="clearfix"></div>
         </div>
-        <div class="tab-pane" id="panel-datatable">
+        <div class="tab-pane active" id="panel-datatable">
           @include('baboon.datatable_settings')
+          <!-- Api Prepare Start-->
+          @include('baboon.api_settings')
+          <!-- Api Prepare End-->
           <div class="clearfix"></div>
         </div>
         <div class="tab-pane " id="panel-statistics">

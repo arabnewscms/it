@@ -194,3 +194,18 @@ if (!function_exists('it_rule_convention')) {
 
 	}
 }
+
+if (!function_exists('api_check')) {
+	function api_check($name) {
+		$module_data = app('module_data');
+		if (!empty($module_data->api)) {
+			if (!empty($module_data->api->api_url) && in_array($name, $module_data->api->api_url)) {
+				return 'checked';
+			} else {
+				return '';
+			}
+		} else {
+			return 'checked';
+		}
+	}
+}

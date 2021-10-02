@@ -210,8 +210,8 @@ return ['checked',''];
       <!-- /.row -->
     </div>
     <!-- /.card-body -->
-    <div class="card-footer">
-    </div>
+    {{-- <div class="card-footer">
+    </div> --}}
   </div>
 </div>
 </div>

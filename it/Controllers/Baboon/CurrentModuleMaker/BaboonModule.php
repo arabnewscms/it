@@ -96,9 +96,42 @@ class BaboonModule extends Controller {
 			'inputs_columns' => $this->prepareInputs(),
 
 			'datatable' => $this->getDatatableColumns(),
+			'api' => $this->getApiColumns(),
 		];
 		//dd($this->getDatatableColumns());
 		return json_encode($main_init, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+	}
+
+	public function getApiColumns() {
+		$api_url = [];
+
+		if (in_array('api_multi_delete', request('api_url'))) {
+			$api_url[] = 'api_multi_delete';
+		}
+
+		if (in_array('api_delete', request('api_url'))) {
+			$api_url[] = 'api_delete';
+		}
+
+		if (in_array('api_update', request('api_url'))) {
+			$api_url[] = 'api_update';
+		}
+
+		if (in_array('api_create', request('api_url'))) {
+			$api_url[] = 'api_create';
+		}
+
+		if (in_array('api_show', request('api_url'))) {
+			$api_url[] = 'api_show';
+		}
+
+		if (in_array('api_index', request('api_url'))) {
+			$api_url[] = 'api_index';
+		}
+
+		return [
+			'api_url' => $api_url,
+		];
 	}
 
 	public function getDatatableColumns() {
