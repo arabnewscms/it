@@ -20,7 +20,7 @@ class Home extends Controller {
 	 */
 
 	public function index() {
-		return (new BaboonPostmanApi)->aggregation();
+
 		if (!empty(request('delete_module'))) {
 			// Delete .baboon Text CRUD by request('delete_module')
 			return (new BaboonDeleteModule)->init();

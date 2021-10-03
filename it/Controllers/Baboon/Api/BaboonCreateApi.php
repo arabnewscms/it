@@ -14,7 +14,7 @@ class BaboonCreateApi extends Controller {
              */
             public function index()
             {
-            	${ModelName} = {ModelName}::select($this->$selectColumns)->orderBy("id","desc")->paginate(15);
+            	${ModelName} = {ModelName}::select($this->selectColumns)->orderBy("id","desc")->paginate(15);
                return successResponseJson(["data"=>${ModelName}]);
             }' . "\n";
 

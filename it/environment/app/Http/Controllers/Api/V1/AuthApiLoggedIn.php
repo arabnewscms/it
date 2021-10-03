@@ -2,7 +2,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 // Auto Configured by (IT) Baboon maker (phpanonymous/it package)
 
@@ -14,9 +17,12 @@ class AuthApiLoggedIn extends Controller {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->middleware('jwt.auth', ['except' => ['login']]);
+		$this->middleware('auth:api', ['except' => ['login']]);
 	}
 
+	private function auth() {
+		return auth()->guard('api');
+	}
 	/**
 	 * Get the token array structure.
 	 *
@@ -27,8 +33,9 @@ class AuthApiLoggedIn extends Controller {
 	protected function respondWithToken($token) {
 		return [
 			'access_token' => $token,
-			'token_type' => 'bearer',
-			'expires_in' => auth()->factory()->getTTL() * 60,
+			'token_type' => 'Bearer',
+			'expires_in' => $this->auth()->factory()->getTTL() * 60,
+			'user' => $this->auth()->user(),
 		];
 	}
 
@@ -38,7 +45,7 @@ class AuthApiLoggedIn extends Controller {
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function me() {
-		return successResponseJson(['data' => auth()->user()]);
+		return successResponseJson(['data' => $this->auth()->user()]);
 	}
 
 	/**
@@ -47,7 +54,7 @@ class AuthApiLoggedIn extends Controller {
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function logout() {
-		auth()->logout();
+		$this->auth()->logout();
 		return successResponseJson(['message' => 'Successfully logged out']);
 	}
 
@@ -57,11 +64,11 @@ class AuthApiLoggedIn extends Controller {
 	 * @return \Illuminate\Http\JsonResponse
 	 */
 	public function refresh() {
-		return successResponseJson(['data' => $this->respondWithToken(auth()->refresh())]);
+		return successResponseJson(['data' => $this->respondWithToken($this->auth()->refresh())]);
 	}
 
 	public function account() {
-		return successResponseJson(['data' => auth()->user()]);
+		return successResponseJson(['data' => $this->auth()->user()]);
 	}
 
 	/**
@@ -78,9 +85,15 @@ class AuthApiLoggedIn extends Controller {
 			'password' => trans('admin.password'),
 		]);
 		$credentials = request(['email', 'password']);
-		if (!$token = auth()->attempt($credentials)) {
-			return errorResponseJson(['error' => 'Unauthorized', 'message' => trans('auth.failed')], 401);
+
+		try {
+			if (!$token = $this->auth()->attempt($credentials)) {
+				return errorResponseJson(['error' => 'Unauthorized', 'message' => trans('auth.failed')]);
+			}
+		} catch (JWTException $e) {
+			return errorResponseJson(['error' => 'Unauthorized', 'message' => 'Could not create token']);
 		}
+
 		return successResponseJson(['data' => $this->respondWithToken($token)]);
 	}
 

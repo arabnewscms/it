@@ -63,6 +63,8 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css' => 'public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css',
 			__DIR__ . '/../patch_update/public/assets/js/pages/dashboard.js' => 'public/assets/js/pages/dashboard.js',
 			__DIR__ . '/../patch_update/config/app.baboon' => 'config/app.php',
+			__DIR__ . '/../patch_update/config/auth.baboon' => 'config/auth.php',
+			__DIR__ . '/../patch_update/config/jwt.baboon' => 'config/jwt.php',
 		];
 	}
 

@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\Route;
 // your api is integerated but if you want reintegrate no problem
 // to configure jwt-auth visit this link https://jwt-auth.readthedocs.io/en/docs/
 
-Route::group(['middleware' => ['ApiLang', 'cors'], 'prefix' => 'v1', 'namespace' => 'Api\V1'],
-	function () {
+Route::group(['middleware' => ['ApiLang', 'cors'],'prefix' => 'v1','namespace' => 'Api\V1'],function () {
+
+		Route::get('/', function () {
+
+		});
+		
 		// Insert your Api Here Start //
 		Route::group(['middleware' => 'guest'], function () {
 			Route::post('login', 'AuthApiLoggedIn@login');
