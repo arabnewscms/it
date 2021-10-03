@@ -274,7 +274,7 @@ class Generate extends Command {
 
 		if (check_package("mpdf/mpdf") === null) {
 			$this->info("Downloading mpdf Package....");
-			shell_exec('composer require mpdf/mpdf');
+			shell_exec('composer require mpdf/mpdf:8.0.10');
 			$this->progress(100);
 		}
 
