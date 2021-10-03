@@ -18,21 +18,21 @@ class Generate extends Command {
 	 * @var string
 	 */
 	protected $description = 'Publish All files related to (it)';
-	protected $package_list = [
-		'langnonymous/lang',
-		'phpanonymous/c3js',
-		'mpdf/mpdf',
-		'dompdf/dompdf',
-		'maatwebsite/excel',
-		'phpoffice/phpspreadsheet',
-		'spatie/laravel-honeypot',
-		'intervention/image',
-		'laravelcollective/html',
-		'barryvdh/laravel-snappy',
-		'tymon/jwt-auth',
-		'unisharp/laravel-filemanager',
-		'laravel/ui',
-	];
+	// protected $package_list = [
+	// 	'langnonymous/lang',
+	// 	'phpanonymous/c3js',
+	// 	//'mpdf/mpdf:8.0.0',
+	// 	'dompdf/dompdf',
+	// 	'maatwebsite/excel',
+	// 	'phpoffice/phpspreadsheet',
+	// 	'spatie/laravel-honeypot',
+	// 	'intervention/image',
+	// 	'laravelcollective/html',
+	// 	'barryvdh/laravel-snappy',
+	// 	'tymon/jwt-auth',
+	// 	'unisharp/laravel-filemanager',
+	// 	'laravel/ui:3.3.0',
+	// ];
 	/**
 	 * Create a new command instance.
 	 *
@@ -107,6 +107,7 @@ class Generate extends Command {
 
 			self::changeEnv('APP_URL', $NEED_APP_URL . ':' . $HAVE_PORT);
 		}
+
 		// Set  CUSTOM PORT //
 
 		// Set DB CUSTOM PORT //
@@ -182,13 +183,99 @@ class Generate extends Command {
 
 		$this->line("we are build your admin panel and downloading default packages this new version is super fast please wait ...");
 
-		$packages = array_filter($this->package_list, function ($package) {
-			return check_package($package) === null;
-		});
+		// $packages = array_filter($this->package_list, function ($package) {
+		// 	return check_package($package) === null;
+		// });
+		/*
+	'langnonymous/lang',
+			'phpanonymous/c3js',
+			//'mpdf/mpdf:8.0.0',
+			'dompdf/dompdf',
+			'maatwebsite/excel',
+			'phpoffice/phpspreadsheet',
+			'spatie/laravel-honeypot',
+			'intervention/image',
+			'laravelcollective/html',
+			'barryvdh/laravel-snappy',
+			'tymon/jwt-auth',
+			'unisharp/laravel-filemanager',
+			'laravel/ui:3.3.0',
+*/
 
-		if (count($packages) > 0) {
-			$this->info("Downloading Package....");
-			shell_exec('composer require ' . implode(' ', $packages));
+		// if (count($packages) > 0) {
+		// 	$this->info("Downloading Package....");
+		// 	shell_exec('composer require ' . implode(' ', $packages));
+		// }
+
+		if (check_package("langnonymous/lang") === null) {
+			$this->info("Downloading langnonymous/lang Package....");
+			shell_exec('composer require langnonymous/lang');
+			$this->progress(100);
+		}
+
+		if (check_package("laravel/ui") === null) {
+			$this->info("Downloading laravel/ui Package....");
+			shell_exec('composer require laravel/ui');
+			$this->progress(100);
+		}
+
+		if (check_package("unisharp/laravel-filemanager") === null) {
+			$this->info("Downloading unisharp/laravel-filemanager Package....");
+			shell_exec('composer require unisharp/laravel-filemanager');
+			$this->progress(100);
+		}
+
+		if (check_package("tymon/jwt-auth") === null) {
+			$this->info("Downloading tymon/jwt-auth Package....");
+			shell_exec('composer require tymon/jwt-auth');
+			$this->progress(100);
+		}
+
+		if (check_package("barryvdh/laravel-snappy") === null) {
+			$this->info("Downloading barryvdh/laravel-snappy Package....");
+			shell_exec('composer require barryvdh/laravel-snappy');
+			$this->progress(100);
+		}
+
+		if (check_package("laravelcollective/html") === null) {
+			$this->info("Downloading laravelcollective/html Package....");
+			shell_exec('composer require laravelcollective/html');
+			$this->progress(100);
+		}
+		if (check_package("dompdf/dompdf") === null) {
+			$this->info("Downloading dompdf/dompdf Package....");
+			shell_exec('composer require dompdf/dompdf');
+			$this->progress(100);
+		}
+
+		if (check_package("intervention/image") === null) {
+			$this->info("Downloading intervention/image Package....");
+			shell_exec('composer require intervention/image');
+			$this->progress(100);
+		}
+
+		if (check_package("spatie/laravel-honeypot") === null) {
+			$this->info("Downloading spatie/laravel-honeypot Package....");
+			shell_exec('composer require spatie/laravel-honeypot');
+			$this->progress(100);
+		}
+
+		if (check_package("phpoffice/phpspreadsheet") === null) {
+			$this->info("Downloading phpoffice/phpspreadsheet Package....");
+			shell_exec('composer require phpoffice/phpspreadsheet');
+			$this->progress(100);
+		}
+
+		if (check_package("maatwebsite/excel") === null) {
+			$this->info("Downloading maatwebsite/excel Package....");
+			shell_exec('composer require maatwebsite/excel');
+			$this->progress(100);
+		}
+
+		if (check_package("mpdf/mpdf") === null) {
+			$this->info("Downloading mpdf Package....");
+			shell_exec('composer require mpdf/mpdf');
+			$this->progress(100);
 		}
 
 		if (check_package("yajra/laravel-datatables-oracle") === null) {
