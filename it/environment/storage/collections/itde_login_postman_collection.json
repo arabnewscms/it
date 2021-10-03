@@ -8,9 +8,6 @@
 		{
 			"name": "Login & Register & reset",
 			"item": [
-		{
-			"name": "Login & Register & reset",
-			"item": [
 				{
 					"name": "login",
 					"protocolProfileBehavior": {
@@ -267,8 +264,8 @@
 				}
 			]
 		}
-	]
-		}
+	 
+		 
 	],
 	"event": [
 		{
