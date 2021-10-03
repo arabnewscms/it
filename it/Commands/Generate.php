@@ -96,9 +96,8 @@ class Generate extends Command {
 		if ($NEED_APP_URL) {
 			$NEED_APP_URL = $this->ask('what is your Full App URL ?');
 
-			if (!empty($NEED_APP_URL)) {
-				self::changeEnv('APP_URL', $NEED_APP_URL);
-			}
+			self::changeEnv('APP_URL', $NEED_APP_URL);
+
 		}
 
 		// Set CUSTOM PORT //
@@ -106,12 +105,8 @@ class Generate extends Command {
 		if ($NEED_PORT) {
 			$HAVE_PORT = $this->ask('What is Your Custom Domain Port (Default Port is 80) ?');
 
-		}
-
-		if (!empty($HAVE_PORT)) {
 			self::changeEnv('APP_URL', $NEED_APP_URL . ':' . $HAVE_PORT);
 		}
-
 		// Set  CUSTOM PORT //
 
 		// Set DB CUSTOM PORT //
@@ -125,24 +120,27 @@ class Generate extends Command {
 			}
 		}
 		// Set DB CUSTOM PORT //
-
+		$dbinfo = [];
 		$CREATE_DATABASE = $this->confirm('You Want create A new Database ?');
 
 		if ($CREATE_DATABASE == 'yes') {
 			$DB_DATABASE = $this->ask('What is your DATABASE Name ?');
 			if (!empty($DB_DATABASE)) {
+				$dbinfo['db_name'] = $DB_DATABASE;
 				self::changeEnv('DB_DATABASE', $DB_DATABASE);
 			}
 
 			$DB_USERNAME = $this->anticipate('What is your DATABASE Username ?', ['root', 'admin']);
 			//$DB_USERNAME = $this->ask('What is your DATABASE Username ?');
 			if (!empty($DB_USERNAME)) {
+				$dbinfo['db_uname'] = $DB_USERNAME;
 				self::changeEnv('DB_USERNAME', $DB_USERNAME);
 			}
 
 			$DB_PASSWORD = $this->anticipate('What is your DATABASE Password ?', ['root', 'pwd', 'password', '123456', 'password', 'secret']);
 			//$DB_PASSWORD = $this->ask('What is your DATABASE Password ?');
 			if (!empty($DB_PASSWORD)) {
+				$dbinfo['db_pwd'] = $DB_PASSWORD;
 				self::changeEnv('DB_PASSWORD', $DB_PASSWORD);
 			}
 
@@ -155,17 +153,19 @@ class Generate extends Command {
 					} else {
 						$DB_PORT = 3306;
 					}
+					$dbinfo['db_port'] = $DB_PORT;
 
 					$pdo = $this->getPDOConnection(
 						'localhost',
-						$DB_PORT,
-						$DB_USERNAME,
-						$DB_PASSWORD
+						$dbinfo['db_port'],
+						$dbinfo['db_uname'],
+						$dbinfo['db_pwd']
+
 					);
 
 					$pdo->exec(sprintf(
 						'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
-						$DB_DATABASE,
+						$dbinfo['db_name'],
 						config('database.connections.mysql.charset'),
 						config('database.connections.mysql.collation')
 					));
@@ -173,7 +173,7 @@ class Generate extends Command {
 					shell_exec('php artisan config:clear');
 					shell_exec('php artisan cache:clear');
 
-					$this->info("DATABAES " . $DB_DATABASE . " Created & is ready now");
+					$this->info("DATABAES " . $dbinfo['db_name'] . " Created & is ready now");
 					$this->progress(100);
 				}
 			}
