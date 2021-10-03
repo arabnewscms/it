@@ -455,7 +455,7 @@ class Home extends Controller {
 
 		// Api Paths
 		Baboon::check_path('app\\Http\\Controllers\\ValidationsApi\\V1');
-		Baboon::check_path('app\\Http\\Controllers\\Api/V1');
+		Baboon::check_path('app\\Http\\Controllers\\Api\\V1');
 
 		Baboon::check_path('app\\Http\\Controllers\\Validations');
 		// Make Validations folder
