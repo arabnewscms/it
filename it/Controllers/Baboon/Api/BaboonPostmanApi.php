@@ -36,7 +36,7 @@ class BaboonPostmanApi extends Controller {
 	}
 
 	public function aggregation() {
-		$path = base_path('storage/collections');
+		$path = base_path('collections');
 		$info = [];
 		$variable = [];
 		$items = [];
@@ -61,7 +61,7 @@ class BaboonPostmanApi extends Controller {
 				'item' => $items,
 				'event' => $event['event'],
 			], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-			\Storage::disk('it')->put('storage/collections/aggregation/' . env('APP_NAME') . '_postman_all_collections.json', $aggregation);
+			\Storage::disk('it')->put('collections/aggregation/' . env('APP_NAME') . '_postman_all_collections.json', $aggregation);
 
 		}
 	}
@@ -125,7 +125,7 @@ class BaboonPostmanApi extends Controller {
 		];
 
 		$collection = json_encode($postman, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-		\Storage::disk('it')->put('storage/collections/' . env('APP_NAME') . '_' . $module_name . '_postman_collection.json', $collection);
+		\Storage::disk('it')->put('collections/' . env('APP_NAME') . '_' . $module_name . '_postman_collection.json', $collection);
 	}
 
 	public function Item($method_type, $module_label, $segments, $param = null) {

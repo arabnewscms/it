@@ -57,7 +57,7 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/routes/configurations.baboon' => 'routes/configurations.php',
 			__DIR__ . '/../patch_update/routes/api.baboon' => 'routes/api.php',
 			__DIR__ . '/../patch_update/app/Http/Controllers/Api/V1/AuthApiLoggedIn.baboon' => 'app/Http/Controllers/Api/V1/AuthApiLoggedIn.php',
-			__DIR__ . '/../patch_update/storage/collections/itde_login_postman_collection.json' => 'storage/collections/itde_login_postman_collection.json',
+			__DIR__ . '/../patch_update/collections/itde_login_postman_collection.json' => 'collections/itde_login_postman_collection.json',
 			__DIR__ . '/../patch_update/app/Http/Controllers/Admin/Dashboard.baboon' => 'app/Http/Controllers/Admin/Dashboard.php',
 			__DIR__ . '/../patch_update/resources/views/admin/layouts/components/submit_form_ajax.blade.baboon' => 'resources/views/admin/layouts/components/submit_form_ajax.blade.php',
 			__DIR__ . '/../patch_update/public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css' => 'public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css',
