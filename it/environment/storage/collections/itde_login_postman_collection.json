@@ -8,6 +8,9 @@
 		{
 			"name": "Login & Register & reset",
 			"item": [
+		{
+			"name": "Login & Register & reset",
+			"item": [
 				{
 					"name": "login",
 					"protocolProfileBehavior": {
@@ -204,8 +207,67 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "change password",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "current_password",
+									"value": "1234567",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/change/password",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"change",
+								"password"
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		}
+	]
 		}
 	],
 	"event": [
