@@ -52,7 +52,6 @@ class BaboonPostmanApi extends Controller {
 					$variable['variable'] = $content->variable;
 					$event['event'] = $content->event;
 					$items = array_merge($items, $content->item);
-
 				}
 			}
 
