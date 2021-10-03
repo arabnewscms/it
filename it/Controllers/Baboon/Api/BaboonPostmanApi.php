@@ -7,10 +7,9 @@ use Illuminate\Support\Str;
 class BaboonPostmanApi extends Controller {
 
 	public function postman() {
-		$post_mane_id = (string) Str::uuid();
 		$data = [];
 		$data['info'] = [
-			"_postman_id" => $post_mane_id,
+			"_postman_id" => (string) Str::uuid(),
 			"name" => env("APP_NAME"),
 			"schema" => "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		];
@@ -37,9 +36,9 @@ class BaboonPostmanApi extends Controller {
 
 	public function aggregation() {
 		$path = base_path('storage/collections');
-		$post_mane_id = (string) Str::uuid();
+
 		$info = [
-			"_postman_id" => $post_mane_id,
+			"_postman_id" => (string) Str::uuid(),
 			"name" => env("APP_NAME"),
 			"schema" => "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		];
