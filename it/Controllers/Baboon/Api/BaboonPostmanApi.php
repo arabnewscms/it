@@ -42,7 +42,7 @@ class BaboonPostmanApi extends Controller {
 		$items = [];
 		$event = [];
 		if (is_dir($path)) {
-			//$get_all_json = scandir(base_path('storage/collections'));
+
 			$get_all_json = \File::files($path);
 			foreach ($get_all_json as $fjson) {
 				$file = $fjson->getPath() . '/' . $fjson->getFilename();
@@ -52,7 +52,7 @@ class BaboonPostmanApi extends Controller {
 					$variable['variable'] = $content->variable;
 					$event['event'] = $content->event;
 					$items = array_merge($items, $content->item);
-					//dd($content);
+
 				}
 			}
 
