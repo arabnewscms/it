@@ -21,7 +21,7 @@ class ItApplication extends ServiceProvider {
 			$this->publishes([__DIR__ . '/environment/resources' => base_path('resources')]);
 			$this->publishes([__DIR__ . '/environment/routes' => base_path('routes')]);
 			$this->publishes([__DIR__ . '/environment/public' => public_path()]);
-			$this->publishes([__DIR__ . '/environment/storage' => public_path('storage')]);
+			$this->publishes([__DIR__ . '/environment/storage' => base_path('storage')]);
 		}
 
 		Route::middleware('web')
