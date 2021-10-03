@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['ApiLang', 'cors'], 'prefix' => 'v1', 'namespace' => 'Api\V1'],
 	function () {
 		// Insert your Api Here Start //
-		Route::group(['guest'], function () {
+		Route::group(['middleware' => 'guest'], function () {
 			Route::post('login', 'AuthApiLoggedIn@login');
 		});
 
-		Route::group(['middleware' => 'jwt.auth'], function () {
+		Route::group(['middleware' => 'auth:api'], function () {
 			Route::get('account', 'AuthApiLoggedIn@account');
 			Route::post('logout', 'AuthApiLoggedIn@logout');
 			Route::post('refresh', 'AuthApiLoggedIn@refresh');

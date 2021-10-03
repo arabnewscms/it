@@ -20,7 +20,7 @@ class Home extends Controller {
 	 */
 
 	public function index() {
-
+		return (new BaboonPostmanApi)->aggregation();
 		if (!empty(request('delete_module'))) {
 			// Delete .baboon Text CRUD by request('delete_module')
 			return (new BaboonDeleteModule)->init();
@@ -145,10 +145,11 @@ class Home extends Controller {
 	}
 
 	public function makePostman() {
+		// re-Generate collection current module
+		(new BaboonPostmanApi)->generate_collection();
 
-		$module_name = str_replace('controller', '', strtolower(request('controller_name')));
-		$collection = (new BaboonPostmanApi)->generate_collection($module_name);
-		Storage::disk('it')->put('storage/collections/' . env('APP_NAME') . '_' . $module_name . '_postman_collection.json', $collection);
+		// re-Generate and re-aggregation all modules
+		(new BaboonPostmanApi)->aggregation();
 	}
 
 /* Posts Method From index_post Start */

@@ -34,7 +34,41 @@ class BaboonPostmanApi extends Controller {
 		];
 		return $data;
 	}
-	public function generate_collection($module_name) {
+
+	public function aggregation() {
+		$path = base_path('storage/collections');
+		$info = [];
+		$variable = [];
+		$items = [];
+		$event = [];
+		if (is_dir($path)) {
+			//$get_all_json = scandir(base_path('storage/collections'));
+			$get_all_json = \File::files($path);
+			foreach ($get_all_json as $fjson) {
+				$file = $fjson->getPath() . '/' . $fjson->getFilename();
+				if (file_exists($file)) {
+					$content = json_decode(file_get_contents($file));
+					$info['info'] = $content->info;
+					$variable['variable'] = $content->variable;
+					$event['event'] = $content->event;
+					$items = array_merge($items, $content->item);
+					//dd($content);
+				}
+			}
+
+			$aggregation = json_encode([
+				'info' => $info['info'],
+				'variable' => $variable['variable'],
+				'item' => $items,
+				'event' => $event['event'],
+			], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+			\Storage::disk('it')->put('storage/collections/aggregation/' . env('APP_NAME') . '_postman_all_collections.json', $aggregation);
+
+		}
+	}
+
+	public function generate_collection() {
+		$module_name = str_replace('controller', '', strtolower(request('controller_name')));
 		$postman = $this->postman();
 		$items = [];
 
@@ -91,7 +125,8 @@ class BaboonPostmanApi extends Controller {
 
 		];
 
-		return json_encode($postman, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+		$collection = json_encode($postman, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+		\Storage::disk('it')->put('storage/collections/' . env('APP_NAME') . '_' . $module_name . '_postman_collection.json', $collection);
 	}
 
 	public function Item($method_type, $module_label, $segments, $param = null) {
@@ -112,9 +147,6 @@ class BaboonPostmanApi extends Controller {
 		}
 
 		if (in_array($method_type, ['POST', 'PUT', 'PATCH'])) {
-/*
-api_show_column
- */
 			$i = 0;
 			$cols = '';
 			foreach (request('col_name_convention') as $conv) {
