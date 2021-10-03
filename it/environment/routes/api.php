@@ -29,6 +29,7 @@ Route::group(['middleware' => ['ApiLang', 'cors'], 'prefix' => 'v1', 'namespace'
 		Route::post('logout', 'AuthApiLoggedIn@logout');
 		Route::post('refresh', 'AuthApiLoggedIn@refresh');
 		Route::post('me', 'AuthApiLoggedIn@me');
+		Route::post('change/password', 'AuthApiLoggedIn@change_password');
 		//Auth-Api-Start//
 		//Auth-Api-End//
 	});
