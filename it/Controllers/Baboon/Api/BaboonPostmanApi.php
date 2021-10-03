@@ -36,7 +36,6 @@ class BaboonPostmanApi extends Controller {
 
 	public function aggregation() {
 		$path = base_path('storage/collections');
-
 		$info = [
 			"_postman_id" => (string) Str::uuid(),
 			"name" => env("APP_NAME"),
@@ -55,7 +54,6 @@ class BaboonPostmanApi extends Controller {
 		$items = [];
 		$event = [];
 		if (is_dir($path)) {
-
 			$get_all_json = \File::files($path);
 			foreach ($get_all_json as $fjson) {
 				$file = $fjson->getPath() . '/' . $fjson->getFilename();
