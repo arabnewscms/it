@@ -80,13 +80,8 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "email",
-									"value": "test@test.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "123456",
+									"key": "lang",
+									"value": "ar",
 									"type": "text"
 								}
 							]
@@ -131,13 +126,8 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "email",
-									"value": "test@test.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "123456",
+									"key": "lang",
+									"value": "ar",
 									"type": "text"
 								}
 							]
@@ -182,13 +172,8 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "email",
-									"value": "test@test.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "123456",
+									"key": "lang",
+									"value": "ar",
 									"type": "text"
 								}
 							]
@@ -278,7 +263,7 @@
 			}
 		}
 	],
-	"variable": [
+	"variable": [ 
 		{
 			"key": "local",
 			"value": "https://example.com/api/v1"

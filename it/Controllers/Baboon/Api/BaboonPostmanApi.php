@@ -37,8 +37,22 @@ class BaboonPostmanApi extends Controller {
 
 	public function aggregation() {
 		$path = base_path('storage/collections');
-		$info = [];
-		$variable = [];
+		$post_mane_id = (string) Str::uuid();
+		$info = [
+			"_postman_id" => $post_mane_id,
+			"name" => env("APP_NAME"),
+			"schema" => "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		];
+
+		$variable = [
+			[
+				'key' => 'local',
+				'value' => url('api/v1'),
+			], [
+				'key' => 'token',
+				'value' => '',
+			],
+		];
 		$items = [];
 		$event = [];
 		if (is_dir($path)) {
@@ -48,16 +62,14 @@ class BaboonPostmanApi extends Controller {
 				$file = $fjson->getPath() . '/' . $fjson->getFilename();
 				if (file_exists($file)) {
 					$content = json_decode(file_get_contents($file));
-					$info['info'] = $content->info;
-					$variable['variable'] = $content->variable;
 					$event['event'] = $content->event;
 					$items = array_merge($items, $content->item);
 				}
 			}
 
 			$aggregation = json_encode([
-				'info' => $info['info'],
-				'variable' => $variable['variable'],
+				'info' => $info,
+				'variable' => $variable,
 				'item' => $items,
 				'event' => $event['event'],
 			], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
