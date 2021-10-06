@@ -120,35 +120,6 @@ class Create{ClassName}Table extends Migration
 		return $cols;
 	}
 
-	// public static function forgin_key($name, $i, $r) {
-	// 	if (preg_match('/|/', $name)) {
-	// 		$name = explode('|', $name)[0];
-	// 	}
-	// 	$cols = '';
-
-	// 	$references = $r->input('references' . $i);
-	// 	$tblname = $r->input('forgin_table_name' . $i);
-	// 	if ($r->has('schema_nullable' . $i)) {
-
-	// 		$cols .= '            $table->bigInteger(\'' . $name . '\')->unsigned()->nullable();' . "\r\n";
-	// 	} else {
-	// 		$cols .= '            $table->bigInteger(\'' . $name . '\')->unsigned();' . "\r\n";
-	// 	}
-
-	// 	if ($r->has('schema_onDelete' . $i) && $r->has('schema_onUpdate' . $i)) {
-	// 		$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\')->onDelete(\'cascade\')->onUpdate(\'cascade\');' . "\r\n";
-	// 	} elseif ($r->has('schema_onDelete' . $i)) {
-	// 		$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\')->onDelete(\'cascade\');' . "\r\n";
-	// 	} elseif ($r->has('schema_onUpdate' . $i)) {
-	// 		$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\')->onUpdate(\'cascade\');' . "\r\n";
-	// 	} else {
-	// 		$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\');' . "\r\n";
-
-	// 	}
-
-	// 	return $cols;
-	// }
-
 	public static function forgin_key($name, $i, $r) {
 		if (preg_match('/|/', $name)) {
 			$name = explode('|', $name)[0];
