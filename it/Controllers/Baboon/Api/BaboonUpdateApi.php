@@ -71,12 +71,14 @@ class BaboonUpdateApi extends Controller {
 		$i = 0;
 		foreach (request('col_name_convention') as $conv) {
 			$objectlist = [];
-			if (request('col_type')[$i] == 'file') {
-				$update .= '               if(request()->hasFile("' . $conv . '")){' . "\n";
-				$folder = str_replace('controller', '', strtolower(request('controller_name')));
-				$update .= '              it()->delete(${ModelName}->' . $conv . ');' . "\n";
-				$update .= '              $data["' . $conv . '"] = it()->upload("' . $conv . '","' . $folder . '/".${ModelName}->id);' . "\n";
-				$update .= '               }' . "\n";
+			if (checkIfExisitValue('api_show_column', $conv)) {
+				if (request('col_type')[$i] == 'file') {
+					$update .= '               if(request()->hasFile("' . $conv . '")){' . "\n";
+					$folder = str_replace('controller', '', strtolower(request('controller_name')));
+					$update .= '              it()->delete(${ModelName}->' . $conv . ');' . "\n";
+					$update .= '              $data["' . $conv . '"] = it()->upload("' . $conv . '","' . $folder . '/".${ModelName}->id);' . "\n";
+					$update .= '               }' . "\n";
+				}
 			}
 			$i++;
 		}

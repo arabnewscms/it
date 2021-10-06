@@ -132,7 +132,6 @@ class Create{ClassName}Table extends Migration
 		$signature = '            $table->foreignId("' . $name . '")->constrained("' . $tblname . '")->references("' . $references . '"){onUpdate}{onDelete}{nullable};' . "\n";
 
 		if ($r->has('schema_nullable' . $i)) {
-
 			$signature = str_replace('{nullable}', '->nullable()', $signature);
 		} else {
 			$signature = str_replace('{nullable}', '', $signature);

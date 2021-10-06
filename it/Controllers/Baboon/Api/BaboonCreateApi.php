@@ -41,8 +41,10 @@ class BaboonCreateApi extends Controller {
 		$i = 0;
 		foreach (request('col_name_convention') as $conv) {
 			$objectlist = [];
-			if (request('col_type')[$i] == 'file') {
-				$store .= '                $data["' . $conv . '"] = "";' . "\n";
+			if (checkIfExisitValue('api_show_column', $conv)) {
+				if (request('col_type')[$i] == 'file') {
+					$store .= '                $data["' . $conv . '"] = "";' . "\n";
+				}
 			}
 			$i++;
 		}
@@ -52,13 +54,15 @@ class BaboonCreateApi extends Controller {
 		$x = 0;
 		foreach (request('col_name_convention') as $conv) {
 			$objectlist = [];
-			if (request('col_type')[$x] == 'file') {
-				$store .= '               if(request()->hasFile("' . $conv . '")){' . "\n";
-				$folder = str_replace('controller', '', strtolower(request('controller_name')));
+			if (checkIfExisitValue('api_show_column', $conv)) {
+				if (request('col_type')[$x] == 'file') {
+					$store .= '               if(request()->hasFile("' . $conv . '")){' . "\n";
+					$folder = str_replace('controller', '', strtolower(request('controller_name')));
 
-				$store .= '              ${ModelName}->' . $conv . ' = it()->upload("' . $conv . '","' . $folder . '/".${ModelName}->id);' . "\n";
-				$store .= '              ${ModelName}->save();' . "\n";
-				$store .= '              }' . "\n";
+					$store .= '              ${ModelName}->' . $conv . ' = it()->upload("' . $conv . '","' . $folder . '/".${ModelName}->id);' . "\n";
+					$store .= '              ${ModelName}->save();' . "\n";
+					$store .= '              }' . "\n";
+				}
 			}
 			$x++;
 		}
