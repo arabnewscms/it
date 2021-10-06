@@ -62,7 +62,7 @@ if (!function_exists('it_views')) {
 
 if (!function_exists('it_version_message')) {
 	function it_version_message() {
-		$version = '[IT v ' . it_version() . ']';
+		$version = '[it v ' . it_version() . ']';
 		app()->singleton('it_version_message', function () use ($version) {
 			return $version;
 		});
@@ -72,7 +72,7 @@ if (!function_exists('it_version_message')) {
 
 if (!function_exists('it_version')) {
 	function it_version() {
-		$version = '1.6.30';
+		$version = '1.6.31';
 		app()->singleton('it_version', function () use ($version) {
 			return $version;
 		});

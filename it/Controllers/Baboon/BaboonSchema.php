@@ -77,8 +77,9 @@ class Create{ClassName}Table extends Migration
 		$i = 0;
 
 		if ($r->has('has_user_id')) {
-			$cols .= '            $table->bigInteger(\'admin_id\')->unsigned()->nullable();' . "\n";
-			$cols .= '            $table->foreign(\'admin_id\')->references(\'id\')->on(\'admins\')->onDelete(\'cascade\');' . "\n";
+			$cols .= '$table->foreignId("admin_id")->constrained("admins")->onUpdate("cascade")->onDelete("cascade");' . "\n";
+			//$cols .= '            $table->bigInteger(\'admin_id\')->unsigned()->nullable();' . "\n";
+			//$cols .= '            $table->foreign(\'admin_id\')->references(\'id\')->on(\'admins\')->onDelete(\'cascade\');' . "\n";
 			/*
 				$table->bigInteger('user_id')->unsigned()->nullable();
 				$table->foreign('user_id')->references('id')->on('users')->o‌​nDelete('cascade');
@@ -119,6 +120,35 @@ class Create{ClassName}Table extends Migration
 		return $cols;
 	}
 
+	// public static function forgin_key($name, $i, $r) {
+	// 	if (preg_match('/|/', $name)) {
+	// 		$name = explode('|', $name)[0];
+	// 	}
+	// 	$cols = '';
+
+	// 	$references = $r->input('references' . $i);
+	// 	$tblname = $r->input('forgin_table_name' . $i);
+	// 	if ($r->has('schema_nullable' . $i)) {
+
+	// 		$cols .= '            $table->bigInteger(\'' . $name . '\')->unsigned()->nullable();' . "\r\n";
+	// 	} else {
+	// 		$cols .= '            $table->bigInteger(\'' . $name . '\')->unsigned();' . "\r\n";
+	// 	}
+
+	// 	if ($r->has('schema_onDelete' . $i) && $r->has('schema_onUpdate' . $i)) {
+	// 		$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\')->onDelete(\'cascade\')->onUpdate(\'cascade\');' . "\r\n";
+	// 	} elseif ($r->has('schema_onDelete' . $i)) {
+	// 		$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\')->onDelete(\'cascade\');' . "\r\n";
+	// 	} elseif ($r->has('schema_onUpdate' . $i)) {
+	// 		$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\')->onUpdate(\'cascade\');' . "\r\n";
+	// 	} else {
+	// 		$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\');' . "\r\n";
+
+	// 	}
+
+	// 	return $cols;
+	// }
+
 	public static function forgin_key($name, $i, $r) {
 		if (preg_match('/|/', $name)) {
 			$name = explode('|', $name)[0];
@@ -127,23 +157,28 @@ class Create{ClassName}Table extends Migration
 
 		$references = $r->input('references' . $i);
 		$tblname = $r->input('forgin_table_name' . $i);
+
+		$signature = '            $table->foreignId("' . $name . '")->constrained("' . $tblname . '")->references("' . $references . '"){onUpdate}{onDelete}{nullable};' . "\n";
+
 		if ($r->has('schema_nullable' . $i)) {
-			$cols .= '            $table->bigInteger(\'' . $name . '\')->unsigned()->nullable();' . "\r\n";
+
+			$signature = str_replace('{nullable}', '->nullable()', $signature);
 		} else {
-			$cols .= '            $table->bigInteger(\'' . $name . '\')->unsigned();' . "\r\n";
+			$signature = str_replace('{nullable}', '', $signature);
 		}
 
 		if ($r->has('schema_onDelete' . $i) && $r->has('schema_onUpdate' . $i)) {
-			$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\')->onDelete(\'cascade\')->onUpdate(\'cascade\');' . "\r\n";
+			$signature = str_replace('{onDelete}', '->onDelete("cascade")', $signature);
+			$signature = str_replace('{onUpdate}', '->onUpdate("cascade")', $signature);
 		} elseif ($r->has('schema_onDelete' . $i)) {
-			$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\')->onDelete(\'cascade\');' . "\r\n";
+			$signature = str_replace('{onDelete}', '->onDelete("cascade")', $signature);
 		} elseif ($r->has('schema_onUpdate' . $i)) {
-			$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\')->onUpdate(\'cascade\');' . "\r\n";
+			$signature = str_replace('{onUpdate}', '->onUpdate("cascade")', $signature);
 		} else {
-			$cols .= '            $table->foreign(\'' . $name . '\')->references(\'' . $references . '\')->on(\'' . $tblname . '\');' . "\r\n";
-
+			$signature = str_replace('{onUpdate}', '', $signature);
+			$signature = str_replace('{onDelete}', '', $signature);
 		}
-
+		$cols .= $signature;
 		return $cols;
 	}
 

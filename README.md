@@ -9,9 +9,11 @@
 <a href="https://github.com/arabnewscms/it">
     <img src="https://img.shields.io/badge/download-2.5K-red" alt="Github All Releases">
 </a>
+
 <a href="https://github.com/arabnewscms/it">
     <img src="https://img.shields.io/github/forks/arabnewscms/it" alt="GitHub forks">
 </a>
+
 <a href="https://github.com/arabnewscms/it">
     <img src="https://img.shields.io/github/issues/arabnewscms/it" alt="GitHub issues">
 </a>
@@ -23,6 +25,7 @@
 <a href="https://packagist.org/packages/phpanonymous/it">
     <img src="https://img.shields.io/packagist/v/phpanonymous/it" alt="Latest Stable Version" style="max-width:100%;">
 </a>
+
 <a href="https://github.com/arabnewscms/it">
     <img src="https://img.shields.io/github/license/arabnewscms/it" alt="GitHub license">
 </a>
@@ -35,7 +38,7 @@
 
 `Package Name: IT`
 
-`Version: 1.6.30`
+`Version: 1.6.31`
 
 `Offline Docs: 1.1` - [Online Docs](https://it.phpanonymous.com/docs)
 
@@ -122,7 +125,7 @@ Welcome message 🍻
 > What is your DATABASE Password ❓ root or empty value
 
 
-> do you want me to create a database in your engine or you have already created database with name it 1.6.30?  (yes/no) [no] ❓  if for sure your apache is ready to connect by this information and enabled to allow accept connections enter yes or y (If you suspect that enter n or no)
+> do you want me to create a database in your engine or you have already created database with name it 1.6.31?  (yes/no) [no] ❓  if for sure your apache is ready to connect by this information and enabled to allow accept connections enter yes or y (If you suspect that enter n or no)
 
 
 > :fire: **Nice!**: Have some patience to install the necessary packages automatically (This message begins to appear, then the packets begin to descend)

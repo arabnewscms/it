@@ -801,7 +801,7 @@ $app_model_file = str_replace('/', '\\', $app_model_file);
       <div class="forginkeyto0 hidden">
         <div class="form-group col-md-4">
           <label class="form-check-input" dir="rtl"> {{it_trans('it.references')}}
-            <input type="text" name="references0" placeholder="{{it_trans('it.references')}}" class="form-control references" to="0" />
+            <input type="text" name="references0" placeholder="{{it_trans('it.references')}}" class="form-control references" to="0" value="id" />
           </div>
           <div class="form-group col-md-4">
             <label class="form-check-input" dir="rtl"> {{it_trans('it.forgin_table_name')}}
@@ -822,8 +822,7 @@ $app_model_file = str_replace('/', '\\', $app_model_file);
                   </div>
                 </div>
                 <div class="clearfix"></div>
-                <p>$table->bigInteger('<span class="col_name_0"></span>')->unsigned()<span class="func_nullable0 hidden">->nullable()</span>;</p>
-                <p>$table->foreign('<span class="col_name_0"></span>')->references('<span class="references0"></span>')->on('<span class="forgin_table_name0"></span>')<span  class="schema_onDelete0 hidden">->onDelete('cascade')</span><span  class="schema_onUpdate0 hidden">->onUpdate('cascade')</span>;</p>
+                <p>$table->foreignId('<span class="col_name_0"></span>')->constrained('<span class="forgin_table_name0"></span>')->references('<span class="references0"></span>')<span  class="schema_onDelete0 hidden">->onDelete('cascade')</span><span  class="schema_onUpdate0 hidden">->onUpdate('cascade')</span><span class="func_nullable0 hidden">->nullable()</span>;</p>
               </div>
             </div>
             <div class="clearfix"></div>

@@ -819,8 +819,7 @@ $app_model_file = str_replace('/', '\\\\', $app_model_file);
                     </div>
                   </div>
                   <div class="clearfix"></div>
-                  <p>$table->bigInteger('<span class="col_name_`+x+`"></span>')->unsigned()<span class="func_nullable`+x+` hidden">->nullable()</span>;</p>
-                  <p>$table->foreign('<span class="col_name_`+x+`"></span>')->references('<span class="references`+x+`"></span>')->on('<span class="forgin_table_name`+x+`"></span>')<span  class="schema_onDelete`+x+` hidden">->onDelete('cascade')</span><span  class="schema_onUpdate`+x+` hidden">->onUpdate('cascade')</span>;</p>
+                  <p>$table->foreignId('<span class="col_name_`+x+`"></span>')->constrained('<span class="forgin_table_name`+x+`"></span>')->references('<span class="references`+x+`"></span>')<span  class="schema_onDelete`+x+` hidden">->onDelete('cascade')</span><span  class="schema_onUpdate`+x+` hidden">->onUpdate('cascade')</span><span class="func_nullable`+x+` hidden">->nullable()</span>;</p>
                 </div>
               </div>
               <div class="clearfix"></div>
