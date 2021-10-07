@@ -214,3 +214,9 @@ if (!function_exists('api_check')) {
 		}
 	}
 }
+
+if (!function_exists('faker_locale')) {
+	function faker_locale($val, $module_data) {
+		return !empty($module_data) && !empty($module_data->faker_local) && $module_data->faker_local == $val ? true : false;
+	}
+}

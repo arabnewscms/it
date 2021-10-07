@@ -94,4 +94,5 @@ return [
 	"statistics_theme" => "Trangle Theme",
 	"ajax_request" => "Ajax Form",
 	"api_settings" => "Api Settings",
+	"generate_faker" => "Faker Data",
 ];

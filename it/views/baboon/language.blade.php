@@ -108,5 +108,34 @@
       <p style="color:#c33"><i class="fa fa-info"></i> - Enable SoftDeletes In This Model & Auto Enable Soft delete in model </p>
     </div>
   </div>
+  <div class="clearfix"></div>
+  <hr />
+  <div class="col-md-12">
+    <div class="col-md-6">
+    <div class="form-group">
+      <label class="mt-checkbox mt-checkbox-outline">
+        <input type="checkbox" value="1"  {{ !empty($module_data) && !empty($module_data->generate_faker)?$module_data->generate_faker:'' }}  name="generate_faker" />
+        {{it_trans('it.generate_faker')}}
+      </label>
+      <p style="color:#c33"><i class="fa fa-info"></i> - Generate Fake Data to testing this module (string , numeric , integer , enum , lorem ipsum , CKEDITOR HTML Data , mobile ,phone,etc..) </p>
+    </div>
+    </div>
+@php
+$faker_locals = ['ar_SA','ar_JO','at_AT','bg_BG','bn_BD','cs_CZ','da_DK','de_AT','de_CH','de_DE','el_CY','el_GR','en_AU','en_CA','en_GB','en_HK','en_IN','en_NG','en_NZ','en_PH','en_SG','en_UG','en_US','en_ZA','es_AR','es_ES','es_PE','es_VE','et_EE','fa_IR','fi_FI','fr_BE','fr_CA','fr_CH','fr_FR','he_IL','hr_HR','hu_HU','hy_AM','id_ID','is_IS','it_CH','it_IT','ja_JP','ka_GE','kk_KZ','ko_KR','lt_LT','lv_LV','me_ME','mn_MN','ms_MY','nb_NO','ne_NP','nl_BE','nl_NL','pl_PL','pt_BR','pt_PT','ro_MD','ro_RO','ru_RU','sk_SK','sl_SI','sr_Cyrl_RS','sr_Latn_RS','sr_RS','sv_SE','th_TH','tr_TR','uk_UA','vi_VN','zh_CN','zh_TW',
+];
+@endphp
+    <div class="col-md-6">
+     <div class="form-group">
+      <label for="faker_local">Faker Language</label>
+      <select name="faker_local" class="form-control">
+        @foreach($faker_locals as $faker_locale)
+        <option value="{{ $faker_locale }}" {{ faker_locale($faker_locale,$module_data)?'selected':'' }}>{{ $faker_locale }}</option>
+        @endforeach
+      </select>
+     </div>
+    </div>
+
+
+  </div>
 </div>
 <div class="clearfix"></div>
