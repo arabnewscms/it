@@ -83,6 +83,8 @@ class BaboonModule extends Controller {
 			'use_collective' => !empty(request('use_collective')) ? 'checked' : '',
 			'ajax_request' => !empty(request('ajax_request')) ? 'checked' : '',
 			'auto_migrate' => !empty(request('auto_migrate')) ? 'checked' : '',
+			'generate_faker' => !empty(request('generate_faker')) ? 'checked' : '',
+			'faker_local' => !empty(request('faker_local')) ? 'checked' : '',
 			'make_model' => !empty(request('make_model')) ? 'checked' : '',
 			'make_controller' => !empty(request('make_controller')) ? 'checked' : '',
 			'make_views' => !empty(request('make_views')) ? 'checked' : '',

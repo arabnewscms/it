@@ -5,11 +5,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Phpanonymous\It\Controllers\Baboon\Api\BaboonPostmanApi;
 use Phpanonymous\It\Controllers\Baboon\BaboonDataTable;
+use Phpanonymous\It\Controllers\Baboon\BaboonFaker;
 use Phpanonymous\It\Controllers\Baboon\BaboonShowPage;
 use Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonDeleteModule;
 use Phpanonymous\It\Controllers\Baboon\CurrentModuleMaker\BaboonModule;
 use Phpanonymous\It\Controllers\Baboon\MasterBaboon as Baboon;
-use Phpanonymous\It\Controllers\Baboon\Statistics;
 use Storage;
 
 class Home extends Controller {
@@ -88,6 +88,11 @@ class Home extends Controller {
 			'model_namespace' => it_trans('it.model_namespace'),
 			'model_name' => it_trans('it.model_name'),
 		];
+
+		// Faker Data
+		if (!empty(request('generate_faker'))) {
+			return (new BaboonFaker(request('faker_local')))->create();
+		}
 		$i = 0;
 		foreach (request('col_name') as $col_name) {
 			$attributes['col_name.' . $i] = it_trans('it.col_name');
@@ -139,6 +144,11 @@ class Home extends Controller {
 
 		if (!empty(request('collect'))) {
 			(new Statistics)->init();
+		}
+
+		// Faker Data
+		if (!empty(request('generate_faker'))) {
+			(new BaboonFaker(request('faker_local')))->create();
 		}
 
 		return response(['status' => true, 'message' => 'Module - CRUD Generated'], 200);
