@@ -251,7 +251,7 @@ class Home extends Controller {
 		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name')));
 		$end_route = '////////AdminRoutes/*End*///////////////';
 		$namespace_single = explode('App\Http\Controllers\\', request('controller_namespace'))[1];
-		$route1 = 'Route::resource(\'' . $link . '\',\'' . $namespace_single . '\\' . request('controller_name') . '\', ["as" => "admin.' . $link . '"]); ' . "\r\n";
+		$route1 = 'Route::resource(\'' . $link . '\',\'' . $namespace_single . '\\' . request('controller_name') . '\'); ' . "\r\n";
 		$route2 = '		Route::post(\'' . $link . '/multi_delete\',\'' . $namespace_single . '\\' . request('controller_name') . '@multi_delete\'); ' . "\r\n";
 		$admin_routes = file_get_contents(base_path('routes/admin.php'));
 
@@ -303,7 +303,7 @@ class Home extends Controller {
 		$controllerApiName = request('controller_name') . 'Api';
 		$end_routeapi = '//Auth-Api-End//';
 		$namespace_singleapi = '';
-		$route1 = 'Route::apiResource("' . $linkapi . '","' . $controllerApiName . '"); ' . "\r\n";
+		$route1 = 'Route::apiResource("' . $linkapi . '","' . $controllerApiName . '", ["as" => "api.' . $linkapi . '"]); ' . "\r\n";
 		$route2 = '			Route::post("' . $linkapi . '/multi_delete","' . $controllerApiName . '@multi_delete"); ' . "\r\n";
 		$api_routes = file_get_contents(base_path('routes/api.php'));
 
@@ -326,7 +326,7 @@ class Home extends Controller {
 		}
 		// Dropzone Route End//
 
-		if (!preg_match("/" . $link . "/i", $api_routes)) {
+		if (!preg_match("/" . $linkapi . "/i", $api_routes)) {
 			$api_routes = str_replace($end_routeapi, $route1 . $route2 . $dz_api . "		" . "	" . $end_routeapi, $api_routes);
 			\Storage::put('routes/api.php', $api_routes);
 		}
