@@ -172,7 +172,7 @@ class Home extends Controller {
 	}
 
 	public function makeStatistics() {
-		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name')));
+		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name'))) . "_control";
 
 		$file = 'resources/views/admin/layouts/statistics/module_counters.blade.php';
 		$module_counter = file_get_contents(base_path($file));
@@ -200,7 +200,7 @@ class Home extends Controller {
 	}
 
 	public function makeMenu() {
-		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name')));
+		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name'))) . "_control";
 		//********* Preparing Menu List ***********/
 		$file = 'resources/views/admin/layouts/menu.blade.php';
 		$admin_menu = file_get_contents(base_path($file));
@@ -248,7 +248,7 @@ class Home extends Controller {
 
 	public function makeRoutes() {
 		//********* Preparing Route Admin ***********/
-		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name')));
+		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name'))) . "_control";
 		$end_route = '////////AdminRoutes/*End*///////////////';
 		$namespace_single = explode('App\Http\Controllers\\', request('controller_namespace'))[1];
 		$route1 = 'Route::resource(\'' . $link . '\',\'' . $namespace_single . '\\' . request('controller_name') . '\'); ' . "\r\n";
@@ -303,7 +303,7 @@ class Home extends Controller {
 		$controllerApiName = request('controller_name') . 'Api';
 		$end_routeapi = '//Auth-Api-End//';
 		$namespace_singleapi = '';
-		$route1 = 'Route::resource("' . $linkapi . '","' . $controllerApiName . '"); ' . "\r\n";
+		$route1 = 'Route::apiResource("' . $linkapi . '","' . $controllerApiName . '"); ' . "\r\n";
 		$route2 = '			Route::post("' . $linkapi . '/multi_delete","' . $controllerApiName . '@multi_delete"); ' . "\r\n";
 		$api_routes = file_get_contents(base_path('routes/api.php'));
 
@@ -314,13 +314,13 @@ class Home extends Controller {
 				$first = preg_quote($link . '/upload/multi', '/');
 				$after = preg_quote('', '/');
 				if (!preg_match("/$first(.*)$after/s", $dz_api, $result)) {
-					$dz_api .= '			Route::post(\'' . $link . '/upload/multi\',\'' . $controllerApiName . '@multi_upload\'); ' . "\r\n";
+					$dz_api .= '			Route::post("' . $link . '/upload/multi","' . $controllerApiName . '@multi_upload"); ' . "\r\n";
 				}
 
 				$first1 = preg_quote($link . '/delete/file', '/');
 				$after1 = preg_quote('', '/');
 				if (!preg_match("/$first1(.*)$after/s", $dz_api, $result)) {
-					$dz_api .= '			Route::post(\'' . $link . '/delete/file\',\'' . $controllerApiName . '@delete_file\'); ' . "\r\n";
+					$dz_api .= '			Route::post("' . $link . '/delete/file","' . $controllerApiName . '@delete_file"); ' . "\r\n";
 				}
 			}
 		}

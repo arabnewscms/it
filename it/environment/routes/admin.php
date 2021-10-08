@@ -1,10 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-app()->singleton('admin', function () {
-	return 'admin';
-});
-
 \L::Panel(app('admin')); ///SetLangredirecttoadmin
 \L::LangNonymous(); //RunRouteLang'namespace'=>'Admin',
 

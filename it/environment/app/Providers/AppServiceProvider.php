@@ -13,6 +13,9 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 
 	public function boot() {
+		app()->singleton('admin', function () {
+			return 'admin';
+		});
 		if (file_exists(base_path('config/itconfiguration.php'))) {
 			Schema::defaultStringLength(config('itconfiguration.SchemadefaultStringLength'));
 			if (config('itconfiguration.ForeignKeyConstraints')) {
