@@ -1,16 +1,14 @@
 <?php
 namespace Phpanonymous\It\Controllers\Baboon;
 use App\Http\Controllers\Controller;
-use Faker\Factory as Faker;
-use Faker\Provider\DateTime;
-use Faker\Provider\Image;
-use Faker\Provider\Uuid;
 use File;
 
 class BaboonFaker extends Controller {
 	public $local;
 	public $folder_name;
 	public $model_name;
+
+	protected static $defaultProviders = ['Address', 'Barcode', 'Biased', 'Color', 'Company', 'DateTime', 'File', 'HtmlLorem', 'Image', 'Internet', 'Lorem', 'Medical', 'Miscellaneous', 'Payment', 'Person', 'PhoneNumber', 'Text', 'UserAgent', 'Uuid'];
 
 	public function __construct() {
 		$this->local = request('faker_local');
@@ -27,12 +25,12 @@ class BaboonFaker extends Controller {
 
 	public function create() {
 		$model = $this->model_name;
-		$faker = Faker::create($this->local);
+		$faker = \Faker\Factory::create($this->local);
 		$path = base_path('storage/app/public/' . $this->folder_name);
-		File::cleanDirectory($path);
-		//Storage::deleteDirectory($folder_name);
 		if (!is_dir($path)) {
 			File::makeDirectory($path, $mode = 0755, true, true);
+		} else {
+			File::cleanDirectory($path);
 		}
 
 		$cols = [];
@@ -68,7 +66,11 @@ class BaboonFaker extends Controller {
 						if (!empty(request('integer' . $i)) || !empty(request('numeric' . $i))) {
 							$data['' . $conv . ''] = $faker->e164PhoneNumber();
 						} elseif (!empty(request('string' . $i)) || !empty(request('alpha' . $i))) {
-							$data['' . $conv . ''] = $faker->text(50);
+							if (preg_match('/' . $conv . '/', 'name|username|full_name|fullname|firstname|lastname|middlename|middle|first|last')) {
+								$data['' . $conv . ''] = $faker->title . ' ' . $faker->name . ' ' . $faker->firstname . ' ' . $faker->lastname;
+							} else {
+								$data['' . $conv . ''] = $faker->realText(25);
+							}
 						} elseif (!empty(request('alpha-dash' . $i))) {
 							$data['' . $conv . ''] = $faker->bothify('?###??##');
 						} elseif (!empty(request('alpha_num' . $i))) {
@@ -108,11 +110,15 @@ class BaboonFaker extends Controller {
 					} elseif ($col_type == 'password') {
 						$data['' . $conv . ''] = bcrypt(123456);
 					} elseif ($col_type == 'textarea') {
-						$data['' . $conv . ''] = $faker->words(200, true);
+						$data['' . $conv . ''] = $faker->realText(rand(100, 400));
 					} elseif ($col_type == 'textarea_ckeditor') {
-						$data['' . $conv . ''] = $this->loremHtml();
+						$data['' . $conv . ''] = $faker->realText(rand(100, 700));
 					} elseif ($col_type == 'number') {
-						$data['' . $conv . ''] = $faker->e164PhoneNumber();
+						if (preg_match('/' . $conv . '/', 'total|quantity|price|count|item|pass|number|fat|vat|width|height|weight|code|mob|zipcode|zip|zip_code|key|serial|license')) {
+							$data['' . $conv . ''] = $faker->randomNumber(2);
+						} else {
+							$data['' . $conv . ''] = $faker->bothify('##########');
+						}
 					}
 
 				}
@@ -127,35 +133,42 @@ class BaboonFaker extends Controller {
 
 	}
 
-	public function loremHtml() {
-		return "<H1>QUID ENIM DE AMICITIA STATUERIS UTILITATIS CAUSA EXPETENDA VIDES.</H1>
+	/**
+	 * @param string $provider
+	 * @param string $locale
+	 *
+	 * @return string
+	 */
+	protected static function getProviderClassname($provider, $locale = '') {
+		if ($providerClass = self::findProviderClassname($provider, $locale)) {
+			return $providerClass;
+		}
+		// fallback to default locale
+		if ($providerClass = self::findProviderClassname($provider, static::DEFAULT_LOCALE)) {
+			return $providerClass;
+		}
+		// fallback to no locale
+		if ($providerClass = self::findProviderClassname($provider)) {
+			return $providerClass;
+		}
 
-<P>LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. EODEM MODO IS ENIM TIBI NEMO DABIT, QUOD, EXPETENDUM SIT, ID ESSE LAUDABILE. ATQUE HIS DE REBUS ET SPLENDIDA EST EORUM ET ILLUSTRIS ORATIO. ILLE ENIM OCCURRENTIA NESCIO QUAE COMMINISCEBATUR; ET QUIDEM ILLUD IPSUM NON NIMIUM PROBO ET TANTUM PATIOR, PHILOSOPHUM LOQUI DE CUPIDITATIBUS FINIENDIS. DUO REGES: CONSTRUCTIO INTERRETE. </P>
-
-<UL>
-	<LI>FATEBUNTUR STOICI HAEC OMNIA DICTA ESSE PRAECLARE, NEQUE EAM CAUSAM ZENONI DESCISCENDI FUISSE.</LI>
-	<LI>VERUM HOC LOCO SUMO VERBIS HIS EANDEM CERTE VIM VOLUPTATIS EPICURUM NOSSE QUAM CETEROS.</LI>
-	<LI>NONDUM AUTEM EXPLANATUM SATIS, ERAT, QUID MAXIME NATURA VELLET.</LI>
-	<LI>DOLERE MALUM EST: IN CRUCEM QUI AGITUR, BEATUS ESSE NON POTEST.</LI>
-	<LI>NON EST IGITUR SUMMUM MALUM DOLOR.</LI>
-	<LI>QUI ENIM EXISTIMABIT POSSE SE MISERUM ESSE BEATUS NON ERIT.</LI>
-</UL>
-
-
-<BLOCKQUOTE CITE='HTTP://LORIPSUM.NET'>
-	IN OMNI ENIM ANIMANTE EST SUMMUM ALIQUID ATQUE OPTIMUM, UT IN EQUIS, IN CANIBUS, QUIBUS TAMEN ET DOLORE VACARE OPUS EST ET VALERE;
-</BLOCKQUOTE>
-
-
-<OL>
-	<LI>AB HOC AUTEM QUAEDAM NON MELIUS QUAM VETERES, QUAEDAM OMNINO RELICTA.</LI>
-	<LI>NAM SI QUAE SUNT ALIAE, FALSUM EST OMNIS ANIMI VOLUPTATES ESSE E CORPORIS SOCIETATE.</LI>
-	<LI>TANTUM DICO, MAGIS FUISSE VESTRUM AGERE EPICURI DIEM NATALEM, QUAM ILLIUS TESTAMENTO CAVERE UT AGERETUR.</LI>
-	<LI>AT IAM DECIMUM ANNUM IN SPELUNCA IACET.</LI>
-</OL>
-
-
-
-";
+		throw new \InvalidArgumentException(sprintf('Unable to find provider "%s" with locale "%s"', $provider, $locale));
 	}
+
+	/**
+	 * @param string $provider
+	 * @param string $locale
+	 *
+	 * @return string|null
+	 */
+	protected static function findProviderClassname($provider, $locale = '') {
+		$providerClass = 'Faker\\' . ($locale ? sprintf('Provider\%s\%s', $locale, $provider) : sprintf('Provider\%s', $provider));
+
+		if (class_exists($providerClass, true)) {
+			return $providerClass;
+		}
+
+		return null;
+	}
+
 }
