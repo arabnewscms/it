@@ -39,6 +39,7 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/resources/lang/en/validation.baboon' => 'resources/lang/en/validation.php',
 			__DIR__ . '/../patch_update/resources/lang/fr/validation.baboon' => 'resources/lang/fr/validation.php',
 			__DIR__ . '/../patch_update/app/Providers/ExtraValidations.baboon' => 'app/Providers/ExtraValidations.php',
+			__DIR__ . '/../patch_update/app/Providers/AppServiceProvider.baboon' => 'app/Providers/AppServiceProvider.php',
 
 			__DIR__ . '/../patch_update/public/assets/img/audio.jpeg' => 'public/assets/img/audio.jpeg',
 			__DIR__ . '/../patch_update/public/assets/img/xls.jpeg' => 'public/assets/img/xls.jpeg',
@@ -56,6 +57,7 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/app/Models/Setting.baboon' => 'app/Models/Setting.php',
 			__DIR__ . '/../patch_update/routes/configurations.baboon' => 'routes/configurations.php',
 			__DIR__ . '/../patch_update/routes/api.baboon' => 'routes/api.php',
+			__DIR__ . '/../patch_update/routes/web.baboon' => 'routes/web.php',
 			__DIR__ . '/../patch_update/app/Http/Controllers/Api/V1/AuthApiLoggedIn.baboon' => 'app/Http/Controllers/Api/V1/AuthApiLoggedIn.php',
 			__DIR__ . '/../patch_update/storage/collections/login_postman_collection.json' => 'storage/collections/login_postman_collection.json',
 			__DIR__ . '/../patch_update/app/Http/Controllers/Admin/Dashboard.baboon' => 'app/Http/Controllers/Admin/Dashboard.php',
@@ -65,6 +67,7 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/config/app.baboon' => 'config/app.php',
 			__DIR__ . '/../patch_update/config/auth.baboon' => 'config/auth.php',
 			__DIR__ . '/../patch_update/config/jwt.baboon' => 'config/jwt.php',
+			__DIR__ . '/../patch_update/config/lfm.baboon' => 'config/lfm.php',
 		];
 	}
 
