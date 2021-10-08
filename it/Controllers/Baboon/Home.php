@@ -172,7 +172,7 @@ class Home extends Controller {
 	}
 
 	public function makeStatistics() {
-		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name'))) . "_control";
+		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name')));
 
 		$file = 'resources/views/admin/layouts/statistics/module_counters.blade.php';
 		$module_counter = file_get_contents(base_path($file));
@@ -200,7 +200,7 @@ class Home extends Controller {
 	}
 
 	public function makeMenu() {
-		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name'))) . "_control";
+		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name')));
 		//********* Preparing Menu List ***********/
 		$file = 'resources/views/admin/layouts/menu.blade.php';
 		$admin_menu = file_get_contents(base_path($file));
@@ -248,7 +248,7 @@ class Home extends Controller {
 
 	public function makeRoutes() {
 		//********* Preparing Route Admin ***********/
-		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name'))) . "_control";
+		$link = strtolower(preg_replace('/Controller|controller/i', '', request('controller_name')));
 		$end_route = '////////AdminRoutes/*End*///////////////';
 		$namespace_single = explode('App\Http\Controllers\\', request('controller_namespace'))[1];
 		$route1 = 'Route::resource(\'' . $link . '\',\'' . $namespace_single . '\\' . request('controller_name') . '\'); ' . "\r\n";
