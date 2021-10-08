@@ -8,15 +8,43 @@ class BaboonCreateApi extends Controller {
 	public static function indexMethod($r) {
 		$index = '
             /**
+             * Display the specified releationshop.
+             * Baboon Api Script By ' . it_version_message() . '
+             * @return array to assign with index & show methods
+             */
+            public function arrWith(){
+               return {WithRelation};
+            }
+
+
+            /**
              * Baboon Api Script By ' . it_version_message() . '
              * Display a listing of the resource. Api
              * @return \Illuminate\Http\Response
              */
             public function index()
             {
-            	${ModelName} = {ModelName}::select($this->selectColumns)->orderBy("id","desc")->paginate(15);
+            	${ModelName} = {ModelName}::select($this->selectColumns)->with($this->arrWith())->orderBy("id","desc")->paginate(15);
                return successResponseJson(["data"=>${ModelName}]);
             }' . "\n";
+
+		$WithRelation = '';
+		$i = 0;
+		foreach ($r->input('col_name_convention') as $conv) {
+			if (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
+				$pre_conv = explode('|', $conv);
+				if ($r->has('forginkeyto' . $i)) {
+					$WithRelation .= "'$pre_conv[0]',";
+				}
+			}
+			$i++;
+		}
+
+		if (!empty($WithRelation)) {
+			$index = str_replace('{WithRelation}', '[' . $WithRelation . ']', $index);
+		} else {
+			$index = str_replace('{WithRelation}', '[]', $index);
+		}
 
 		return str_replace('{ModelName}', request('model_name'), $index);
 	}
@@ -68,6 +96,7 @@ class BaboonCreateApi extends Controller {
 		}
 
 		$store .= '
+		  ${ModelName} = {ModelName}::with($this->arrWith())->find(${ModelName}->id,$this->selectColumns);
         return successResponseJson([
             "message"=>trans("{lang}.added"),
             "data"=>${ModelName}

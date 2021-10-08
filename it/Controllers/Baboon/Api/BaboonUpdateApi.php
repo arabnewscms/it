@@ -8,6 +8,7 @@ class BaboonUpdateApi extends Controller {
 
 	public static function showMethod($r) {
 		$show = '
+
             /**
              * Display the specified resource.
              * Baboon Api Script By ' . it_version_message() . '
@@ -16,7 +17,7 @@ class BaboonUpdateApi extends Controller {
              */
             public function show($id)
             {
-                ${ModelName} = {ModelName}::find($id,$this->selectColumns);
+                ${ModelName} = {ModelName}::with($this->arrWith())->find($id,$this->selectColumns);
             	if(is_null(${ModelName}) || empty(${ModelName})){
             	 return errorResponseJson([
             	  "message"=>trans("{lang}.undefinedRecord")
@@ -85,7 +86,7 @@ class BaboonUpdateApi extends Controller {
 
 		$update .= '              {ModelName}::where("id",$id)->update($data);' . "\n";
 		$update .= '
-              ${ModelName} = {ModelName}::find($id,$this->selectColumns);
+              ${ModelName} = {ModelName}::with($this->arrWith())->find($id,$this->selectColumns);
               return successResponseJson([
                "message"=>trans("{lang}.updated"),
                "data"=> ${ModelName}
