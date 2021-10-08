@@ -5,13 +5,17 @@ use Faker\Factory as Faker;
 use Faker\Provider\DateTime;
 use Faker\Provider\Image;
 use Faker\Provider\Uuid;
+use File;
 
 class BaboonFaker extends Controller {
 	public $local;
+	public $folder_name;
 	public $model_name;
 
 	public function __construct() {
 		$this->local = request('faker_local');
+		$this->folder_name = strtolower(request('controller_name')) . '/faker';
+
 		$this->model_name = '\\' . request('model_namespace') . '\\' . request('model_name');
 	}
 
@@ -24,12 +28,18 @@ class BaboonFaker extends Controller {
 	public function create() {
 		$model = $this->model_name;
 		$faker = Faker::create($this->local);
+		$path = base_path('storage/app/public/' . $this->folder_name);
+		File::cleanDirectory($path);
+		//Storage::deleteDirectory($folder_name);
+		if (!is_dir($path)) {
+			File::makeDirectory($path, $mode = 0755, true, true);
+		}
+
 		$cols = [];
-		for ($x = 0; $x < 100; $x++) {
+		for ($x = 0; $x < 5; $x++) {
 			$data = [];
 			$i = 0;
 			foreach (request('col_type') as $col_type) {
-
 				$conv = request('col_name_convention')[$i];
 
 				if ($col_type == 'select' && preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
@@ -56,7 +66,7 @@ class BaboonFaker extends Controller {
 						$data['' . $conv . ''] = $faker->safeEmail();
 					} elseif ($col_type == 'text') {
 						if (!empty(request('integer' . $i)) || !empty(request('numeric' . $i))) {
-							$data['' . $conv . ''] = $faker->randomNumber(10);
+							$data['' . $conv . ''] = $faker->e164PhoneNumber();
 						} elseif (!empty(request('string' . $i)) || !empty(request('alpha' . $i))) {
 							$data['' . $conv . ''] = $faker->text(50);
 						} elseif (!empty(request('alpha-dash' . $i))) {
@@ -80,15 +90,9 @@ class BaboonFaker extends Controller {
 						}
 
 					} elseif ($col_type == 'file') {
-						$folder_name = strtolower(request('controller_name')) . '/faker';
-						$path = base_path('storage/app/public/' . $folder_name);
-
-						if (!is_dir($path)) {
-							\File::makeDirectory($path, $mode = 0777, true, true);
-						}
 
 						if (!empty(request('image' . $i))) {
-							$data['' . $conv . ''] = 'storage/' . $folder_name . '/' . $faker->image($path, 640, 480, null, false);
+							$data['' . $conv . ''] = $this->folder_name . '/' . $faker->image($path, 640, 480, null, false);
 						}
 
 					} elseif ($col_type == 'date_time') {
@@ -106,18 +110,52 @@ class BaboonFaker extends Controller {
 					} elseif ($col_type == 'textarea') {
 						$data['' . $conv . ''] = $faker->words(200, true);
 					} elseif ($col_type == 'textarea_ckeditor') {
-						$data['' . $conv . ''] = $faker->randomHtml();
+						$data['' . $conv . ''] = $this->loremHtml();
+					} elseif ($col_type == 'number') {
+						$data['' . $conv . ''] = $faker->e164PhoneNumber();
 					}
 
 				}
 
 				$i++;
 			}
-			return $data;
+			//return $data;
 			if (!empty(request('auto_migrate'))) {
 				$this->model_name::create($data);
 			}
 		}
 
+	}
+
+	public function loremHtml() {
+		return "<H1>QUID ENIM DE AMICITIA STATUERIS UTILITATIS CAUSA EXPETENDA VIDES.</H1>
+
+<P>LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. EODEM MODO IS ENIM TIBI NEMO DABIT, QUOD, EXPETENDUM SIT, ID ESSE LAUDABILE. ATQUE HIS DE REBUS ET SPLENDIDA EST EORUM ET ILLUSTRIS ORATIO. ILLE ENIM OCCURRENTIA NESCIO QUAE COMMINISCEBATUR; ET QUIDEM ILLUD IPSUM NON NIMIUM PROBO ET TANTUM PATIOR, PHILOSOPHUM LOQUI DE CUPIDITATIBUS FINIENDIS. DUO REGES: CONSTRUCTIO INTERRETE. </P>
+
+<UL>
+	<LI>FATEBUNTUR STOICI HAEC OMNIA DICTA ESSE PRAECLARE, NEQUE EAM CAUSAM ZENONI DESCISCENDI FUISSE.</LI>
+	<LI>VERUM HOC LOCO SUMO VERBIS HIS EANDEM CERTE VIM VOLUPTATIS EPICURUM NOSSE QUAM CETEROS.</LI>
+	<LI>NONDUM AUTEM EXPLANATUM SATIS, ERAT, QUID MAXIME NATURA VELLET.</LI>
+	<LI>DOLERE MALUM EST: IN CRUCEM QUI AGITUR, BEATUS ESSE NON POTEST.</LI>
+	<LI>NON EST IGITUR SUMMUM MALUM DOLOR.</LI>
+	<LI>QUI ENIM EXISTIMABIT POSSE SE MISERUM ESSE BEATUS NON ERIT.</LI>
+</UL>
+
+
+<BLOCKQUOTE CITE='HTTP://LORIPSUM.NET'>
+	IN OMNI ENIM ANIMANTE EST SUMMUM ALIQUID ATQUE OPTIMUM, UT IN EQUIS, IN CANIBUS, QUIBUS TAMEN ET DOLORE VACARE OPUS EST ET VALERE;
+</BLOCKQUOTE>
+
+
+<OL>
+	<LI>AB HOC AUTEM QUAEDAM NON MELIUS QUAM VETERES, QUAEDAM OMNINO RELICTA.</LI>
+	<LI>NAM SI QUAE SUNT ALIAE, FALSUM EST OMNIS ANIMI VOLUPTATES ESSE E CORPORIS SOCIETATE.</LI>
+	<LI>TANTUM DICO, MAGIS FUISSE VESTRUM AGERE EPICURI DIEM NATALEM, QUAM ILLIUS TESTAMENTO CAVERE UT AGERETUR.</LI>
+	<LI>AT IAM DECIMUM ANNUM IN SPELUNCA IACET.</LI>
+</OL>
+
+
+
+";
 	}
 }

@@ -140,16 +140,11 @@ class Home extends Controller {
 
 		// Faker Data
 		if (!empty(request('generate_faker')) && !empty(request('auto_migrate'))) {
-			return (new BaboonFaker())->create();
+			(new BaboonFaker)->create();
 		}
 
 		if (!empty(request('collect'))) {
 			(new Statistics)->init();
-		}
-
-		// Faker Data
-		if (!empty(request('generate_faker'))) {
-			(new BaboonFaker(request('faker_local')))->create();
 		}
 
 		return response(['status' => true, 'message' => 'Module - CRUD Generated'], 200);

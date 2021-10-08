@@ -62,7 +62,7 @@ class BaboonShowPage extends Controller {
 	</div>
 	<!-- /.card-header -->
 	<div class="card-body">
-		<div class="row">';
+		<div class="row">' . "\n";
 
 		$show .= '			<div class="col-md-12 col-lg-12 col-xs-12">
 				<b>{{trans(\'{lang}.id\')}} :</b> {{${route}->id}}
@@ -71,18 +71,21 @@ class BaboonShowPage extends Controller {
 			<hr />' . "\n\r";
 
 		foreach (explode(',', self::get_cols($r)) as $n) {
+			$n_explode = explode('/', $n);
+			$n = $n_explode[0];
+			$x = isset($n_explode[1]) ? $n_explode[1] : 0;
 			if (!empty($n)) {
 				if ($n == 'admin_id') {
 
 					$show .= '			@if(!empty(${route}->' . $n . '()->first()))
-			<div class="col-md-6 col-lg-6 col-xs-6">
+			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 				<b>{{trans(\'{lang}.' . $n . '\')}} :</b>
 				{{ ${route}->' . $n . '()->first()->name }}
 			</div>
 			@endif' . "\n\r";
 				} else {
 
-					$show .= '			<div class="col-md-6 col-lg-6 col-xs-6">
+					$show .= '			<div class="' . self::colWidth($x) . '">
 				<b>{{trans(\'{lang}.' . $n . '\')}} :</b>
 				{!! ${route}->' . $n . ' !!}
 			</div>' . "\n\r";
@@ -93,8 +96,8 @@ class BaboonShowPage extends Controller {
 
 		$x = 0;
 		foreach ($r->input('col_name_convention') as $conv) {
-			if ($r->has('image' . $x)) {
-				$show .= '			<div class="col-md-6 col-lg-6 col-xs-6">
+			if ($r->has('image' . $x) && $r->input('col_type')[$x] == 'file') {
+				$show .= '			<div class="' . self::colWidth($x) . '">
 				<b>{{trans(\'{lang}.' . $conv . '\')}} :</b>
 				@include("admin.show_image",["image"=>${route}->' . $conv . '])
 			</div>' . "\n\r";
@@ -114,7 +117,7 @@ class BaboonShowPage extends Controller {
 				} elseif ($r->has('mp3' . $x)) {
 					$audio_video = '@include("admin.show_audio",["audio"=>${route}->' . $conv . '])';
 				}
-				$show .= '			<div class="col-md-6 col-lg-6 col-xs-6">
+				$show .= '			<div class="' . self::colWidth($x) . '">
 				<div class="row">
 					<div class="col-md-8 col-lg-4 col-xs-12">
 					  <b>{{trans(\'{lang}.' . $conv . '\')}} :</b>
@@ -138,7 +141,7 @@ class BaboonShowPage extends Controller {
 					$pluck_name = !empty($pluck_name) && count($pluck_name) > 0 ? explode(',', $pluck_name[1]) : [];
 					$final_pluckName = str_replace("'", "", $pluck_name[0]);
 
-					$show .= '			<div class="col-md-6 col-lg-6 col-xs-6">
+					$show .= '			<div class="' . self::colWidth($x) . '">
 				<b>{{trans(\'{lang}.' . $pre_name[0] . '\')}} :</b>
 				@if(!empty(${route}->' . $pre_name[0] . '()->first()))
 			{{ ${route}->' . $pre_name[0] . '()->first()->' . $final_pluckName . ' }}
@@ -146,7 +149,7 @@ class BaboonShowPage extends Controller {
 			</div>' . "\n\r";
 
 				} else {
-					$show .= '			<div class="col-md-6 col-lg-6 col-xs-6">
+					$show .= '			<div class="' . self::colWidth($x) . '">
 				<b>{{trans(\'{lang}.' . $pre_name[0] . '\')}} :</b>
 				{{ trans("{lang}.".${route}->' . $pre_name[0] . ') }}
 			</div>' . "\n\r";
@@ -172,53 +175,44 @@ class BaboonShowPage extends Controller {
 
 	public static function get_cols($r) {
 		$cols = '';
-
-		// if ($r->has('schema_name')) {
-		// 	$i = 0;
-		// 	$schema_null = $r->input('schema_null');
-		// 	foreach ($r->input('schema_name') as $schema_name) {
-		// 		if (!$r->has('forginkeyto' . $i)) {
-		// 			$cols .= $schema_name . ',';
-		// 		}
-		// 		$i++;
-		// 	}
-		// }
 		$i = 0;
-
 		if ($r->has('has_user_id')) {
 			// Disable Any Image Here
-			$cols .= 'admin_id,';
+			$cols .= 'admin_id/0,';
 		}
-
 		foreach ($r->input('col_name_convention') as $conv) {
 			if (request()->has('forginkeyto' . $i)) {
 				// Disable Forginkey
 			} elseif ($r->has('image' . $i)) {
 				// Disable Any Image Here
-				$cols .= '';
+			} elseif ($r->input('col_type')[$i] == 'password') {
+				// Disable Any password Here
+			} elseif ($r->input('col_type')[$i] == 'dropzone') {
+				// Disable Any dropzone Here
 			} elseif (preg_match('/(\d+)\+(\d+)|,/i', $conv)) {
 				// disable dropdown
 				// $pre_name = explode('|', $conv);
 				// $cols .= $pre_name[0] . ',';
-				$cols .= '';
 			} elseif (preg_match('/#/i', $conv)) {
 				$pre_conv = explode('#', $conv);
 				if (!preg_match('/' . $pre_conv[0] . '/i', $cols)) {
-
 					$name = explode('#', $conv);
-					$cols .= $name[0] . ',';
+					$cols .= $name[0] . '/' . $i . ',';
 				}
 			} elseif ($r->input('col_type')[$i] == 'file' && !$r->has('image' . $i)) {
 				// Disable Column File
-				$cols .= '';
 			} else {
-
-				$cols .= $conv . ',';
+				$cols .= $conv . '/' . $i . ',';
 			}
 			$i++;
 		}
 
 		return $cols;
+	}
+
+	public static function colWidth($i) {
+		//col-md-6 col-lg-6 col-xs-6
+		return 'col-lg-' . request('col_width_lg')[$i] . ' col-md-' . request('col_width_md')[$i] . ' col-sm-' . request('col_width_sm')[$i] . ' col-xs-' . request('col_width_xs')[$i];
 	}
 
 }
