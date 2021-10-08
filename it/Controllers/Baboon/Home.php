@@ -89,10 +89,6 @@ class Home extends Controller {
 			'model_name' => it_trans('it.model_name'),
 		];
 
-		// Faker Data
-		if (!empty(request('generate_faker'))) {
-			return (new BaboonFaker(request('faker_local')))->create();
-		}
 		$i = 0;
 		foreach (request('col_name') as $col_name) {
 			$attributes['col_name.' . $i] = it_trans('it.col_name');
@@ -141,6 +137,11 @@ class Home extends Controller {
 
 		// Make Statistics
 		$this->makeStatistics();
+
+		// Faker Data
+		if (!empty(request('generate_faker')) && !empty(request('auto_migrate'))) {
+			return (new BaboonFaker())->create();
+		}
 
 		if (!empty(request('collect'))) {
 			(new Statistics)->init();

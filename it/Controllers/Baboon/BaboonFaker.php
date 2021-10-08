@@ -10,33 +10,11 @@ class BaboonFaker extends Controller {
 	public $local;
 	public $model_name;
 
-	public function __construct($local) {
-		$this->local = $local;
+	public function __construct() {
+		$this->local = request('faker_local');
 		$this->model_name = '\\' . request('model_namespace') . '\\' . request('model_name');
 	}
-/*
 
-{type: "text", name: "title"}
-1: {type: "email", name: "email"}
-2: {type: "file", name: "photo"}
-3: {type: "select", name: "status|active,Active/pending,Pending/refused,Refused"}
-4: {type: "dropzone", name: "dz"}
-5: {type: "dropzone", name: "dz2"}
-6: {type: "select", name: "user_id|App\Models\User::pluck('name','id')"}
-7: {type: "number", name: "num_test"}
-8: {type: "email", name: "email_test"}
-9: {type: "url", name: "test_url"}
-10: {type: "textarea", name: "test_textarea"}
-11: {type: "textarea_ckeditor", name: "test_ck"}
-12: {type: "password", name: "test_pass"}
-13: {type: "checkbox", name: "test_checkbox#male"}
-14: {type: "radio", name: "test_radio#val"}
-15: {type: "date", name: "test_date"}
-16: {type: "date_time", name: "test_datetime"}
-17: {type: "time", name: "test_time"}
-18: {type: "timestamp", name: "test_timestamp"}
-19: {type: "color", name: "test_color"}
- */
 	public function runModel($code) {
 		$model_explode = explode('::', $code);
 		$data = $model_explode[0]::inRandomOrder()->first();
@@ -106,7 +84,7 @@ class BaboonFaker extends Controller {
 						$path = base_path('storage/app/public/' . $folder_name);
 
 						if (!is_dir($path)) {
-							mkdir($path);
+							\File::makeDirectory($path, $mode = 0777, true, true);
 						}
 
 						if (!empty(request('image' . $i))) {
@@ -136,7 +114,9 @@ class BaboonFaker extends Controller {
 				$i++;
 			}
 			return $data;
-			//$this->model_name::create($data);
+			if (!empty(request('auto_migrate'))) {
+				$this->model_name::create($data);
+			}
 		}
 
 	}
