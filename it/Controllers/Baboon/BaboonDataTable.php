@@ -240,20 +240,18 @@ class {ClassName}DataTable extends DataTable
 				}
 
 				if (!empty(request('dt_show_column')) && in_array($ex_select[0], request('dt_show_column'))) {
-
+					$select_sort = 0;
 					if (!empty(request('datatable_checkbox')) && !empty(request('datatable_record_id'))) {
 						$select_sort = ($x + 2);
-					} elseif (!empty(request('datatable_checkbox')) || !empty(request('datatable_record_id'))) {
-						$select_sort = ($x);
 					} elseif (empty(request('datatable_checkbox')) && empty(request('datatable_record_id')) && count(request('dt_show_column')) > 1) {
 						$select_sort = ($x - 1);
-					} elseif (empty(request('datatable_checkbox')) && empty(request('datatable_record_id')) && request('dt_show_column') == 1) {
-						$select_sort = ($x - 1);
+					} elseif (empty(request('datatable_checkbox')) && empty(request('datatable_record_id')) && count(request('dt_show_column')) == 0) {
+						$select_sort = ($x - 2);
 					} else {
 						$select_sort = ($x + 2);
 					}
 
-					$finaldropdown .= '            //' . $ex_select[0] . "\n";
+					$finaldropdown .= '            //' . $ex_select[0] . implode(',', request('dt_show_column')) . $select_sort . "\n";
 					$finaldropdown .= '            ". filterElement(\'' . $select_sort . '\', \'select\', ' . $dropdown . ') . "' . "\n";
 				}
 
