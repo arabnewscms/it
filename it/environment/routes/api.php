@@ -21,15 +21,15 @@ Route::group(['middleware' => ['ApiLang', 'cors'], 'prefix' => 'v1', 'namespace'
 	});
 	// Insert your Api Here Start //
 	Route::group(['middleware' => 'guest'], function () {
-		Route::post('login', 'AuthApiLoggedIn@login');
+		Route::post('login', 'AuthApiLoggedIn@login')->name('api.login');
 	});
 
 	Route::group(['middleware' => 'auth:api'], function () {
-		Route::get('account', 'AuthApiLoggedIn@account');
-		Route::post('logout', 'AuthApiLoggedIn@logout');
-		Route::post('refresh', 'AuthApiLoggedIn@refresh');
-		Route::post('me', 'AuthApiLoggedIn@me');
-		Route::post('change/password', 'AuthApiLoggedIn@change_password');
+		Route::get('account', 'AuthApiLoggedIn@account')->name('api.account');
+		Route::post('logout', 'AuthApiLoggedIn@logout')->name('api.logout');
+		Route::post('refresh', 'AuthApiLoggedIn@refresh')->name('api.refresh');
+		Route::post('me', 'AuthApiLoggedIn@me')->name('api.me');
+		Route::post('change/password', 'AuthApiLoggedIn@change_password')->name('api.change_password');
 		//Auth-Api-Start//
 		//Auth-Api-End//
 	});

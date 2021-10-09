@@ -16,7 +16,7 @@ use Spatie\Honeypot\ProtectAgainstSpam;
 Route::group(['middleware' => 'auth'],
 
 	function () {
-		//Route::any('logout', 'Auth\LoginController@logout')->name('logout');
+		Route::any('logout', 'Auth\LoginController@logout')->name('web.logout');
 	});
 
 Route::get('/', function () {

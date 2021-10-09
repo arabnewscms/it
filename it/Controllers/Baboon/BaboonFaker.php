@@ -180,7 +180,7 @@ class BaboonFaker extends Controller {
 					} elseif ($col_type == 'textarea_ckeditor') {
 						$data['' . $conv . ''] = $faker->realText(rand(100, 700));
 					} elseif ($col_type == 'number') {
-						if (preg_match('/' . $conv . '/', 'total|quantity|price|count|item|pass|number|fat|vat|width|height|weight|code|mob|zipcode|zip|zip_code|key|serial|license')) {
+						if (preg_match('/' . $conv . '/', 'total|quantity|price|count|item|pass|number|fat|vat|width|height|weight|code|mob|zipcode|zip|zip_code|key|serial|license|postalcode|postal|code|mob|mobcode|keys')) {
 							$data['' . $conv . ''] = $faker->randomNumber(2);
 						} else {
 							$data['' . $conv . ''] = $faker->bothify('##########');
