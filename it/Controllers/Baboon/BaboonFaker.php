@@ -2,17 +2,18 @@
 namespace Phpanonymous\It\Controllers\Baboon;
 use App\Http\Controllers\Controller;
 use File;
+use Illuminate\Http\UploadedFile;
 
 class BaboonFaker extends Controller {
 	public $local;
 	public $folder_name;
 	public $model_name;
-
-	protected static $defaultProviders = ['Address', 'Barcode', 'Biased', 'Color', 'Company', 'DateTime', 'File', 'HtmlLorem', 'Image', 'Internet', 'Lorem', 'Medical', 'Miscellaneous', 'Payment', 'Person', 'PhoneNumber', 'Text', 'UserAgent', 'Uuid'];
+	public $path;
 
 	public function __construct() {
 		$this->local = request('faker_local');
 		$this->folder_name = strtolower(request('controller_name')) . '/faker';
+		$this->path = base_path('storage/app/public/' . $this->folder_name);
 
 		$this->model_name = '\\' . request('model_namespace') . '\\' . request('model_name');
 	}
@@ -24,13 +25,13 @@ class BaboonFaker extends Controller {
 	}
 
 	public function create() {
-		$model = $this->model_name;
+
 		$faker = \Faker\Factory::create($this->local);
-		$path = base_path('storage/app/public/' . $this->folder_name);
-		if (!is_dir($path)) {
-			File::makeDirectory($path, $mode = 0755, true, true);
+
+		if (!is_dir($this->path)) {
+			File::makeDirectory($this->path, $mode = 0755, true, true);
 		} else {
-			File::cleanDirectory($path);
+			File::cleanDirectory($this->path);
 		}
 
 		$cols = [];
@@ -66,8 +67,13 @@ class BaboonFaker extends Controller {
 						if (!empty(request('integer' . $i)) || !empty(request('numeric' . $i))) {
 							$data['' . $conv . ''] = $faker->e164PhoneNumber();
 						} elseif (!empty(request('string' . $i)) || !empty(request('alpha' . $i))) {
-							if (preg_match('/' . $conv . '/', 'name|username|full_name|fullname|firstname|lastname|middlename|middle|first|last')) {
-								$data['' . $conv . ''] = $faker->title . ' ' . $faker->name . ' ' . $faker->firstname . ' ' . $faker->lastname;
+							if (preg_match('/' . $conv . '/', 'name|username|full_name|fullname|firstname|lastname|middlename|middle|first|last|title')) {
+								//$data['' . $conv . ''] = $faker->title . ' ' . $faker->name . ' ' . $faker->firstname . ' ' . $faker->lastname;
+								$data['' . $conv . ''] = $faker->title . ' ' . $faker->name;
+							} elseif (preg_match('/' . $conv . '/', 'company|company_name|department|category|cat|org|organize|organization')) {
+								$data['' . $conv . ''] = $faker->company();
+							} elseif (preg_match('/' . $conv . '/', 'job|job_title|work|goods|good')) {
+								$data['' . $conv . ''] = $faker->jobTitle();
 							} else {
 								$data['' . $conv . ''] = $faker->realText(25);
 							}
@@ -89,12 +95,68 @@ class BaboonFaker extends Controller {
 							$data['' . $conv . ''] = bcrypt(123456);
 						} elseif (!empty(request('password' . $i))) {
 							$data['' . $conv . ''] = $faker->url();
+						} elseif (!empty(request('json' . $i))) {
+							$data['' . $conv . ''] = '{title:"' . $faker->name . '"}';
 						}
 
 					} elseif ($col_type == 'file') {
 
 						if (!empty(request('image' . $i))) {
-							$data['' . $conv . ''] = $this->folder_name . '/' . $faker->image($path, 640, 480, null, false);
+							$data['' . $conv . ''] = $this->folder_name . '/' . $faker->image($this->path, 640, 480, null, false);
+						} elseif (!empty(request('pdf' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('pdf');
+						} elseif (!empty(request('office' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('docx');
+						} elseif (!empty(request('docx' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('docx');
+						} elseif (!empty(request('xlsx' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('xlsx');
+						} elseif (!empty(request('xls' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('xls');
+						} elseif (!empty(request('xltx' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('xltx');
+						} elseif (!empty(request('ppt' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('ppt');
+						} elseif (!empty(request('ppam' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('ppam');
+						} elseif (!empty(request('pptm' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('pptm');
+						} elseif (!empty(request('ppsm' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('ppsm');
+						} elseif (!empty(request('potm' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('potm');
+						} elseif (!empty(request('sldm' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('sldm');
+						} elseif (!empty(request('audio' . $i)) || !empty(request('mp3' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('mp3');
+						} elseif (!empty(request('wav' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('wav');
+						} elseif (!empty(request('xm' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('xm');
+						} elseif (!empty(request('ogg' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('ogg');
+						} elseif (!empty(request('video' . $i)) || !empty(request('mp4' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('mp4');
+						} elseif (!empty(request('mp4' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('mp4');
+						} elseif (!empty(request('mpeg' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('mpeg');
+						} elseif (!empty(request('mov' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('mov');
+						} elseif (!empty(request('3gp' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('3gp');
+						} elseif (!empty(request('webm' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('webm');
+						} elseif (!empty(request('mkv' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('mkv');
+						} elseif (!empty(request('wmv' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('wmv');
+						} elseif (!empty(request('avi' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('avi');
+						} elseif (!empty(request('vob' . $i))) {
+							$data['' . $conv . ''] = $this->fakeFile('vob');
+						} else {
+							$data['' . $conv . ''] = $this->folder_name . '/' . $faker->image($this->path, 640, 480, null, false);
 						}
 
 					} elseif ($col_type == 'date_time') {
@@ -133,42 +195,11 @@ class BaboonFaker extends Controller {
 
 	}
 
-	/**
-	 * @param string $provider
-	 * @param string $locale
-	 *
-	 * @return string
-	 */
-	protected static function getProviderClassname($provider, $locale = '') {
-		if ($providerClass = self::findProviderClassname($provider, $locale)) {
-			return $providerClass;
-		}
-		// fallback to default locale
-		if ($providerClass = self::findProviderClassname($provider, static::DEFAULT_LOCALE)) {
-			return $providerClass;
-		}
-		// fallback to no locale
-		if ($providerClass = self::findProviderClassname($provider)) {
-			return $providerClass;
-		}
-
-		throw new \InvalidArgumentException(sprintf('Unable to find provider "%s" with locale "%s"', $provider, $locale));
-	}
-
-	/**
-	 * @param string $provider
-	 * @param string $locale
-	 *
-	 * @return string|null
-	 */
-	protected static function findProviderClassname($provider, $locale = '') {
-		$providerClass = 'Faker\\' . ($locale ? sprintf('Provider\%s\%s', $locale, $provider) : sprintf('Provider\%s', $provider));
-
-		if (class_exists($providerClass, true)) {
-			return $providerClass;
-		}
-
-		return null;
+	// faker file
+	public function fakeFile($ext) {
+		$file_name = $ext . '_' . (time() * rand(0000, 99999)) . '.' . $ext;
+		$file = UploadedFile::fake()->create($file_name)->store('storage/app/public/' . $this->folder_name);
+		return str_replace('storage/app/public/', '', $file);
 	}
 
 }
