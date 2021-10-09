@@ -97,6 +97,10 @@ class BaboonFaker extends Controller {
 							$data['' . $conv . ''] = $faker->url();
 						} elseif (!empty(request('json' . $i))) {
 							$data['' . $conv . ''] = '{title:"' . $faker->name . '"}';
+						} elseif (!empty(request('boolean' . $i))) {
+							$data['' . $conv . ''] = rand(0, 1);
+						} else {
+							$data['' . $conv . ''] = $faker->firstname . ' ' . $faker->lastname;
 						}
 
 					} elseif ($col_type == 'file') {
@@ -181,6 +185,8 @@ class BaboonFaker extends Controller {
 						} else {
 							$data['' . $conv . ''] = $faker->bothify('##########');
 						}
+					} else {
+						$data['' . $conv . ''] = $faker->bothify('##########');
 					}
 
 				}
