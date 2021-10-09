@@ -21,6 +21,7 @@ class Update extends Command {
 	public function delete_list() {
 		return [
 			'app/Http/Controllers/Api/AuthApiLoggedIn.php',
+			'routes/api.php',
 		];
 	}
 
@@ -58,9 +59,19 @@ class Update extends Command {
 			__DIR__ . '/../patch_update/routes/configurations.baboon' => 'routes/configurations.php',
 			__DIR__ . '/../patch_update/routes/api.baboon' => 'routes/api.php',
 			__DIR__ . '/../patch_update/routes/web.baboon' => 'routes/web.php',
-			__DIR__ . '/../patch_update/app/Http/Controllers/Api/V1/AuthApiLoggedIn.baboon' => 'app/Http/Controllers/Api/V1/AuthApiLoggedIn.php',
+			__DIR__ . '/../patch_update/app/Http/Controllers/Api/V1/Auth/AuthAndLogin.baboon' => 'app/Http/Controllers/Api/V1/Auth/AuthAndLogin.php',
+			__DIR__ . '/../patch_update/app/Http/Controllers/Api/V1/Auth/Register.baboon' => 'app/Http/Controllers/Api/V1/Auth/Register.php',
 			__DIR__ . '/../patch_update/storage/collections/login_postman_collection.json' => 'storage/collections/login_postman_collection.json',
 			__DIR__ . '/../patch_update/app/Http/Controllers/Admin/Dashboard.baboon' => 'app/Http/Controllers/Admin/Dashboard.php',
+
+			// Api start//
+			__DIR__ . '/../patch_update/app/Http/Controllers/ValidationsApi/V1/Auth/RegisterRequest.baboon' => 'app/Http/Controllers/ValidationsApi/V1/Auth/RegisterRequest.php',
+
+			__DIR__ . '/../patch_update/app/Http/Controllers/ValidationsApi/V1/Auth/LoginRequest.baboon' => 'app/Http/Controllers/ValidationsApi/V1/Auth/LoginRequest.php',
+
+			__DIR__ . '/../patch_update/app/Http/Controllers/ValidationsApi/V1/Auth/ChangePasswordRequest.baboon' => 'app/Http/Controllers/ValidationsApi/V1/Auth/ChangePasswordRequest.php',
+			// Api start//
+
 			__DIR__ . '/../patch_update/resources/views/admin/layouts/components/submit_form_ajax.blade.baboon' => 'resources/views/admin/layouts/components/submit_form_ajax.blade.php',
 			__DIR__ . '/../patch_update/public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css' => 'public/assets/plugins/icheck-bootstrap/icheck-bootstrap.min-rtl.css',
 			__DIR__ . '/../patch_update/public/assets/js/pages/dashboard.js' => 'public/assets/js/pages/dashboard.js',

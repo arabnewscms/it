@@ -35,7 +35,7 @@
 								},
 								{
 									"key": "password",
-									"value": "123456",
+									"value": "!2M33412a",
 									"type": "text"
 								}
 							]
@@ -99,7 +99,7 @@
 					"response": []
 				},
 				{
-					"name": "me",
+					"name": "my account - me",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {}
 					},
@@ -219,17 +219,17 @@
 							"formdata": [
 								{
 									"key": "current_password",
-									"value": "1234567",
+									"value": "!2M33412a",
 									"type": "text"
 								},
 								{
 									"key": "new_password",
-									"value": "123456",
+									"value": "Aswe!2",
 									"type": "text"
 								},
 								{
 									"key": "password_confirmation",
-									"value": "123456",
+									"value": "Aswe!2",
 									"type": "text"
 								}
 							]
@@ -246,11 +246,63 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "register",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "!2M33412a",
+									"type": "text"
+								},
+								{
+									"key": "lang",
+									"value": "ar",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/register",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
-	 
-		 
 	],
 	"event": [
 		{

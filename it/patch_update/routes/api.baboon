@@ -21,15 +21,16 @@ Route::group(['middleware' => ['ApiLang', 'cors'], 'prefix' => 'v1', 'namespace'
 	});
 	// Insert your Api Here Start //
 	Route::group(['middleware' => 'guest'], function () {
-		Route::post('login', 'AuthApiLoggedIn@login')->name('api.login');
+		Route::post('login', 'Auth\AuthAndLogin@login')->name('api.login');
+		Route::post('register', 'Auth\Register@register')->name('api.register');
 	});
 
 	Route::group(['middleware' => 'auth:api'], function () {
-		Route::get('account', 'AuthApiLoggedIn@account')->name('api.account');
-		Route::post('logout', 'AuthApiLoggedIn@logout')->name('api.logout');
-		Route::post('refresh', 'AuthApiLoggedIn@refresh')->name('api.refresh');
-		Route::post('me', 'AuthApiLoggedIn@me')->name('api.me');
-		Route::post('change/password', 'AuthApiLoggedIn@change_password')->name('api.change_password');
+		Route::get('account', 'Auth\AuthAndLogin@account')->name('api.account');
+		Route::post('logout', 'Auth\AuthAndLogin@logout')->name('api.logout');
+		Route::post('refresh', 'Auth\AuthAndLogin@refresh')->name('api.refresh');
+		Route::post('me', 'Auth\AuthAndLogin@me')->name('api.me');
+		Route::post('change/password', 'Auth\AuthAndLogin@change_password')->name('api.change_password');
 		//Auth-Api-Start//
 		//Auth-Api-End//
 	});

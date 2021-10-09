@@ -1,15 +1,16 @@
 <?php
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ValidationsApi\V1\Auth\ChangePasswordRequest;
+use App\Http\Controllers\ValidationsApi\V1\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 // Auto Configured by (IT) Baboon maker (phpanonymous/it package)
 
-class AuthApiLoggedIn extends Controller {
+class AuthAndLogin extends Controller {
 
 	/**
 	 * Create a new AuthController instance.
@@ -73,17 +74,10 @@ class AuthApiLoggedIn extends Controller {
 
 	/**
 	 * Get a JWT via given credentials.
-	 *
+	 * Login Auth
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function login() {
-		$this->validate(request(), [
-			'email' => 'required|email',
-			'password' => 'required',
-		], [], [
-			'email' => trans('admin.email'),
-			'password' => trans('admin.password'),
-		]);
+	public function login(LoginRequest $login) {
 		$credentials = request(['email', 'password']);
 		try {
 			if (!$token = $this->auth()->attempt($credentials)) {
@@ -96,23 +90,12 @@ class AuthApiLoggedIn extends Controller {
 		return successResponseJson(['data' => $this->respondWithToken($token)]);
 	}
 
-	public function change_password() {
-		$this->validate(request(), [
-			'current_password' => [
-				'required', function ($attribute, $value, $fail) {
-					if (!\Hash::check($value, $this->auth()->user()->password)) {
-						$fail('Your password was not updated, since the provided current password does not match.');
-					}
-				},
-			],
-			'new_password' => 'required|min:6|alpha-dash|different:current_password',
-			'password_confirmation' => 'required|alpha-dash|same:new_password',
-		], [], [
-			'current_password' => trans('main.current_password'),
-			'new_password' => trans('main.new_password'),
-			'password_confirmation' => trans('main.password_confirmation'),
-		]);
-
+	/**
+	 * change Password Method
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function change_password(ChangePasswordRequest $changepassword) {
 		User::where('id', $this->auth()->user()->id)->update([
 			'password' => bcrypt(request('new_password')),
 		]);
