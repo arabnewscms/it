@@ -1,0 +1,264 @@
+ /**Baboon Style **/
+ /*  baboon tab */
+ .list-group-item{
+  border: 0px solid #ddd; */
+ }
+div.baboon-tab-container{
+  z-index: 10;
+  background-color: #ffffff;
+  padding: 0 !important;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  border:1px solid #ddd;
+  margin-top: 55px;
+  margin-left: 5px;
+  margin-right: 5px;
+  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  background-clip: padding-box;
+  opacity: 0.8;
+  filter: alpha(opacity=8);
+}
+div.baboon-tab-menu{
+  padding-right: 0;
+  padding-left: 0;
+  padding-bottom: 0;
+}
+div.baboon-tab-menu div.list-group{
+  margin-bottom: 0;
+}
+div.baboon-tab-menu div.list-group>a{
+  margin-bottom: 0;
+}
+div.baboon-tab-menu div.list-group>a .glyphicon,
+div.baboon-tab-menu div.list-group>a .fa {
+  color: #141414;
+}
+div.baboon-tab-menu div.list-group>a:first-child{
+  border-top-right-radius: 0;
+  -moz-border-top-right-radius: 0;
+}
+div.baboon-tab-menu div.list-group>a:last-child{
+  border-bottom-right-radius: 0;
+  -moz-border-bottom-right-radius: 0;
+}
+div.baboon-tab-menu div.list-group>a.active,
+div.baboon-tab-menu div.list-group>a.active .glyphicon,
+div.baboon-tab-menu div.list-group>a.active .fa{
+  background-color: #141414;
+  background-image: #141414;
+  color: #ffffff;
+}
+div.baboon-tab-menu div.list-group>a.active:after{
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-top: -13px;
+  border-left: 0;
+  border-bottom: 13px solid transparent;
+  border-top: 13px solid transparent;
+  border-left: 10px solid #141414;
+}
+
+div.baboon-tab-content{
+  background-color: #ffffff;
+  /* border: 1px solid #eeeeee; */
+  padding-left:0px;
+  padding-top: 10px;
+}
+
+div.baboon-tab div.baboon-tab-content:not(.active){
+  display: none;
+}
+ /**Baboon Style **/
+ .has-error{
+  color:#c33;
+  font-size:17px;
+ }
+ .bodyfalist{
+  overflow: auto;
+  height:250px;
+  width:100%;
+ }
+ .getfa{
+  margin:3px;
+ }
+
+.buttons-print{
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 0;
+    }
+    .buttons-excel,.buttons-csv{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 0;
+    }
+    .buttons-pdf,.deleteBtn{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 0;
+    }
+    .buttons-reload{
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    border-radius: 0;
+    }
+    .table-responsive{
+    min-height: 400px;
+    }
+
+
+
+html.dark body {
+    background: #222222;
+    color: #eee;
+}
+
+html.dark .nav-tabs, 
+html.dark .tab-pane,
+html.dark .well,
+html.dark .tab-content, 
+html.dark .panel, 
+html.dark .modal-content,
+html.dark .tabbable, 
+html.dark .table, 
+html.dark .dataTables_empty,
+html.dark .alert,
+html.dark input,
+html.dark select,
+html.dark .generate
+{
+    background-color: #222;
+    color: #eee;
+}
+
+html.dark code{
+  display: block;
+  word-break: break-all;
+   background-color: #111;
+   padding: 5px;
+}
+
+html.dark .generate:hover{
+    background-color: #9A9A9A;
+    border-color: #ABABAB;
+}
+
+ 
+ 
+
+html.dark .nav-tabs>li.active>a,  
+html.dark .nav-tabs>li.active>a:focus {
+     color: #fff;
+    cursor: default;
+    background-color: #1b1b1ba8;
+    border: none; 
+     border-bottom-color: transparent; 
+}
+html.dark .nav-tabs>li.active>a:hover{
+  background-color: #1b1b1ba8;
+}
+
+html.dark a.btn{
+  background-color: transparent;
+  color: #fff;
+}
+
+html.dark hr {
+  border-color: #111;
+}
+
+html.dark .tab-pane{
+margin-top: 5px;
+}
+
+html.dark .alert{
+  margin-bottom: 0px;
+  border: none;
+}
+
+
+.tabbable{
+  border: none;
+}
+
+/*html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6 {
+    color: #eee;
+}
+*/
+
+/*
+.dark hr {
+    border-color: #111;
+}
+ */
+
+html.dark .dark-text hr {
+    border-color: #fcfcfc;
+}
+
+html.dark strong {
+    color: #fcfcfc;
+}
+
+html.dark .success,.error,.warning,h4.fa{
+  color: #F16811;
+}
+
+/*html.dark .intro1 {
+    background-color: #0c0c0c;
+}*/
+
+html.dark .intro1 a {
+    color: #F16811 !important;
+}
+
+html.dark a {
+    color: #CC8548;
+}
+
+html.dark a:hover {
+    color: #F16811;
+}
+ 
+
+html.dark .btn-info:hover {
+    background-color: #9A9A9A;
+    /*border-color: #ABABAB;*/
+}
+
+html.dark  .well, 
+html.dark  .input_columns_borad
+{
+    background-color: #333;
+}
+
+html.dark  table, 
+html.dark  tbody, 
+html.dark  tfoot, 
+html.dark  input, 
+html.dark  select, 
+html.dark  .well, 
+html.dark  .table-bordered, 
+html.dark  .table-bordered>thead>tr>th, 
+html.dark  .table-bordered>tbody>tr>th, 
+html.dark  .table-bordered>tfoot>tr>th, 
+html.dark  .table-bordered>thead>tr>td, 
+html.dark  .table-bordered>tbody>tr>td, 
+html.dark  .table-bordered>tfoot>tr>td 
+{
+    border-color: #5252529c;
+}
+ 
