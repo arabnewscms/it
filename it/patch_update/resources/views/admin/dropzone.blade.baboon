@@ -139,7 +139,7 @@ $temp_id = !empty(request('temp_id'))?request('temp_id'):(time()*rand(0000,9999)
     clickable: ".fileinput-button_{{ $dz_param }}", // Define the element that should be used as click trigger to select files.
 
     @if(!empty($acceptedMimeTypes))
-    acceptedMimeTypes:"{{ $acceptedMimeTypes }}",
+    acceptedMimeTypes:"{{ str_replace('|',',',$acceptedMimeTypes) }}",
     @endif
   });
 
@@ -240,21 +240,23 @@ function makeid(length) {
     //Add existing files into dropzone
 @php
 $dz_files = \App\Models\Files::orderBy('id','asc');
-    if(!empty($acceptedMimeTypes) && count(explode(',',$acceptedMimeTypes)) > 0){
-       foreach(explode(',',$acceptedMimeTypes) as $mime){
+    if(!empty($acceptedMimeTypes) && count(explode('|',$acceptedMimeTypes)) > 0){
+       foreach(explode('|',$acceptedMimeTypes) as $mime){
           if(preg_match('/^image/i',$acceptedMimeTypes)){
             $extract_name = explode('/',$mime);
-              $dz_files->where('mimtype','LIKE','%'.$extract_name[0].'%');
+             $dz_files->where('mimtype','LIKE','%'.$extract_name[0].'%');
           }
         }
     }
 $get_dz_files = $dz_files->where('type_file',$route)->where('type_id',$id)->get();
-$mimetypes = array_filter(explode(',',$acceptedMimeTypes));
-
+$mimetypes = array_filter(explode('|',$acceptedMimeTypes));
+// || preg_match('/^image/i',$acceptedMimeTypes)
+//@if(in_array($file->mimtype,explode('|',$acceptedMimeTypes)))
+//@endif
 @endphp
     var i=0;
         @foreach($get_dz_files as $file)
-        @if(in_array($file->mimtype,$mimetypes) || preg_match('/^image/i',$acceptedMimeTypes))
+
         var mockFile = {
           name: '{{ $file->name }}',
           size: '{{ $file->size_bytes }}',
@@ -287,7 +289,7 @@ $mimetypes = array_filter(explode(',',$acceptedMimeTypes));
         .attr("type_file",'{{ $file->type_file }}');
 
         i++;
-        @endif
+
         @endforeach
         //console.log(myDropzone{{$dz_param}}.files);
 

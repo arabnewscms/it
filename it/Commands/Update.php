@@ -21,7 +21,6 @@ class Update extends Command {
 	public function delete_list() {
 		return [
 			'app/Http/Controllers/Api/AuthApiLoggedIn.php',
-			'routes/api.php',
 		];
 	}
 
