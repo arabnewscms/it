@@ -141,9 +141,11 @@ class Create{ClassName}Table extends Migration
 			$signature = str_replace('{onDelete}', '->onDelete("cascade")', $signature);
 			$signature = str_replace('{onUpdate}', '->onUpdate("cascade")', $signature);
 		} elseif ($r->has('schema_onDelete' . $i)) {
+			$signature = str_replace('{onUpdate}', '', $signature);
 			$signature = str_replace('{onDelete}', '->onDelete("cascade")', $signature);
 		} elseif ($r->has('schema_onUpdate' . $i)) {
 			$signature = str_replace('{onUpdate}', '->onUpdate("cascade")', $signature);
+			$signature = str_replace('{onDelete}', '', $signature);
 		} else {
 			$signature = str_replace('{onUpdate}', '', $signature);
 			$signature = str_replace('{onDelete}', '', $signature);
