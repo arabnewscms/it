@@ -195,6 +195,9 @@ class BaboonFaker extends Controller {
 			}
 			//return $data;
 			if (!empty(request('auto_migrate'))) {
+				if (!empty(request('has_user_id'))) {
+					$data['admin_id'] = 1;
+				}
 				$this->model_name::create($data);
 			}
 		}

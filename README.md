@@ -32,13 +32,13 @@
 
 </p>
 
- 
+
 
 ## Package Information 
 
 `Package Name: IT`
 
-`Version: 1.6.32`
+`Version: 1.6.33`
 
 `Offline Docs: 1.1` - [Online Docs](https://it.phpanonymous.com/docs)
 
