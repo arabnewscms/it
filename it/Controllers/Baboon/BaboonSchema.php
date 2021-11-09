@@ -129,7 +129,7 @@ class Create{ClassName}Table extends Migration
 		$references = $r->input('references' . $i);
 		$tblname = $r->input('forgin_table_name' . $i);
 
-		$signature = '            $table->foreignId("' . $name . '")->constrained("' . $tblname . '")->references("' . $references . '"){onUpdate}{onDelete}{nullable};' . "\n";
+		$signature = '            $table->foreignId("' . $name . '")->constrained("' . $tblname . '"){nullable}->references("' . $references . '"){onUpdate}{onDelete};' . "\n";
 
 		if ($r->has('schema_nullable' . $i)) {
 			$signature = str_replace('{nullable}', '->nullable()', $signature);
