@@ -121,5 +121,7 @@ return [
 	"cancel_upload" => "annuler tout télécharger",
 	"multi_upload" => "Téléchargement multiple",
 	"file_too_big" => "La taille du fichier est très grande, elle ne doit pas dépasser :size MB",
+	'updated_account_and_password' => 'Vos informations et mot de passe ont été mis à jour avec succès',
+	'the_password_is_old' => 'Vous n\'êtes pas obligé d\'entrer le même ancien mot de passe',
 
 ];

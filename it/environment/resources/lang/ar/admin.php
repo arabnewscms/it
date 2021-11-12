@@ -129,5 +129,7 @@ return [
 	"cancel_upload" => "إلغاء رفع الكل",
 	"multi_upload" => "تحميل متعدد",
 	"file_too_big" => "حجم الملف كبير جدا يجب ان لا يتعدي :size م.ج",
+	'updated_account_and_password' => 'تم تحديث معلوماتك و كلمة المرور بنجاح',
+	'the_password_is_old' => 'لا يجب ادخال نفس كلمة المرور القديمة',
 
 ];
