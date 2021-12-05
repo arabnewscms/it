@@ -107,7 +107,10 @@ var settings = {
   "processData": false,
   "mimeType": "multipart/form-data",
   "contentType": false,
-  "data": form
+  "data": form,
+beforeSend: function (request) {
+    request.withCredentials = false;
+}
 };
 
 $.ajax(settings).done(function (response) {
