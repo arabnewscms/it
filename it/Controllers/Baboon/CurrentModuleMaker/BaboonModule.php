@@ -35,7 +35,7 @@ class BaboonModule extends Controller {
 		$check_modules = Storage::disk('local')->has($this->path . $this->module . $this->ext);
 
 		// Generate new Name //
-		$newname = date('Y_m_d') . '_' . rand(000000, 999999) . '_create_' . $this->get_convention_name() . '_table';
+		$newname = date('Y_m_d') . '_' . time() . '_create_' . $this->get_convention_name() . '_table';
 		// Generate new Name  //
 
 		if ($check_modules) {
