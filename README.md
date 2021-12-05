@@ -38,7 +38,7 @@
 
 `Package Name: IT`
 
-`Version: 1.6.35`
+`Version: 1.6.36`
 
 `Offline Docs: 1.1` - [Online Docs](https://it.phpanonymous.com/docs)
 
