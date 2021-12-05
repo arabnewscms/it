@@ -7,7 +7,7 @@
 <p align="center">
 
 <a href="https://github.com/arabnewscms/it">
-    <img src="https://img.shields.io/badge/download-2.5K-red" alt="Github All Releases">
+    <img src="https://img.shields.io/badge/download-3K-red" alt="Github All Releases">
 </a>
 
 <a href="https://github.com/arabnewscms/it">
