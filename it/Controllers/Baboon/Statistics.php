@@ -215,6 +215,8 @@ class Statistics extends Controller {
 		curl_setopt_array($curl, array(
 			CURLOPT_URL => $this->domain . '/api/v1/push/statistics',
 			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_SSL_VERIFYHOST => 0,
+			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_ENCODING => '',
 			CURLOPT_MAXREDIRS => 10,
 			CURLOPT_TIMEOUT => 0,
