@@ -71,11 +71,16 @@ $(document).ready(function(){
 
     @if($selectedvalue > 0)
     var selectIDValue = $('#'+selectID+' option:selected').val();
+
     $.ajax({
        url:'{{ $url }}',
        dataType:'html',
        type:'post',
-       data:{_token:'{{ csrf_token() }}','{{ $selectID }}':selectIDValue,select:'{{ $selectedvalue }}'},
+       data:{
+        _token:'{{ csrf_token() }}',
+        '{{ $selectID }}': '{{ $selectedvalue }}',
+        select:'{{ $selectedvalue }}'
+       },
        beforeSend: function(){
         $('.{{ $outputClass }}').html('<center><i class="fa fa-spinner fa-spin"></i></center>');
        },success: function(data){
