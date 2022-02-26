@@ -71,14 +71,13 @@ $(document).ready(function(){
 
     @if($selectedvalue > 0)
     var selectIDValue = $('#'+selectID+' option:selected').val();
-
     $.ajax({
        url:'{{ $url }}',
        dataType:'html',
        type:'post',
        data:{
         _token:'{{ csrf_token() }}',
-        '{{ $selectID }}': '{{ $selectedvalue }}',
+        '{{ $selectID }}': '{{ $parentValue }}',
         select:'{{ $selectedvalue }}'
        },
        beforeSend: function(){

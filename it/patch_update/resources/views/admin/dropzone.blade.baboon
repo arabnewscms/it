@@ -124,9 +124,13 @@ $temp_id = !empty(request('temp_id'))?request('temp_id'):(time()*rand(0000,9999)
 
   var myDropzone{{$dz_param}} = new Dropzone(
     "#drop_{{ $dz_param }}",
+
      { // Make the whole body a dropzone
+    timeout: "999999",
     url: "{{ aurl($route.'/upload/multi') }}", // Set the url
     paramName:"{{ $dz_param }}",
+    // crossDomain: true,
+    // format: "json",
     thumbnailWidth: '{{ !empty($thumbnailWidth)?$thumbnailWidth:80 }}',
     thumbnailHeight: '{{ !empty($thumbnailHeight)?$thumbnailHeight:80 }}',
     parallelUploads: '{{ !empty($parallelUploads)?$parallelUploads:20 }}',
@@ -137,6 +141,11 @@ $temp_id = !empty(request('temp_id'))?request('temp_id'):(time()*rand(0000,9999)
     autoQueue: {{ !empty($autoQueue)?$autoQueue:'false' }} , // Make sure the files aren't queued until manually added
     previewsContainer: "#previews_{{ $dz_param }}", // Define the container to display the previews
     clickable: ".fileinput-button_{{ $dz_param }}", // Define the element that should be used as click trigger to select files.
+    headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        'X-XSRF-TOKEN': '{{ csrf_token() }}',
+        'x-csrftoken': '{{ csrf_token() }}',
+    },
 
     @if(!empty($acceptedMimeTypes))
     acceptedMimeTypes:"{{ str_replace('|',',',$acceptedMimeTypes) }}",
