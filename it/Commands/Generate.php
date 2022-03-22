@@ -2,7 +2,6 @@
 namespace Phpanonymous\It\Commands;
 use Config;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class Generate extends Command {
 	/**
@@ -51,9 +50,9 @@ class Generate extends Command {
 
 	public static function changeEnv($key, $value) {
 		$value = preg_replace('/\s+/', '', $value);
-		$key = strtoupper($key);
-		$env = file_get_contents(base_path('.env'));
-		$env = str_replace("$key=" . env($key), "$key=" . $value, $env, $counter);
+		$key   = strtoupper($key);
+		$env   = file_get_contents(base_path('.env'));
+		$env   = str_replace("$key=" .env($key), "$key=" .$value, $env, $counter);
 		if ($counter < 1) {
 			$env .= "\n\r\n\r{$key}={$value}\n\r";
 		}
@@ -105,7 +104,7 @@ class Generate extends Command {
 		if ($NEED_PORT) {
 			$HAVE_PORT = $this->ask('What is Your Custom Domain Port (Default Port is 80) ?');
 
-			self::changeEnv('APP_URL', $NEED_APP_URL . ':' . $HAVE_PORT);
+			self::changeEnv('APP_URL', $NEED_APP_URL.':'.$HAVE_PORT);
 		}
 
 		// Set  CUSTOM PORT //
@@ -121,7 +120,7 @@ class Generate extends Command {
 			}
 		}
 		// Set DB CUSTOM PORT //
-		$dbinfo = [];
+		$dbinfo          = [];
 		$CREATE_DATABASE = $this->confirm('You Want create A new Database ?');
 
 		if ($CREATE_DATABASE == 'yes') {
@@ -147,7 +146,7 @@ class Generate extends Command {
 
 			if (!empty($DB_DATABASE)) {
 
-				$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name " . $DB_DATABASE . "? ");
+				$auto_create_DB = $this->confirm("do you want me to create a database in your engine or you have already created database with name ".$DB_DATABASE."? ");
 				if ($auto_create_DB) {
 					if (!empty($HAVE_DB_PORT)) {
 						$DB_PORT = $HAVE_DB_PORT;
@@ -165,16 +164,16 @@ class Generate extends Command {
 					);
 
 					$pdo->exec(sprintf(
-						'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
-						$dbinfo['db_name'],
-						config('database.connections.mysql.charset'),
-						config('database.connections.mysql.collation')
-					));
+							'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
+							$dbinfo['db_name'],
+							config('database.connections.mysql.charset'),
+							config('database.connections.mysql.collation')
+						));
 
 					shell_exec('php artisan config:clear');
 					shell_exec('php artisan cache:clear');
 
-					$this->info("DATABAES " . $dbinfo['db_name'] . " Created & is ready now");
+					$this->info("DATABAES ".$dbinfo['db_name']." Created & is ready now");
 					$this->progress(100);
 				}
 			}
@@ -187,20 +186,20 @@ class Generate extends Command {
 		// 	return check_package($package) === null;
 		// });
 		/*
-	'langnonymous/lang',
-			'phpanonymous/c3js',
-			//'mpdf/mpdf:8.0.0',
-			'dompdf/dompdf',
-			'maatwebsite/excel',
-			'phpoffice/phpspreadsheet',
-			'spatie/laravel-honeypot',
-			'intervention/image',
-			'laravelcollective/html',
-			'barryvdh/laravel-snappy',
-			'tymon/jwt-auth',
-			'unisharp/laravel-filemanager',
-			'laravel/ui:3.3.0',
-*/
+		'langnonymous/lang',
+		'phpanonymous/c3js',
+		//'mpdf/mpdf:8.0.0',
+		'dompdf/dompdf',
+		'maatwebsite/excel',
+		'phpoffice/phpspreadsheet',
+		'spatie/laravel-honeypot',
+		'intervention/image',
+		'laravelcollective/html',
+		'barryvdh/laravel-snappy',
+		'tymon/jwt-auth',
+		'unisharp/laravel-filemanager',
+		'laravel/ui:3.3.0',
+		 */
 
 		// if (count($packages) > 0) {
 		// 	$this->info("Downloading Package....");
@@ -227,7 +226,7 @@ class Generate extends Command {
 
 		if (check_package("tymon/jwt-auth") === null) {
 			$this->info("Downloading tymon/jwt-auth Package....");
-			shell_exec('composer require tymon/jwt-auth');
+			shell_exec('composer require tymon/jwt-auth:^1.0');
 			$this->progress(100);
 		}
 
@@ -324,13 +323,13 @@ class Generate extends Command {
 		$this->info("regards and i can assist you now");
 		$this->info("Unleash your imagination and be creative");
 		if (date('m') == 1) {
-			$this->info("Happy New Year " . date('Y'));
+			$this->info("Happy New Year ".date('Y'));
 		}
 	}
 
 	// Connection PDO Library Native
 	public function getPDOConnection($host, $port, $username, $password) {
-		$pdo = new \PDO('mysql:port=' . $port . ';host=' . $host, $username, $password);
+		$pdo = new \PDO('mysql:port='.$port.';host='.$host, $username, $password);
 		return $pdo;
 	}
 
