@@ -72,7 +72,7 @@ if (!function_exists('it_version_message')) {
 
 if (!function_exists('it_version')) {
 	function it_version() {
-		$version = '1.6.38';
+		$version = '1.6.39';
 		app()->singleton('it_version', function () use ($version) {
 				return $version;
 			});
