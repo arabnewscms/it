@@ -297,7 +297,7 @@ class Generate extends Command {
 		shell_exec('php artisan config:clear');
 		$this->progress(100);
 
-		$this->warn("to Install (wkhtmltopdf) please visit this link urgently (https://github.com/barryvdh/laravel-snappy) to explort PDF Files with YajraDatatable");
+		$this->warn("to Install (wkhtmltopdf) please visit this link urgently (https://github.com/barryvdh/laravel-snappy) to export PDF Files with YajraDatatable");
 
 		$this->warn("To Install (wkhtmltopdf) with brew on macosx brew install wkhtmltopdf");
 
