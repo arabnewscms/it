@@ -149,7 +149,7 @@ Auto Dump And Compile autoload....
 `Well, after the download is finished, you will see these instructions, please follow them carefully`
 
 
-to Install (wkhtmltopdf) please visit this link urgently (https://github.com/barryvdh/laravel-snappy) to explort PDF Files with YajraDatatable
+to Install (wkhtmltopdf) please visit this link urgently (https://github.com/barryvdh/laravel-snappy) to export PDF Files with YajraDatatable
 
 To Install (wkhtmltopdf) with brew on macosx brew install wkhtmltopdf
 
