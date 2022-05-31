@@ -1,0 +1,13 @@
+ 
+table.dataTable td, table.dataTable th {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    text-align: center;
+}
+   
+  
+div.dataTables_wrapper div.dataTables_filter {
+    float: left;
+    text-align: left;
+}

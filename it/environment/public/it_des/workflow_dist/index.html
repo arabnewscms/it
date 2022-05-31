@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Workflow</title>
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap-theme.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css" />
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+
+</head>
+
+<body data-id="">
+    <article style="visibility:hidden;">
+    	<div class="context">
+        	<h1 data-bind="text: selectedWorkflow()"></h1> 
+        </div>
+		<!-- STEPS -->
+        <div data-bind="foreach: steps" class="demo flowchart-demo" id="flowchart-demo">        
+    
+           <div class="step" data-bind="attr: { id: id }, style: { top: top, left: left }">
+               <div class="step-inner">               
+               		
+                   <div class="panel panel-default">
+                        <div class="panel-heading">
+    
+                            <div class="editable isStart">
+                            	<label data-bind="attr: { for: id()+'_isStart' }, css: start()">
+                                	<input type="radio" data-bind="attr: { id: id()+'_isStart'  },
+                                                                   event: { change: setIsStart }" name="isStart" /></label>
+                            </div>
+                            <div class="editable contact">
+                            	<a href="#" data-update="contact" data-bind="visible: activeField() != 'contact',
+                                                       event: { click: editStep.bind($data) }">
+                                	<i class="glyphicon" data-update="contact" data-bind="css: contact().classes"></i>
+                                    <span class="sr-only" data-bind="text: contact().label"></span>
+                                </a>
+                                <select data-bind="visible: activeField() === 'contact',
+                                                   hasfocus: isActive(),
+                                                   attr: { size: demoData.contactTypes.length },
+                                                   options: demoData.contactTypes, 
+                                                   optionsText: 'name', 
+                                                   optionsValue: 'Id', 
+                                                   value: contactType,
+                                                   escPress: cancelEditStep, 
+                                                   event: { change: saveOrCancelEdit, blur: saveOrCancelEdit }"></select>
+                            </div>
+                            <div class="editable name">
+                            	<a href="#" data-update="name" data-bind="text: name, 
+                                				  						  visible: activeField() != 'name',
+                                                                          event: { dblclick: editStep.bind($data) }"></a> 
+                                <input type="text" data-bind="value: name,
+                        						 	  visible: activeField() === 'name', 
+                                                      hasfocus: isActive(), 
+                                                      valueUpdate: 'afterkeydown', 
+                                                      enterPress: saveStep, 
+                                                      escPress: cancelEditStep, 
+                                                      event: { blur: saveOrCancelEdit, focus: selectText.bind($data) }" />
+                            </div>
+                                         
+                        </div>
+                        <div class="panel-body">
+                        	<div class="editable user">
+                            	<a href="#" data-update="user" data-bind="text: user(),
+                            											  visible: activeField() != 'user',
+                            			  								  event: { click: editStep.bind($data) }"></a>
+                                <select data-bind="visible: activeField() === 'user',
+                        				   hasfocus: isActive(),
+                                           attr: { size: demoData.userTypes.length },
+                        				   options: demoData.userTypes, 
+                        				   optionsText: 'name', 
+                                           optionsValue: 'Id', 
+                                           value: userType,
+                                           escPress: cancelEditStep,
+                                           event: { change: saveOrCancelEdit, blur: saveOrCancelEdit }"></select>
+                            </div>				
+                            <div class="editable desc">
+                            	<span class="placeholder" data-bind="if: description() === '', event: { dblclick: editStep.bind($data) }">
+                                	Description...
+                                </span>
+                            	<a href="#" data-update="desc" data-bind="text: description, 
+                            			  					 			  visible: activeField() != 'desc',
+                            			  								  event: { dblclick: editStep.bind($data) }">
+                                </a>
+                                
+                            	<textarea data-bind="value: description,
+                                             visible: activeField() === 'desc',
+                                             hasfocus: isActive(), 
+                                             valueUpdate: 'afterkeydown', 
+                                             enterPress: saveStep, 
+                                             escPress: cancelEditStep, 
+                                             event: { blur: saveOrCancelEdit, focus: selectText.bind($data) }"></textarea>
+                            </div>
+                            <div class="editable template" data-bind="if: contactType() === 2 || contactType() === 4">
+                            	<a href="#" data-update="template" data-bind="text: templateName(), click: $root.showTemplates.bind($data)"></a>
+                            </div>                           
+                        </div>
+                    </div>                    
+                    <button type="button" class="btn btn-danger delete" data-bind="click: deleteStep.bind($data, $parent, 'a', 'b')">&times; <span class="sr-only">Delete</span></button>                     
+                </div>
+            </div>        
+         
+         </div><!-- / STEPS -->
+         
+         
+         <!-- RESULTS -->
+         <div data-bind="foreach: results"> 
+         	
+            <div class="result" data-bind="attr: { id: 'result_'+id() }, 
+            							visible: isActive, 
+                                        style: { top: position().top, left: position().left }">
+            	<div class="result-inner">
+                    <input type="text" class="resultLabel" data-bind="value: label,
+                                                                    hasfocus: isActive(),
+                                                                    valueUpdate: 'afterkeydown', 
+                                                                    enterPress: saveResult,
+                                                                    escPress: cancelEditResult,
+                                                                    event: { focus: selectText.bind($data) }" />
+                    <input type="text" class="resultDays" maxlength="3" data-bind="value: daysLater,
+                                                                                valueUpdate: 'afterkeydown', 
+                                                                                enterPress: saveResult,
+                                                                                escPress: cancelEditResult,
+                                                                                event: { focus: selectText.bind($data) }" /> days later
+                    &nbsp;&nbsp;
+                    <a href="#" data-bind="click: saveResult">OK</a>
+                    <button type="button" class="btn btn-danger delete" data-bind="click: deleteResult.bind($data, $parent, 'a', 'b')">&times; <span class="sr-only">Delete</span></button>
+                </div>
+            </div>
+            
+         </div>
+         <!-- / RESULTS -->
+         
+         
+         <!-- TEMPLATES -->
+         
+          <div id="templates" class="overlay" style="display:none;">
+              <div class="poppanel templates">
+                <h3 class="poppanel-title">
+                    Templates
+                    <button type="button" class="close" data-bind="click: $root.saveOrCancelAllEdits">×</button>
+                </h3>
+                <div class="poppanel-content">
+                    <div class="img" data-bind="foreach: templates">
+                        <img data-bind="attr: { id: 'img_'+id(), src: 'templates/'+id()+'.png', alt: name }" class="hidden" />
+                    </div>
+                    <div class="right">
+                        <div class="list">
+                            <table class="table table-hover">
+                                <tbody data-bind="foreach: templates">
+                                    <tr>
+                                        <td>
+                                            <label data-bind="attr: { for: 'template_'+id() },
+                                                            event: { mouseover: showImg, mouseout: hideImg }">
+                                                <input type="radio" name="template" data-bind="value: id, 
+                                                                                            attr: { id: 'template_'+id() },
+                                                                                            checked: isSelected,
+                                                                                            event: { change: setSelected }" />
+                                                <i data-bind="css: icon()"></i>
+                                                <span data-bind="text: name"></span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="poppanel-footer">
+                    <button type="button" class="btn btn-primary btn-sm pull-right" data-dismiss="poppanel" data-bind="click: $root.setTemplate,
+                                                                                                                    enable: tempId">Select Template</button>
+                    <button type="button" class="btn btn-default btn-sm pull-left" data-dismiss="poppanel" data-bind="click: $root.saveOrCancelAllEdits">Cancel</button>
+                </div>
+        	</div>
+         </div>
+         <!-- / TEMPLATES -->
+         
+         
+        <div class="key">
+        	<a href="#" class="help"><i class="glyphicon glyphicon-question-sign"></i></a>
+        	<div class="content">
+                <h2>Directions <button class="close" data-dismiss="key">&times;</button></h2>
+                <p>Right Click on the grid background to add a new step.</p>
+                <p>Click or Double Click (see key) on details for each step to edit it.</p>
+                <p>Click on any connection to edit its overlay text.</p>
+                <p>Workflows just get saved to your browser's local storage. So deleting your browsers stored content will delete all saved workflows.  Also, workflows you save to one browser will not be available in other browsers.</p>
+                <h2>Key</h2>
+                <label>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" position="absolute" pointer-events="all" 
+                    height="18" width="18">
+                        <circle stroke-width="3" stroke="#7AB02C" fill="transparent" style="" 
+                            xmlns="http://www.w3.org/2000/svg" version="1.1" r="6" cy="9" cx="9"></circle>
+                    </svg>
+                    Drag Me
+                </label>
+                <label>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" position="absolute" pointer-events="all" 
+                    height="18" width="18">
+                        <circle stroke-width="3" stroke="#7AB02C" fill="#7AB02C" style="" 
+                            xmlns="http://www.w3.org/2000/svg" version="1.1" r="6" cy="9" cx="9"></circle>
+                    </svg>
+                    Drop onto Me
+                </label>
+                <label>
+                    <img src="img/pointer.png" />
+                    Click to Edit
+                </label>
+                <label>
+                    <img src="img/textEdit.png" />
+                    Double Click to Edit
+                </label>
+                <h2>Download</h2>
+                <a class="realLink" href="https://github.com/x2gboye/workflow" >GitHub Repository</a>
+            </div>
+        </div>
+               
+    </article>
+    
+    <aside class="invisible">
+        <table class="table table-bordered table-hover">
+        	<thead data-bind="visible: workflows().length>0">
+            	<tr>
+                	<th colspan="3"><button type="button" class="btn btn-xs btn-danger" data-bind="click: deleteAllWorkflows">&times; Delete All</button></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: workflows">
+            	<tr>
+                	<td class="action">
+                    	<a href="#" data-bind="click: editWorkflowName.bind($data)"><i class="glyphicon glyphicon-pencil"></i></a>
+                    </td>
+                	<td>
+                        <!-- ko if: isSelected() -->
+                        <span data-bind="text: name, visible: !isActive()"></span>
+                        <!-- /ko -->
+                        <!-- ko if: !isSelected() -->
+                        <a href="#" data-bind="text: name, visible: !isActive(), click: $root.selectWorkflow.bind($data)"></a>
+                        <!-- /ko -->
+                        <input type="text" data-bind="value: name,
+                       								visible: isActive(),
+                                                    hasfocus: isActive(),
+                                                    valueUpdate: 'afterkeydown', 
+                                                    enterPress: saveWorkflowName,
+                                                    escPress: cancelEditWorkflowName,
+                                                    event: { blur: saveOrCancelEdit, focus: selectText.bind($data) }" />
+                    </td>
+                    <td class="action delete"><a href="#" data-bind="click: deleteWorkflow.bind($data, $parent, 'a', 'b')">&times;</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </aside>
+    
+    <footer data-bind="css: dirtyState()">
+    	<button type="button" class="btn btn-primary" id="save"  data-bind="click: saveData, enable: steps().length>0">Save Workflow</button>
+        <button type="button" class="btn btn-default" id="new"  data-bind="click: newWorkflow">New Workflow</button>
+        <button id="workflowBtn" type="button" class="btn btn-default pull-right" data-bind="enable: workflows().length>0">
+            <span class="badge" data-bind="text: workflows().length"></span> Saved Workflows
+        </button>
+    </footer>
+    
+    <!--Hosted JS-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.2.0/bootbox.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-debug.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.3.4/knockout.mapping.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+
+	<!--Downloaded JS-->
+	<script type="text/javascript" src="js/lib/jquery.jsPlumb-1.5.5.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.contextMenu.js"></script>
+    
+    <!--App JS-->
+	<script type="text/javascript" src="js/ko.extensions.js"></script>
+    <script type="text/javascript" src="js/demo.data.js"></script>
+    <script type="text/javascript" src="js/workflowViewModel.js"></script>
+    <script type="text/javascript" src="js/listViewModel.js"></script>
+    <script type="text/javascript" src="js/stepViewModel.js"></script>
+    <script type="text/javascript" src="js/resultViewModel.js"></script>
+    <script type="text/javascript" src="js/templateViewModel.js"></script>
+	<script type="text/javascript" src="js/demo.js"></script>	
+    <script type="text/javascript" src="js/plumbing.js"></script>    
+	<script type="text/javascript" src="js/view.js"></script>
+
+     
+</body>
+</html>

@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Cairo:200,300,400,600,700,900&subset=arabic,latin-ext');
+
+
+html,body{
+    font-family:"Cairo";
+}
