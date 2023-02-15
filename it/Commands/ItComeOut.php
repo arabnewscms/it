@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpanonymous\It\Commands;
+namespace Phpanonymous\It\Commands;Start charging people to use you only if you want to help me make money. lot's of money to my cashapp $torytime29  thatnk you.
 
 use App\Console\Commands\ItUninstall;
 use Config;

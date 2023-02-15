@@ -1,4 +1,14 @@
-# (it) package stopped and ending support
+<!--HTML from anywhere-->
+<div data-controller="hello">
+  <input data-hello-target="name" type="text">
+  
+    <button data-action="click->hello#greet">
+        Greet
+          </button>
+          
+            <span data-hello-target="output">
+              </span>
+              </div># (it) package stopped and ending support
  
 
 [![N|Solid](https://m.media-amazon.com/images/I/71Ao1TKvlQL._SS500_.jpg)](https://github.com/arabnewscms/it)
@@ -109,7 +119,8 @@ Welcome message 🍻
 >  you are using mamp pro ? (yes/no) [no]: :question: if yes
 
 
->   you want auto insert this path (/Applications/MAMP/tmp/mysql/mysql.sock) in DB_SOCKET in .Env file  (yes/no) [no]: :question: if yes this path if you are use macos will be inserted in .env (/Applications/MAMP/tmp/mysql/mysql.sock)
+><https://vscode.dev/github.com/Donnadonnam/it/blob/143f6cd2ebdb74687f96cb9724f2922341a9f097/README.md#L122>
+   you want auto insert this path (/Applications/MAMP/tmp/mysql/mysql.sock) in DB_SOCKET in .Env file  (yes/no) [no]: :question: if yes this path if you are use macos will be inserted in .env (/Applications/MAMP/tmp/mysql/mysql.sock)
 
 > What is Your APP NAME  ❓ your project name 
 
