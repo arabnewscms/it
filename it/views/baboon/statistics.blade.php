@@ -17,82 +17,41 @@ function nk(num, digits=1) {
   return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
 }
 
-function realName(key){
-	var name = '';
-	if(key == 'project_id'){
-	 var name = 'Project';
-	}else if(key == 'os'){
-	 var name = 'Your OS';
-	}else if(key == 'auto_migrate'){
-	 var name = 'Auto Migrate';
-	}else if(key == 'soft_delete'){
-	 var name = 'Soft Delete';
-	}else if(key == 'datatable'){
-	 var name = 'DataTables';
-	}else if(key == 'controller'){
-	 var name = 'Controllers';
-	}else if(key == 'views'){
-	 var name = 'Views Blade';
-	}else if(key == 'has_admin'){
-	 var name = 'Have Admin';
-	}else if(key == 'laravelcollective'){
-	 var name = 'Laravel Collective';
-	}else if(key == 'model'){
-	 var name = 'Models';
-	}else if(key == 'linkatmodel'){
-	 var name = 'Relations';
-	}else if(key == 'migration'){
-	 var name = 'Migrations';
-	}else if(key == 'col_width_lg_count'){
-	 var name = 'col-lg';
-	}else if(key == 'col_width_md_count'){
-	 var name = 'col-md';
-	}else if(key == 'col_width_sm_count'){
-	 var name = 'col-sm';
-	}else if(key == 'col_width_xs_count'){
-	 var name = 'col-xs';
-	}else if(key == 'color'){
-	 var name = 'Color';
-	}else if(key == 'date'){
-	 var name = 'Date';
-	}else if(key == 'date_time'){
-	 var name = 'DateTime';
-	}else if(key == 'select_'){
-	 var name = 'select';
-	}else if(key == 'textarea_ckeditor'){
-	 var name = 'textarea With CKEditor';
-	}else if(key == 'link_ajax'){
-	 var name = 'Ajax With';
-	}else if(key == 'col_name_null'){
-	 var name = ' Nullable/ SQL NULL';
-	}else if(key == 'col_name_has'){
-	 var name = ' Have Validation';
-	}else if(key == 'forginkeyto'){
-	 var name = ' Add Forgin Key';
-	}else if(key == 'on_delete'){
-	 var name = 'On Delete';
-	}else if(key == 'on_update'){
-	 var name = 'On Update';
-	}else if(key == 'belongsto'){
-	 var name = 'Belongs To';
-	}else if(key == 'belongstomany'){
-	 var name = 'Belongs To Many';
-	}else if(key == 'hasmany'){
-	 var name = 'Has Many';
-	}else if(key == 'hasmanythrough'){
-	 var name = 'Has Many Through';
-	}else if(key == 'hasone'){
-	 var name = 'Has One';
-	}else if(key == 'morphmany'){
-	 var name = 'Morph Many';
-	}else if(key == 'morphmap'){
-	 var name = 'Morph Map';
-	}else if(key == 'browser'){
-	 var name = 'Your Browser';
-	}else{
-		var name = key;
-	}
-	return name;
+function realName(key) {
+  const names = {
+    project_id: "Project",
+    os: "Your OS",
+    auto_migrate: "Auto Migrate",
+    soft_delete: "Soft Delete",
+    datatable: "DataTables",
+    controller: "Controllers",
+    views: "Views Blade",
+    has_admin: "Have Admin",
+    laravelcollective: "Laravel Collective",
+    model: "Models",
+    linkatmodel: "Relations",
+    migration: "Migrations",
+    col_width_lg_count: "col-lg",
+    col_width_md_count: "col-md",
+    col_width_sm_count: "col-sm",
+    col_width_xs_count: "col-xs",
+    color: "Color",
+    date: "Date",
+    date_time: "DateTime",
+    select_: "select",
+    textarea_ckeditor: "textarea With CKEditor",
+    link_ajax: "Ajax With",
+    col_name_null: " Nullable/ SQL NULL",
+    col_name_has: " Have Validation",
+    forginkeyto: " Add Forgin Key",
+    on_delete: "On Delete",
+    on_update: "On Update",
+    belongsto: "Belongs To",
+    belongstomany: "Belongs To Many",
+    hasmany: "Has Many",
+    hasmanythrough: "Has Many Through"
+  };
+  return names[key] || "";
 }
 
 var form = new FormData();
